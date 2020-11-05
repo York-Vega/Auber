@@ -1,6 +1,5 @@
 package helper;
 
-
 /// !!! this is one is for test puepose during dev, not useable !!!
 
 import com.badlogic.gdx.physics.bullet.softbody.btSoftBody;
@@ -11,24 +10,23 @@ public class dataconfig { // store the position of position where the atlas regi
 
     // control room
 
-    ArrayList<ArrayList> control_floor = new ArrayList<>();
-    ArrayList<ArrayList> o_tank = new ArrayList<>();
-    ArrayList<ArrayList> control_panel = new ArrayList<>();
+    ArrayList<ArrayList> controlFloor = new ArrayList<>();
+    ArrayList<ArrayList> o2Tank = new ArrayList<>();
+    ArrayList<ArrayList> controlPanel = new ArrayList<>();
     ArrayList<ArrayList> bottoms = new ArrayList<>();
     ArrayList<ArrayList> jail = new ArrayList<>();
-    ArrayList<ArrayList> teleport_control_room = new ArrayList<>();
+    ArrayList<ArrayList> teleportControlRoom = new ArrayList<>();
 
     // control room -> infrimary room
 
-    ArrayList<ArrayList> corridor_floor_c_i = new ArrayList<>(); // corridor from control to inframry
-
+    // corridor from control to inframry
+    ArrayList<ArrayList> corridor_floor_c_i = new ArrayList<>(); 
 
     // infrimary
 
     ArrayList<ArrayList> infrimary_floor = new ArrayList<>();
 
-
-    public dataconfig(){
+    public dataconfig() {
         set_control_floor();
         setO_tank();
         setControl_panel();
@@ -40,68 +38,66 @@ public class dataconfig { // store the position of position where the atlas regi
 
     }
 
+    public void set_control_floor() {
 
-    public void set_control_floor(){
-
-        for (int x = 32; x <= 736; x += 32){  // render the floors
-            for (int y = 32; y <= 608; y += 32 ){
+        for (int x = 32; x <= 736; x += 32) { // render the floors
+            for (int y = 32; y <= 608; y += 32) {
                 ArrayList position = new ArrayList();
                 position.add("middle");
                 position.add(x);
                 position.add(y);
-                control_floor.add(position);
+                controlFloor.add(position);
             }
         }
     }
 
+    public void setO_tank() {
 
-    public void setO_tank(){
-
-        for (int x = 0; x <= 128; x += 32){
+        for (int x = 0; x <= 128; x += 32) {
             ArrayList position = new ArrayList();
             position.add("top");
             position.add(x);
             position.add(96);
-            o_tank.add(position);
+            o2Tank.add(position);
         }
 
-        ArrayList position_tlc = new ArrayList(); // topright corner, maybe replace it with a computer something to be abel to be sabotaged
+        ArrayList position_tlc = new ArrayList(); // topright corner, maybe replace it with a computer something to be
+                                                  // abel to be sabotaged
 
         position_tlc.add("toprightinner");
         position_tlc.add(160);
         position_tlc.add(96);
 
-        o_tank.add(position_tlc);
+        o2Tank.add(position_tlc);
 
-        for (int y = 0; y <= 64; y += 32){
+        for (int y = 0; y <= 64; y += 32) {
             ArrayList position = new ArrayList();
             position.add("right");
             position.add(160);
             position.add(y);
-            o_tank.add(position);
+            o2Tank.add(position);
         }
     }
 
-    public void setControl_panel(){
-        for (int x =192; x <= 416; x += 32){
+    public void setControl_panel() {
+        for (int x = 192; x <= 416; x += 32) {
             ArrayList position = new ArrayList();
             position.add("computer");
             position.add(x);
             position.add(574);
-            control_panel.add(position);
+            controlPanel.add(position);
         }
     }
 
-
-    public void setbottoms(){
-        for(int x = 32; x <= 736; x += 32){ // bottom
+    public void setbottoms() {
+        for (int x = 32; x <= 736; x += 32) { // bottom
             ArrayList position = new ArrayList();
             position.add("black");
             position.add(x);
             position.add(0);
             bottoms.add(position);
         }
-        for(int y = 32; y <= 576; y += 32){ // left
+        for (int y = 32; y <= 576; y += 32) { // left
             ArrayList position = new ArrayList();
             position.add("black");
             position.add(0);
@@ -120,7 +116,7 @@ public class dataconfig { // store the position of position where the atlas regi
         position1.add(608);
         bottoms.add(position1);
 
-        for(int x = 32; x <= 736; x += 32){ // top
+        for (int x = 32; x <= 736; x += 32) { // top
             ArrayList position = new ArrayList();
             position.add("black");
             position.add(x);
@@ -128,7 +124,7 @@ public class dataconfig { // store the position of position where the atlas regi
             bottoms.add(position);
         }
 
-        for(int y = 32; y <= 576; y += 32){ // right
+        for (int y = 32; y <= 576; y += 32) { // right
             ArrayList position = new ArrayList();
             position.add("black");
             position.add(768);
@@ -150,10 +146,10 @@ public class dataconfig { // store the position of position where the atlas regi
 
     }
 
-    public void setJail(){
+    public void setJail() {
 
-        for (int y = 480; y <=576; y += 32 ){
-            ArrayList position = new ArrayList();//left
+        for (int y = 480; y <= 576; y += 32) {
+            ArrayList position = new ArrayList();// left
             position.add("left_orange");
             position.add(608);
             position.add(y);
@@ -166,7 +162,7 @@ public class dataconfig { // store the position of position where the atlas regi
         position0.add(448);
         jail.add(position0);
 
-        for (int x = 640; x <= 736; x+= 32){ // bottom
+        for (int x = 640; x <= 736; x += 32) { // bottom
             ArrayList position = new ArrayList();
             position.add("bottom_orange");
             position.add(x);
@@ -174,73 +170,72 @@ public class dataconfig { // store the position of position where the atlas regi
             jail.add(position);
         }
 
-
     }
 
-    public void setTeleport_controlRoom(){
+    public void setTeleport_controlRoom() {
 
-        for (int x = 544; x <= 672; x += 32){ // bottom
+        for (int x = 544; x <= 672; x += 32) { // bottom
             ArrayList position = new ArrayList();
             position.add("square");
             position.add(x);
             position.add(96);
-            teleport_control_room.add(position);
+            teleportControlRoom.add(position);
         }
 
         ArrayList position0 = new ArrayList(); // teleport
         position0.add("teleport");
         position0.add(608);
         position0.add(160);
-        teleport_control_room.add(position0);
+        teleportControlRoom.add(position0);
 
-        for (int x = 544; x <= 672; x += 32){ // top
+        for (int x = 544; x <= 672; x += 32) { // top
 
             ArrayList position = new ArrayList();
             position.add("square");
             position.add(x);
             position.add(224);
-            teleport_control_room.add(position);
+            teleportControlRoom.add(position);
         }
 
         ArrayList position1 = new ArrayList(); // top left outer
         position1.add("top_left_outer");
         position1.add(576);
         position1.add(224);
-        teleport_control_room.add(position1);
+        teleportControlRoom.add(position1);
 
         ArrayList position2 = new ArrayList(); // top right outer
         position2.add("top_right_outer");
         position2.add(640);
         position2.add(224);
-        teleport_control_room.add(position2);
+        teleportControlRoom.add(position2);
 
         ArrayList position3 = new ArrayList();
         position3.add("middle");
         position3.add(608);
         position3.add(224);
-        teleport_control_room.add(position3);
+        teleportControlRoom.add(position3);
 
-        for (int y = 128; y <= 192; y += 32){ // left
+        for (int y = 128; y <= 192; y += 32) { // left
             ArrayList position = new ArrayList();
             position.add("square");
             position.add(544);
             position.add(y);
-            teleport_control_room.add(position);
+            teleportControlRoom.add(position);
         }
 
-        for (int y = 128; y <= 192; y += 32 ){ // right
+        for (int y = 128; y <= 192; y += 32) { // right
             ArrayList position = new ArrayList();
             position.add("square");
             position.add(672);
             position.add(y);
-            teleport_control_room.add(position);
+            teleportControlRoom.add(position);
         }
 
     }
 
-    public void setCorridor_floor_c_i(){
+    public void setCorridor_floor_c_i() {
 
-        for (int x = -512; x <= -32; x += 32){ // bottom black
+        for (int x = -512; x <= -32; x += 32) { // bottom black
             ArrayList position = new ArrayList();
             position.add("black");
             position.add(x);
@@ -248,7 +243,7 @@ public class dataconfig { // store the position of position where the atlas regi
             corridor_floor_c_i.add(position);
         }
 
-        for (int x = -512; x <= -32; x += 32){ // top black
+        for (int x = -512; x <= -32; x += 32) { // top black
             ArrayList position = new ArrayList();
             position.add("black");
             position.add(x);
@@ -256,8 +251,8 @@ public class dataconfig { // store the position of position where the atlas regi
             corridor_floor_c_i.add(position);
         }
 
-        for (int x = -512; x <= 0; x+= 32){ // floor
-            for (int y = 224; y <= 288; y += 32){
+        for (int x = -512; x <= 0; x += 32) { // floor
+            for (int y = 224; y <= 288; y += 32) {
                 ArrayList position = new ArrayList();
                 position.add("middle");
                 position.add(x);
@@ -268,9 +263,9 @@ public class dataconfig { // store the position of position where the atlas regi
 
     }
 
-    public void setInfrimary_floor(){
-        for (int x = -1024; x <= -544; x += 32){
-            for (int y = 32; y <= 480 ; y += 32){
+    public void setInfrimary_floor() {
+        for (int x = -1024; x <= -544; x += 32) {
+            for (int y = 32; y <= 480; y += 32) {
                 ArrayList position = new ArrayList();
                 position.add("middle");
                 position.add(x);
@@ -280,23 +275,35 @@ public class dataconfig { // store the position of position where the atlas regi
         }
     }
 
-    public ArrayList<ArrayList> getO_tank() { return o_tank; }
-
-    public ArrayList<ArrayList> getControl_panel(){
-        return control_panel;
+    public ArrayList<ArrayList> getO_tank() {
+        return o2Tank;
     }
 
-    public ArrayList<ArrayList> getbottoms(){
+    public ArrayList<ArrayList> getControl_panel() {
+        return controlPanel;
+    }
+
+    public ArrayList<ArrayList> getbottoms() {
         return bottoms;
     }
 
-    public ArrayList<ArrayList> getJail(){ return  jail; }
+    public ArrayList<ArrayList> getJail() {
+        return jail;
+    }
 
-    public ArrayList<ArrayList> getTeleport_control_room(){ return teleport_control_room; }
+    public ArrayList<ArrayList> getTeleport_control_room() {
+        return teleportControlRoom;
+    }
 
-    public ArrayList<ArrayList> getControl_floor(){ return control_floor; }
+    public ArrayList<ArrayList> getControl_floor() {
+        return controlFloor;
+    }
 
-    public ArrayList<ArrayList> getCorridor_floor_c_i(){return corridor_floor_c_i;}
+    public ArrayList<ArrayList> getCorridor_floor_c_i() {
+        return corridor_floor_c_i;
+    }
 
-    public ArrayList<ArrayList> getInfrimary_floor(){return infrimary_floor;}
+    public ArrayList<ArrayList> getInfrimary_floor() {
+        return infrimary_floor;
+    }
 }
