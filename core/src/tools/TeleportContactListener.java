@@ -2,17 +2,24 @@ package tools;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
+import java.util.regex.Pattern;
 
 public class TeleportContactListener implements ContactListener {
+
+    // regex to determine whether contact object is a teleport or not
+    private String pattern = ".*teleport.*";
+    private boolean isTeleport;
 
 
     @Override
     public void beginContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
-        if (fixA.getUserData() == "auber" && fixB.getUserData() == "teleport")  {
-            Gdx.app.log("beginContact", "between "
-                        + fixA.getUserData() + " and "
+
+        isTeleport = Pattern.matches(pattern, (String) fixB.getUserData());
+        if (isTeleport == true)  {
+            Gdx.app.log("beginContact", "between " 
+                        + fixA.getUserData() + " and " 
                         + fixB.getUserData());
         }
 
@@ -22,12 +29,13 @@ public class TeleportContactListener implements ContactListener {
     public void endContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
-        //Gdx.app.log("endContact", "between " + fixA.getUserData() + " and " + fixB.getUserData());
-        if (fixA.getUserData() == "auber" && fixB.getUserData() == "teleport")  {
+        isTeleport = Pattern.matches(pattern, (String) fixB.getUserData());
+        if (isTeleport == true)  {
             Gdx.app.log("endContact", "between " 
                         + fixA.getUserData() + " and " 
                         + fixB.getUserData());
         }
+
     }
 
     @Override

@@ -6,7 +6,9 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
+import java.util.ArrayList;
 import sprites.Teleport;
+
 
 /**
  * Responsible for creating all the map objects from the map file.
@@ -55,10 +57,21 @@ public class B2worldCreator {
         }
         // create jail
 
-        // create teleport <- this should be interactive tiled map object
-        for (MapObject object : layers.get(5).getObjects().getByType(RectangleMapObject.class)) {
+
+        //create teleport <- this should be interactive tiled map object
+        ArrayList<String> teleports = new ArrayList<>();
+        teleports.add("control_room");
+        teleports.add("infirmary");
+        teleports.add("mess");
+        teleports.add("hangar");
+        teleports.add("reactor");
+        teleports.add("bathroom");
+        int count = 0;
+        for (MapObject object : layers.get(5).getObjects().getByType(RectangleMapObject.class))  {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Teleport(world, map, rect);
+            // pass the name of the teleport to the teleport creator
+            new Teleport(world, map, rect, teleports.get(count)); 
+            count += 1;
         }
 
         // create telaport <- this should be interactiable
