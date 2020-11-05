@@ -47,7 +47,7 @@ public class Gameplay implements Screen {
 
         this.game = game;
 
-        world = new World(new Vector2(0, 0), true); // create a box2D world
+        this.world = new World(new Vector2(0, 0), true); // create a box2D world
 
         maploader = new TmxMapLoader(); // creater maploader for tiled map
         map = maploader.load("wholemap.tmx"); // load the tiled map
