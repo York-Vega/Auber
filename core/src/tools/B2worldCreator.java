@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import sprites.Teleport;
 
+import java.util.ArrayList;
+
 
 public class B2worldCreator {
 
@@ -45,9 +47,18 @@ public class B2worldCreator {
 
 
         //create teleport <- this should be interactive tiled map object
+        ArrayList<String> teleports = new ArrayList<>();
+        teleports.add("control_room");
+        teleports.add("infirmary");
+        teleports.add("mess");
+        teleports.add("hangar");
+        teleports.add("reactor");
+        teleports.add("bathroom");
+        int count = 0;
         for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Teleport(world,map,rect);
+            new Teleport(world,map,rect,teleports.get(count)); // pass the name of the teleport to the teleport creator
+            count += 1;
         }
 
 
