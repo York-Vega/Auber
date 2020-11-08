@@ -18,6 +18,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
 
+/**
+ * MainMenu 
+ */
 public class MainMenu implements Screen {
 
     private SpriteBatch batch;
@@ -27,6 +30,9 @@ public class MainMenu implements Screen {
     private Stage stage;
     private Skin skin;
 
+    /**
+     * Creates an instantiated instance of the MainMenu screen.
+     */
     public MainMenu() {
         atlas = new TextureAtlas("neonui/neon-ui.atlas");
         skin = new Skin(Gdx.files.internal("neonui/neon-ui.json"), atlas);
@@ -44,18 +50,23 @@ public class MainMenu implements Screen {
 
     @Override
     public void show() {
+        // passes all input to the stage
         Gdx.input.setInputProcessor(stage);
 
+        // create a main table into which all ui elements will be placed
         Table mainTable = new Table();
         mainTable.setFillParent(true);
         mainTable.top();
 
+        // main play button (others can be added easily as needed)
         TextButton playButton = new TextButton("Play", skin);
 
-        playButton.addListener(new ClickListener(){
+        // creates a listener to listen for clicks on the button
+        // when button is clicked start an instance of Gameplay to start playing the game
+        playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameMain game = (GameMain)Gdx.app.getApplicationListener();
+                GameMain game = (GameMain) Gdx.app.getApplicationListener();
                 game.setScreen(new Gameplay(game));
             }
         });
