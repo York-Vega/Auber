@@ -11,9 +11,15 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.team3.game.GameMain;
+import sun.tools.jconsole.Tab;
 import tools.B2worldCreator;
 import tools.TeleportContactListener;
+import tools.Teleport_process;
 
 
 /**
@@ -38,6 +44,11 @@ public class Gameplay implements Screen {
 
     private float playerSpeed = 50f;
 
+    public Teleporter_Menu teleporter_menu;
+
+    public Teleport_process teleport_process;
+
+
     /**
      * Creates a new instatntiated game.
 
@@ -46,26 +57,37 @@ public class Gameplay implements Screen {
     public Gameplay(GameMain game)  {
 
         this.game = game;
-
-        this.world = new World(new Vector2(0, 0), true); // create a box2D world
-
-        maploader = new TmxMapLoader(); // creater maploader for tiled map
-        map = maploader.load("wholemap.tmx"); // load the tiled map
+        // create a box2D world
+        this.world = new World(new Vector2(0, 0), true);
+        // creater maploader for tiled map
+        maploader = new TmxMapLoader();
+        // load the tiled map
+        map = maploader.load("wholemap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
     
         // this image is only for test purpose, needs to be changed with proper sprite
-        p1 = new Player(world, "player_test.png", 300, 200);
+        p1 = new Player(world, "player_test.png", 1133, 1011);
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 640); // set the viewport area for camera
-
-        b2dr = new Box2DDebugRenderer(); // create a box2d render
+        // set the viewport area for camera
+        camera.setToOrtho(false, 800, 640);
+        // create a box2d render
+        b2dr = new Box2DDebugRenderer();
 
         // create 2d box world for objects , walls, teleport...
         B2worldCreator.createWorld(world, map); 
 
         world.setContactListener(new TeleportContactListener());
+        // create the teleport drop down menu
+        teleporter_menu = new Teleporter_Menu(game.getBatch());
+        // get the selectedBox from the table in stage
+        Table boxTable = (Table) teleporter_menu.stage.getActors().get(0);
+        SelectBox<String> selected_room = (SelectBox<String>) boxTable.getChild(0);
+        // create a teleport_process instance
+        teleport_process = new Teleport_process(selected_room,p1);
 
     }
+
+
 
     /**
      * Updates the game, logic will go here called by libgdx GameMain.
@@ -73,6 +95,8 @@ public class Gameplay implements Screen {
     public void update()  {
 
         world.step(Gdx.graphics.getDeltaTime(), 8, 3); // update the world
+        p1.updatePlayer(1/60f);
+
         p1.b2body.setLinearDamping(3f);
         // input listener
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -93,7 +117,8 @@ public class Gameplay implements Screen {
 
     @Override
     public void show() {
-
+        // !! This is important, without this setting, the menu will not response !!
+        Gdx.input.setInputProcessor(teleporter_menu.stage);
     }
 
     @Override
@@ -102,33 +127,39 @@ public class Gameplay implements Screen {
 
         update();
 
-        p1.updatePlayer(delta);
         // set camera follow the player(bod2d body)
         camera.position.set(p1.b2body.getPosition().x, p1.b2body.getPosition().y, 0);
-        renderer.setView(camera); // enable tiled map movable view with camera
-        camera.update(); // update the camera
+        // enable tiled map movable view with camera
+        renderer.setView(camera);
+        // update the camera
+        camera.update();
 
         // clear the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        renderer.render(); // render the tiled map
+        // render the tiled map
+        renderer.render();
 
         // render the 2Dbox world and same as map, enable world movable view with camera
         b2dr.render(world, camera.combined); 
 
         game.getBatch().setProjectionMatrix(camera.combined);
+        // this is needed to be called before the bath.begin(), or scrren will frozen
+        teleporter_menu.stage.act();
 
         game.getBatch().begin();
-
-        p1.draw(game.getBatch()); // draw the player sprite
+        // draw the player sprite
+        p1.draw(game.getBatch());
 
         game.getBatch().end();
+        // render the teleporter_menu(the selectBox)
+        teleporter_menu.stage.draw();
+        // validate the teleportation
+        teleport_process.validate();
 
         //dispose();
 
     }
-
 
 
     @Override

@@ -1,26 +1,35 @@
 package tools;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import helper.Data;
+import sprites.Teleport;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public class TeleportContactListener implements ContactListener {
 
     // regex to determine whether contact object is a teleport or not
-    private String pattern = ".*teleport.*";
+    private final String pattern = ".*teleporter.*";
     private boolean isTeleport;
+    private Data data = new Data();// test
 
-
+    /**
+     * If auber has contact with the teleporter, the auber's userData --> ready_to_teleport, update auber's position in player.update()
+     * @param contact
+     */
     @Override
     public void beginContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
-
+        // use reg to check whether the object contacted is a teleporter or not
         isTeleport = Pattern.matches(pattern, (String) fixB.getUserData());
-        if (isTeleport == true)  {
-            Gdx.app.log("beginContact", "between " 
-                        + fixA.getUserData() + " and " 
-                        + fixB.getUserData());
+        if (isTeleport && (String) fixA.getBody().getUserData() == "auber")  {
+            // set the player.UserData to ready_to_teleport for teleport_process
+            fixA.getBody().setUserData("ready_to_teleport");
         }
 
     }
@@ -29,11 +38,11 @@ public class TeleportContactListener implements ContactListener {
     public void endContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
+        // use reg to check whether the object contacted is a teleporter or not
         isTeleport = Pattern.matches(pattern, (String) fixB.getUserData());
-        if (isTeleport == true)  {
-            Gdx.app.log("endContact", "between " 
-                        + fixA.getUserData() + " and " 
-                        + fixB.getUserData());
+        if (isTeleport && (String) fixA.getBody().getUserData() == "ready_to_teleport") {
+            // set the player.UserData to auber after the contact ended
+            fixA.getBody().setUserData("auber");
         }
 
     }

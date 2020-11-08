@@ -16,10 +16,11 @@ public class Teleport extends InteractiveTileObject {
      * @param world Physics world the teleporter should query
      * @param map Tiled map teleporter will be placed in
      * @param bounds The bounds of where the teleporter will sense Auber
+     * @param name the room name of the teleporter
      */
     public Teleport(World world, TiledMap map, Rectangle bounds,  String name)  {
         super(world, map, bounds);
-        this.fixture.setUserData("teleport_" + name); // for contact_listener
+        this.fixture.setUserData(name); // for contact_listener
 
         // set teleport as sensor so the collison will not happen between 
         // auber and teleport, but contact still be sensed

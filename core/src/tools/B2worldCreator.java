@@ -59,22 +59,22 @@ public class B2worldCreator {
 
 
         //create teleport <- this should be interactive tiled map object
-        ArrayList<String> teleports = new ArrayList<>();
-        teleports.add("control_room");
-        teleports.add("infirmary");
-        teleports.add("mess");
-        teleports.add("hangar");
-        teleports.add("reactor");
-        teleports.add("bathroom");
+        ArrayList<String> roomname = new ArrayList<>();
+        roomname.add("teleporter_control_room");
+        roomname.add("teleporter_infirmary");
+        roomname.add("teleporter_mess");
+        roomname.add("teleporter_hangar");
+        roomname.add("teleporter_reactor");
+        roomname.add("teleporter_bathroom");
         int count = 0;
+
         for (MapObject object : layers.get(5).getObjects().getByType(RectangleMapObject.class))  {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            // pass the name of the teleport to the teleport creator
-            new Teleport(world, map, rect, teleports.get(count)); 
+            // pass the name of the teleporter to the teleporter creator
+            new Teleport(world, map, rect, roomname.get(count));
             count += 1;
         }
 
-        // create telaport <- this should be interactiable
 
         // ...
     }

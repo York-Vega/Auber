@@ -1,0 +1,74 @@
+package scenes;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
+
+/**
+ * Teleporter menu to select which room to teleport
+ */
+public class Teleporter_Menu {
+
+    public Stage stage;
+    private Viewport viewport;
+    SelectBox<String> teleporters;
+
+    /**
+     * Create a new instantiated teleporter menu
+
+     * @param spriteBatch the GamePlay batch
+     */
+    public Teleporter_Menu(final SpriteBatch spriteBatch){
+
+        // create a new viewport and a fixed camera for the stage
+        viewport = new FitViewport(300,400,new OrthographicCamera());
+        // pass in the game spritebatch
+        stage = new Stage(viewport,spriteBatch);
+
+        // create a new table to pad the selectbox to the top of the game screen
+        Table table = new Table();
+        table.top();
+        // set the table same as the size of the stage
+        table.setFillParent(true);
+        // load the skin with gdx internal file handling
+        Skin myskin = new Skin(Gdx.files.internal("skin/skin.json"));
+        // build the teleporter List
+        String[] teleporter = new String[]{"Teleport","control_room","mess","infirmary","bathroom","hangar","reactor"};
+        // build the teleporters SelectBox
+        teleporters = new SelectBox<String>(myskin);
+        // pass in the teleporter List
+        teleporters.setItems(teleporter);
+
+        // !! to be deleted when deploy, for testing purpose !!
+        addlistener(teleporters,spriteBatch);
+
+        // set the selected box to disable initially
+        teleporters.setDisabled(true);
+
+        // add SelectBox to the table
+        table.add(teleporters);
+        // add table to the stage
+        stage.addActor(table);
+
+
+
+    }
+    // !! test purpose, to be deleted !!
+    public void addlistener(final SelectBox<String> teleporters, final SpriteBatch spriteBatch){
+        teleporters.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println(teleporters.getSelected());
+            }
+        });
+
+    }
+
+}

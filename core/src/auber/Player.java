@@ -45,7 +45,7 @@ public class Player extends Sprite {
         fdef.shape = shape;
 
         b2body.createFixture(fdef).setUserData("auber"); // for contact listener
-
+        b2body.setUserData("auber");
         shape.dispose();
 
     }
@@ -60,8 +60,12 @@ public class Player extends Sprite {
 
         // position sprite properly within the box
         this.setPosition(b2body.getPosition().x - getWidth() / 2,
-                         b2body.getPosition().y - getHeight() / 2); 
+                         b2body.getPosition().y - getHeight() / 2);
 
+//        if(b2body.getUserData() == "ready_to_teleport"){ // teleportation
+//            b2body.setTransform(430,2130,0);
+//            b2body.setUserData("auber");
+//        }
     }
 
 
