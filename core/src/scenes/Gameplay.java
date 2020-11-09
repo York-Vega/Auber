@@ -11,12 +11,9 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.team3.game.GameMain;
-import sun.tools.jconsole.Tab;
 import tools.B2worldCreator;
 import tools.TeleportContactListener;
 import tools.Teleport_process;
@@ -29,7 +26,7 @@ public class Gameplay implements Screen {
 
     private GameMain game;
 
-    private Player p1;
+    public Player p1;
 
     OrthographicCamera camera;
 
@@ -42,7 +39,7 @@ public class Gameplay implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
 
-    private float playerSpeed = 50f;
+    private float playerSpeed = 60f;
 
     public Teleporter_Menu teleporter_menu;
 
@@ -62,11 +59,11 @@ public class Gameplay implements Screen {
         // creater maploader for tiled map
         maploader = new TmxMapLoader();
         // load the tiled map
-        map = maploader.load("wholemap.tmx");
+        map = maploader.load("Map/Map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
     
         // this image is only for test purpose, needs to be changed with proper sprite
-        p1 = new Player(world, "player_test.png", 1133, 1011);
+        //p1 = new Player(world, "player_test.png", 1133, 1011);
         camera = new OrthographicCamera();
         // set the viewport area for camera
         camera.setToOrtho(false, 800, 640);
@@ -74,7 +71,7 @@ public class Gameplay implements Screen {
         b2dr = new Box2DDebugRenderer();
 
         // create 2d box world for objects , walls, teleport...
-        B2worldCreator.createWorld(world, map); 
+        B2worldCreator.createWorld(world, map,this);
 
         world.setContactListener(new TeleportContactListener());
         // create the teleport drop down menu
@@ -83,7 +80,7 @@ public class Gameplay implements Screen {
         Table boxTable = (Table) teleporter_menu.stage.getActors().get(0);
         SelectBox<String> selected_room = (SelectBox<String>) boxTable.getChild(0);
         // create a teleport_process instance
-        teleport_process = new Teleport_process(selected_room,p1);
+        teleport_process = new Teleport_process(selected_room,p1,map);
 
     }
 
@@ -95,9 +92,10 @@ public class Gameplay implements Screen {
     public void update()  {
 
         world.step(Gdx.graphics.getDeltaTime(), 8, 3); // update the world
+
         p1.updatePlayer(1/60f);
 
-        p1.b2body.setLinearDamping(3f);
+        p1.b2body.setLinearDamping(5f);
         // input listener
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             p1.b2body.applyLinearImpulse(new Vector2(-playerSpeed, 0),
@@ -164,7 +162,8 @@ public class Gameplay implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        camera.setToOrtho(false,width,height);
+        camera.update();
     }
 
     @Override

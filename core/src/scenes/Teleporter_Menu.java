@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class Teleporter_Menu {
 
     public Stage stage;
-    private Viewport viewport;
+    public Viewport viewport;
     SelectBox<String> teleporters;
 
     /**
@@ -29,7 +29,7 @@ public class Teleporter_Menu {
     public Teleporter_Menu(final SpriteBatch spriteBatch){
 
         // create a new viewport and a fixed camera for the stage
-        viewport = new FitViewport(400,320,new OrthographicCamera());
+        viewport = new FitViewport(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2,new OrthographicCamera());
         // pass in the game spritebatch
         stage = new Stage(viewport,spriteBatch);
 
@@ -39,9 +39,9 @@ public class Teleporter_Menu {
         // set the table same as the size of the stage
         table.setFillParent(true);
         // load the skin with gdx internal file handling
-        Skin myskin = new Skin(Gdx.files.internal("skin/comic-ui.json"));
+        Skin myskin = new Skin(Gdx.files.internal("teleport_menu_skin/skin/comic-ui.json"));
         // build the teleporter List
-        String[] teleporter = new String[]{"Teleport","control_room","mess","infirmary","bathroom","hangar","reactor"};
+        String[] teleporter = new String[]{"Teleport","controlRoom","mess","infirmary","hangar","reactor"};
         // build the teleporters SelectBox
         teleporters = new SelectBox<String>(myskin);
         // pass in the teleporter List
@@ -60,6 +60,7 @@ public class Teleporter_Menu {
 
         // add SelectBox to the table and set the width 0.3 of the table size
         table.add(teleporters).width(Value.percentWidth(.3f,table));
+//        table.add(teleporters);
         // add table to the stage
         stage.addActor(table);
 
