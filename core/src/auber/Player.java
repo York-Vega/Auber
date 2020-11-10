@@ -34,13 +34,13 @@ public class Player extends Sprite {
     */
     public void createBody()  {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(this.getX() + getWidth() / 2, this.getY() + getHeight() / 2);
+        bdef.position.set(this.getX() + getWidth() + 4, this.getY() + getHeight() + 4);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth() / 2, getHeight() / 2 - 20);
+        shape.setAsBox(getWidth() / 2, getHeight() / 2);
 
         fdef.shape = shape;
 
@@ -62,10 +62,6 @@ public class Player extends Sprite {
         this.setPosition(b2body.getPosition().x - getWidth() / 2,
                          b2body.getPosition().y - getHeight() / 2);
 
-//        if(b2body.getUserData() == "ready_to_teleport"){ // teleportation
-//            b2body.setTransform(430,2130,0);
-//            b2body.setUserData("auber");
-//        }
     }
 
 

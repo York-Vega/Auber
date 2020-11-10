@@ -1,13 +1,7 @@
 package tools;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
-import helper.Data;
-import sprites.Teleport;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.badlogic.gdx.physics.box2d.*;
 import java.util.regex.Pattern;
 
 public class TeleportContactListener implements ContactListener {
@@ -15,7 +9,6 @@ public class TeleportContactListener implements ContactListener {
     // regex to determine whether contact object is a teleport or not
     private final String pattern = ".*teleporter.*";
     private boolean isTeleport;
-    private Data data = new Data();// test
 
     /**
      * If auber has contact with the teleporter, the auber's userData --> ready_to_teleport, update auber's position in player.update()
@@ -31,7 +24,6 @@ public class TeleportContactListener implements ContactListener {
             // set the player.UserData to ready_to_teleport for teleport_process
             fixA.getBody().setUserData("ready_to_teleport");
         }
-
     }
 
     @Override
