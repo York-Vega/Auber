@@ -6,6 +6,10 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
+
+import auber.Player;
+import scenes.Gameplay;
+
 import java.util.ArrayList;
 import sprites.Teleport;
 
@@ -21,7 +25,7 @@ public class B2worldCreator {
      * @param world Physics world objects should look for interactions in
      * @param map Map we should look for objects in
      */
-    public static void createWorld(World world, TiledMap map)  {
+    public static void createWorld(World world, TiledMap map, Gameplay game)  {
 
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
@@ -30,9 +34,9 @@ public class B2worldCreator {
 
         // Get all layers of map
         MapLayers layers = map.getLayers();
-
+        
         // create the walls
-        for (MapObject object : layers.get(2).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject object : layers.get("walls").getObjects()) {
             // 2: is the layer id, can be seen in tield eidtor
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -44,6 +48,13 @@ public class B2worldCreator {
             body.createFixture(fdef).setUserData("walls");
         }
 
+        //Creates the player at the spawn point on the spawn layer of the map
+        for (MapObject object : layers.get("spawn").getObjects()) {
+            Rectangle point = ((RectangleMapObject) object).getRectangle();
+            game.p1 = new Player(world, "player.png", point.x, point.y);
+            break;
+        }
+        /*
         // create o2 tank
         for (MapObject object : layers.get(6).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
@@ -67,7 +78,7 @@ public class B2worldCreator {
         teleports.add("reactor");
         teleports.add("bathroom");
         int count = 0;
-        for (MapObject object : layers.get(5).getObjects().getByType(RectangleMapObject.class))  {
+        for (MapObject object : layers.get("teleports").getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             // pass the name of the teleport to the teleport creator
             new Teleport(world, map, rect, teleports.get(count)); 
@@ -77,5 +88,6 @@ public class B2worldCreator {
         // create telaport <- this should be interactiable
 
         // ...
+        */
     }
 }
