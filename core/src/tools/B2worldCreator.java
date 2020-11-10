@@ -7,6 +7,10 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
+
+import auber.Player;
+import scenes.Gameplay;
+
 import java.util.ArrayList;
 
 import scenes.Gameplay;
@@ -20,12 +24,12 @@ public class B2worldCreator {
 
     /**
      * Creates all the intractive objects and hooks them into the world physics.
-
+     *
      * @param world Physics world objects should look for interactions in
-     * @param map Map we should look for objects in
-     * @param game Gameplay
+     * @param map   Map we should look for objects in
+     * @param game  Gameplay
      */
-    public static void createWorld(World world, TiledMap map, Gameplay game)  {
+    public static void createWorld(World world, TiledMap map, Gameplay game) {
 
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
@@ -37,6 +41,7 @@ public class B2worldCreator {
 
         // create the walls
         for (MapObject object : layers.get("walls").getObjects()) {
+
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set(rect.getX() + rect.getWidth() / 2,
@@ -47,21 +52,25 @@ public class B2worldCreator {
             body.createFixture(fdef).setUserData("walls");
         }
 
-
         //Creates the player at the spawn point on the spawn layer of the map
         for (MapObject object : layers.get("spawn").getObjects()) {
             Rectangle point = ((RectangleMapObject) object).getRectangle();
             game.p1 = new Player(world, "player.png", point.x, point.y);
             break;
+
         }
 
 
         //create teleport <- this should be interactive tiled map object
-        for (MapObject object : layers.get("teleports").getObjects()) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            // pass the name of the teleport to the teleport creator
-            new Teleport(world, map, rect, object.getName());
-        }
 
+
+
+            for (MapObject object : layers.get("teleports").getObjects().getByType(RectangleMapObject.class)) {
+                Rectangle rect = ((RectangleMapObject) object).getRectangle();
+                // pass the name of the teleport to the teleport creator
+                new Teleport(world, map, rect, object.getName());
+            }
+
+
+        }
     }
-}
