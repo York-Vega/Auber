@@ -152,8 +152,9 @@ public class Gameplay implements Screen {
         renderer.setView(camera);
         // update the camera
         camera.update();
-        // enable tiled map movable view with camera
-        renderer.setView(camera);
+
+
+
         // clear the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

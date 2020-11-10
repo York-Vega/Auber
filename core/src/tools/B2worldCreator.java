@@ -64,6 +64,6 @@ public class B2worldCreator {
             // pass the name of the teleport to the teleport creator
             new Teleport(world, map, rect, object.getName());
         }
-
-        }
+        
     }
+}
