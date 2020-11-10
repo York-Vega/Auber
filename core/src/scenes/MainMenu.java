@@ -1,6 +1,9 @@
 package scenes;
 
 import com.badlogic.gdx.Gdx;
+
+import javax.swing.text.View;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,7 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
 
@@ -39,7 +44,8 @@ public class MainMenu implements Screen {
 
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
-        viewport = new FitViewport(800, 480, camera);
+        camera.setToOrtho(false);
+        viewport = new FitViewport(480, 270, camera);
         viewport.apply();
 
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
@@ -54,9 +60,9 @@ public class MainMenu implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         // create a main table into which all ui elements will be placed
-        Table mainTable = new Table();
-        mainTable.setFillParent(true);
-        mainTable.top();
+        Table root = new Table();
+        root.setFillParent(true);
+        root.top();
 
         // main play button (others can be added easily as needed)
         TextButton playButton = new TextButton("Play", skin);
@@ -73,16 +79,16 @@ public class MainMenu implements Screen {
 
         Label title = new Label("Vega - Auber", skin);
 
-        mainTable.add(title);
-        mainTable.row();
-        mainTable.add(playButton);
+        root.add(title);
+        root.row();
+        root.add(playButton);
 
-        stage.addActor(mainTable);
+        stage.addActor(root);
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(.1f, .12f, .16f, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act();
@@ -91,7 +97,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        viewport.update(width, height, true);
     }
 
     @Override

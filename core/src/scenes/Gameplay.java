@@ -32,6 +32,7 @@ public class Gameplay implements Screen {
     private TmxMapLoader maploader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
+    private Viewport viewport;
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -57,8 +58,10 @@ public class Gameplay implements Screen {
     
         // this image is only for test purpose, needs to be changed with proper sprite
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 450);
+        camera.setToOrtho(false, 480, 270);
         camera.update();
+
+        viewport = new FitViewport(480, 270, camera);
         // set the viewport area for camera
 
         b2dr = new Box2DDebugRenderer(); // create a box2d render
@@ -140,8 +143,8 @@ public class Gameplay implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        camera.setToOrtho(false, width, height);
-        camera.update();
+        viewport.update(width, height);
+
     }
 
     @Override
