@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
@@ -29,7 +30,7 @@ public class Teleporter_Menu {
     public Teleporter_Menu(final SpriteBatch spriteBatch){
 
         // create a new viewport and a fixed camera for the stage
-        viewport = new FitViewport(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2,new OrthographicCamera());
+        viewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),new OrthographicCamera());
         // pass in the game spritebatch
         stage = new Stage(viewport,spriteBatch);
 
@@ -46,7 +47,6 @@ public class Teleporter_Menu {
         teleporters = new SelectBox<String>(myskin);
         // pass in the teleporter List
         teleporters.setItems(teleporter);
-
         //center the text in the List
         teleporters.getList().setAlignment(Align.center);
         // rezie the font of the selectbox list
@@ -59,7 +59,7 @@ public class Teleporter_Menu {
         teleporters.setDisabled(true);
 
         // add SelectBox to the table and set the width 0.3 of the table size
-        table.add(teleporters).width(Value.percentWidth(.3f,table));
+        table.add(teleporters).width(Value.percentWidth(.2f,table));
 //        table.add(teleporters);
         // add table to the stage
         stage.addActor(table);
