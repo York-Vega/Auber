@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.team3.game.GameMain;
 import tools.B2worldCreator;
+import tools.Light_control;
 import tools.Object_ContactListener;
 import tools.Teleport_process;
 
@@ -28,7 +29,7 @@ public class Gameplay implements Screen {
 
     public Player p1;
 
-    OrthographicCamera camera;
+    public OrthographicCamera camera;
 
     /// Tile map loader
     private TmxMapLoader maploader;
@@ -44,9 +45,7 @@ public class Gameplay implements Screen {
 
     public Teleport_process teleport_process;
 
-    public boolean lightSabotaged = false;
-
-    private RayHandler rayHandler;
+    private Light_control light_control;
 
 
     /**
@@ -64,12 +63,14 @@ public class Gameplay implements Screen {
         // load the tiled map
         map = maploader.load("Map/Map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-        // create a new orthographic camera
-        rayHandler = new RayHandler(world);
-    
+
+        // create a light control object
+        light_control = new Light_control(world);
+
         // this image is only for test purpose, needs to be changed with proper sprite
         //p1 = new Player(world, "player_test.png", 1133, 1011);
 
+        // create a new orthographic camera
         camera = new OrthographicCamera();
         // set the viewport area for camera
         camera.setToOrtho(false, 800, 640);
@@ -99,14 +100,9 @@ public class Gameplay implements Screen {
         world.step(Gdx.graphics.getDeltaTime(), 8, 3); // update the world
         // update the teleport_menu stage viewport size
         teleporter_menu.stage.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight() );
-
-        if (lightSabotaged == true) {
-            rayHandler.setAmbientLight(.3f);
-        } else {
-            rayHandler.setAmbientLight(.9f);
-        }
-        rayHandler.update();
-
+        // update the light
+        light_control.light_update();
+        //update auber
         p1.updatePlayer(1/60f);
 
         p1.b2body.setLinearDamping(5f);
@@ -155,7 +151,8 @@ public class Gameplay implements Screen {
         // render the 2Dbox world with shape, remove this line when deploy
         //b2dr.render(world, camera.combined);
 
-        rayHandler.render();
+        // render the light
+        light_control.rayHandler.render();
 
         game.getBatch().setProjectionMatrix(camera.combined);
         // this is needed to be called before the bath.begin(), or scrren will frozen
@@ -201,6 +198,6 @@ public class Gameplay implements Screen {
 
     @Override
     public void dispose() {
-        rayHandler.dispose();
+
     }
 }
