@@ -34,18 +34,18 @@ public class Player extends Sprite {
     */
     public void createBody()  {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(this.getX() + getWidth() / 2, this.getY() + getHeight() / 2);
+        bdef.position.set(this.getX() + getWidth() + 4, this.getY() + getHeight() + 4);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth() / 2, getHeight() / 2 - 20);
+        shape.setAsBox(getWidth() / 2, getHeight() / 2);
 
         fdef.shape = shape;
 
         b2body.createFixture(fdef).setUserData("auber"); // for contact listener
-
+        b2body.setUserData("auber");
         shape.dispose();
 
     }
@@ -60,7 +60,7 @@ public class Player extends Sprite {
 
         // position sprite properly within the box
         this.setPosition(b2body.getPosition().x - getWidth() / 2,
-                         b2body.getPosition().y - getHeight() / 2); 
+                         b2body.getPosition().y - getHeight() / 2);
 
     }
 
