@@ -6,7 +6,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Systems extends InteractiveTileObject{
 
-
     /**
      * Creates a new instantiated System object.
      *
@@ -16,10 +15,9 @@ public class Systems extends InteractiveTileObject{
      */
     public Systems(World world, TiledMap map, Rectangle bounds,String name) {
         super(world, map, bounds);
-        // set the userdata to the system itself
+        // use the fixture.userdata to store the name of the system. used for contact listener
         this.fixture.setUserData("system_"+name);
-        // use the body.userdata to store the saboage status
-        this.fixture.getBody().setUserData("not saboaged");
-
+        // use the body.userdata to store the saboage status. used for sabotage process
+        this.fixture.getBody().setUserData("not sabotaged");
     }
 }

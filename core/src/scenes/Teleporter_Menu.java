@@ -65,7 +65,7 @@ public class Teleporter_Menu {
         teleporters.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                //System.out.println(teleporters.getSelected());
+                System.out.println(teleporters.getSelected());
             }
         });
 
