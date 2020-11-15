@@ -105,7 +105,7 @@ public class Gameplay implements Screen {
         if (lightSabotaged == true) {
             rayHandler.setAmbientLight(.3f);
         } else {
-            rayHandler.setAmbientLight(.9f);
+            rayHandler.setAmbientLight(.8f);
         }
         rayHandler.update();
 
