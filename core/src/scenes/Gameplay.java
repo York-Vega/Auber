@@ -1,6 +1,7 @@
 package scenes;
 
 import auber.Player;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -46,6 +47,10 @@ public class Gameplay implements Screen {
 
     public Teleport_process teleport_process;
 
+    private boolean lightSabotaged = false;
+
+    private RayHandler rayHandler;
+
 
     /**
      * Creates a new instatntiated game.
@@ -62,6 +67,8 @@ public class Gameplay implements Screen {
         // load the tiled map
         map = maploader.load("Map/Map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
+
+        rayHandler = new RayHandler(world);
     
         // this image is only for test purpose, needs to be changed with proper sprite
         //p1 = new Player(world, "player_test.png", 1133, 1011);
@@ -94,6 +101,13 @@ public class Gameplay implements Screen {
         world.step(Gdx.graphics.getDeltaTime(), 8, 3); // update the world
         // update the teleport_menu stage viewport size
         teleporter_menu.stage.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight() );
+
+        if (lightSabotaged == true) {
+            rayHandler.setAmbientLight(.3f);
+        } else {
+            rayHandler.setAmbientLight(.9f);
+        }
+        rayHandler.update();
 
         p1.updatePlayer(1/60f);
 
@@ -141,7 +155,9 @@ public class Gameplay implements Screen {
         // render the tiled map
         renderer.render();
         // render the 2Dbox world and same as map, enable world movable view with camera
+        rayHandler.render();
         b2dr.render(world, camera.combined);
+
         game.getBatch().setProjectionMatrix(camera.combined);
         // this is needed to be called before the bath.begin(), or scrren will frozen
         teleporter_menu.stage.act();
@@ -186,6 +202,6 @@ public class Gameplay implements Screen {
 
     @Override
     public void dispose() {
-
+        rayHandler.dispose();
     }
 }
