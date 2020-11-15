@@ -5,12 +5,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.team3.game.GameMain;
 
 public class DesktopLauncher {
-    /**
-     * Main entry point for desktop game.
-
-    * @param arg input args
-    */
-    public static void main(String[] arg)  {
+    public static void main(String[] args)  {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
         config.width = 800;
