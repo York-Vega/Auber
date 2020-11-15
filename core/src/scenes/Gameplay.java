@@ -1,6 +1,7 @@
 package scenes;
 
 import auber.Player;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -43,6 +44,10 @@ public class Gameplay implements Screen {
 
     public Teleport_process teleport_process;
 
+    public boolean lightSabotaged = false;
+
+    private RayHandler rayHandler;
+
 
     /**
      * Creates a new instatntiated game.
@@ -60,11 +65,16 @@ public class Gameplay implements Screen {
         map = maploader.load("Map/Map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         // create a new orthographic camera
+        rayHandler = new RayHandler(world);
+    
+        // this image is only for test purpose, needs to be changed with proper sprite
+        //p1 = new Player(world, "player_test.png", 1133, 1011);
+
         camera = new OrthographicCamera();
         // set the viewport area for camera
         camera.setToOrtho(false, 800, 640);
         // create a box2d render
-        b2dr = new Box2DDebugRenderer(); // create a box2d render
+        b2dr = new Box2DDebugRenderer();
         // create 2d box world for objects , walls, teleport...
         B2worldCreator.createWorld(world, map, this); 
         // set the contact listener for the world
@@ -89,6 +99,13 @@ public class Gameplay implements Screen {
         world.step(Gdx.graphics.getDeltaTime(), 8, 3); // update the world
         // update the teleport_menu stage viewport size
         teleporter_menu.stage.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight() );
+
+        if (lightSabotaged == true) {
+            rayHandler.setAmbientLight(.3f);
+        } else {
+            rayHandler.setAmbientLight(.9f);
+        }
+        rayHandler.update();
 
         p1.updatePlayer(1/60f);
 
@@ -134,8 +151,12 @@ public class Gameplay implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // render the tiled map
         renderer.render();
+
         // render the 2Dbox world with shape, remove this line when deploy
         //b2dr.render(world, camera.combined);
+
+        rayHandler.render();
+
         game.getBatch().setProjectionMatrix(camera.combined);
         // this is needed to be called before the bath.begin(), or scrren will frozen
         teleporter_menu.stage.act();
@@ -180,6 +201,6 @@ public class Gameplay implements Screen {
 
     @Override
     public void dispose() {
-
+        rayHandler.dispose();
     }
 }
