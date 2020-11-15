@@ -47,7 +47,7 @@ public class Gameplay implements Screen {
 
     public Teleport_process teleport_process;
 
-    private boolean lightSabotaged = false;
+    public boolean lightSabotaged = false;
 
     private RayHandler rayHandler;
 
@@ -105,7 +105,7 @@ public class Gameplay implements Screen {
         if (lightSabotaged == true) {
             rayHandler.setAmbientLight(.3f);
         } else {
-            rayHandler.setAmbientLight(.8f);
+            rayHandler.setAmbientLight(.9f);
         }
         rayHandler.update();
 
