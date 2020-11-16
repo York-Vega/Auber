@@ -7,6 +7,8 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
+
+import ai.AICharacter;
 import screen.Gameplay;
 import sprites.Systems;
 import sprites.Teleport;
@@ -51,6 +53,10 @@ public class B2worldCreator {
         for (MapObject object : layers.get("spawn").getObjects()) {
             Rectangle point = ((RectangleMapObject) object).getRectangle();
             game.p1 = new Player(world, "player.png", point.x, point.y);
+
+            // TEST
+            game.npc = new AICharacter(world, "player.png", 254, 4078);
+
             break;
 
         }

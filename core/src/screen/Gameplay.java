@@ -14,6 +14,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.team3.game.GameMain;
+
+import ai.AICharacter;
 import screen.actors.HealthBar;
 import screen.actors.Teleport_Menu;
 import tools.B2worldCreator;
@@ -28,7 +30,10 @@ public class Gameplay implements Screen {
 
     private GameMain game;
 
-    public Player p1;
+    public static Player p1;
+
+    // TEST
+    public AICharacter npc;
 
     public OrthographicCamera camera;
 
@@ -76,6 +81,7 @@ public class Gameplay implements Screen {
         // this image is only for test purpose, needs to be changed with proper sprite
         //p1 = new Player(world, "player_test.png", 1133, 1011);
 
+        
         // create a new orthographic camera
         camera = new OrthographicCamera();
         // set the viewport area for camera
@@ -169,12 +175,18 @@ public class Gameplay implements Screen {
         game.getBatch().begin();
         // draw the player sprite
         p1.draw(game.getBatch());
+
+        //TEST 
+        npc.draw(game.getBatch());
+
         // end the batch
         game.getBatch().end();
         // render the hud
         hud.stage.draw();
         // validate the teleportation
         teleport_process.validate();
+
+        
 
         //dispose();
 

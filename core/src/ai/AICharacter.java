@@ -1,8 +1,17 @@
 package ai;
 
+import com.badlogic.gdx.ai.pfa.PathFinder;
+import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.physics.box2d.*;
+
+import map.Distance;
+import map.Map;
+import map.Path;
+import screen.Gameplay;
+
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -13,6 +22,8 @@ public class AICharacter extends Sprite {
     public Body b2body;
 
     private float speed; // in pixels per unit time 
+    private PathFinder<map.Node> pathFinder;
+    private Path path;
     
     private static int numberOfHostiles; 
 
@@ -34,6 +45,18 @@ public class AICharacter extends Sprite {
         this.speed = 0.0f;        
         createBody();
         AICharacter.numberOfHostiles++;
+
+        // TEST
+        this.pathFinder = new IndexedAStarPathFinder<map.Node>(Map.graph);
+        this.path = new Path();
+
+        map.Node snode = Map.graph.getNodeByXY((int)x, (int)y);
+
+        int endx = (int)Gameplay.p1.b2body.getPosition().x;
+        int endy = (int)Gameplay.p1.b2body.getPosition().y;
+        map.Node enode = Map.graph.getNodeByXY(endx, endy);
+
+        pathFinder.searchNodePath(snode, enode, new Distance(), path);
     }
         
     /**

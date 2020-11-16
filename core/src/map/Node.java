@@ -3,6 +3,9 @@ package map;
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * Node Class represents a tile in the map
+ */
 public class Node {
     private static int nextIndex = 0; 
 

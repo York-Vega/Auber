@@ -2,6 +2,9 @@ package map;
 
 import com.badlogic.gdx.ai.pfa.Connection;
 
+/**
+ * Edge class represents a connection between two nodes in a graph
+ */
 public class Edge implements Connection<Node>{
     float cost;
     Node fromNode;

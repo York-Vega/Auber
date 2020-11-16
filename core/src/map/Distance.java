@@ -2,6 +2,9 @@ package map;
 
 import com.badlogic.gdx.ai.pfa.Heuristic;
 
+/**
+ * Distance class to be used as a heuristic in Path Findin algorithms
+ */
 public class Distance implements Heuristic<Node>{
 
     @Override

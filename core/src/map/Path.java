@@ -5,11 +5,14 @@ import java.util.Iterator;
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * Path class represents a path between two nodes in a graph
+ */
 public class Path implements GraphPath<Node> {
     Array<Node> nodes;
 
     public Path() {
-
+        nodes = new Array<Node>();
     }
 
     @Override
