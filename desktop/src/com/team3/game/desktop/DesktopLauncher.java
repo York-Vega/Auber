@@ -5,12 +5,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.team3.game.GameMain;
 
 public class DesktopLauncher {
-    /**
-     * Main entry point for desktop game.
-
-    * @param arg input args
-    */
-    public static void main(String[] arg)  {
+    public static void main(String[] args)  {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
         config.width = 800;
@@ -18,14 +13,6 @@ public class DesktopLauncher {
         config.resizable = true;
 
 
-        // TexturePacker.Settings sets = new TexturePacker.Settings();
-        // sets.pot = true;
-        // sets.fast = true;
-        // sets.combineSubdirectories = true;
-        // sets.paddingX = 1;
-        // sets.paddingY = 1;
-        // sets.edgePadding = true;
-        // TexturePacker.process(sets,"Tiles","./","textures");
 
         new LwjglApplication(new GameMain(), config);
     }
