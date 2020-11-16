@@ -77,7 +77,7 @@ public class AICharacter extends Sprite {
 
         // applies a velocity of direction * time delta * speed 
         this.b2body.applyLinearImpulse(direction.scl(dt * this.speed), this.b2body.getWorldCenter(), true);
-
+        
         // position sprite properly within the box
         this.setPosition(b2body.getPosition().x - getWidth() / 2,
                          b2body.getPosition().y - getHeight() / 2); 

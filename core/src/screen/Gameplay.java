@@ -1,6 +1,8 @@
 package screen;
 
 import auber.Player;
+import map.Map;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -65,6 +67,7 @@ public class Gameplay implements Screen {
         maploader = new TmxMapLoader();
         // load the tiled map
         map = maploader.load("Map/Map.tmx");
+        Map.create(map);
         renderer = new OrthogonalTiledMapRenderer(map);
 
         // create a light control object
