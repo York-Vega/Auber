@@ -2,7 +2,6 @@ package screen;
 
 import auber.Player;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -42,8 +41,6 @@ public class Gameplay implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
 
-    private float playerSpeed = 60f;
-
     public Hud hud;
 
     public Teleport_process teleport_process;
@@ -80,7 +77,7 @@ public class Gameplay implements Screen {
         // create a new orthographic camera
         camera = new OrthographicCamera();
         // set the viewport area for camera
-        viewport = new FitViewport(1280, 720, camera);
+        viewport = new FitViewport(640, 480, camera);
 
         // create a box2d render
         b2dr = new Box2DDebugRenderer();
@@ -107,31 +104,15 @@ public class Gameplay implements Screen {
     public void update()  {
         delta = Gdx.graphics.getDeltaTime();
 
-        world.step(delta, 8, 3); // update the world
-        //update player HP
-        healthBar.update_HP(p1);
-        // update the light
-        light_control.light_update();
-        //update auber
+
+        world.step(delta, 8, 3);
         p1.updatePlayer(delta);
+        teleport_process.validate();
+        healthBar.update_HP(p1);
+        hud.stage.act(delta);
+        light_control.light_update();
         
-        // input listener
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            p1.b2body.applyLinearImpulse(new Vector2(-playerSpeed, 0),
-                p1.b2body.getWorldCenter(), true);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            p1.b2body.applyLinearImpulse(new Vector2(playerSpeed, 0),
-                p1.b2body.getWorldCenter(), true);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            p1.b2body.applyLinearImpulse(new Vector2(0, playerSpeed),
-                p1.b2body.getWorldCenter(), true);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            p1.b2body.applyLinearImpulse(new Vector2(0, -playerSpeed),
-                p1.b2body.getWorldCenter(), true);
-        }
+        
     }
 
 
@@ -141,44 +122,44 @@ public class Gameplay implements Screen {
         Gdx.input.setInputProcessor(hud.stage);
     }
 
+    private static final int[] background = new int[]{0, 1};
+    private static final int[] forground = new int[]{};
+
     @Override
     public void render(float delta) {
-
         update();
-        // set camera follow the player(bod2d body)
+
+        // set camera follow the player
         camera.position.set(p1.b2body.getPosition().x, p1.b2body.getPosition().y, 0);
-        // enable tiled map movable view with camera
- 
-        // update the camera
         camera.update();
+        
         // clear the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        // render the tiled map
-        renderer.setView(camera);
-        renderer.render();
 
-        // render the 2Dbox world with shape, remove this line when deploy
-        //b2dr.render(world, camera.combined);
+        viewport.apply();
+
+        // render the tilemap
+        renderer.setView(camera);
+        renderer.render(background);
+
+        // this is needed to be called before the batch.begin(), or scrren will freeze
+        game.getBatch().setProjectionMatrix(camera.combined);
+
+        // render the player sprite
+        game.getBatch().begin();
+        p1.draw(game.getBatch());
+        game.getBatch().end();
+
+        // render tilemap that should apear infront of the player
+        renderer.render(forground);
 
         // render the light
         light_control.rayHandler.render();
-        
-        game.getBatch().setProjectionMatrix(camera.combined);
-        // this is needed to be called before the bath.begin(), or scrren will frozen
-        hud.stage.act();
-        // start the batch
-        game.getBatch().begin();
-        // draw the player sprite
-        viewport.apply();
-        p1.draw(game.getBatch());
-        // end the batch
-        game.getBatch().end();
+
         // render the hud
         hud.viewport.apply();
         hud.stage.draw();
-        // validate the teleportation
-        teleport_process.validate();
 
         //dispose();
 

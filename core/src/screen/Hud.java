@@ -25,14 +25,14 @@ public class Hud {
 
 
     /**
-     * Create a new instantiated hud
+     * Create a new instantiated hud.
 
      * @param spriteBatch the GamePlay batch
      */
-    public Hud(final SpriteBatch spriteBatch){
+    public Hud(final SpriteBatch spriteBatch)  {
 
         // create a new viewport and a fixed camera for the stage
-        viewport = new FitViewport(800, 450, new OrthographicCamera());
+        viewport = new FitViewport(640, 480, new OrthographicCamera());
         viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         // pass in the game spritebatch
         stage = new Stage(viewport, spriteBatch);
@@ -45,13 +45,13 @@ public class Hud {
         // create teleport_menu (SelectBox<String>)actor
         teleport_menu = new Teleport_Menu();
         // add teleport_menu to the table
-        table.add(teleport_menu).width(Value.percentWidth(.2f,table));
+        table.add(teleport_menu).width(Value.percentWidth(.2f, table));
         // create healthbar (ProgressBar)actor
         healthBar = new HealthBar();
         // add hp_text in front of bar, 20 is the space between hp text and teleport menu
         table.add(healthBar.hp_text).padLeft(20);
         // add healthBar to the table, 5 is the space between hp text and healthbar
-        table.add(healthBar).padLeft(5).width(Value.percentWidth(.2f,table));
+        table.add(healthBar).padLeft(5).width(Value.percentWidth(.2f, table));
         // show the layout, to be deleted when deploy
         //stage.setDebugAll(true);
         // add table to the stage
@@ -59,7 +59,7 @@ public class Hud {
 
     }
 
-    public void resize(int width, int height){
+    public void resize(int width, int height)  {
         viewport.update(width, height);
         
     }
