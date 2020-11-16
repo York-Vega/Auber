@@ -1,10 +1,10 @@
 package scenes;
 
 import auber.Player;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -14,11 +14,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
 import tools.B2worldCreator;
-import tools.TeleportContactListener;
+import tools.Light_control;
+import tools.Object_ContactListener;
 import tools.Teleport_process;
 
 /**
@@ -30,7 +29,7 @@ public class Gameplay implements Screen {
 
     public Player p1;
 
-    OrthographicCamera camera;
+    public OrthographicCamera camera;
 
     /// Tile map loader
     private TmxMapLoader maploader;
@@ -45,6 +44,8 @@ public class Gameplay implements Screen {
     public Teleporter_Menu teleporter_menu;
 
     public Teleport_process teleport_process;
+
+    private Light_control light_control;
 
 
     /**
@@ -62,18 +63,23 @@ public class Gameplay implements Screen {
         // load the tiled map
         map = maploader.load("Map/Map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-    
+
+        // create a light control object
+        light_control = new Light_control(world);
+
         // this image is only for test purpose, needs to be changed with proper sprite
         //p1 = new Player(world, "player_test.png", 1133, 1011);
+
+        // create a new orthographic camera
         camera = new OrthographicCamera();
         // set the viewport area for camera
         camera.setToOrtho(false, 800, 640);
         // create a box2d render
-        b2dr = new Box2DDebugRenderer(); // create a box2d render
+        b2dr = new Box2DDebugRenderer();
         // create 2d box world for objects , walls, teleport...
         B2worldCreator.createWorld(world, map, this); 
         // set the contact listener for the world
-        world.setContactListener(new TeleportContactListener());
+        world.setContactListener(new Object_ContactListener());
         // create the teleport drop down menu
         teleporter_menu = new Teleporter_Menu(game.getBatch());
         // get the selectedBox from the table in stage
@@ -94,7 +100,9 @@ public class Gameplay implements Screen {
         world.step(Gdx.graphics.getDeltaTime(), 8, 3); // update the world
         // update the teleport_menu stage viewport size
         teleporter_menu.stage.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight() );
-
+        // update the light
+        light_control.light_update();
+        //update auber
         p1.updatePlayer(1/60f);
 
         p1.b2body.setLinearDamping(5f);
@@ -127,7 +135,6 @@ public class Gameplay implements Screen {
     @Override
     public void render(float delta) {
 
-
         update();
         // set camera follow the player(bod2d body)
         camera.position.set(p1.b2body.getPosition().x, p1.b2body.getPosition().y, 0);
@@ -140,8 +147,13 @@ public class Gameplay implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // render the tiled map
         renderer.render();
-        // render the 2Dbox world and same as map, enable world movable view with camera
-        b2dr.render(world, camera.combined);
+
+        // render the 2Dbox world with shape, remove this line when deploy
+        //b2dr.render(world, camera.combined);
+
+        // render the light
+        light_control.rayHandler.render();
+
         game.getBatch().setProjectionMatrix(camera.combined);
         // this is needed to be called before the bath.begin(), or scrren will frozen
         teleporter_menu.stage.act();

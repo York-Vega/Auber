@@ -33,7 +33,6 @@ public class Teleporter_Menu {
         viewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),new OrthographicCamera());
         // pass in the game spritebatch
         stage = new Stage(viewport,spriteBatch);
-
         // create a new table to pad the selectbox to the top of the game screen
         Table table = new Table();
         table.top();
@@ -51,16 +50,12 @@ public class Teleporter_Menu {
         teleporters.getList().setAlignment(Align.center);
         // rezie the font of the selectbox list
         teleporters.getStyle().listStyle.font.getData().setScale(0.8f,1f);
-
         // !! to be deleted when deploy, for testing purpose !!
         addlistener(teleporters,spriteBatch);
-
         // set the selected box to disable initially
         teleporters.setDisabled(true);
-
         // add SelectBox to the table and set the width 0.3 of the table size
         table.add(teleporters).width(Value.percentWidth(.2f,table));
-//        table.add(teleporters);
         // add table to the stage
         stage.addActor(table);
 
