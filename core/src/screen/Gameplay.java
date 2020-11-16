@@ -1,7 +1,6 @@
-package scenes;
+package screen;
 
 import auber.Player;
-import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -12,9 +11,9 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.team3.game.GameMain;
+import screen.actors.HealthBar;
+import screen.actors.Teleport_Menu;
 import tools.B2worldCreator;
 import tools.Light_control;
 import tools.Object_ContactListener;
@@ -41,9 +40,13 @@ public class Gameplay implements Screen {
 
     private float playerSpeed = 60f;
 
-    public Teleporter_Menu teleporter_menu;
+    public Hud hud;
 
     public Teleport_process teleport_process;
+
+    public HealthBar healthBar;
+
+    public Teleport_Menu teleport_menu;
 
     private Light_control light_control;
 
@@ -81,15 +84,15 @@ public class Gameplay implements Screen {
         // set the contact listener for the world
         world.setContactListener(new Object_ContactListener());
         // create the teleport drop down menu
-        teleporter_menu = new Teleporter_Menu(game.getBatch());
-        // get the selectedBox from the table in stage
-        Table boxTable = (Table) teleporter_menu.stage.getActors().get(0);
-        SelectBox<String> selected_room = (SelectBox<String>) boxTable.getChild(0);
+        hud = new Hud(game.getBatch());
+        // to select teleport room
+        teleport_menu = hud.teleport_menu;
+        // use to update the player HP
+        healthBar = hud.healthBar;
         // create a teleport_process instance
-        teleport_process = new Teleport_process(selected_room,p1,map);
+        teleport_process = new Teleport_process(teleport_menu,p1,map);
 
     }
-
 
 
     /**
@@ -98,8 +101,10 @@ public class Gameplay implements Screen {
     public void update()  {
 
         world.step(Gdx.graphics.getDeltaTime(), 8, 3); // update the world
-        // update the teleport_menu stage viewport size
-        teleporter_menu.stage.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight() );
+        // update the hud stage viewport size
+        hud.stage.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight() );
+        //update player HP
+        healthBar.update_HP(p1);
         // update the light
         light_control.light_update();
         //update auber
@@ -128,8 +133,8 @@ public class Gameplay implements Screen {
 
     @Override
     public void show() {
-        // !! This is important, without this setting, the menu will not response !!
-        Gdx.input.setInputProcessor(teleporter_menu.stage);
+        // !! This is important !!
+        Gdx.input.setInputProcessor(hud.stage);
     }
 
     @Override
@@ -153,18 +158,18 @@ public class Gameplay implements Screen {
 
         // render the light
         light_control.rayHandler.render();
-
+        
         game.getBatch().setProjectionMatrix(camera.combined);
         // this is needed to be called before the bath.begin(), or scrren will frozen
-        teleporter_menu.stage.act();
+        hud.stage.act();
         // start the batch
         game.getBatch().begin();
         // draw the player sprite
         p1.draw(game.getBatch());
         // end the batch
         game.getBatch().end();
-        // render the teleporter_menu(the selectBox)
-        teleporter_menu.stage.draw();
+        // render the hud
+        hud.stage.draw();
         // validate the teleportation
         teleport_process.validate();
 

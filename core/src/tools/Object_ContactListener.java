@@ -13,11 +13,14 @@ public class Object_ContactListener implements ContactListener {
     private final String pattern2 = ".*system.*";
     private boolean isSystem;
 
+    private final String pattern3 = ".*healingPod.*";
+    private boolean isHealingPod;
 
 
     /**
      * If auber has contact with the teleporter, the auber's userData --> ready_to_teleport, update auber's position in player.update()
      * if enemy has contact with the systems. start sabotage process
+     * if auber has contact with healing pod. start healing process
      * @param contact
      */
     @Override
@@ -30,6 +33,9 @@ public class Object_ContactListener implements ContactListener {
         isTeleport = Pattern.matches(pattern, (String) fixB.getUserData());
         // use reg to check whether the object contacted is a system or not
         isSystem = Pattern.matches(pattern2,(String) fixB.getUserData());
+        // use reg to check whether the object contacted is a healpod
+        isHealingPod = Pattern.matches(pattern3,(String) fixB.getUserData());
+
 
         if (isTeleport && (String) fixA.getBody().getUserData() == "auber")  {
             // set the player.UserData to ready_to_teleport for teleport_process
@@ -47,6 +53,14 @@ public class Object_ContactListener implements ContactListener {
              *  ...
              */
         }
+        // if auber contact with healing pod and healing pod is not sabotaged
+        if (isHealingPod && (String) fixA.getBody().getUserData() == "auber"){
+            // set the player.UserData to ready_to_heal for healing process
+            if(fixB.getBody().getUserData() == "not sabotaged"){
+                fixA.getBody().setUserData("ready_to_heal");
+            }
+        }
+
     }
 
     @Override
@@ -54,10 +68,14 @@ public class Object_ContactListener implements ContactListener {
 
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
-        // use reg to check whether the object contacted is a teleporter or not
+
+        // use reg to check whether the object end contact is a teleporter or not
         isTeleport = Pattern.matches(pattern, (String) fixB.getUserData());
-        // use reg to check whether the object contacted is a system or not
+        // use reg to check whether the object end contact is a system or not
         isSystem = Pattern.matches(pattern2,(String) fixB.getUserData());
+        // use reg to check whether the object end contact is a healpod
+        isHealingPod = Pattern.matches(pattern3,(String) fixB.getUserData());
+
 
         if (isTeleport && (String) fixA.getBody().getUserData() == "ready_to_teleport") {
             // set the player.UserData to auber after the contact ended
@@ -75,6 +93,11 @@ public class Object_ContactListener implements ContactListener {
              *  ...
              */
 
+        }
+        // if auber end contact with the healing pod
+        if (isHealingPod && (String) fixA.getBody().getUserData() == "ready_to_heal"){
+            // set the player.UserData back to auber to end healing process
+            fixA.getBody().setUserData("auber");
         }
 
     }
