@@ -7,10 +7,8 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
-
-
-import scenes.Gameplay;
-
+import screen.Gameplay;
+import sprites.Systems;
 import sprites.Teleport;
 
 
@@ -49,7 +47,7 @@ public class B2worldCreator {
             body.createFixture(fdef).setUserData("walls");
         }
 
-        //Creates the player at the spawn point on the spawn layer of the map
+        // Creates the player at the spawn point on the spawn layer of the map
         for (MapObject object : layers.get("spawn").getObjects()) {
             Rectangle point = ((RectangleMapObject) object).getRectangle();
             game.p1 = new Player(world, "player.png", point.x, point.y);
@@ -57,13 +55,19 @@ public class B2worldCreator {
 
         }
 
-        //create teleport <- this should be interactive tiled map object
-
-        for (MapObject object : layers.get("teleports").getObjects().getByType(RectangleMapObject.class)) {
+        //create teleport <- this is interactive tiled map object
+        for (MapObject object : layers.get("teleports").getObjects()) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            // pass the name of the teleport to the teleport creator
+            // create a new instantiated Teleport object
             new Teleport(world, map, rect, object.getName());
         }
-        
+
+        // create systems <- this is interactive tiled map object
+        for (MapObject object : layers.get("systems").getObjects()){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            // create a new instantiated System object
+            new Systems(world,map,rect, object.getName());
+        }
+
     }
 }
