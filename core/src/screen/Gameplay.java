@@ -1,10 +1,9 @@
-package scenes;
+package screen;
 
 import auber.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -15,9 +14,12 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
+import screen.actors.HealthBar;
+import screen.actors.Teleport_Menu;
 import tools.B2worldCreator;
-import tools.TeleportContactListener;
-
+import tools.Light_control;
+import tools.Object_ContactListener;
+import tools.Teleport_process;
 
 /**
  * Main gameplay object, holds all game data.
@@ -28,18 +30,30 @@ public class Gameplay implements Screen {
 
     public Player p1;
 
+    public OrthographicCamera camera;
+
+    public Viewport viewport;
+
     /// Tile map loader
     private TmxMapLoader maploader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
-    private Viewport viewport;
 
     private World world;
     private Box2DDebugRenderer b2dr;
 
-    private OrthographicCamera camera;
+    private float playerSpeed = 60f;
 
-    private float playerSpeed = 50f;
+    public Hud hud;
+
+    public Teleport_process teleport_process;
+
+    public HealthBar healthBar;
+
+    public Teleport_Menu teleport_menu;
+
+    private Light_control light_control;
+
 
     /**
      * Creates a new instatntiated game.
@@ -49,29 +63,42 @@ public class Gameplay implements Screen {
     public Gameplay(GameMain game)  {
 
         this.game = game;
-
-        this.world = new World(new Vector2(0, 0), true); // create a box2D world
-
-        maploader = new TmxMapLoader(); // creater maploader for tiled map
-        map = maploader.load("Map/Map.tmx"); // load the tiled map
+        // create a box2D world
+        this.world = new World(new Vector2(0, 0), true);
+        // creater maploader for tiled map
+        maploader = new TmxMapLoader();
+        // load the tiled map
+        map = maploader.load("Map/Map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-    
+
+        // create a light control object
+        light_control = new Light_control(world);
+
         // this image is only for test purpose, needs to be changed with proper sprite
+        //p1 = new Player(world, "player_test.png", 1133, 1011);
+
+        // create a new orthographic camera
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 480, 270);
-        camera.update();
-
-        viewport = new FitViewport(480, 270, camera);
         // set the viewport area for camera
+        viewport = new FitViewport(1280, 720, camera);
 
-        b2dr = new Box2DDebugRenderer(); // create a box2d render
-
+        // create a box2d render
+        b2dr = new Box2DDebugRenderer();
         // create 2d box world for objects , walls, teleport...
         B2worldCreator.createWorld(world, map, this); 
-
-        world.setContactListener(new TeleportContactListener());
+        // set the contact listener for the world
+        world.setContactListener(new Object_ContactListener());
+        // create the teleport drop down menu
+        hud = new Hud(game.getBatch());
+        // to select teleport room
+        teleport_menu = hud.teleport_menu;
+        // use to update the player HP
+        healthBar = hud.healthBar;
+        // create a teleport_process instance
+        teleport_process = new Teleport_process(teleport_menu,p1,map);
 
     }
+
 
     /**
      * Updates the game, logic will go here called by libgdx GameMain.
@@ -79,7 +106,14 @@ public class Gameplay implements Screen {
     public void update()  {
 
         world.step(Gdx.graphics.getDeltaTime(), 8, 3); // update the world
-        p1.b2body.setLinearDamping(3f);
+        //update player HP
+        healthBar.update_HP(p1);
+        // update the light
+        light_control.light_update();
+        //update auber
+        p1.updatePlayer(1/60f);
+
+        p1.b2body.setLinearDamping(5f);
         // input listener
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             p1.b2body.applyLinearImpulse(new Vector2(-playerSpeed, 0),
@@ -102,49 +136,60 @@ public class Gameplay implements Screen {
 
     @Override
     public void show() {
-
+        // !! This is important !!
+        Gdx.input.setInputProcessor(hud.stage);
     }
 
     @Override
     public void render(float delta) {
 
-
         update();
-
-        p1.updatePlayer(delta);
         // set camera follow the player(bod2d body)
         camera.position.set(p1.b2body.getPosition().x, p1.b2body.getPosition().y, 0);
-        camera.update(); // update the camera
-        renderer.setView(camera); // enable tiled map movable view with camera
-        
-
+        // enable tiled map movable view with camera
+ 
+        // update the camera
+        camera.update();
         // clear the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        // render the tiled map
+        renderer.setView(camera);
+        renderer.render();
 
-        renderer.render(); // render the tiled map
+        // render the 2Dbox world with shape, remove this line when deploy
+        //b2dr.render(world, camera.combined);
 
-        // render the 2Dbox world and same as map, enable world movable view with camera
-        b2dr.render(world, camera.combined); 
-
+        // render the light
+        light_control.rayHandler.render();
+        
         game.getBatch().setProjectionMatrix(camera.combined);
-
+        // this is needed to be called before the bath.begin(), or scrren will frozen
+        hud.stage.act();
+        // start the batch
         game.getBatch().begin();
-
-        p1.draw(game.getBatch()); // draw the player sprite
-
+        // draw the player sprite
+        viewport.apply();
+        p1.draw(game.getBatch());
+        // end the batch
         game.getBatch().end();
+        // render the hud
+        hud.viewport.apply();
+        hud.stage.draw();
+        // validate the teleportation
+        teleport_process.validate();
 
         //dispose();
 
     }
 
 
-
     @Override
     public void resize(int width, int height) {
+
         viewport.update(width, height);
 
+        hud.resize(width, height);
     }
 
     @Override

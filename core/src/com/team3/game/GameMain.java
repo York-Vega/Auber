@@ -2,7 +2,7 @@ package com.team3.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import scenes.MainMenu;
+import screen.MainMenu;
 
 public class GameMain extends Game  {
     SpriteBatch batch;
@@ -15,7 +15,7 @@ public class GameMain extends Game  {
 
     @Override
     public void render() {
-        super.render(); // render multiple scenes
+        super.render(); // render multiple screen
 
         // Gdx.gl.glClearColor(1, 0, 0, 1);
         // Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
