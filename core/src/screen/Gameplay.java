@@ -1,7 +1,6 @@
-package scenes;
+package screen;
 
 import auber.Player;
-import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
