@@ -137,6 +137,9 @@ public class Gameplay implements Screen {
             p1.b2body.applyLinearImpulse(new Vector2(0, -playerSpeed),
                 p1.b2body.getWorldCenter(), true);
         }
+
+        // TEST
+        npc.update(1/60f);
     }
 
 

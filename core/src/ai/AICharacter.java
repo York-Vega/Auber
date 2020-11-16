@@ -4,12 +4,12 @@ import com.badlogic.gdx.ai.pfa.PathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.physics.box2d.*;
 
 import map.Distance;
 import map.Map;
 import map.Path;
+import map.Node;
 import screen.Gameplay;
 
 import com.badlogic.gdx.math.Vector2;
@@ -22,8 +22,9 @@ public class AICharacter extends Sprite {
     public Body b2body;
 
     private float speed; // in pixels per unit time 
-    private PathFinder<map.Node> pathFinder;
+    private PathFinder<Node> pathFinder;
     private Path path;
+    private int pathIndex;
     
     private static int numberOfHostiles; 
 
@@ -42,19 +43,20 @@ public class AICharacter extends Sprite {
         super(new Texture(name));
         this.world = world;
         setPosition(x, y);
-        this.speed = 0.0f;        
+        this.speed = 100.0f;        
         createBody();
         AICharacter.numberOfHostiles++;
 
         // TEST
-        this.pathFinder = new IndexedAStarPathFinder<map.Node>(Map.graph);
+        this.pathFinder = new IndexedAStarPathFinder<Node>(Map.graph);
         this.path = new Path();
+        pathIndex = 0;
 
-        map.Node snode = Map.graph.getNodeByXY((int)x, (int)y);
+        Node snode = Map.graph.getNodeByXY((int)x, (int)y);
 
         int endx = (int)Gameplay.p1.b2body.getPosition().x;
         int endy = (int)Gameplay.p1.b2body.getPosition().y;
-        map.Node enode = Map.graph.getNodeByXY(endx, endy);
+        Node enode = Map.graph.getNodeByXY(endx, endy);
 
         pathFinder.searchNodePath(snode, enode, new Distance(), path);
     }
@@ -64,13 +66,13 @@ public class AICharacter extends Sprite {
     */
     public void createBody()  {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(this.getX() + getWidth() / 2, this.getY() + getHeight() / 2);
+        bdef.position.set(this.getX() + getWidth() + 4, this.getY() + getHeight() + 4);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth() / 2, getHeight() / 2 - 20);
+        shape.setAsBox(getWidth() / 2, getHeight() / 2 );
 
         fdef.shape = shape;
 
@@ -99,8 +101,9 @@ public class AICharacter extends Sprite {
     public void move(float dt, Vector2 direction) {
 
         // applies a velocity of direction * time delta * speed 
-        this.b2body.applyLinearImpulse(direction.scl(dt * this.speed), this.b2body.getWorldCenter(), true);
-        
+        Vector2 vel = direction.scl(dt * this.speed);
+        this.b2body.applyLinearImpulse(vel, this.b2body.getWorldCenter(), true);
+
         // position sprite properly within the box
         this.setPosition(b2body.getPosition().x - getWidth() / 2,
                          b2body.getPosition().y - getHeight() / 2); 
@@ -113,7 +116,33 @@ public class AICharacter extends Sprite {
      * returns a unit vector representing direction
      */
     public Vector2 decideDirection() {
-        return new Vector2();
+        Vector2 v = new Vector2(0, 0);
+        if (this.pathIndex < this.path.getCount()) {
+            Node target = path.get(pathIndex);
+            int targetY = (target.getIndex() / Map.mapTileWidth) * Map.tilePixelHeight;
+            int targetX = (target.getIndex() % Map.mapTileWidth) * Map.tilePixelWidth;
+
+            float x = this.getX();
+            float y = this.getY();
+
+            if (Math.abs(x - targetX) > 100) {
+                if (targetX > x) {
+                    v.add(new Vector2(1f, 0));
+                } else {
+                    v.add(new Vector2(-1f, 0));
+                }
+            } 
+            if (Math.abs(y - targetY) > 100) {
+                if (targetY > y) {
+                    v.add(new Vector2(0, 1f));
+                } else {
+                    v.add(new Vector2(0, -1f));
+                }
+            } else {
+                this.pathIndex++;
+            }
+        } 
+        return v;
     }
 
     

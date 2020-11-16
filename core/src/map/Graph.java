@@ -2,6 +2,10 @@ package map;
 
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
+import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.utils.Array;
@@ -40,9 +44,12 @@ public class Graph implements IndexedGraph<Node> {
 
                 Node currentNode = nodes.get(width * y + x);
 
+                
                 // creates edges between neighbouring habitable nodes
-                // Not: a cell is null if a player cannot be in that tile
+                // Note: a cell is null if a player cannot be in that tile
                 if (current != null) {
+                    MapLayers l = map.getLayers();
+                    MapObjects type = current.getTile().getObjects();
                     if (y != 0 && down != null) {
                         Node downNode = nodes.get(width * (y-1) + x);
                         currentNode.createEdge(downNode, 1);
@@ -58,7 +65,7 @@ public class Graph implements IndexedGraph<Node> {
                     if (x != width-1 && right != null) {
                         Node rightNode = nodes.get(width * y + x+1);
                         currentNode.createEdge(rightNode, 1);
-                    }
+                    }                                  
                 }
             }
         }
