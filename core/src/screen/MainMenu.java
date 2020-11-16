@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -18,11 +19,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
 
 /**
- * MainMenu 
+ * MainMenu.
  */
 public class MainMenu implements Screen {
 
-    private SpriteBatch batch;
     private Viewport viewport;
     private OrthographicCamera camera;
     private TextureAtlas atlas;
@@ -32,11 +32,10 @@ public class MainMenu implements Screen {
     /**
      * Creates an instantiated instance of the MainMenu screen.
      */
-    public MainMenu() {
+    public MainMenu(SpriteBatch batch) {
         atlas = new TextureAtlas("neonui/neon-ui.atlas");
         skin = new Skin(Gdx.files.internal("neonui/neon-ui.json"), atlas);
 
-        batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
         viewport = new FitViewport(480, 270, camera);
