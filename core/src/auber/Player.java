@@ -103,7 +103,7 @@ public class Player extends Sprite {
         // healing process
         if(ishealing){
             // adjust healing amount accrodingly
-            health += 1;
+            health += 0.5;
             // test prupose, delet when depoly
             System.out.println("Auber is healing, Auber current health: " + health);
         }

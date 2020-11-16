@@ -71,8 +71,8 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
-		font: font
-		fontColor: black
+		font: button
+		fontColor: white
 	}
 	narration: {
 		font: font
