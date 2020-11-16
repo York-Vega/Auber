@@ -66,8 +66,13 @@ public class Gameplay implements Screen {
         // load the tiled map
         map = maploader.load("Map/Map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
+
         // create a light control object
         light_control = new Light_control(world);
+
+        // this image is only for test purpose, needs to be changed with proper sprite
+        //p1 = new Player(world, "player_test.png", 1133, 1011);
+
         // create a new orthographic camera
         camera = new OrthographicCamera();
         // set the viewport area for camera
@@ -153,7 +158,7 @@ public class Gameplay implements Screen {
 
         // render the light
         light_control.rayHandler.render();
-
+        
         game.getBatch().setProjectionMatrix(camera.combined);
         // this is needed to be called before the bath.begin(), or scrren will frozen
         hud.stage.act();

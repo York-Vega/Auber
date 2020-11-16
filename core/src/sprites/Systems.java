@@ -29,5 +29,6 @@ public class Systems extends InteractiveTileObject{
         if (name.equals("healingPod")){
             this.fixture.setSensor(true);
         }
+
     }
 }
