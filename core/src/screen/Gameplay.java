@@ -13,6 +13,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
 
 import ai.AICharacter;
@@ -36,6 +38,8 @@ public class Gameplay implements Screen {
     public AICharacter npc;
 
     public OrthographicCamera camera;
+
+    public Viewport viewport;
 
     /// Tile map loader
     private TmxMapLoader maploader;
@@ -85,7 +89,8 @@ public class Gameplay implements Screen {
         // create a new orthographic camera
         camera = new OrthographicCamera();
         // set the viewport area for camera
-        camera.setToOrtho(false, 800, 640);
+        viewport = new FitViewport(1280, 720, camera);
+
         // create a box2d render
         b2dr = new Box2DDebugRenderer();
         // create 2d box world for objects , walls, teleport...
@@ -103,23 +108,22 @@ public class Gameplay implements Screen {
 
     }
 
+    private float delta; 
 
     /**
      * Updates the game, logic will go here called by libgdx GameMain.
      */
     public void update()  {
+        delta = Gdx.graphics.getDeltaTime();
 
-        world.step(Gdx.graphics.getDeltaTime(), 8, 3); // update the world
-        // update the hud stage viewport size
-        hud.stage.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight() );
+        world.step(delta, 8, 3); // update the world
         //update player HP
         healthBar.update_HP(p1);
         // update the light
         light_control.light_update();
         //update auber
-        p1.updatePlayer(1/60f);
-
-        p1.b2body.setLinearDamping(5f);
+        p1.updatePlayer(delta);
+        
         // input listener
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             p1.b2body.applyLinearImpulse(new Vector2(-playerSpeed, 0),
@@ -156,13 +160,14 @@ public class Gameplay implements Screen {
         // set camera follow the player(bod2d body)
         camera.position.set(p1.b2body.getPosition().x, p1.b2body.getPosition().y, 0);
         // enable tiled map movable view with camera
-        renderer.setView(camera);
+ 
         // update the camera
         camera.update();
         // clear the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // render the tiled map
+        renderer.setView(camera);
         renderer.render();
 
         // render the 2Dbox world with shape, remove this line when deploy
@@ -177,6 +182,7 @@ public class Gameplay implements Screen {
         // start the batch
         game.getBatch().begin();
         // draw the player sprite
+        viewport.apply();
         p1.draw(game.getBatch());
 
         //TEST 
@@ -185,6 +191,7 @@ public class Gameplay implements Screen {
         // end the batch
         game.getBatch().end();
         // render the hud
+        hud.viewport.apply();
         hud.stage.draw();
         // validate the teleportation
         teleport_process.validate();
@@ -199,9 +206,9 @@ public class Gameplay implements Screen {
     @Override
     public void resize(int width, int height) {
 
-        camera.setToOrtho(false,width,height);
+        viewport.update(width, height);
 
-        camera.update();
+        hud.resize(width, height);
     }
 
     @Override

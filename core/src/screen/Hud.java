@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import screen.actors.HealthBar;
 import screen.actors.Teleport_Menu;
@@ -32,9 +32,10 @@ public class Hud {
     public Hud(final SpriteBatch spriteBatch){
 
         // create a new viewport and a fixed camera for the stage
-        viewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),new OrthographicCamera());
+        viewport = new FitViewport(800, 450, new OrthographicCamera());
+        viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         // pass in the game spritebatch
-        stage = new Stage(viewport,spriteBatch);
+        stage = new Stage(viewport, spriteBatch);
         // create a new table as a container to lay out the actors
         Table table = new Table();
         // pad the table to the top of screen
@@ -56,6 +57,11 @@ public class Hud {
         // add table to the stage
         stage.addActor(table);
 
+    }
+
+    public void resize(int width, int height){
+        viewport.update(width, height);
+        
     }
 
 }

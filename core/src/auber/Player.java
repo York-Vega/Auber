@@ -48,6 +48,8 @@ public class Player extends Sprite {
 
         fdef.shape = shape;
 
+        b2body.setLinearDamping(20f);
+
         b2body.createFixture(fdef).setUserData("auber"); // for contact listener
         b2body.setUserData("auber");
         shape.dispose();
