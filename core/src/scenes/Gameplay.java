@@ -55,36 +55,18 @@ public class Gameplay implements Screen {
     public Gameplay(GameMain game)  {
 
         this.game = game;
-        // create a box2D world
-        this.world = new World(new Vector2(0, 0), true);
-        // creater maploader for tiled map
-        maploader = new TmxMapLoader();
-        // load the tiled map
-        map = maploader.load("Map/Map.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map);
-    
-        // this image is only for test purpose, needs to be changed with proper sprite
-        //p1 = new Player(world, "player_test.png", 1133, 1011);
-        camera = new OrthographicCamera();
-        // set the viewport area for camera
-        camera.setToOrtho(false, 800, 640);
-        // create a box2d render
-        b2dr = new Box2DDebugRenderer();
-
-        // create 2d box world for objects , walls, teleport...
-        B2worldCreator.createWorld(world, map,this);
 
         this.world = new World(new Vector2(0, 0), true); // create a box2D world
 
         maploader = new TmxMapLoader(); // creater maploader for tiled map
         map = maploader.load("Map/Map.tmx"); // load the tiled map
+
         renderer = new OrthogonalTiledMapRenderer(map);
     
-        // this image is only for test purpose, needs to be changed with proper sprite
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 450);
-        camera.update();
         // set the viewport area for camera
+        camera.update();
 
         b2dr = new Box2DDebugRenderer(); // create a box2d render
 
