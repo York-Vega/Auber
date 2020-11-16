@@ -99,19 +99,21 @@ public class Gameplay implements Screen {
 
     }
 
+    private float delta; 
 
     /**
      * Updates the game, logic will go here called by libgdx GameMain.
      */
     public void update()  {
+        delta = Gdx.graphics.getDeltaTime();
 
-        world.step(Gdx.graphics.getDeltaTime(), 8, 3); // update the world
+        world.step(delta, 8, 3); // update the world
         //update player HP
         healthBar.update_HP(p1);
         // update the light
         light_control.light_update();
         //update auber
-        p1.updatePlayer(1/60f);
+        p1.updatePlayer(delta);
 
         p1.b2body.setLinearDamping(5f);
         // input listener
