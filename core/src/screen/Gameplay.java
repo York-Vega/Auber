@@ -115,7 +115,7 @@ public class Gameplay implements Screen {
         //update auber
         p1.updatePlayer(delta);
 
-        p1.b2body.setLinearDamping(5f);
+        p1.b2body.setLinearDamping(20f);
         // input listener
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             p1.b2body.applyLinearImpulse(new Vector2(-playerSpeed, 0),
