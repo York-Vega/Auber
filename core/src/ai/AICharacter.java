@@ -43,7 +43,7 @@ public class AICharacter extends Sprite {
         super(new Texture(name));
         this.world = world;
         setPosition(x, y);
-        this.speed = 25.0f;        
+        this.speed = 500.0f;        
         createBody();
         AICharacter.numberOfHostiles++;
 
@@ -69,7 +69,7 @@ public class AICharacter extends Sprite {
         shape.setAsBox(getWidth() / 2, getHeight() / 2 );
 
         fdef.shape = shape;
-
+        b2body.setLinearDamping(10f);
         b2body.createFixture(fdef).setUserData("NPC" + AICharacter.numberOfHostiles); // for contact listener
 
         shape.dispose();
