@@ -55,7 +55,7 @@ public class B2worldCreator {
             game.p1 = new Player(world, "player.png", point.x, point.y);
 
             // TEST
-            game.npc = new AICharacter(world, "player.png", 254, 4078);
+            //game.npc = new AICharacter(world, "player.png", 254, 4078);
 
             break;
 

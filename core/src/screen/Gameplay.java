@@ -1,5 +1,6 @@
 package screen;
 
+import ai.Enemy_manager;
 import auber.Player;
 import map.Map;
 
@@ -42,8 +43,9 @@ public class Gameplay implements Screen {
 
     public static Player p1;
 
-    // TEST
-    public AICharacter npc;
+//    TEST
+//    public AICharacter npc;
+    public Enemy_manager enemy_manager;
 
     public OrthographicCamera camera;
 
@@ -122,6 +124,8 @@ public class Gameplay implements Screen {
         // create a system_status_menu instance
         systemStatusMenu = hud.system_status_menu;
         systemStatusMenu.generate_systemLabels(systems);
+        // create an enemy_manager instance
+        enemy_manager = new Enemy_manager(world,map);
 
     }
 
@@ -142,8 +146,9 @@ public class Gameplay implements Screen {
         hud.stage.act(delta);
         light_control.light_update();
         systemStatusMenu.update_status(systems);
-        
-        npc.update(delta);
+
+        enemy_manager.update_ai(delta);
+//        npc.update(delta);
     }
 
 
@@ -181,10 +186,12 @@ public class Gameplay implements Screen {
 
         // render the player sprite
         game.getBatch().begin();
+
         p1.draw(game.getBatch());
 
         //TEST 
-        npc.draw(game.getBatch());
+        //npc.draw(game.getBatch());
+        enemy_manager.render_ememy(game.getBatch());
 
         // end the batch
         game.getBatch().end();
