@@ -72,7 +72,8 @@ public class B2worldCreator {
         for (MapObject object : layers.get("systems").getObjects()){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             // create a new instantiated System object
-            new Systems(world,map,rect, object.getName());
+            // stor system object in the systems Arraylist
+            game.systems.add(new Systems(world,map,rect, object.getName()));
         }
 
     }

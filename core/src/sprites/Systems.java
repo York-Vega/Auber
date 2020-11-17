@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Systems extends InteractiveTileObject{
 
+    public String sys_name;
     /**
      * Creates a new instantiated System object.
      *
@@ -15,12 +16,14 @@ public class Systems extends InteractiveTileObject{
      */
     public Systems(World world, TiledMap map, Rectangle bounds,String name) {
         super(world, map, bounds);
+        sys_name = name;
         // use the fixture.userdata to store the name of the system. used for contact listener
         this.fixture.setUserData("system_"+name);
         // use the body.userdata to store the saboage status. used for sabotage process
         this.fixture.getBody().setUserData("not sabotaged");
         // check whether is a healing pod or not
         isHealing_pod(name);
+
 
     }
 
@@ -29,6 +32,14 @@ public class Systems extends InteractiveTileObject{
         if (name.equals("healingPod")){
             this.fixture.setSensor(true);
         }
-
     }
+
+    public String getSystemName(){
+        return sys_name;
+    }
+
+    public String getSabotage_status(){
+        return (String) this.fixture.getBody().getUserData();
+    }
+
 }
