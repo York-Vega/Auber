@@ -16,7 +16,7 @@ com.badlogic.gdx.graphics.Color: {
 		g: 0
 		b: 0
 		a: 1
-	}
+	},
 	gray: {
 		r: 0.7466668
 		g: 0.7466668
@@ -29,6 +29,14 @@ com.badlogic.gdx.graphics.Color: {
 		b: 1
 		a: 1
 	}
+	red: {
+		r: 1
+		g: 0
+		b: 0
+		a: 1
+	}
+
+
 }
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	cyan: {
@@ -53,13 +61,13 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 		checkboxOn: checkbox-on
 		checkboxOff: checkbox
 		font: button
-		fontColor: black
+		fontColor: white
 	}
 	radio: {
 		checkboxOn: radio-on
 		checkboxOff: radio
 		font: button
-		fontColor: black
+		fontColor: white
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
@@ -79,9 +87,9 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		fontColor: black
 		background: narration-box
 	}
-	big: {
+	alarm: {
 		font: button
-		fontColor: black
+		fontColor: red
 	}
 	title: {
 		font: title
@@ -89,9 +97,14 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	}
 	alt: {
 		font: font
-		fontColor: black
-		background: window
-	}
+		fontColor: white
+
+	},
+	alt_red: {
+		font: font
+		fontColor: red
+
+	},
 	half-tone: {
 		font: button
 		fontColor: black
