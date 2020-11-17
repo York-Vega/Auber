@@ -16,12 +16,17 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
 import screen.actors.HealthBar;
+import screen.actors.System_status_menu;
 import screen.actors.Teleport_Menu;
+import sprites.Systems;
 import tools.B2worldCreator;
 import tools.BackgroundRenderer;
 import tools.Light_control;
 import tools.Object_ContactListener;
 import tools.Teleport_process;
+
+
+import java.util.ArrayList;
 
 
 /**
@@ -56,6 +61,10 @@ public class Gameplay implements Screen {
     public Teleport_Menu teleport_menu;
 
     private Light_control light_control;
+
+    public ArrayList<Systems> systems = new ArrayList<>();
+
+    public System_status_menu systemStatusMenu;
 
 
     /**
@@ -101,6 +110,9 @@ public class Gameplay implements Screen {
         healthBar = hud.healthBar;
         // create a teleport_process instance
         teleport_process = new Teleport_process(teleport_menu,p1,map);
+        // create a system_status_menu instance
+        systemStatusMenu = hud.system_status_menu;
+        systemStatusMenu.generate_systemLabels(systems);
 
     }
 
@@ -113,13 +125,14 @@ public class Gameplay implements Screen {
         delta = Gdx.graphics.getDeltaTime();
 
         backgroundRenderer.update(delta);
+
         world.step(delta, 8, 3);
         p1.updatePlayer(delta);
         teleport_process.validate();
         healthBar.update_HP(p1);
         hud.stage.act(delta);
         light_control.light_update();
-        
+        systemStatusMenu.update_status(systems);
         
     }
 
