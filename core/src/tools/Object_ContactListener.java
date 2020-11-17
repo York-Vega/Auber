@@ -46,7 +46,7 @@ public class Object_ContactListener implements ContactListener {
 
             System.out.println("start contact with " + (String) fixB.getUserData());
             System.out.println((String) fixB.getUserData() + " sabotaged : " + (String) fixB.getBody().getUserData());
-            
+
             // test for system status menu
             //fixB.getBody().setUserData("sabotaged");
             fixB.getBody().setUserData("sabotaging");
@@ -89,6 +89,10 @@ public class Object_ContactListener implements ContactListener {
         if (isSystem && (String) fixA.getBody().getUserData() == "auber")  {
             System.out.println("end contact with " + (String) fixB.getUserData());
             System.out.println((String) fixB.getUserData() + " sabotaged : " + (String) fixB.getBody().getUserData());
+
+            //test for system_status_menu
+            fixB.getBody().setUserData("not sabotaged");
+
 
             /** To Do
              *  if the contact end between enemy and systems, sabotage process should stop

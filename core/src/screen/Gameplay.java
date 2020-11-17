@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -18,11 +20,14 @@ import screen.actors.System_status_menu;
 import screen.actors.Teleport_Menu;
 import sprites.Systems;
 import tools.B2worldCreator;
+import tools.BackgroundRenderer;
 import tools.Light_control;
 import tools.Object_ContactListener;
 import tools.Teleport_process;
 
+
 import java.util.ArrayList;
+
 
 /**
  * Main gameplay object, holds all game data.
@@ -41,6 +46,8 @@ public class Gameplay implements Screen {
     private TmxMapLoader maploader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
+
+    private BackgroundRenderer backgroundRenderer;
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -85,7 +92,9 @@ public class Gameplay implements Screen {
         // create a new orthographic camera
         camera = new OrthographicCamera();
         // set the viewport area for camera
-        viewport = new FitViewport(640, 480, camera);
+        viewport = new FitViewport(640, 360, camera);
+
+        backgroundRenderer = new BackgroundRenderer(game.getBatch(), viewport);
 
         // create a box2d render
         b2dr = new Box2DDebugRenderer();
@@ -115,6 +124,8 @@ public class Gameplay implements Screen {
     public void update()  {
         delta = Gdx.graphics.getDeltaTime();
 
+        backgroundRenderer.update(delta);
+
         world.step(delta, 8, 3);
         p1.updatePlayer(delta);
         teleport_process.validate();
@@ -132,8 +143,8 @@ public class Gameplay implements Screen {
         Gdx.input.setInputProcessor(hud.stage);
     }
 
-    private static final int[] background = new int[]{0, 1};
-    private static final int[] forground = new int[]{};
+    private static final int[] backgroundLayers = new int[]{0, 1};
+    private static final int[] forgroundLayers = new int[]{};
 
     @Override
     public void render(float delta) {
@@ -149,9 +160,11 @@ public class Gameplay implements Screen {
 
         viewport.apply();
 
+        backgroundRenderer.render();
+
         // render the tilemap
         renderer.setView(camera);
-        renderer.render(background);
+        renderer.render(backgroundLayers);
 
         // this is needed to be called before the batch.begin(), or scrren will freeze
         game.getBatch().setProjectionMatrix(camera.combined);
@@ -162,7 +175,7 @@ public class Gameplay implements Screen {
         game.getBatch().end();
 
         // render tilemap that should apear infront of the player
-        renderer.render(forground);
+        renderer.render(forgroundLayers);
 
         // render the light
         light_control.rayHandler.render();
