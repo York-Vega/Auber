@@ -44,5 +44,14 @@ public class Path implements GraphPath<Node> {
     public void reverse() {
         nodes.reverse();
     }
+
+    public void log() {
+        for (int i = 0; i < nodes.size; i++) {
+            Node n = nodes.get(i);
+            int targetY = (n.getIndex() / Map.mapTileWidth) * Map.tilePixelHeight;
+            int targetX = (n.getIndex() % Map.mapTileWidth) * Map.tilePixelWidth;
+            System.out.println(targetX + ", " + targetY);
+        }
+    }
     
 }

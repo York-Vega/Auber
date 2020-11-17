@@ -43,7 +43,7 @@ public class AICharacter extends Sprite {
         super(new Texture(name));
         this.world = world;
         setPosition(x, y);
-        this.speed = 100.0f;        
+        this.speed = 25.0f;        
         createBody();
         AICharacter.numberOfHostiles++;
 
@@ -52,13 +52,14 @@ public class AICharacter extends Sprite {
         this.path = new Path();
         pathIndex = 0;
 
-        Node snode = Map.graph.getNodeByXY((int)x, (int)y);
+        Node snode = Map.graph.getNodeByXY((int)x + (int)getWidth() + 4, (int)y + (int)this.getHeight() + 4);
 
         int endx = (int)Gameplay.p1.b2body.getPosition().x;
         int endy = (int)Gameplay.p1.b2body.getPosition().y;
         Node enode = Map.graph.getNodeByXY(endx, endy);
 
         pathFinder.searchNodePath(snode, enode, new Distance(), path);
+
     }
         
     /**
@@ -109,41 +110,45 @@ public class AICharacter extends Sprite {
                          b2body.getPosition().y - getHeight() / 2); 
     }
 
-    // todo - implement this
     /**
      * Decides the direction to be made by the AI
      * 
      * returns a unit vector representing direction
+     * moves in the direction of the next node in the path
      */
-    public Vector2 decideDirection() {
-        Vector2 v = new Vector2(0, 0);
+    private Vector2 decideDirection() {
         if (this.pathIndex < this.path.getCount()) {
             Node target = path.get(pathIndex);
-            int targetY = (target.getIndex() / Map.mapTileWidth) * Map.tilePixelHeight;
-            int targetX = (target.getIndex() % Map.mapTileWidth) * Map.tilePixelWidth;
+            int targetY = (target.getIndex() / Map.mapTileWidth) * Map.tilePixelHeight + 16;
+            int targetX = (target.getIndex() % Map.mapTileWidth) * Map.tilePixelWidth + 16;
 
-            float x = this.getX();
-            float y = this.getY();
+            float x = this.b2body.getPosition().x;
+            float y = this.b2body.getPosition().y;
 
-            if (Math.abs(x - targetX) > 100) {
-                if (targetX > x) {
-                    v.add(new Vector2(1f, 0));
-                } else {
-                    v.add(new Vector2(-1f, 0));
-                }
+            float xComp = 0;
+            float yComp = 0;
+
+            // if the difference in x values between character and node is above 1
+            // move in x directio n towards node
+            if (Math.abs(x - targetX) > 1) {
+                xComp = targetX - x;
             } 
-            if (Math.abs(y - targetY) > 100) {
-                if (targetY > y) {
-                    v.add(new Vector2(0, 1f));
-                } else {
-                    v.add(new Vector2(0, -1f));
-                }
-            } else {
-                this.pathIndex++;
-            }
-        } 
-        return v;
-    }
+            // if the difference in y values between character and node is above 1
+            // move in y directio n towards node
+            if (Math.abs(y - targetY) > 1) {
+                yComp = targetY - y;
+            } 
 
-    
+            // if the character is in the bounds of the node 
+            // target the next node            
+            if (Math.abs(y - targetY) < 4 && Math.abs(x - targetX) < 4) {
+                this.pathIndex++;
+                return new Vector2(0, 0);
+            }
+
+            float abs = (float)Math.sqrt(Math.pow(xComp, 2) + Math.pow(yComp, 2)); 
+            return new Vector2(xComp/abs, yComp/abs);
+        } 
+        return new Vector2(0, 0);
+    }    
 }

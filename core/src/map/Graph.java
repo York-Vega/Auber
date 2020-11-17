@@ -43,13 +43,10 @@ public class Graph implements IndexedGraph<Node> {
                 TiledMapTileLayer.Cell down = tiles.getCell(x, y-1);
 
                 Node currentNode = nodes.get(width * y + x);
-
                 
                 // creates edges between neighbouring habitable nodes
                 // Note: a cell is null if a player cannot be in that tile
-                if (current != null) {
-                    MapLayers l = map.getLayers();
-                    MapObjects type = current.getTile().getObjects();
+                if (current != null) {                   
                     if (y != 0 && down != null) {
                         Node downNode = nodes.get(width * (y-1) + x);
                         currentNode.createEdge(downNode, 1);
