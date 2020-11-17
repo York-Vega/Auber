@@ -49,7 +49,6 @@ public class BackgroundRenderer {
      * renders the background.
      */
     public void render() {
-        //batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
         width = viewport.getScreenWidth();
         height = viewport.getScreenHeight();
