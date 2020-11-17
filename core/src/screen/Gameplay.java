@@ -83,7 +83,7 @@ public class Gameplay implements Screen {
         // create a new orthographic camera
         camera = new OrthographicCamera();
         // set the viewport area for camera
-        viewport = new FitViewport(640, 480, camera);
+        viewport = new FitViewport(640, 360, camera);
 
         backgroundRenderer = new BackgroundRenderer(game.getBatch(), viewport);
 

@@ -32,7 +32,7 @@ public class Hud {
     public Hud(final SpriteBatch spriteBatch)  {
 
         // create a new viewport and a fixed camera for the stage
-        viewport = new FitViewport(640, 480, new OrthographicCamera());
+        viewport = new FitViewport(1280, 720, new OrthographicCamera());
         viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         // pass in the game spritebatch
         stage = new Stage(viewport, spriteBatch);
