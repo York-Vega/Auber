@@ -49,17 +49,10 @@ public class AICharacter extends Sprite {
 
         // TEST
         this.pathFinder = new IndexedAStarPathFinder<Node>(Map.graph);
-        this.path = new Path();
-        pathIndex = 0;
-
-        Node snode = Map.graph.getNodeByXY((int)x + (int)getWidth() + 4, (int)y + (int)this.getHeight() + 4);
-
+        
         int endx = (int)Gameplay.p1.b2body.getPosition().x;
         int endy = (int)Gameplay.p1.b2body.getPosition().y;
-        Node enode = Map.graph.getNodeByXY(endx, endy);
-
-        pathFinder.searchNodePath(snode, enode, new Distance(), path);
-
+        this.goTo(endx, endy);
     }
         
     /**
@@ -80,7 +73,6 @@ public class AICharacter extends Sprite {
         b2body.createFixture(fdef).setUserData("NPC" + AICharacter.numberOfHostiles); // for contact listener
 
         shape.dispose();
-
     }
     
 
@@ -117,7 +109,7 @@ public class AICharacter extends Sprite {
      * moves in the direction of the next node in the path
      */
     private Vector2 decideDirection() {
-        if (this.pathIndex < this.path.getCount()) {
+        if (this.isMoving()) {
             Node target = path.get(pathIndex);
             int targetY = (target.getIndex() / Map.mapTileWidth) * Map.tilePixelHeight + 16;
             int targetX = (target.getIndex() % Map.mapTileWidth) * Map.tilePixelWidth + 16;
@@ -150,5 +142,46 @@ public class AICharacter extends Sprite {
             return new Vector2(xComp/abs, yComp/abs);
         } 
         return new Vector2(0, 0);
-    }    
+    } 
+    
+    /**
+     * 
+     * @param x x coordinate of destination in pixels
+     * @param y y coordinate of destination in pixels
+     * @return true if there is a path between character and destination, false otherwise
+     */
+    public boolean goTo(float x, float y) {
+        // resets the path
+        this.path = new Path();
+        pathIndex = 0;
+
+        Vector2 position = this.b2body.getPosition();
+
+        Node startNode = Map.graph.getNodeByXY((int)position.x, (int)position.y);
+        Node endNode = Map.graph.getNodeByXY((int)x, (int)y);
+
+        // A* search between character and destination
+        pathFinder.searchNodePath(startNode, endNode, new Distance(), path);
+
+        // if the path is empty 
+        if (path.getCount() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * @return whether the character is currently following a path
+     */
+    public boolean isMoving() {
+        return this.pathIndex < this.path.getCount();
+    }
+
+    /**
+     * stops the character from following its path
+     */
+    public void stop() {
+        this.pathIndex = this.path.getCount();
+    }
 }
