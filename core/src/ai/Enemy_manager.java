@@ -1,18 +1,11 @@
 package ai;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
-import com.team3.game.GameMain;
-import screen.Gameplay;
-
+import sprites.Systems;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.regex.Pattern;
 
 /**
  * Manage enemies in the game
@@ -25,12 +18,12 @@ public class Enemy_manager {
     public ArrayList<float[]> spawn_position = new ArrayList<>();
     public ArrayList<float[]> target_position = new ArrayList<>();
 
-    public Enemy_manager(World world,TiledMap map){
+    public Enemy_manager(World world,TiledMap map,ArrayList<Systems> systems){
         this.world = world;
         this.map = map;
         generate_spwan_position(map);
         generate_enemy(world);
-        sabotage_target(map);
+        sabotage_target(systems);
     }
 
     /**
@@ -68,9 +61,8 @@ public class Enemy_manager {
      * target different systems for AI to sabotage
      * @param map
      */
-    public void sabotage_target(TiledMap map){
+    public void sabotage_target( ArrayList<Systems> systems){
 
-        MapLayer systems_layer = map.getLayers().get("systems");
         ArrayList<Integer> random_index = new ArrayList<>();
         // generate random target positions
         for (int i = 0; i < 8; i++){
@@ -85,17 +77,26 @@ public class Enemy_manager {
             random_index.add(index);
         }
 
-        for (MapObject object : systems_layer.getObjects()){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            target_position.add(new float[]{rect.x,rect.y});
-        }
-
         // set targets
         for (int i = 0; i < 8; i ++){
-            float endX = (float) target_position.get(random_index.get(i))[0];
-            float endY = (float) target_position.get(random_index.get(i))[1];
+            int index = random_index.get(i);
+            Systems sys = systems.get(index);
+            // if the system was already sabotaged or another ai is sabotaging, it shouldn't be set as target
+            while (sys.getSabotage_status().equals("system_sabotaged") || sys.getSabotage_status().equals("system_sabotaging") ){
+
+                if (index == 15){
+                    index = 0;
+                }
+                index ++;
+                sys = systems.get(index);
+            }
+            float end_X = sys.getposition()[0];
+            float end_Y = sys.getposition()[1];
+
             AICharacter enemy = enemies.get(i);
-            enemy.goTo(endX,endY);
+            // set the fixture userdata of enemy to system object
+            enemy.b2body.getFixtureList().get(0).setUserData(sys);
+            enemy.goTo(end_X,end_Y);
         }
 
     }
@@ -119,10 +120,26 @@ public class Enemy_manager {
     public void update_ai(float delta){
 
         for(AICharacter aiCharacter: enemies){
+            if (validate_sabotage(aiCharacter)){
+                // get targeted system object
+                Systems sys = (Systems) aiCharacter.b2body.getFixtureList().get(0).getUserData();
+                aiCharacter.sabotage(sys);
+            }
             aiCharacter.update(delta);
         }
 
     }
 
+    /**
+     *
+     * @param aiCharacter
+     * @return NPC in attack mode or not
+     */
+    public boolean validate_sabotage(AICharacter aiCharacter){
+        String attack = ".*attack.*";
+        String mode = (String) aiCharacter.b2body.getUserData();
+        boolean isAttack = Pattern.matches(attack,mode);
+        return isAttack;
+    }
 
 }

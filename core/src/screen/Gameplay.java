@@ -3,13 +3,10 @@ package screen;
 import ai.Enemy_manager;
 import auber.Player;
 import map.Map;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -18,8 +15,6 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
-
-import ai.AICharacter;
 import screen.actors.HealthBar;
 import screen.actors.System_status_menu;
 import screen.actors.Teleport_Menu;
@@ -125,7 +120,7 @@ public class Gameplay implements Screen {
         systemStatusMenu = hud.system_status_menu;
         systemStatusMenu.generate_systemLabels(systems);
         // create an enemy_manager instance
-        enemy_manager = new Enemy_manager(world,map);
+        enemy_manager = new Enemy_manager(world,map,systems);
 
     }
 
@@ -146,7 +141,6 @@ public class Gameplay implements Screen {
         hud.stage.act(delta);
         light_control.light_update();
         systemStatusMenu.update_status(systems);
-
         enemy_manager.update_ai(delta);
 //        npc.update(delta);
     }
@@ -189,8 +183,6 @@ public class Gameplay implements Screen {
 
         p1.draw(game.getBatch());
 
-        //TEST 
-        //npc.draw(game.getBatch());
         enemy_manager.render_ememy(game.getBatch());
 
         // end the batch
@@ -206,7 +198,6 @@ public class Gameplay implements Screen {
         hud.viewport.apply();
         hud.stage.draw();
 
-        
 
         //dispose();
 

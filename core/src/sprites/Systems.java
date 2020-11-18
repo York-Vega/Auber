@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Systems extends InteractiveTileObject{
 
     public String sys_name;
+    public float hp;
     /**
      * Creates a new instantiated System object.
      *
@@ -17,19 +18,20 @@ public class Systems extends InteractiveTileObject{
     public Systems(World world, TiledMap map, Rectangle bounds,String name) {
         super(world, map, bounds);
         sys_name = name;
-        // use the fixture.userdata to store the name of the system. used for contact listener
-        this.fixture.setUserData("system_"+name);
-        // use the body.userdata to store the saboage status. used for sabotage process
-        this.fixture.getBody().setUserData("not sabotaged");
+        hp = 100;
+        // use the fixture.userdata to store the system object.
+        this.fixture.setUserData(this);
+        // use the body.userdata to store the saboage status. used for contact listener
+        this.fixture.getBody().setUserData("system_not_sabotaged");
         // check whether is a healing pod or not
         isHealing_pod(name);
-
 
     }
 
     public void isHealing_pod(String name){
         // if system is healingPod, set the fixture to sensor
         if (name.equals("healingPod")){
+            this.fixture.getBody().setUserData("healingPod_not_sabotaged");
             this.fixture.setSensor(true);
         }
     }
@@ -42,4 +44,16 @@ public class Systems extends InteractiveTileObject{
         return (String) this.fixture.getBody().getUserData();
     }
 
+    public float[] getposition(){
+        float[] position = new float[]{this.body.getPosition().x,this.body.getPosition().y};
+        return position;
+    }
+
+    public void sabotaged(){
+        this.fixture.getBody().setUserData("system_sabotaged");
+    }
+
+    public void not_sabotaged(){
+        this.fixture.getBody().setUserData("system_not_sabotaged");
+    }
 }

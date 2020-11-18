@@ -20,8 +20,9 @@ public class Teleport extends InteractiveTileObject {
      */
     public Teleport(World world, TiledMap map, Rectangle bounds,  String name)  {
         super(world, map, bounds);
-        this.fixture.setUserData("teleporter_"+name); // for contact_listener
-
+        this.fixture.setUserData("teleporter_"+name);
+        // for contact_listener
+        this.fixture.getBody().setUserData("teleporter_"+name);
         // set teleport as sensor so the collison will not happen between 
         // auber and teleport, but contact still be sensed
         this.fixture.setSensor(true);

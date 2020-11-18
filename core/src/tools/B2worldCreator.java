@@ -7,8 +7,6 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
-
-import ai.AICharacter;
 import screen.Gameplay;
 import sprites.Systems;
 import sprites.Teleport;
@@ -47,6 +45,7 @@ public class B2worldCreator {
             shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
             fdef.shape = shape;
             body.createFixture(fdef).setUserData("walls");
+            body.setUserData("walls");
         }
 
         // Creates the player at the spawn point on the spawn layer of the map

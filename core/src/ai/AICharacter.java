@@ -5,14 +5,12 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
-
 import map.Distance;
 import map.Map;
 import map.Path;
 import map.Node;
-import screen.Gameplay;
-
 import com.badlogic.gdx.math.Vector2;
+import sprites.Systems;
 
 /**
  * AI Character object for the game.
@@ -70,8 +68,8 @@ public class AICharacter extends Sprite {
 
         fdef.shape = shape;
         b2body.setLinearDamping(10f);
-        b2body.createFixture(fdef).setUserData("NPC" + AICharacter.numberOfHostiles); // for contact listener
-
+        b2body.createFixture(fdef); // for contact listener
+        b2body.setUserData("NPC_" + AICharacter.numberOfHostiles);
         shape.dispose();
     }
     
@@ -183,5 +181,23 @@ public class AICharacter extends Sprite {
      */
     public void stop() {
         this.pathIndex = this.path.getCount();
+    }
+
+
+    /**
+     *  sabotage process
+     * @param system
+     */
+    public void sabotage(Systems system){
+        // sart sabotaging if system hp > 0
+        if (system.hp > 0){
+            system.hp -= 0.1;
+//            System.out.println(system.hp);
+        }
+        // if system hp < 1, set system to sabotaged
+        if (system.hp <=1){
+            system.hp = 0;
+            system.sabotaged();
+        }
     }
 }
