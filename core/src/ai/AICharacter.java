@@ -70,6 +70,7 @@ public class AICharacter extends Sprite {
         b2body.setLinearDamping(10f);
         b2body.createFixture(fdef); // for contact listener
         b2body.setUserData("NPC_" + AICharacter.numberOfHostiles);
+        b2body.getFixtureList().get(0).setSensor(true);
         shape.dispose();
     }
     
@@ -191,11 +192,11 @@ public class AICharacter extends Sprite {
     public void sabotage(Systems system){
         // sart sabotaging if system hp > 0
         if (system.hp > 0){
-            system.hp -= 0.1;
-//            System.out.println(system.hp);
+            system.hp -= 1;
+            //System.out.println(system.hp);
         }
-        // if system hp < 1, set system to sabotaged
-        if (system.hp <=1){
+        // if system hp <= 0, set system to sabotaged
+        if (system.hp <=0){
             system.hp = 0;
             system.sabotaged();
         }

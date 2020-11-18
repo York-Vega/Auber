@@ -273,7 +273,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="teleports" visible="0">
+ <objectgroup id="3" name="teleports">
   <object id="60" name="reactor" x="752" y="1168">
    <point/>
   </object>
@@ -290,12 +290,12 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="4" name="spawn" visible="0">
+ <objectgroup id="4" name="spawn">
   <object id="66" name="spawn" x="720" y="144">
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="2" name="walls" visible="0">
+ <objectgroup id="2" name="walls">
   <object id="1" x="64" y="64" width="32" height="224"/>
   <object id="3" x="96" y="64" width="480" height="32"/>
   <object id="4" x="320" y="96" width="32" height="32"/>
@@ -349,12 +349,12 @@
   <object id="70" x="576" y="576" width="32" height="32"/>
   <object id="71" x="352" y="576" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="5" name="systems" visible="0">
+ <objectgroup id="5" name="systems">
   <object id="74" name="cryoPod1" x="96" y="96" width="32" height="32"/>
   <object id="75" name="cryoPod2" x="96" y="160" width="32" height="32"/>
   <object id="76" name="healingPod" x="192" y="128" width="32" height="32"/>
   <object id="77" name="lights" x="640" y="32" width="32" height="32"/>
-  <object id="78" name="doors" x="672" y="32" width="32" height="32"/>
+  <object id="78" name="doors" x="704" y="31.5" width="32" height="32"/>
   <object id="80" name="o2Tank" x="608" y="192" width="96" height="64"/>
   <object id="81" name="vendingMachine" x="576" y="640" width="32" height="64"/>
   <object id="82" name="table" x="448" y="672" width="64" height="64"/>
@@ -366,6 +366,6 @@
   <object id="89" name="escapePod2" x="0" y="1248" width="64" height="32"/>
   <object id="91" name="powerSupply" x="768" y="1056" width="32" height="32"/>
   <object id="93" name="reactor" x="640" y="1184" width="64" height="32"/>
-  <object id="94" name="navigation" x="704" y="32" width="32" height="32"/>
+  <object id="94" name="navigation" x="736" y="31.5" width="32" height="32"/>
  </objectgroup>
 </map>

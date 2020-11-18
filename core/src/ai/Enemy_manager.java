@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.World;
 import sprites.Systems;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 /**
@@ -14,13 +15,17 @@ public class Enemy_manager {
 
     public World world;
     public TiledMap map;
-    public ArrayList<AICharacter> enemies = new ArrayList<>();
-    public ArrayList<float[]> spawn_position = new ArrayList<>();
-    public ArrayList<float[]> target_position = new ArrayList<>();
+    public static ArrayList<AICharacter> enemies = new ArrayList<>();
+    public static ArrayList<float[]> spawn_position = new ArrayList<>();
+    public static ArrayList<float[]> target_position = new ArrayList<>();
+    public static ArrayList<Systems> systems = new ArrayList<>();
+    public static HashMap<Systems,AICharacter> information;
 
     public Enemy_manager(World world,TiledMap map,ArrayList<Systems> systems){
         this.world = world;
         this.map = map;
+        this.systems = systems;
+        this.information = new HashMap<>();
         generate_spwan_position(map);
         generate_enemy(world);
         sabotage_target(systems);
@@ -58,7 +63,7 @@ public class Enemy_manager {
     }
 
     /**
-     * target different systems for AI to sabotage
+     * target different systems for AI to sabotage, this should generate initial 8 targets for NPC
      * @param map
      */
     public void sabotage_target( ArrayList<Systems> systems){
@@ -81,15 +86,7 @@ public class Enemy_manager {
         for (int i = 0; i < 8; i ++){
             int index = random_index.get(i);
             Systems sys = systems.get(index);
-            // if the system was already sabotaged or another ai is sabotaging, it shouldn't be set as target
-            while (sys.getSabotage_status().equals("system_sabotaged") || sys.getSabotage_status().equals("system_sabotaging") ){
 
-                if (index == 15){
-                    index = 0;
-                }
-                index ++;
-                sys = systems.get(index);
-            }
             float end_X = sys.getposition()[0];
             float end_Y = sys.getposition()[1];
 
@@ -97,6 +94,10 @@ public class Enemy_manager {
             // set the fixture userdata of enemy to system object
             enemy.b2body.getFixtureList().get(0).setUserData(sys);
             enemy.goTo(end_X,end_Y);
+            // update the information hash map, aviod enemy targeting the same system
+            information.put(sys,enemy);
+            //System.out.println(enemy.b2body.getUserData() + "will be attacking " + sys.sys_name);
+
         }
 
     }
@@ -120,20 +121,27 @@ public class Enemy_manager {
     public void update_ai(float delta){
 
         for(AICharacter aiCharacter: enemies){
+            // get targeted system object
+            Systems sys = (Systems) aiCharacter.b2body.getFixtureList().get(0).getUserData();
             if (validate_sabotage(aiCharacter)){
-                // get targeted system object
-                Systems sys = (Systems) aiCharacter.b2body.getFixtureList().get(0).getUserData();
                 aiCharacter.sabotage(sys);
+            }
+            // generate next traget if system sabotaged
+            if (sys.getSabotage_status().equals("system_sabotaged")){
+                generateNextTarget(aiCharacter);
             }
             aiCharacter.update(delta);
         }
 
+        for (int i = 0; i < systems.size(); i ++){
+            System.out.println(systems.get(i).sys_name + " : " + systems.get(i).getSabotage_status() + " with HP: " + systems.get(i).hp);
+        }
     }
 
     /**
      *
      * @param aiCharacter
-     * @return NPC in attack mode or not
+     * @return validate NPC in attack mode or not
      */
     public boolean validate_sabotage(AICharacter aiCharacter){
         String attack = ".*attack.*";
@@ -141,5 +149,24 @@ public class Enemy_manager {
         boolean isAttack = Pattern.matches(attack,mode);
         return isAttack;
     }
+
+    /**
+     * If NPC successfuly sabotage one target, generate next target for it
+     * @param aiCharacter
+     */
+    public void generateNextTarget(AICharacter aiCharacter){
+        for (Systems system: this.systems ){
+            if (!information.containsKey(system)){
+                aiCharacter.b2body.getFixtureList().get(0).setUserData(system);
+                information.put(system,aiCharacter);
+                float end_X = system.getposition()[0];
+                float end_Y = system.getposition()[1];
+                aiCharacter.goTo(end_X,end_Y);
+                return;
+            }
+        }
+
+    }
+
 
 }
