@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="112" height="132" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="95">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="112" height="132" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="188">
  <tileset firstgid="1" source="Tiles.tsx"/>
  <layer id="1" name="graphics" width="112" height="132">
   <data encoding="csv">
@@ -273,7 +273,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="teleports">
+ <objectgroup id="3" name="teleports" visible="0">
   <object id="60" name="reactor" x="752" y="1168">
    <point/>
   </object>
@@ -291,11 +291,100 @@
   </object>
  </objectgroup>
  <objectgroup id="4" name="spawn">
-  <object id="66" name="spawn" x="720" y="144">
+  <object id="187" name="spawn" x="752" y="144">
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="2" name="walls">
+ <objectgroup id="7" name="npcSpawns">
+  <object id="158" x="656" y="112">
+   <point/>
+  </object>
+  <object id="159" x="848" y="176">
+   <point/>
+  </object>
+  <object id="160" x="752" y="368">
+   <point/>
+  </object>
+  <object id="161" x="400" y="144">
+   <point/>
+  </object>
+  <object id="162" x="144" y="208">
+   <point/>
+  </object>
+  <object id="163" x="272" y="144">
+   <point/>
+  </object>
+  <object id="164" x="208" y="336">
+   <point/>
+  </object>
+  <object id="165" x="400" y="528">
+   <point/>
+  </object>
+  <object id="166" x="560" y="432">
+   <point/>
+  </object>
+  <object id="167" x="432" y="688">
+   <point/>
+  </object>
+  <object id="168" x="400" y="752">
+   <point/>
+  </object>
+  <object id="169" x="560" y="656">
+   <point/>
+  </object>
+  <object id="170" x="400" y="880">
+   <point/>
+  </object>
+  <object id="171" x="176" y="976">
+   <point/>
+  </object>
+  <object id="172" x="656" y="1168">
+   <point/>
+  </object>
+  <object id="173" x="752" y="1072">
+   <point/>
+  </object>
+  <object id="174" x="464" y="1200">
+   <point/>
+  </object>
+  <object id="175" x="240" y="1200">
+   <point/>
+  </object>
+  <object id="176" x="112" y="1136">
+   <point/>
+  </object>
+  <object id="177" x="112" y="1296">
+   <point/>
+  </object>
+  <object id="178" x="48" y="1200">
+   <point/>
+  </object>
+  <object id="179" x="304" y="1104">
+   <point/>
+  </object>
+  <object id="180" x="656" y="880">
+   <point/>
+  </object>
+  <object id="181" x="272" y="432">
+   <point/>
+  </object>
+  <object id="182" x="720" y="432">
+   <point/>
+  </object>
+  <object id="183" x="208" y="880">
+   <point/>
+  </object>
+  <object id="184" x="528" y="1104">
+   <point/>
+  </object>
+  <object id="185" x="144" y="1200">
+   <point/>
+  </object>
+  <object id="186" x="528" y="144">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="2" name="walls" visible="0">
   <object id="1" x="64" y="64" width="32" height="224"/>
   <object id="3" x="96" y="64" width="480" height="32"/>
   <object id="4" x="320" y="96" width="32" height="32"/>
@@ -348,8 +437,10 @@
   <object id="69" x="416" y="576" width="128" height="32"/>
   <object id="70" x="576" y="576" width="32" height="32"/>
   <object id="71" x="352" y="576" width="32" height="32"/>
+  <object id="95" x="224" y="256" width="32" height="32"/>
+  <object id="96" x="160" y="256" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="5" name="systems">
+ <objectgroup id="5" name="systems" visible="0">
   <object id="74" name="cryoPod1" x="96" y="96" width="32" height="32"/>
   <object id="75" name="cryoPod2" x="96" y="160" width="32" height="32"/>
   <object id="76" name="healingPod" x="192" y="128" width="32" height="32"/>
