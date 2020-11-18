@@ -19,7 +19,7 @@ public class AICharacter extends Sprite {
     public World world;
     public Body b2body;
 
-    private float speed; // in pixels per unit time 
+    public float speed; // in pixels per unit time
     private PathFinder<Node> pathFinder;
     private Path path;
     private int pathIndex;
@@ -186,7 +186,7 @@ public class AICharacter extends Sprite {
 
 
     /**
-     *  sabotage process
+     *  sabotage process for enemies
      * @param system
      */
     public void sabotage(Systems system){

@@ -140,12 +140,12 @@ public class Enemy_manager {
 
     /**
      *
-     * @param aiCharacter
+     * @param enemy
      * @return validate NPC in attack mode or not
      */
-    public boolean validate_sabotage(AICharacter aiCharacter){
+    public boolean validate_sabotage(AICharacter enemy){
         String attack = ".*attack.*";
-        String mode = (String) aiCharacter.b2body.getUserData();
+        String mode = (String) enemy.b2body.getUserData();
         boolean isAttack = Pattern.matches(attack,mode);
         return isAttack;
     }
@@ -154,14 +154,14 @@ public class Enemy_manager {
      * If NPC successfuly sabotage one target, generate next target for it
      * @param aiCharacter
      */
-    public void generateNextTarget(AICharacter aiCharacter){
+    public void generateNextTarget(AICharacter enemy){
         for (Systems system: this.systems ){
             if (!information.containsKey(system)){
-                aiCharacter.b2body.getFixtureList().get(0).setUserData(system);
-                information.put(system,aiCharacter);
+                enemy.b2body.getFixtureList().get(0).setUserData(system);
+                information.put(system,enemy);
                 float end_X = system.getposition()[0];
                 float end_Y = system.getposition()[1];
-                aiCharacter.goTo(end_X,end_Y);
+                enemy.goTo(end_X,end_Y);
                 return;
             }
         }

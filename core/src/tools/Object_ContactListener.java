@@ -59,9 +59,9 @@ public class Object_ContactListener implements ContactListener {
 //        }
 
         // Sbotage contact
-        if (is_NPC(fixA) || is_NPC(fixB))  {
+        if (is_Infiltrators(fixA) || is_Infiltrators(fixB))  {
             // if contact happened between NPC and a system
-            if (is_NPC(fixA) && is_System(fixB)){
+            if (is_Infiltrators(fixA) && is_System(fixB)){
                 // only when NPC contact with the target system, sabotage process will begin
                 if(fixA.getUserData().equals((Systems) fixB.getUserData())){
                     Systems sys_being_sabotaging = (Systems) fixB.getUserData();
@@ -73,7 +73,7 @@ public class Object_ContactListener implements ContactListener {
                 }
 
             }
-            else if (is_NPC(fixB) && is_System(fixA)){
+            else if (is_Infiltrators(fixB) && is_System(fixA)){
                 // only when NPC contact with the target system, sabotage process will begin
                 if(fixB.getUserData().equals((Systems) fixA.getUserData())){
                     Systems sys_being_sabotaging = (Systems) fixA.getUserData();
@@ -112,10 +112,10 @@ public class Object_ContactListener implements ContactListener {
 
 
         // // end Sbotage contact
-        if (is_NPC(fixA) || is_NPC(fixB))  {
+        if (is_Infiltrators(fixA) || is_Infiltrators(fixB))  {
             // if contact end between NPC and a system
 
-            if (is_NPC(fixA) && is_System(fixB)){
+            if (is_Infiltrators(fixA) && is_System(fixB)){
                 Systems sys = (Systems) fixB.getUserData();
                 float sys_hp = sys.hp;
 
@@ -126,7 +126,7 @@ public class Object_ContactListener implements ContactListener {
                     sys.sabotaged();
                 }
             }
-            else if (is_NPC(fixB) && is_System(fixA)){
+            else if (is_Infiltrators(fixB) && is_System(fixA)){
                 Systems sys = (Systems) fixA.getUserData();
                 float sys_hp = sys.hp;
 
@@ -141,7 +141,7 @@ public class Object_ContactListener implements ContactListener {
 
     }
 
-    public boolean is_NPC(Fixture fixture){
+    public boolean is_Infiltrators(Fixture fixture){
         return Pattern.matches(pattern4,(String) fixture.getBody().getUserData());
     }
 
