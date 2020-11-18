@@ -70,7 +70,8 @@ public class AICharacter extends Sprite {
 
         fdef.shape = shape;
         b2body.setLinearDamping(10f);
-        b2body.createFixture(fdef).setUserData("NPC" + AICharacter.numberOfHostiles); // for contact listener
+        String data = "NPC_" + AICharacter.numberOfHostiles;
+        b2body.createFixture(fdef).setUserData(data); // for contact listener
 
         shape.dispose();
     }

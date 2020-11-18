@@ -1,15 +1,19 @@
 package tools;
 
 import auber.Player;
+
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 
+import map.Map;
 import ai.AICharacter;
 import screen.Gameplay;
+import sprites.Door;
 import sprites.Systems;
 import sprites.Teleport;
 
@@ -74,6 +78,35 @@ public class B2worldCreator {
             // create a new instantiated System object
             // stor system object in the systems Arraylist
             game.systems.add(new Systems(world,map,rect, object.getName()));
+        }
+
+        //TEMP
+        //TODO: add a door layer to the tilemap 
+
+        // loop through each tile
+        TiledMapTileLayer tiles = (TiledMapTileLayer)map.getLayers().get(0);
+        for (int x = 0; x < Map.mapTileWidth; x++) {
+            for (int y = 0; y < Map.mapTileHeight; y++) {
+                TiledMapTileLayer.Cell current = tiles.getCell(x, y);
+                if (current != null) {
+
+                    // if the current tile is a door tile
+                    if (current.getTile().getId() == 32) {
+                        TiledMapTileLayer.Cell up = tiles.getCell(x, y+1);
+
+                        // adds a new door to the game in the correct orientation
+                        // north-south 
+                        if (up != null) {
+                            Rectangle r = new Rectangle(x * Map.tilePixelWidth, (y-1) * Map.tilePixelHeight, Map.tilePixelWidth, Map.tilePixelHeight * 3);
+                            Gameplay.doors.add(new Door(world, map, r, false));
+                        // east-west    
+                        } else {
+                            Rectangle r = new Rectangle(x * Map.tilePixelWidth, (y-1) * Map.tilePixelHeight, Map.tilePixelWidth*3, Map.tilePixelHeight) ;
+                            Gameplay.doors.add(new Door(world, map, r, false));
+                        }
+                    }
+                }
+            }
         }
 
     }

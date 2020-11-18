@@ -22,6 +22,7 @@ import ai.AICharacter;
 import screen.actors.HealthBar;
 import screen.actors.System_status_menu;
 import screen.actors.Teleport_Menu;
+import sprites.Door;
 import sprites.Systems;
 import tools.B2worldCreator;
 import tools.BackgroundRenderer;
@@ -72,6 +73,8 @@ public class Gameplay implements Screen {
     public ArrayList<Systems> systems = new ArrayList<>();
 
     public System_status_menu systemStatusMenu;
+
+    public static ArrayList<Door> doors = new ArrayList<>();
 
 
     /**
