@@ -142,7 +142,7 @@ public class Gameplay implements Screen {
         light_control.light_update();
         enemy_manager.update_enemy(delta);
         systemStatusMenu.update_status(systems);
-//        npc.update(delta);
+
     }
 
 

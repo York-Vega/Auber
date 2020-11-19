@@ -53,7 +53,6 @@ public class Object_ContactListener implements ContactListener {
             }
         }
 
-
         // Sbotage contact
         if (is_Infiltrators(fixA) || is_Infiltrators(fixB))  {
             // if contact happened between NPC and a system
@@ -109,15 +108,13 @@ public class Object_ContactListener implements ContactListener {
         // // end Sbotage contact
         if (is_Infiltrators(fixA) || is_Infiltrators(fixB))  {
             // if contact end between NPC and a system
-
             if (is_Infiltrators(fixA) && is_System(fixB)){
-
                 Enemy enemy = (Enemy) fixA.getUserData();
                 Systems current_contact_system = enemy.current_contact_system;
                 Systems endContactSys = (Systems) fixB.getUserData();
                 // contact will be listened if enemy finished sabotaging a system and have generated next target system
                 // or enemy stop sabotaging the system
-                // the end contact between enemy and system will be listened
+                // the end contact between enemy and system it left will be listened
                 if (current_contact_system == endContactSys){
                     float sys_hp = current_contact_system.hp;
                     if (sys_hp > 1){
@@ -127,16 +124,14 @@ public class Object_ContactListener implements ContactListener {
                 }
                 // left the current contact system, should set it back to null
                 current_contact_system = null;
-
             }
             else if (is_Infiltrators(fixB) && is_System(fixA)){
-
                 Enemy enemy = (Enemy) fixB.getUserData();
                 Systems current_contact_system = enemy.current_contact_system;
                 Systems endContactSys = (Systems) fixA.getUserData();
                 // contact will be listened if enemy finished sabotaging a system and have generated next target system
                 // or enemy stop sabotaging the system
-                // the end contact between enemy and system will be listened
+                // the end contact between enemy and system it left will be listened
                 if (current_contact_system == endContactSys){
                     float sys_hp = current_contact_system.hp;
                     if (sys_hp > 1){
@@ -146,7 +141,6 @@ public class Object_ContactListener implements ContactListener {
                 }
                 // left the current system, should set it back to null
                 current_contact_system = null;
-
             }
         }
 
@@ -157,7 +151,8 @@ public class Object_ContactListener implements ContactListener {
     }
 
     public boolean is_System(Fixture fixture){
-        return Pattern.matches(pattern2,(String) fixture.getBody().getUserData());
+        return Pattern.matches(pattern2,(String) fixture.getBody().getUserData()) ||
+                Pattern.matches(pattern3,(String) fixture.getBody().getUserData());
     }
 
 
