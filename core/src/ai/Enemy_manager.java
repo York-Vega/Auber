@@ -135,8 +135,6 @@ public class Enemy_manager {
         for(Enemy enemy: enemies){
 
             if (enemy.isArrested()){
-                System.out.println(enemy + " is arrested");
-                System.out.println(enemy.dest_x + "," + enemy.dest_y);
                 // if enemy have a taget system
                 if (enemy.get_target_system() != null){
                     // if the target system is not sabotaged, remove it from information for other enemies to target that system

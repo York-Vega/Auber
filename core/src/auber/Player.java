@@ -154,7 +154,7 @@ public class Player extends Sprite {
         // stop enemy's sabotaging if it does
         enemy.set_ArrestedMode();
         // set enemy destination to auber's left,enemy should follow auber until it is in jail
-        enemy.setDest(this.getX()-32,this.getY());
+        enemy.setDest(this.getX(),this.getY());
         enemy.move_toDest();
 
     }
