@@ -4,11 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
+import map.Map;
 import sprites.Systems;
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 
 public class System_status_menu extends VerticalGroup {
 
@@ -18,7 +20,7 @@ public class System_status_menu extends VerticalGroup {
 
     public int count = 0;
 
-    public HashMap<Systems,Label> statusMap = new HashMap<>();
+    public Hashtable<Systems,Label> statusMap =new Hashtable<>() ;
 
     public System_status_menu(){
 
@@ -49,6 +51,7 @@ public class System_status_menu extends VerticalGroup {
 
         for (Systems system: systems){
             Label sys = new Label(system.getSystemName(),myskin,"alt");
+            sys.setColor(Color.WHITE);
             // setname to store name if ememy stop sabotaing, change the label text back to normal
             sys.setName(system.getSystemName());
             // scale the font size
@@ -71,26 +74,21 @@ public class System_status_menu extends VerticalGroup {
             Label sys_label = statusMap.get(system);
 
             // if enemy is sabotaging system, label should warn player
-            if(system.getSabotage_status().equals("system_sabotaging") && !system.getSabotage_status().equals("system_sabotaged")){
-                // already sabotaging
-                if (sys_label.getColor().equals(Color.RED)){
-                    sys_label.setText(system.sys_name + ": Under Attack" + ": (" + system.hp + "%)");
-                }
-                // just be sabotaging
-                else{
-                    sys_label.setText(system.sys_name + ": Under Attack" + ": (" + system.hp + "%)");
-                    sys_label.setColor(Color.RED);
-                }
+            if(system.is_sabotaging()){
+
+                sys_label.setColor(Color.RED);
+                sys_label.setText(system.sys_name + ": Under Attack" + ": (" + system.hp + "%)");
 
             }
             // if system is sabotaged, label should go gray
-            else if(system.getSabotage_status().equals("system_sabotaged") ){
+            if(system.is_sabotaged() ){
                 // alreday sabotaged
                 if(sys_label.getColor().equals(Color.GRAY)){
                     sys_label.setText(system.sys_name + ": Sabotaged(" + system.hp + "%)");
+
                 }
                 // just be sabotaged
-                else if(sys_label.getColor().equals(Color.RED)){
+                else{
                     sys_label.setText(system.sys_name + ": Sabotaged("  + system.hp + "%)");
                     sys_label.setColor(Color.GRAY);
                     // update sabotaged count
@@ -100,26 +98,17 @@ public class System_status_menu extends VerticalGroup {
                         // if system sabotaged over 10, change color of title to red
                         sabotage_count.setColor(Color.RED);
                     }
-                }
-                // bug fix
-                else if(sys_label.getColor().equals(Color.WHITE)){
-                    sys_label.setText(system.sys_name + ": Sabotaged" + "(" + system.hp + "%)");
-                    sys_label.setColor(Color.GRAY);
+
                 }
             }
             // if system not being sabotaging or enemy stop sabotaging label should back to normal
-            else if(system.getSabotage_status().equals("system_not_sabotaged")){
-                // not being sabotaged
-                if (sys_label.getColor().equals(Color.WHITE)){
-                    sys_label.setText(system.sys_name + ": (" + system.hp + "%)");
-                }
-                // sabotaging just stopped
-                else if (sys_label.getColor().equals(Color.RED)){
-                    sys_label.setText(system.sys_name + ": (" + system.hp + "%)");
-                    sys_label.setColor(Color.WHITE);
-                }
+            if(system.is_not_sabotaged()){
+                sys_label.setColor(Color.WHITE);
+                sys_label.setText(system.sys_name + ": (" + system.hp + "%)");
+
             }
         }
+
     }
 
 

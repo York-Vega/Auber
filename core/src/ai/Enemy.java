@@ -8,7 +8,9 @@ public class Enemy extends AICharacter{
 
     public float dest_x;
     public float dest_y;
-
+    public Systems target_system;
+    public Systems current_contact_system; // used for contact listener
+    public String mode;
     /**
      *  Enemy
      * @param world
@@ -18,8 +20,9 @@ public class Enemy extends AICharacter{
      */
     public Enemy(World world, String name, float x, float y){
         super(world,name,x,y);
-        this.dest_x = 0;
-        this.dest_y = 0;
+        this.dest_x = x;
+        this.dest_y = y;
+        mode = "";
     }
 
 
@@ -34,14 +37,71 @@ public class Enemy extends AICharacter{
     }
 
     /**
+     * move to destination
+     */
+    public void move_toDest(){
+        goTo(dest_x,dest_y);
+    }
+
+    /**
+     * set sabotage system target
+     * @param system
+     */
+    public void set_target_system(Systems system){
+        target_system = system;
+    }
+
+    /**
+     *
+     * @return targeted system
+     */
+    public Systems get_target_system(){
+        return target_system;
+    }
+
+    /**
      * ability to sabotage the system
      * @param system
      */
     public void sabotage(Systems system){
-        if(system.hp > 0f){
-            system.hp --;
+        if(system.hp > 0){
+            system.hp -=1;
+        }
+        else{
+            system.set_sabotaged();
         }
     }
+
+    /**
+     * set enemy to attcking mode
+     */
+    public void set_attackSystemMode(){
+        mode = "attacking_system";
+    }
+
+    /**
+     * set enemy to standby mode
+     */
+    public void set_standByMode(){
+        mode = "";
+    }
+
+    /**
+     * check enemy is attcking a system or not
+     * @return
+     */
+    public boolean is_attcking_mode(){
+        return mode.equals("attacking_system");
+    }
+
+    /**
+     * check enemy is standingby or not
+     * @return
+     */
+    public boolean is_standBy_mode(){
+        return mode.equals("");
+    }
+
 
     /**
      * ability to slow down auber

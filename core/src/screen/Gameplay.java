@@ -140,8 +140,8 @@ public class Gameplay implements Screen {
         healthBar.update_HP(p1);
         hud.stage.act(delta);
         light_control.light_update();
+        enemy_manager.update_enemy(delta);
         systemStatusMenu.update_status(systems);
-        enemy_manager.update_ai(delta);
 //        npc.update(delta);
     }
 

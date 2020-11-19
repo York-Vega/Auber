@@ -1,6 +1,7 @@
 package tools;
 
 
+import ai.Enemy;
 import com.badlogic.gdx.physics.box2d.*;
 import sprites.Systems;
 
@@ -52,37 +53,31 @@ public class Object_ContactListener implements ContactListener {
             }
         }
 
-        // TEST
-//        if (is_NPC(fixA) && is_NPC(fixB)){
-//            fixA.setSensor(true);
-//            fixB.setSensor(true);
-//        }
 
         // Sbotage contact
         if (is_Infiltrators(fixA) || is_Infiltrators(fixB))  {
             // if contact happened between NPC and a system
             if (is_Infiltrators(fixA) && is_System(fixB)){
                 // only when NPC contact with the target system, sabotage process will begin
-                if(fixA.getUserData().equals((Systems) fixB.getUserData())){
-                    Systems sys_being_sabotaging = (Systems) fixB.getUserData();
-                    fixB.getBody().setUserData("system_sabotaging");
-                    String searching_mode = (String) fixA.getBody().getUserData();
-                    //String sabotaging_sys = sys_being_sabotaging.sys_name;
-                    String attacking_mode = searching_mode +"attack";
-                    fixA.getBody().setUserData(attacking_mode);
+                Enemy enemy = (Enemy) fixA.getUserData();
+                Systems target_system = enemy.get_target_system();
+                Systems contact_system = (Systems) fixB.getUserData();
+                if (target_system == contact_system){
+                    enemy.current_contact_system = contact_system;
+                    enemy.set_attackSystemMode();
+                    target_system.set_sabotaging();
                 }
-
             }
             else if (is_Infiltrators(fixB) && is_System(fixA)){
                 // only when NPC contact with the target system, sabotage process will begin
-                if(fixB.getUserData().equals((Systems) fixA.getUserData())){
-                    Systems sys_being_sabotaging = (Systems) fixA.getUserData();
-                    fixA.getBody().setUserData("system_sabotaging");
-                    String searching_mode = (String) fixB.getBody().getUserData();
-                    String attacking_mode = searching_mode + "attack";
-                    fixB.getBody().setUserData(attacking_mode);
+                Enemy enemy = (Enemy) fixB.getUserData();
+                Systems target_system = enemy.get_target_system();
+                Systems contact_system = (Systems) fixA.getUserData();
+                if (target_system == contact_system){
+                    enemy.current_contact_system = contact_system;
+                    enemy.set_attackSystemMode();
+                    target_system.set_sabotaging();
                 }
-
             }
         }
 
@@ -116,26 +111,42 @@ public class Object_ContactListener implements ContactListener {
             // if contact end between NPC and a system
 
             if (is_Infiltrators(fixA) && is_System(fixB)){
-                Systems sys = (Systems) fixB.getUserData();
-                float sys_hp = sys.hp;
 
-                String mode = (String) fixA.getBody().getUserData();
-                mode = mode.replace("attack","");
-                fixA.getBody().setUserData(mode);
-                if(sys_hp <= 0){
-                    sys.sabotaged();
+                Enemy enemy = (Enemy) fixA.getUserData();
+                Systems current_contact_system = enemy.current_contact_system;
+                Systems endContactSys = (Systems) fixB.getUserData();
+                // contact will be listened if enemy finished sabotaging a system and have generated next target system
+                // or enemy stop sabotaging the system
+                // the end contact between enemy and system will be listened
+                if (current_contact_system == endContactSys){
+                    float sys_hp = current_contact_system.hp;
+                    if (sys_hp > 1){
+                        // if system's hp > 1, set it to not sabotaged status
+                        current_contact_system.not_sabotaged();
+                    }
                 }
+                // left the current contact system, should set it back to null
+                current_contact_system = null;
+
             }
             else if (is_Infiltrators(fixB) && is_System(fixA)){
-                Systems sys = (Systems) fixA.getUserData();
-                float sys_hp = sys.hp;
 
-                String mode = (String) fixB.getBody().getUserData();
-                mode = mode.replace("attack","");
-                fixB.getBody().setUserData(mode);
-                if(sys_hp <= 0){
-                    sys.sabotaged();
+                Enemy enemy = (Enemy) fixB.getUserData();
+                Systems current_contact_system = enemy.current_contact_system;
+                Systems endContactSys = (Systems) fixA.getUserData();
+                // contact will be listened if enemy finished sabotaging a system and have generated next target system
+                // or enemy stop sabotaging the system
+                // the end contact between enemy and system will be listened
+                if (current_contact_system == endContactSys){
+                    float sys_hp = current_contact_system.hp;
+                    if (sys_hp > 1){
+                        // if system's hp > 1, set it to not sabotaged status
+                        current_contact_system.not_sabotaged();
+                    }
                 }
+                // left the current system, should set it back to null
+                current_contact_system = null;
+
             }
         }
 
@@ -148,7 +159,6 @@ public class Object_ContactListener implements ContactListener {
     public boolean is_System(Fixture fixture){
         return Pattern.matches(pattern2,(String) fixture.getBody().getUserData());
     }
-
 
 
 

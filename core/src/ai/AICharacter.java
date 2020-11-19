@@ -71,6 +71,7 @@ public class AICharacter extends Sprite {
         b2body.createFixture(fdef); // for contact listener
         b2body.setUserData("NPC_" + AICharacter.numberOfHostiles);
         b2body.getFixtureList().get(0).setSensor(true);
+        b2body.getFixtureList().get(0).setUserData(this);
         shape.dispose();
     }
     
@@ -184,21 +185,4 @@ public class AICharacter extends Sprite {
         this.pathIndex = this.path.getCount();
     }
 
-
-    /**
-     *  sabotage process for enemies
-     * @param system
-     */
-    public void sabotage(Systems system){
-        // sart sabotaging if system hp > 0
-        if (system.hp > 0){
-            system.hp -= 1;
-            //System.out.println(system.hp);
-        }
-        // if system hp <= 0, set system to sabotaged
-        if (system.hp <=0){
-            system.hp = 0;
-            system.sabotaged();
-        }
-    }
 }

@@ -40,8 +40,12 @@ public class Systems extends InteractiveTileObject{
         return sys_name;
     }
 
+    /**
+     *  sabotage status
+     * @return
+     */
     public String getSabotage_status(){
-        return (String) this.fixture.getBody().getUserData();
+        return (String) this.body.getUserData();
     }
 
     public float[] getposition(){
@@ -49,11 +53,48 @@ public class Systems extends InteractiveTileObject{
         return position;
     }
 
-    public void sabotaged(){
-        this.fixture.getBody().setUserData("system_sabotaged");
+    /**
+     * set system to sabotaged
+     */
+    public void set_sabotaged(){
+        body.setUserData("system_sabotaged");
     }
 
+    /**
+     * set system to not sabotaged
+     */
     public void not_sabotaged(){
-        this.fixture.getBody().setUserData("system_not_sabotaged");
+        body.setUserData("system_not_sabotaged");
+    }
+
+    /**
+     * set system to sabotaging
+     */
+    public void set_sabotaging(){
+        body.setUserData("system_sabotaging");
+    }
+
+    /**
+     * check system is sabotaged or not
+     * @return return true if system is sabotaged
+     */
+    public boolean is_sabotaged(){
+        return body.getUserData().equals("system_sabotaged");
+    }
+
+    /**
+     *
+     * @return return true if is sabotaging
+     */
+    public boolean is_sabotaging(){
+        return body.getUserData().equals("system_sabotaging");
+    }
+
+    /**
+     *
+     * @return true if system is not sabotaged and not sabotaging
+     */
+    public boolean is_not_sabotaged(){
+        return body.getUserData().equals("system_not_sabotaged");
     }
 }
