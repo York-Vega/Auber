@@ -17,8 +17,6 @@ import com.badlogic.gdx.physics.box2d.World;
  * Door class representing the activating region and physical body
  */
 public class Door extends InteractiveTileObject{
-    // physical body of door
-    public Body body; 
     private boolean locked;
     // total number of doors in the world
     private static int noDoors = 0;
@@ -36,11 +34,9 @@ public class Door extends InteractiveTileObject{
         this.bounds = bounds;
         this.locked = locked;
 
-        // the user data for collision detection
-        DoorData data = new DoorData("door_interactive_" + Door.noDoors, Door.noDoors);
-        
         this.createBody(world);
-        this.fixture.setUserData(data); // for contact_listener
+        this.fixture.setUserData("door_interact_" + Door.noDoors); // for contact_listener
+        this.fixture.getBody().setUserData(this);
         Door.noDoors++;
 
         this.fixture.setSensor(true);
@@ -100,29 +96,14 @@ public class Door extends InteractiveTileObject{
 
         fdef.shape = shape;
 
-        DoorData data = new DoorData("door_" + Door.noDoors, Door.noDoors);
-        
-        this.body.createFixture(fdef).setUserData(data);// for contact listener
-        this.body.setUserData(data);
+             
+        this.body.createFixture(fdef).setUserData("door_body_" + Door.noDoors);// for contact listener
+        this.body.setUserData(this);
         shape.dispose();
     } 
     
-    // class used used by contact listener 
-    public class DoorData{
-        // identifies the type of object 
-        public String name;
-        // identifies the specific door 
-        public int index;
-
-        public DoorData(String name, int index) {
-            this.name = name;
-            this.index = index;
-        }
-        
-        @Override
-        public String toString() {
-            return this.name;
-        }
+    public String toString() {
+        return "door";
     }
 
 }

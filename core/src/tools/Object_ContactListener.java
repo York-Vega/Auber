@@ -14,20 +14,7 @@ public class Object_ContactListener implements ContactListener {
 
     // regex to determine whether contact object is a teleport or not
     private final String pattern = ".*teleporter.*";
-    private boolean isTeleport;
-
-    private final String pattern2 = ".*system.*";
-    private boolean isSystem;
-
-    private final String pattern3 = ".*healingPod.*";
-    private boolean isHealingPod;
-
-    private boolean isNPC;
-    private final String pattern4 = ".*NPC.*";
-
-    private final String pattern5 = "door_.*";
-    private boolean isDoor;
-
+    private boolean isTeleport; 
 
     /**
      * If auber has contact with the teleporter, the auber's userData --> ready_to_teleport, update auber's position in player.update()
@@ -43,27 +30,20 @@ public class Object_ContactListener implements ContactListener {
 
         // use reg to check whether the object contacted is a teleporter or not
         isTeleport = Pattern.matches(pattern, fixB.getUserData().toString());
-        // use reg to check whether the object contacted is a system or not
-        isSystem = Pattern.matches(pattern2,fixB.getUserData().toString());
-        // use reg to check whether the object contacted is a healpod
-        isHealingPod = Pattern.matches(pattern3, fixB.getUserData().toString());
-        // use reg to check whether the object contacted is a door
-        isDoor = Pattern.matches(pattern5, fixB.getUserData().toString());
-
-
+       
         if (isTeleport && fixA.getBody().getUserData() == "auber")  {
             // set the player.UserData to ready_to_teleport for teleport_process
             fixA.getBody().setUserData("ready_to_teleport");
         }
         // if auber contact with healing pod and healing pod is not sabotaged
-        if (isHealingPod && fixA.getBody().getUserData() == "auber"){
+        if (is_System(fixB) && fixA.getBody().getUserData() == "auber"){
             // set the player.UserData to ready_to_heal for healing process
             if(fixB.getBody().getUserData() == "healingPod_not_sabotaged"){
                 fixA.getBody().setUserData("ready_to_heal");
             }
         }
         // if the auber is in contact with a door
-        if(isDoor && fixA.getBody().getUserData() == "auber") {
+        if(is_Doors(fixB) && fixA.getBody().getUserData() == "auber") {
             System.out.println("start contact with " + fixB.getUserData().toString());
 
         }
@@ -105,31 +85,19 @@ public class Object_ContactListener implements ContactListener {
 
         // use reg to check whether the object end contact is a teleporter or not
         isTeleport = Pattern.matches(pattern, fixB.getUserData().toString());
-        // use reg to check whether the object end contact is a system or not
-        isSystem = Pattern.matches(pattern2, fixB.getUserData().toString());
-        // use reg to check whether the object end contact is a healpod
-        isHealingPod = Pattern.matches(pattern3, fixB.getUserData().toString());
-        // use reg to check whether the object end contact is a door           
-        isDoor = Pattern.matches(pattern4, fixB.getUserData().toString());
-
-
+        
         if (isTeleport && fixA.getBody().getUserData() == "ready_to_teleport") {
             // set the player.UserData to auber after the contact ended
             fixA.getBody().setUserData("auber");
         }
         // change the fixA to enemy after enemy entity built, this is for test purpose
-        if (isSystem && fixA.getBody().getUserData() == "auber")  {
+        if (is_System(fixB) && fixA.getBody().getUserData() == "auber")  {
             System.out.println("end contact with " + fixB.getUserData());
             System.out.println(fixB.getUserData()+ " sabotaged : " + fixB.getBody().getUserData());
         }
-        // if auber end contact with the healing pod
-        if (isHealingPod && fixA.getBody().getUserData() == "ready_to_heal"){
-            // set the player.UserData back to auber to end healing process
-            fixA.getBody().setUserData("auber");
-        }
 
         // if auber end contact with the door
-        if (isDoor && fixA.getBody().getUserData() == "auber")  {
+        if (is_Doors(fixB) && fixA.getBody().getUserData() == "auber")  {
             System.out.println("end contact with " + fixB.getUserData().toString());
         }  
         
@@ -177,12 +145,16 @@ public class Object_ContactListener implements ContactListener {
     }
 
     public boolean is_Infiltrators(Fixture fixture){
-        return Pattern.matches(pattern4,(String) fixture.getBody().getUserData());
+        return Pattern.matches(".*NPC.*", fixture.getBody().getUserData().toString());
     }
 
     public boolean is_System(Fixture fixture){
-        return Pattern.matches(pattern2,(String) fixture.getBody().getUserData()) ||
-                Pattern.matches(pattern3,(String) fixture.getBody().getUserData());
+        return Pattern.matches( ".*system.*", fixture.getBody().getUserData().toString()) ||
+                Pattern.matches(".*healingPod.*", fixture.getBody().getUserData().toString());
+    }
+
+    public boolean is_Doors(Fixture fixture) {
+        return  Pattern.matches("door_.*" , fixture.getUserData().toString());
     }
 
 
@@ -194,18 +166,16 @@ public class Object_ContactListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         // if the character is about to come into contact with a door
-        isDoor = Pattern.matches(pattern4,fixB.getUserData().toString());
-        if (isDoor && ((fixA.getBody().getUserData() == "auber") | Pattern.matches(pattern5,(String)fixA.getUserData())))  {
+        if (is_Doors(fixB) && ((fixA.getBody().getUserData() == "auber") || is_Infiltrators(fixA)))  {
             // gets the door 
             Object data = fixB.getBody().getUserData();
-            if (data instanceof Door.DoorData) {                
-                Door door = Gameplay.doors.get(((Door.DoorData)data).index);
-                
+            if (data instanceof Door) {            
+                                
                 // if the door is locked, it is collidable,
                 // else it is not 
-                contact.setEnabled(door.isLocked());
+                contact.setEnabled(((Door)data).isLocked());
             }
-        }        
+        }   
         
     }
 
