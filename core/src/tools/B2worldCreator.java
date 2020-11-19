@@ -81,9 +81,7 @@ public class B2worldCreator {
             game.systems.add(new Systems(world,map,rect, object.getName()));
         }
 
-        //TEMP
-        //TODO: add a door layer to the tilemap 
-
+        
         // loop through each tile
         TiledMapTileLayer tiles = (TiledMapTileLayer)map.getLayers().get(0);
         for (int x = 0; x < Map.mapTileWidth; x++) {
@@ -109,6 +107,6 @@ public class B2worldCreator {
                 }
             }
         }
-
+        
     }
 }

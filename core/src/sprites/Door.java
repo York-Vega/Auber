@@ -68,7 +68,7 @@ public class Door extends InteractiveTileObject{
         }
     }
 
-    
+    // Creates the physical body of the door
     private void createBody(World world)  {
         // ensure only the door blocks and not the surrounding interactive tiles 
 

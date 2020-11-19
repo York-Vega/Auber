@@ -150,7 +150,8 @@ public class Object_ContactListener implements ContactListener {
 
     public boolean is_System(Fixture fixture){
         return Pattern.matches( ".*system.*", fixture.getBody().getUserData().toString()) ||
-                Pattern.matches(".*healingPod.*", fixture.getBody().getUserData().toString());
+                Pattern.matches(".*healingPod.*", fixture.getBody().getUserData().toString()) || 
+                Pattern.matches(".*doors.*", fixture.getBody().getUserData().toString());
     }
 
     public boolean is_Doors(Fixture fixture) {

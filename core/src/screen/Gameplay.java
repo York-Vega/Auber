@@ -22,6 +22,7 @@ import sprites.Door;
 import sprites.Systems;
 import tools.B2worldCreator;
 import tools.BackgroundRenderer;
+import tools.Door_Controll;
 import tools.Light_control;
 import tools.Object_ContactListener;
 import tools.Teleport_process;
@@ -142,6 +143,7 @@ public class Gameplay implements Screen {
         healthBar.update_HP(p1);
         hud.stage.act(delta);
         light_control.light_update(systems);
+        Door_Controll.updateDoors(systems, delta);
         enemy_manager.update_enemy(delta);
         systemStatusMenu.update_status(systems);
     }
