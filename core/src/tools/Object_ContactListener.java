@@ -84,17 +84,15 @@ public class Object_ContactListener implements ContactListener {
 
         // auber arrest contact
         if (is_Auber(fixA) || is_Auber(fixB)){
-
+            // if contact happened between auber and infiltrators
             if (is_Auber(fixA) && is_Infiltrators(fixB)){
 
                 Player auber = (Player) fixA.getUserData();
                 Enemy enemy = (Enemy) fixB.getUserData();
-
+                // if auber is not arresting other infiltrators, contacted infiltrators will be arrested
                 if (!auber.is_arresting()){
                     auber.setNearby_enemy(enemy);
-                    //auber.arrest(enemy);
                 }
-
             }
             else if (is_Auber(fixB) && is_Infiltrators(fixA)){
 
@@ -103,12 +101,12 @@ public class Object_ContactListener implements ContactListener {
 
                 if (!auber.is_arresting()){
                     auber.setNearby_enemy(enemy);
-                    //auber.arrest(enemy);
                 }
-
             }
-
         }
+
+
+
 
 
     }

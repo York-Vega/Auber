@@ -164,13 +164,9 @@ public class Enemy_manager {
                     generateNextTarget(enemy);
                 }
                 enemy.update(delta);
-
             }
-
         }
-
     }
-
 
     /**
      * If enemy successfuly sabotage one target, generate next target for it

@@ -41,7 +41,7 @@ public class AICharacter extends Sprite {
         super(new Texture(name));
         this.world = world;
         setPosition(x, y);
-        this.speed = 500.0f;        
+        this.speed = 700.0f;
         createBody();
         AICharacter.numberOfHostiles++;
 
