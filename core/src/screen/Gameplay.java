@@ -1,12 +1,12 @@
 package screen;
 
+import ai.Enemy_manager;
 import auber.Player;
+import map.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -36,7 +36,11 @@ public class Gameplay implements Screen {
 
     private GameMain game;
 
-    public Player p1;
+    public static Player p1;
+
+//    TEST
+//    public AICharacter npc;
+    public Enemy_manager enemy_manager;
 
     public OrthographicCamera camera;
 
@@ -81,6 +85,7 @@ public class Gameplay implements Screen {
         maploader = new TmxMapLoader();
         // load the tiled map
         map = maploader.load("Map/Map.tmx");
+        Map.create(map);
         renderer = new OrthogonalTiledMapRenderer(map);
 
         // create a light control object
@@ -89,6 +94,7 @@ public class Gameplay implements Screen {
         // this image is only for test purpose, needs to be changed with proper sprite
         //p1 = new Player(world, "player_test.png", 1133, 1011);
 
+        
         // create a new orthographic camera
         camera = new OrthographicCamera();
         // set the viewport area for camera
@@ -113,6 +119,8 @@ public class Gameplay implements Screen {
         // create a system_status_menu instance
         systemStatusMenu = hud.system_status_menu;
         systemStatusMenu.generate_systemLabels(systems);
+        // create an enemy_manager instance
+        enemy_manager = new Enemy_manager(world,map,systems);
 
     }
 
@@ -122,18 +130,17 @@ public class Gameplay implements Screen {
      * Updates the game, logic will go here called by libgdx GameMain.
      */
     public void update()  {
+
         delta = Gdx.graphics.getDeltaTime();
-
         backgroundRenderer.update(delta);
-
         world.step(delta, 8, 3);
         p1.updatePlayer(delta);
         teleport_process.validate();
         healthBar.update_HP(p1);
         hud.stage.act(delta);
-        light_control.light_update();
+        light_control.light_update(systems);
+        enemy_manager.update_enemy(delta);
         systemStatusMenu.update_status(systems);
-        
     }
 
 
@@ -148,41 +155,38 @@ public class Gameplay implements Screen {
 
     @Override
     public void render(float delta) {
+
         update();
 
         // set camera follow the player
         camera.position.set(p1.b2body.getPosition().x, p1.b2body.getPosition().y, 0);
         camera.update();
-        
         // clear the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         viewport.apply();
-
         backgroundRenderer.render();
-
         // render the tilemap
         renderer.setView(camera);
         renderer.render(backgroundLayers);
-
         // this is needed to be called before the batch.begin(), or scrren will freeze
         game.getBatch().setProjectionMatrix(camera.combined);
-
-        // render the player sprite
+        // begin the batch
         game.getBatch().begin();
+        // render auber
         p1.draw(game.getBatch());
+        // render Infiltrators
+        enemy_manager.render_ememy(game.getBatch());
+        // end the batch
         game.getBatch().end();
-
         // render tilemap that should apear infront of the player
         renderer.render(forgroundLayers);
-
         // render the light
         light_control.rayHandler.render();
-
         // render the hud
         hud.viewport.apply();
         hud.stage.draw();
+
 
         //dispose();
 

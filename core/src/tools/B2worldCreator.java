@@ -45,12 +45,17 @@ public class B2worldCreator {
             shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
             fdef.shape = shape;
             body.createFixture(fdef).setUserData("walls");
+            body.setUserData("walls");
         }
 
         // Creates the player at the spawn point on the spawn layer of the map
         for (MapObject object : layers.get("spawn").getObjects()) {
             Rectangle point = ((RectangleMapObject) object).getRectangle();
             game.p1 = new Player(world, "player.png", point.x, point.y);
+
+            // TEST
+            //game.npc = new AICharacter(world, "player.png", 254, 4078);
+
             break;
 
         }

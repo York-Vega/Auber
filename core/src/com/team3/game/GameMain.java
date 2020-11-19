@@ -16,12 +16,6 @@ public class GameMain extends Game  {
     @Override
     public void render() {
         super.render(); // render multiple screen
-
-        // Gdx.gl.glClearColor(1, 0, 0, 1);
-        // Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        // batch.begin();
-        //
-        // batch.end();
     }
 
     public SpriteBatch getBatch() {
