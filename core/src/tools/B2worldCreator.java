@@ -45,6 +45,7 @@ public class B2worldCreator {
             shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
             fdef.shape = shape;
             body.createFixture(fdef).setUserData("walls");
+            body.setUserData("walls");
         }
 
         // Creates the player at the spawn point on the spawn layer of the map

@@ -15,7 +15,7 @@ public class Player {
     public Body b2body;
     public float health;
     public boolean ishealing;
-    private float playerSpeed = 60f;
+    public float playerSpeed = 60f;
     private CharacterRenderer renderer;
     private Vector2 position;
     private Vector2 size;
