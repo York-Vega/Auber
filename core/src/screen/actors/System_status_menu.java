@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Tree.Node;
 import com.badlogic.gdx.utils.Align;
 import sprites.Systems;
-import sun.tools.jconsole.Tab;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -2,20 +2,23 @@ package auber;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import tools.CharacterRenderer;
 
 /**
  * Main player object for the game.
  */
-public class Player extends Sprite {
+public class Player {
     public World world;
     public Body b2body;
     public float health;
     public boolean ishealing;
     private float playerSpeed = 60f;
+    private CharacterRenderer renderer;
+    private Vector2 position;
+    private Vector2 size;
 
     /**
      * creates an semi-initalised player the physics body is still uninitiated.
@@ -28,13 +31,19 @@ public class Player extends Sprite {
      * 
      * @param y The inital y location of the player
      */
-    public Player(World world, String name, float x, float y)  {
-        super(new Texture(name));
+    public Player(World world, float x, float y)  {
         this.world = world;
         this.health = 10f;
         this.ishealing = false;
-        setPosition(x, y);
+        position = new Vector2(x, y);
+        size = new Vector2(24, 24);
         createBody();
+
+        renderer = new CharacterRenderer(CharacterRenderer.Sprite.AUBER);
+    }
+
+    public void setPosition(float x, float y) {
+        position.set(x, y);
     }
         
     /**
@@ -42,13 +51,13 @@ public class Player extends Sprite {
     */
     public void createBody()  {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(this.getX() + getWidth() + 4, this.getY() + getHeight() + 4);
+        bdef.position.set(position.x + size.x, position.y + size.y);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth() / 2, getHeight() / 2);
+        shape.setAsBox(size.x / 2, size.y / 2);
 
         fdef.shape = shape;
 
@@ -60,54 +69,49 @@ public class Player extends Sprite {
 
     }
     
-
     /**
      * Updates the player, should be called every update cycle.
 
      * @param delta The time in secconds since the last update
      */
     public void updatePlayer(float delta)  {
-
+        Vector2 input = new Vector2(0, 0);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            b2body.applyLinearImpulse(new Vector2(-playerSpeed, 0),
-                b2body.getWorldCenter(), true);
+            input.add(-playerSpeed, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            b2body.applyLinearImpulse(new Vector2(playerSpeed, 0),
-                b2body.getWorldCenter(), true);
+            input.add(playerSpeed, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            b2body.applyLinearImpulse(new Vector2(0, playerSpeed),
-                b2body.getWorldCenter(), true);
+            input.add(0, playerSpeed);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            b2body.applyLinearImpulse(new Vector2(0, -playerSpeed),
-                b2body.getWorldCenter(), true);
+            input.add(0, -playerSpeed);
         }
+        b2body.applyLinearImpulse(input, b2body.getWorldCenter(), true);
 
         // position sprite properly within the box
-        this.setPosition(b2body.getPosition().x - getWidth() / 2,
-                         b2body.getPosition().y - getHeight() / 2);
+        this.setPosition(b2body.getPosition().x - size.x / 1,
+                         b2body.getPosition().y - size.y / 1 + 4);
 
         // should be called each loop of rendering
         healing(delta);
+
+        renderer.update(delta, input);
     }
 
     /**
      *
      * @param isheal set ishealing to true or false
      */
-    public void setHealing(boolean isheal){
-
+    public void setHealing(boolean isheal) {
         ishealing = isheal;
-
     }
-
 
     /**
      * Healing auber
      */
-    public void healing(float delta){
+    public void healing(float delta) {
         // healing should end or not start if auber left healing pod or not contact with healing pod
         if (b2body.getUserData() == "auber"){
             setHealing(false);
@@ -134,6 +138,10 @@ public class Player extends Sprite {
             System.out.println("Auber is healing, Auber current health: " + health);
         }
 
+    }
+
+    public void draw(SpriteBatch batch) {
+        renderer.render(position, batch);
     }
 
 }

@@ -21,6 +21,7 @@ import screen.actors.Teleport_Menu;
 import sprites.Systems;
 import tools.B2worldCreator;
 import tools.BackgroundRenderer;
+import tools.CharacterRenderer;
 import tools.Light_control;
 import tools.Object_ContactListener;
 import tools.Teleport_process;
@@ -83,6 +84,7 @@ public class Gameplay implements Screen {
         map = maploader.load("Map/Map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
 
+        CharacterRenderer.loadTextures();
         // create a light control object
         light_control = new Light_control(world);
 
