@@ -85,7 +85,7 @@ public class Enemy_manager {
             double random_d = Math.random();
             // generate a index [0,15]
             int index =(int) (random_d * 15);
-            // take away healing pod for test
+            // take away healing pod for initial traget, for difficulty
             while (random_index.contains(index) && !systems.get(index).sys_name.equals("headlingPod")){
                 random_d = Math.random();
                 index = (int) (random_d * 15);
