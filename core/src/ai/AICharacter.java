@@ -45,12 +45,8 @@ public class AICharacter extends Sprite {
         createBody();
         AICharacter.numberOfHostiles++;
 
-        // TEST
         this.pathFinder = new IndexedAStarPathFinder<Node>(Map.graph);
-        
-//        int endx = (int)Gameplay.p1.b2body.getPosition().x;
-//        int endy = (int)Gameplay.p1.b2body.getPosition().y;
-//        this.goTo(endx, endy);
+
     }
         
     /**

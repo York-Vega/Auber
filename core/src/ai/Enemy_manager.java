@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import sprites.Systems;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.regex.Pattern;
+
 
 /**
  * Manage enemies in the game
@@ -150,14 +150,11 @@ public class Enemy_manager {
             enemy.update(delta);
         }
 
-        System.out.println(information.size());
-
-
     }
 
 
     /**
-     * If NPC successfuly sabotage one target, generate next target for it
+     * If enemy successfuly sabotage one target, generate next target for it
      * @param enemy
      */
     public void generateNextTarget(Enemy enemy){

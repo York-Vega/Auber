@@ -130,10 +130,9 @@ public class Gameplay implements Screen {
      * Updates the game, logic will go here called by libgdx GameMain.
      */
     public void update()  {
+
         delta = Gdx.graphics.getDeltaTime();
-
         backgroundRenderer.update(delta);
-
         world.step(delta, 8, 3);
         p1.updatePlayer(delta);
         teleport_process.validate();
@@ -142,7 +141,6 @@ public class Gameplay implements Screen {
         light_control.light_update(systems);
         enemy_manager.update_enemy(delta);
         systemStatusMenu.update_status(systems);
-
     }
 
 
@@ -157,43 +155,34 @@ public class Gameplay implements Screen {
 
     @Override
     public void render(float delta) {
+
         update();
 
         // set camera follow the player
         camera.position.set(p1.b2body.getPosition().x, p1.b2body.getPosition().y, 0);
         camera.update();
-        
         // clear the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         viewport.apply();
-
         backgroundRenderer.render();
-
         // render the tilemap
         renderer.setView(camera);
         renderer.render(backgroundLayers);
-
         // this is needed to be called before the batch.begin(), or scrren will freeze
         game.getBatch().setProjectionMatrix(camera.combined);
-
-        // render the player sprite
+        // begin the batch
         game.getBatch().begin();
-
+        // render auber
         p1.draw(game.getBatch());
-
+        // render Infiltrators
         enemy_manager.render_ememy(game.getBatch());
-
         // end the batch
         game.getBatch().end();
-
         // render tilemap that should apear infront of the player
         renderer.render(forgroundLayers);
-
         // render the light
         light_control.rayHandler.render();
-
         // render the hud
         hud.viewport.apply();
         hud.stage.draw();

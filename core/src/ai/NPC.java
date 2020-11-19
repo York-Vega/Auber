@@ -14,8 +14,25 @@ public class NPC extends AICharacter{
      */
     public NPC(World world,String name, float x, float y){
         super(world,name,x,y);
-        dest_x = 0;
-        dest_y = 0;
+        dest_x = x;
+        dest_y = y;
+    }
+
+    /**
+     * set npc's destination
+     * @param x
+     * @param y
+     */
+    public void set_Dest( float x, float y){
+        this.dest_x = x;
+        this.dest_y = y;
+    }
+
+    /**
+     * move npc to the destination
+     */
+    public void move_toDest(){
+        goTo(dest_x,dest_y);
     }
 
 
