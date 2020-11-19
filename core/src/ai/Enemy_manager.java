@@ -134,20 +134,41 @@ public class Enemy_manager {
 
         for(Enemy enemy: enemies){
 
-            // get targeted system object
-            Systems sys = enemy.get_target_system();
-            // if no system left to sabotage, should start attacking auber
-            if (sys == null){
-                continue;
+            if (enemy.isArrested()){
+                System.out.println(enemy + " is arrested");
+                System.out.println(enemy.dest_x + "," + enemy.dest_y);
+                // if enemy have a taget system
+                if (enemy.get_target_system() != null){
+                    // if the target system is not sabotaged, remove it from information for other enemies to target that system
+                    if (enemy.get_target_system().is_not_sabotaged() && information.containsKey(enemy.get_target_system())){
+                        information.remove(enemy.get_target_system());
+                        enemy.update(delta);
+                        continue;
+                    }
+                    enemy.update(delta);
+                    continue;
+                }
+                enemy.update(delta);
             }
-            if (enemy.is_attcking_mode()){
-                enemy.sabotage(sys);
+            else{
+                // get targeted system object
+                Systems sys = enemy.get_target_system();
+                // if no system left to sabotage, should start attacking auber
+                if (sys == null){
+                    // TO DO (attacking auber)
+                    continue;
+                }
+                if (enemy.is_attcking_mode()){
+                    enemy.sabotage(sys);
+                }
+                // generate next traget if system sabotaged
+                if (sys.is_sabotaged()){
+                    generateNextTarget(enemy);
+                }
+                enemy.update(delta);
+
             }
-            // generate next traget if system sabotaged
-            if (sys.is_sabotaged()){
-                generateNextTarget(enemy);
-            }
-            enemy.update(delta);
+
         }
 
     }
@@ -175,6 +196,7 @@ public class Enemy_manager {
         enemy.set_standByMode();
         enemy.target_system = null;
     }
+
 
 
 }

@@ -11,6 +11,7 @@ public class Enemy extends AICharacter{
     public Systems target_system;
     public Systems current_contact_system; // used for contact listener
     public String mode;
+    public static int numberofInfiltrators;
     /**
      *  Enemy
      * @param world
@@ -22,6 +23,8 @@ public class Enemy extends AICharacter{
         super(world,name,x,y);
         this.dest_x = x;
         this.dest_y = y;
+        numberofInfiltrators ++;
+        this.b2body.setUserData("Infiltrators" + numberofInfiltrators);
         mode = "";
     }
 
@@ -102,6 +105,21 @@ public class Enemy extends AICharacter{
         return mode.equals("");
     }
 
+    /**
+     * set enemy to arrested
+     */
+    public void set_ArrestedMode(){
+        mode = "arrested";
+    }
+
+    public boolean isArrested(){
+        return mode.equals("arrested");
+    }
+
+
+    // TO DO
+    // Enemies special abilities
+    // ...
 
     /**
      * ability to slow down auber

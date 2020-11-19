@@ -168,9 +168,15 @@ public class Gameplay implements Screen {
         backgroundRenderer.render();
         // render the tilemap
         renderer.setView(camera);
+
+
         renderer.render(backgroundLayers);
         // this is needed to be called before the batch.begin(), or scrren will freeze
         game.getBatch().setProjectionMatrix(camera.combined);
+
+        // render the box2d object shape, test purpose, need to be removed when deploy
+        b2dr.render(world, camera.combined);
+
         // begin the batch
         game.getBatch().begin();
         // render auber

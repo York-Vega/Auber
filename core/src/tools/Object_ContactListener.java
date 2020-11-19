@@ -2,6 +2,7 @@ package tools;
 
 
 import ai.Enemy;
+import auber.Player;
 import com.badlogic.gdx.physics.box2d.*;
 import sprites.Systems;
 
@@ -10,16 +11,17 @@ import java.util.regex.Pattern;
 public class Object_ContactListener implements ContactListener {
 
     // regex to determine whether contact object is a teleport or not
-    private final String pattern = ".*teleporter.*";
+    private final String teleport_parten = ".*teleporter.*";
     private boolean isTeleport;
 
-    private final String pattern2 = ".*system.*";
-    private boolean isSystem;
+    private final String system_pattern = ".*system.*";
 
-    private final String pattern3 = ".*healingPod.*";
+
+    private final String healing_pattern = ".*healingPod.*";
     private boolean isHealingPod;
 
-    private final String pattern4 = ".*NPC.*";
+    private final String infiltrators_pattern = ".*Infiltrators.*";
+
 
 
     /**
@@ -35,9 +37,9 @@ public class Object_ContactListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         // use reg to check whether the object contacted is a teleporter or not
-        isTeleport = Pattern.matches(pattern, (CharSequence) fixB.getBody().getUserData());
+        isTeleport = Pattern.matches(teleport_parten, (CharSequence) fixB.getBody().getUserData());
         // use reg to check whether the object contacted is a healpod
-        isHealingPod = Pattern.matches(pattern3,(String) fixB.getBody().getUserData());
+        isHealingPod = Pattern.matches(healing_pattern,(String) fixB.getBody().getUserData());
 
         // only auber contact with teleport will be listened
         if (isTeleport && fixA.getBody().getUserData() == "auber")  {
@@ -80,6 +82,35 @@ public class Object_ContactListener implements ContactListener {
             }
         }
 
+        // auber arrest contact
+        if (is_Auber(fixA) || is_Auber(fixB)){
+
+            if (is_Auber(fixA) && is_Infiltrators(fixB)){
+
+                Player auber = (Player) fixA.getUserData();
+                Enemy enemy = (Enemy) fixB.getUserData();
+
+                if (!auber.is_arresting()){
+                    auber.setNearby_enemy(enemy);
+                    //auber.arrest(enemy);
+                }
+
+            }
+            else if (is_Auber(fixB) && is_Infiltrators(fixA)){
+
+                Player auber = (Player) fixB.getUserData();
+                Enemy enemy = (Enemy) fixA.getUserData();
+
+                if (!auber.is_arresting()){
+                    auber.setNearby_enemy(enemy);
+                    //auber.arrest(enemy);
+                }
+
+            }
+
+        }
+
+
     }
 
     @Override
@@ -89,9 +120,9 @@ public class Object_ContactListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         // use reg to check whether the object end contact is a teleporter or not
-        isTeleport = Pattern.matches(pattern, (String) fixB.getBody().getUserData());
+        isTeleport = Pattern.matches(teleport_parten, (String) fixB.getBody().getUserData());
         // use reg to check whether the object end contact is a healpod
-        isHealingPod = Pattern.matches(pattern3,(String) fixB.getBody().getUserData());
+        isHealingPod = Pattern.matches(healing_pattern,(String) fixB.getBody().getUserData());
 
         // only auber contact with teleport will be listened
         if (isTeleport && (String) fixA.getBody().getUserData() == "ready_to_teleport") {
@@ -147,14 +178,17 @@ public class Object_ContactListener implements ContactListener {
     }
 
     public boolean is_Infiltrators(Fixture fixture){
-        return Pattern.matches(pattern4,(String) fixture.getBody().getUserData());
+        return Pattern.matches(infiltrators_pattern,(String) fixture.getBody().getUserData());
     }
 
     public boolean is_System(Fixture fixture){
-        return Pattern.matches(pattern2,(String) fixture.getBody().getUserData()) ||
-                Pattern.matches(pattern3,(String) fixture.getBody().getUserData());
+        return Pattern.matches(system_pattern,(String) fixture.getBody().getUserData()) ||
+                Pattern.matches(healing_pattern,(String) fixture.getBody().getUserData());
     }
 
+    public boolean is_Auber(Fixture fixture){
+        return fixture.getBody().getUserData().equals("auber");
+    }
 
 
     @Override

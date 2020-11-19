@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class NPC extends AICharacter{
     public float dest_x;
     public float dest_y;
+    public static int numberof_crew;
     /**
      * NPC object
      * @param world
@@ -14,6 +15,8 @@ public class NPC extends AICharacter{
      */
     public NPC(World world,String name, float x, float y){
         super(world,name,x,y);
+        numberof_crew ++;
+        super.b2body.setUserData("crew" + numberof_crew);
         dest_x = x;
         dest_y = y;
     }
