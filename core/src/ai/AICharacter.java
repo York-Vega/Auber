@@ -5,14 +5,12 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
-
 import map.Distance;
 import map.Map;
 import map.Path;
 import map.Node;
-import screen.Gameplay;
-
 import com.badlogic.gdx.math.Vector2;
+import sprites.Systems;
 
 /**
  * AI Character object for the game.
@@ -21,7 +19,7 @@ public class AICharacter extends Sprite {
     public World world;
     public Body b2body;
 
-    private float speed; // in pixels per unit time 
+    public float speed; // in pixels per unit time
     private PathFinder<Node> pathFinder;
     private Path path;
     private int pathIndex;
@@ -47,12 +45,8 @@ public class AICharacter extends Sprite {
         createBody();
         AICharacter.numberOfHostiles++;
 
-        // TEST
         this.pathFinder = new IndexedAStarPathFinder<Node>(Map.graph);
-        
-        int endx = (int)Gameplay.p1.b2body.getPosition().x;
-        int endy = (int)Gameplay.p1.b2body.getPosition().y;
-        this.goTo(endx, endy);
+
     }
         
     /**
@@ -70,9 +64,10 @@ public class AICharacter extends Sprite {
 
         fdef.shape = shape;
         b2body.setLinearDamping(10f);
-        String data = "NPC_" + AICharacter.numberOfHostiles;
-        b2body.createFixture(fdef).setUserData(data); // for contact listener
-
+        b2body.createFixture(fdef); // for contact listener
+        b2body.setUserData("NPC_" + AICharacter.numberOfHostiles);
+        b2body.getFixtureList().get(0).setSensor(true);
+        b2body.getFixtureList().get(0).setUserData(this);
         shape.dispose();
     }
     
@@ -185,4 +180,5 @@ public class AICharacter extends Sprite {
     public void stop() {
         this.pathIndex = this.path.getCount();
     }
+
 }

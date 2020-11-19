@@ -15,7 +15,7 @@ public class Player extends Sprite {
     public Body b2body;
     public float health;
     public boolean ishealing;
-    private float playerSpeed = 60f;
+    public float playerSpeed = 60f;
 
     /**
      * creates an semi-initalised player the physics body is still uninitiated.

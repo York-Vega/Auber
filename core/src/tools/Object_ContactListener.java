@@ -1,10 +1,12 @@
 package tools;
 
 
+import ai.Enemy;
 import com.badlogic.gdx.physics.box2d.*;
 
 import screen.Gameplay;
 import sprites.Door;
+import sprites.Systems;
 
 import java.util.regex.Pattern;
 
@@ -20,11 +22,12 @@ public class Object_ContactListener implements ContactListener {
     private final String pattern3 = ".*healingPod.*";
     private boolean isHealingPod;
 
-    private final String pattern4 = "door_.*";
+    private boolean isNPC;
+    private final String pattern4 = ".*NPC.*";
+
+    private final String pattern5 = "door_.*";
     private boolean isDoor;
 
-    private final String pattern5 = "NPC_.*";
-    private boolean isNPC;
 
     /**
      * If auber has contact with the teleporter, the auber's userData --> ready_to_teleport, update auber's position in player.update()
@@ -45,40 +48,51 @@ public class Object_ContactListener implements ContactListener {
         // use reg to check whether the object contacted is a healpod
         isHealingPod = Pattern.matches(pattern3, fixB.getUserData().toString());
         // use reg to check whether the object contacted is a door
-        isDoor = Pattern.matches(pattern4, fixB.getUserData().toString());
+        isDoor = Pattern.matches(pattern5, fixB.getUserData().toString());
 
 
         if (isTeleport && fixA.getBody().getUserData() == "auber")  {
             // set the player.UserData to ready_to_teleport for teleport_process
             fixA.getBody().setUserData("ready_to_teleport");
         }
-        // change the fixA to enemy after enemy entity built, this is for test purpose
-        if (isSystem && fixA.getBody().getUserData() == "auber")  {
-
-            System.out.println("start contact with " + fixB.getUserData());
-            System.out.println(fixB.getUserData() + " sabotaged : " + fixB.getBody().getUserData().toString());
-
-            // test for system status menu
-            //fixB.getBody().setUserData("sabotaged");
-            fixB.getBody().setUserData("sabotaging");
-
-            /** To Do
-             *  if the contact begin between enemy and systems, sabotage process should begin
-             *  set enemy.userdata to sabotaging.
-             *  ...
-             */
-        }
         // if auber contact with healing pod and healing pod is not sabotaged
         if (isHealingPod && fixA.getBody().getUserData() == "auber"){
             // set the player.UserData to ready_to_heal for healing process
-            if(fixB.getBody().getUserData() == "not sabotaged"){
+            if(fixB.getBody().getUserData() == "healingPod_not_sabotaged"){
                 fixA.getBody().setUserData("ready_to_heal");
             }
         }
-
         // if the auber is in contact with a door
         if(isDoor && fixA.getBody().getUserData() == "auber") {
             System.out.println("start contact with " + fixB.getUserData().toString());
+
+        }
+
+        // Sbotage contact
+        if (is_Infiltrators(fixA) || is_Infiltrators(fixB))  {
+            // if contact happened between NPC and a system
+            if (is_Infiltrators(fixA) && is_System(fixB)){
+                // only when NPC contact with the target system, sabotage process will begin
+                Enemy enemy = (Enemy) fixA.getUserData();
+                Systems target_system = enemy.get_target_system();
+                Systems contact_system = (Systems) fixB.getUserData();
+                if (target_system == contact_system){
+                    enemy.current_contact_system = contact_system;
+                    enemy.set_attackSystemMode();
+                    target_system.set_sabotaging();
+                }
+            }
+            else if (is_Infiltrators(fixB) && is_System(fixA)){
+                // only when NPC contact with the target system, sabotage process will begin
+                Enemy enemy = (Enemy) fixB.getUserData();
+                Systems target_system = enemy.get_target_system();
+                Systems contact_system = (Systems) fixA.getUserData();
+                if (target_system == contact_system){
+                    enemy.current_contact_system = contact_system;
+                    enemy.set_attackSystemMode();
+                    target_system.set_sabotaging();
+                }
+            }
         }
 
     }
@@ -107,18 +121,6 @@ public class Object_ContactListener implements ContactListener {
         if (isSystem && fixA.getBody().getUserData() == "auber")  {
             System.out.println("end contact with " + fixB.getUserData());
             System.out.println(fixB.getUserData()+ " sabotaged : " + fixB.getBody().getUserData());
-
-            //test for system_status_menu
-            fixB.getBody().setUserData("not sabotaged");
-
-
-            /** To Do
-             *  if the contact end between enemy and systems, sabotage process should stop
-             *  set enemy.userdata to not_sabotage.(if contact ends, either auber is near or is being arrested
-             *  if player is nearby, should start attacking auber or run away from auber)
-             *  ...
-             */
-
         }
         // if auber end contact with the healing pod
         if (isHealingPod && fixA.getBody().getUserData() == "ready_to_heal"){
@@ -129,8 +131,61 @@ public class Object_ContactListener implements ContactListener {
         // if auber end contact with the door
         if (isDoor && fixA.getBody().getUserData() == "auber")  {
             System.out.println("end contact with " + fixB.getUserData().toString());
-        }    
+        }  
+        
+
+
+        // // end Sbotage contact
+        if (is_Infiltrators(fixA) || is_Infiltrators(fixB))  {
+            // if contact end between NPC and a system
+            if (is_Infiltrators(fixA) && is_System(fixB)){
+                Enemy enemy = (Enemy) fixA.getUserData();
+                Systems current_contact_system = enemy.current_contact_system;
+                Systems endContactSys = (Systems) fixB.getUserData();
+                // contact will be listened if enemy finished sabotaging a system and have generated next target system
+                // or enemy stop sabotaging the system
+                // the end contact between enemy and system it left will be listened
+                if (current_contact_system == endContactSys){
+                    float sys_hp = current_contact_system.hp;
+                    if (sys_hp > 1){
+                        // if system's hp > 1, set it to not sabotaged status
+                        current_contact_system.not_sabotaged();
+                    }
+                }
+                // left the current contact system, should set it back to null
+                current_contact_system = null;
+            }
+            else if (is_Infiltrators(fixB) && is_System(fixA)){
+                Enemy enemy = (Enemy) fixB.getUserData();
+                Systems current_contact_system = enemy.current_contact_system;
+                Systems endContactSys = (Systems) fixA.getUserData();
+                // contact will be listened if enemy finished sabotaging a system and have generated next target system
+                // or enemy stop sabotaging the system
+                // the end contact between enemy and system it left will be listened
+                if (current_contact_system == endContactSys){
+                    float sys_hp = current_contact_system.hp;
+                    if (sys_hp > 1){
+                        // if system's hp > 1, set it to not sabotaged status
+                        current_contact_system.not_sabotaged();
+                    }
+                }
+                // left the current system, should set it back to null
+                current_contact_system = null;
+            }
+        }   
+                
     }
+
+    public boolean is_Infiltrators(Fixture fixture){
+        return Pattern.matches(pattern4,(String) fixture.getBody().getUserData());
+    }
+
+    public boolean is_System(Fixture fixture){
+        return Pattern.matches(pattern2,(String) fixture.getBody().getUserData()) ||
+                Pattern.matches(pattern3,(String) fixture.getBody().getUserData());
+    }
+
+
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
