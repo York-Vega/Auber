@@ -17,7 +17,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
 import screen.actors.ArrestedHeader;
 import screen.actors.HealthBar;
-import screen.actors.System_status_menu;
 import screen.actors.Teleport_Menu;
 import sprites.Systems;
 import tools.B2worldCreator;
@@ -68,7 +67,7 @@ public class Gameplay implements Screen {
 
     public ArrayList<Systems> systems = new ArrayList<>();
 
-    public System_status_menu systemStatusMenu;
+    public screen.actors.systemStatusMenu systemStatusMenu;
 
     public ArrestedHeader arrestedHeader;
 

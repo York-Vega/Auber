@@ -6,15 +6,17 @@ import sprites.Systems;
 
 public class Enemy extends AiCharacter {
 
-    public Systems target_system;
-    public Systems current_contact_system; // used for contact listener
+    public Systems targetSystem;
+    public Systems currentContactSystem; // used for contact listener
     public String mode;
     public static int numberofInfiltrators;
     /**
      * Enemy.
 
      * @param world The game world
+     *
      * @param x position x
+     *
      * @param y position y
      */
     public Enemy(World world, float x, float y) {
@@ -27,72 +29,76 @@ public class Enemy extends AiCharacter {
     }
 
     /**
-     * set sabotage system target
-     * @param system
+     * set sabotage system target.
+     *
+     * @param system Systems Arraylist
      */
-    public void set_target_system(Systems system){
-        target_system = system;
+    public void set_target_system(Systems system) {
+        targetSystem = system;
     }
 
     /**
+     * Get target system object.
      *
      * @return targeted system
      */
-    public Systems get_target_system(){
-        return target_system;
+    public Systems get_target_system() {
+        return targetSystem;
     }
 
     /**
-     * ability to sabotage the system
-     * @param system
+     * ability to sabotage the system.
+     *
+     * @param system system object
      */
-    public void sabotage(Systems system){
-        if(system.hp > 0){
-            system.hp -=1;
-        }
-        else{
+    public void sabotage(Systems system) {
+        if (system.hp > 0) {
+            system.hp -= 1;
+        } else {
             system.set_sabotaged();
         }
     }
 
     /**
-     * set enemy to attcking mode
+     * set enemy to attcking mode.
      */
-    public void set_attackSystemMode(){
+    public void set_attackSystemMode() {
         mode = "attacking_system";
     }
 
     /**
-     * set enemy to standby mode
+     * set enemy to standby mode.
      */
-    public void set_standByMode(){
+    public void set_standByMode() {
         mode = "";
     }
 
     /**
-     * check enemy is attcking a system or not
-     * @return
+     * check enemy is attcking a system or not.
+     *
+     * @return true if it is in attacking mode
      */
-    public boolean is_attcking_mode(){
+    public boolean is_attcking_mode() {
         return mode.equals("attacking_system");
     }
 
     /**
-     * check enemy is standingby or not
-     * @return
+     * check enemy is standby or not.
+     *
+     * @return true if it is in standby mode
      */
-    public boolean is_standBy_mode(){
+    public boolean is_standBy_mode() {
         return mode.equals("");
     }
 
     /**
-     * set enemy to arrested
+     * set enemy to arrested.
      */
-    public void set_ArrestedMode(){
+    public void set_ArrestedMode() {
         mode = "arrested";
     }
 
-    public boolean isArrested(){
+    public boolean isArrested() {
         return mode.equals("arrested");
     }
 
@@ -102,17 +108,18 @@ public class Enemy extends AiCharacter {
     // ...
 
     /**
-     * ability to slow down auber
-     * @param auber
+     * ability to slow down auber.
+     *
+     * @param auber Player object
      */
-    public void ability_slower_player(Player auber){
+    public void ability_slower_player(Player auber) {
         auber.speed -= 20f;
     }
 
     /**
-     * increase its own speed
+     * increase its own speed.
      */
-    public void ability_speeding(){
+    public void ability_speeding() {
         this.speed  += 100f;
     }
 

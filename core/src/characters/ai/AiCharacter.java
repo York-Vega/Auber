@@ -62,7 +62,7 @@ public class AiCharacter extends Character {
     /**
      * Updates the character, should be called every update cycle.
 
-     * @param dt The time in secconds since the last update
+     * @param delta The time in secconds since the last update
      */
     @Override
     public void update(float delta)  {

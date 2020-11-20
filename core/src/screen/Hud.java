@@ -5,12 +5,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import screen.actors.ArrestedHeader;
 import screen.actors.HealthBar;
-import screen.actors.System_status_menu;
+import screen.actors.systemStatusMenu;
 import screen.actors.Teleport_Menu;
 
 
@@ -25,7 +24,7 @@ public class Hud {
     // actors need to be added to the hud
     public HealthBar healthBar;
     public Teleport_Menu teleport_menu;
-    public System_status_menu system_status_menu;
+    public systemStatusMenu system_status_menu;
     public ArrestedHeader arrestedHeader;
 
     /**
@@ -51,7 +50,7 @@ public class Hud {
         // create healthbar (ProgressBar)actor
         healthBar = new HealthBar();
         // create a system_status_menu actor
-        system_status_menu = new System_status_menu();
+        system_status_menu = new systemStatusMenu();
         // create a arrested count header actor
         arrestedHeader = new ArrestedHeader();
         // add teleport_menu to the table

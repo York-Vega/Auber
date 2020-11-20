@@ -1,16 +1,14 @@
 package characters;
 
 import characters.ai.Enemy;
-import characters.Character;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.World;
+import java.util.ArrayList;
 import tools.CharacterRenderer;
 
-import java.util.ArrayList;
 
 /**
  * Main player object for the game.
@@ -100,7 +98,9 @@ public class Player extends Character {
     }
 
     /**
-     * Healing auber
+     * Healing auber.
+     *
+     * @param delta The time in secconds since the last update
      */
     public void healing(float delta) {
         // healing should end or not start if auber left healing pod or not contact with healing pod
@@ -109,23 +109,21 @@ public class Player extends Character {
             return;
         }
         // healing should start if auber in healing pod and not in full health
-        if(b2body.getUserData() == "ready_to_heal" && health < 100f){
+        if (b2body.getUserData() == "ready_to_heal" && health < 100f) {
             setHealing(true);
-        }
-        // healing shouln't start if auber is in full health and healing should end if auber being healed to full health
-        else if (b2body.getUserData() == "ready_to_heal" && health == 100f){
+        } else if (b2body.getUserData() == "ready_to_heal" && health == 100f) {
             setHealing(false);
-            // test purpose, delet when deploy
+            // test purpose
             System.out.println("Auber is in full health, no need for healing ");
         }
         // healing process
-        if(ishealing){
-            // adjust healing amount accrodingly
+        if (ishealing) {
+            // adjust healing amount accordingly
             health += 20f * delta;
             if (health > 100f) {
                 health = 100f;
             }
-            // test prupose, delet when depoly
+            // test purpose, delete when deploy
             System.out.println("Auber is healing, Auber current health: " + health);
         }
 
@@ -136,10 +134,11 @@ public class Player extends Character {
     }
 
     /**
-     * arrest enemy
-     * @param enemy
+     * Arrest enemy.
+     *
+     * @param enemy The enemy object
      */
-    public void arrest(Enemy enemy){
+    public void arrest(Enemy enemy) {
         // stop enemy's sabotaging if it does
         enemy.set_ArrestedMode();
         // set enemy destination to auber's left,enemy should follow auber until it is in jail
@@ -149,27 +148,31 @@ public class Player extends Character {
     }
 
     /**
-     * set the nearby enemy
-     * @param enemy
+     * set the nearby enemy.
+     *
+     * @param enemy The enemy object
      */
-    public void setNearby_enemy(Enemy enemy){
+    public void setNearby_enemy(Enemy enemy) {
         nearbyEnemy = enemy;
     }
 
     /**
-     * if auber is arresting an enemy
-     * @return
+     * If auber is arresting an enemy.
+     *
+     * @return true if auber is currently arresting an enemy
      */
-    public boolean is_arresting(){
+    public boolean is_arresting() {
         return nearbyEnemy != null;
     }
 
     /**
-     * avoid arresting enemy already in jail twice
-     * @param enemy
-     * @return
+     * avoid arresting enemy already in jail twice.
+     *
+     * @param enemy The enemy object
+     *
+     * @return True if enemy is not in arrested enemy arraylist
      */
-    public boolean not_arrested(Enemy enemy){
+    public boolean not_arrested(Enemy enemy) {
         return !arrestedEnemy.contains(enemy);
     }
 }

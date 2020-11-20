@@ -64,7 +64,7 @@ public class Object_ContactListener implements ContactListener {
                 Systems target_system = enemy.get_target_system();
                 Systems contact_system = (Systems) fixB.getUserData();
                 if (target_system == contact_system){
-                    enemy.current_contact_system = contact_system;
+                    enemy.currentContactSystem = contact_system;
                     enemy.set_attackSystemMode();
                     target_system.set_sabotaging();
                 }
@@ -75,7 +75,7 @@ public class Object_ContactListener implements ContactListener {
                 Systems target_system = enemy.get_target_system();
                 Systems contact_system = (Systems) fixA.getUserData();
                 if (target_system == contact_system){
-                    enemy.current_contact_system = contact_system;
+                    enemy.currentContactSystem = contact_system;
                     enemy.set_attackSystemMode();
                     target_system.set_sabotaging();
                 }
@@ -139,7 +139,7 @@ public class Object_ContactListener implements ContactListener {
             // if contact end between NPC and a system
             if (is_Infiltrators(fixA) && is_System(fixB)){
                 Enemy enemy = (Enemy) fixA.getUserData();
-                Systems current_contact_system = enemy.current_contact_system;
+                Systems current_contact_system = enemy.currentContactSystem;
                 Systems endContactSys = (Systems) fixB.getUserData();
                 // contact will be listened if enemy finished sabotaging a system and have generated next target system
                 // or enemy stop sabotaging the system
@@ -156,7 +156,7 @@ public class Object_ContactListener implements ContactListener {
             }
             else if (is_Infiltrators(fixB) && is_System(fixA)){
                 Enemy enemy = (Enemy) fixB.getUserData();
-                Systems current_contact_system = enemy.current_contact_system;
+                Systems current_contact_system = enemy.currentContactSystem;
                 Systems endContactSys = (Systems) fixA.getUserData();
                 // contact will be listened if enemy finished sabotaging a system and have generated next target system
                 // or enemy stop sabotaging the system
