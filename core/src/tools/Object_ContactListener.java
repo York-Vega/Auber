@@ -1,7 +1,8 @@
 package tools;
 
 
-import ai.Enemy;
+import characters.ai.Enemy;
+import characters.Player;
 import com.badlogic.gdx.physics.box2d.*;
 
 import screen.Gameplay;
@@ -75,6 +76,33 @@ public class Object_ContactListener implements ContactListener {
             }
         }
 
+        // auber arrest contact
+        if (is_Auber(fixA) || is_Auber(fixB)){
+            // if contact happened between auber and infiltrators
+            if (is_Auber(fixA) && is_Infiltrators(fixB)){
+
+                Player auber = (Player) fixA.getUserData();
+                Enemy enemy = (Enemy) fixB.getUserData();
+                // if auber is not arresting other infiltrators, contacted infiltrators will be arrested
+                if (!auber.is_arresting() && auber.not_arrested(enemy)){
+                    auber.setNearby_enemy(enemy);
+                }
+            }
+            else if (is_Auber(fixB) && is_Infiltrators(fixA)){
+
+                Player auber = (Player) fixB.getUserData();
+                Enemy enemy = (Enemy) fixA.getUserData();
+
+                if (!auber.is_arresting() && auber.not_arrested(enemy)){
+                    auber.setNearby_enemy(enemy);
+                }
+            }
+        }
+
+
+
+
+
     }
 
     @Override
@@ -145,7 +173,7 @@ public class Object_ContactListener implements ContactListener {
     }
 
     public boolean is_Infiltrators(Fixture fixture){
-        return Pattern.matches(".*NPC.*", fixture.getBody().getUserData().toString());
+        return Pattern.matches(".*Infiltrators.*", fixture.getBody().getUserData().toString());
     }
 
     public boolean is_System(Fixture fixture){
@@ -158,6 +186,9 @@ public class Object_ContactListener implements ContactListener {
         return  Pattern.matches("door_.*" , fixture.getUserData().toString());
     }
 
+    public boolean is_Auber(Fixture fixture){
+        return fixture.getBody().getUserData().equals("auber");
+    }
 
 
     @Override
