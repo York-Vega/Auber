@@ -32,7 +32,7 @@ public class Player extends Character {
      */
     public Player(World world, float x, float y)  {
         super(world, x, y, CharacterRenderer.Sprite.AUBER);
-        this.health = 10f;
+        this.health = 100f;
         this.ishealing = false;
 
     }
@@ -48,6 +48,7 @@ public class Player extends Character {
     public void createBody()  {
         super.createBody();
         b2body.setUserData("auber"); // for contact listener
+        //b2body.getFixtureList().get(0).setSensor(true);
     }
     
     /**

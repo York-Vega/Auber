@@ -22,7 +22,7 @@ import sprites.Systems;
 import tools.B2worldCreator;
 import tools.BackgroundRenderer;
 import tools.CharacterRenderer;
-import tools.Light_control;
+import tools.LightControl;
 import tools.Object_ContactListener;
 import tools.Teleport_process;
 
@@ -63,7 +63,7 @@ public class Gameplay implements Screen {
 
     public Teleport_Menu teleport_menu;
 
-    private Light_control light_control;
+    private LightControl light_control;
 
     public ArrayList<Systems> systems = new ArrayList<>();
 
@@ -91,7 +91,7 @@ public class Gameplay implements Screen {
 
         CharacterRenderer.loadTextures();
         // create a light control object
-        light_control = new Light_control(world);
+        light_control = new LightControl(world);
 
         // this image is only for test purpose, needs to be changed with proper sprite
         //p1 = new Player(world, "player_test.png", 1133, 1011);

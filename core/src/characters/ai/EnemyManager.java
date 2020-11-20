@@ -1,5 +1,6 @@
 package characters.ai;
 
+import characters.Player;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -149,6 +150,20 @@ public class EnemyManager {
     public void update_enemy(float delta) {
 
         for (Enemy enemy : enemies) {
+
+            if (enemy.ability.provked && ! enemy.ability.disabled && enemy.ability.target != null && !enemy.is_attcking_mode()) {
+                Player target = enemy.ability.target;
+                enemy.ability.useAbility(enemy,target);
+                enemy.update(10);
+                continue;
+            }
+            if (!enemy.ability.provked && !enemy.ability.disabled && enemy.ability.target != null) {
+
+                enemy.ability.removeAbility(enemy);
+                enemy.ability.target = null;
+                enemy.update(10);
+                continue;
+            }
 
             if (enemy.isArrested()) {
                 // if enemy have a taget system

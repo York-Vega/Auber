@@ -12,6 +12,7 @@ public class Enemy extends AiCharacter {
     public Systems targetSystem;
     public Systems currentContactSystem; // used for contact listener
     public String mode;
+    public Ability ability;
     public static int numberofInfiltrators;
     /**
      * Enemy.
@@ -28,7 +29,8 @@ public class Enemy extends AiCharacter {
         this.destY = y;
         numberofInfiltrators++;
         this.b2body.setUserData("Infiltrators" + numberofInfiltrators);
-        createEdgeShape();
+        ability = new Ability();
+        createEdgeShape(ability);
         mode = "";
     }
 
@@ -36,15 +38,15 @@ public class Enemy extends AiCharacter {
      * Create an EdgeShape for enemy to sensor auber for special ability
      *
      */
-    public void createEdgeShape() {
+    public void createEdgeShape(Ability ability) {
 
         EdgeShape sensoringArea = new EdgeShape();
-        sensoringArea.set(new Vector2(32, 16), new Vector2(32,-16));
+        sensoringArea.set(new Vector2(64, 16), new Vector2(64,-16));
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = sensoringArea;
         fixtureDef.isSensor = true;
-        b2body.createFixture(fixtureDef).setUserData(this);
-        
+        // store ability in sensor userdata to retrieve it in contactListener
+        b2body.createFixture(fixtureDef).setUserData(ability);
 
     }
 
@@ -130,22 +132,6 @@ public class Enemy extends AiCharacter {
     // TO DO
     // Enemies special abilities
     // ...
-
-    /**
-     * ability to slow down auber.
-     *
-     * @param auber Player object
-     */
-    public void abilitySlowerPlayer(Player auber) {
-        auber.speed -= 20f;
-    }
-
-    /**
-     * increase its own speed.
-     */
-    public void abilitySpeeding() {
-        this.speed  += 100f;
-    }
 
 
 
