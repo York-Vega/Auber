@@ -1,5 +1,6 @@
 package auber;
 
+import ai.Enemy;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -7,18 +8,24 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import tools.CharacterRenderer;
 
+import java.util.ArrayList;
+
 /**
  * Main player object for the game.
  */
 public class Player {
     public World world;
     public Body b2body;
+    public Enemy nearby_enemy;
     public float health;
     public boolean ishealing;
     public float playerSpeed = 60f;
     private CharacterRenderer renderer;
     private Vector2 position;
     private Vector2 size;
+    public int arrested_count = 0;
+    public ArrayList<Enemy> arrested_enemy = new ArrayList<>();
+
 
     /**
      * creates an semi-initalised player the physics body is still uninitiated.
@@ -63,8 +70,8 @@ public class Player {
 
         b2body.setLinearDamping(20f);
 
-        b2body.createFixture(fdef).setUserData("auber"); // for contact listener
-        b2body.setUserData("auber");
+        b2body.createFixture(fdef).setUserData(this); // for contact listener
+        b2body.setUserData("auber");// for contact listener
         shape.dispose();
 
     }
@@ -89,6 +96,11 @@ public class Player {
             input.add(0, -playerSpeed);
         }
         b2body.applyLinearImpulse(input, b2body.getWorldCenter(), true);
+
+        //
+        if(nearby_enemy != null){
+            arrest(nearby_enemy);
+        }
 
         // position sprite properly within the box
         this.setPosition(b2body.getPosition().x - size.x / 1,
@@ -144,4 +156,41 @@ public class Player {
         renderer.render(position, batch);
     }
 
+    /**
+     * arrest enemy
+     * @param enemy
+     */
+    public void arrest(Enemy enemy){
+        // stop enemy's sabotaging if it does
+        enemy.set_ArrestedMode();
+        // set enemy destination to auber's left,enemy should follow auber until it is in jail
+        enemy.setDest(position.x, position.y);
+        enemy.move_toDest();
+
+    }
+
+    /**
+     * set the nearby enemy
+     * @param enemy
+     */
+    public void setNearby_enemy(Enemy enemy){
+        nearby_enemy = enemy;
+    }
+
+    /**
+     * if auber is arresting an enemy
+     * @return
+     */
+    public boolean is_arresting(){
+        return nearby_enemy != null;
+    }
+
+    /**
+     * avoid arresting enemy already in jail twice
+     * @param enemy
+     * @return
+     */
+    public boolean not_arrested(Enemy enemy){
+        return !arrested_enemy.contains(enemy);
+    }
 }

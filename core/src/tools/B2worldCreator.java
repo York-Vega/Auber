@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import screen.Gameplay;
+import sprites.Jail;
 import sprites.Systems;
 import sprites.Teleport;
 
@@ -70,6 +71,17 @@ public class B2worldCreator {
             // stor system object in the systems Arraylist
             game.systems.add(new Systems(world,map,rect, object.getName()));
         }
+
+        // create jails
+        int jail_number = 0;
+        for (MapObject object : layers.get("jail").getObjects()){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            new Jail(world,map,rect,jail_number);
+            System.out.println("jail is created");
+            jail_number ++;
+        }
+
+
 
     }
 }

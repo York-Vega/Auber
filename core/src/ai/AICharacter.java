@@ -41,10 +41,11 @@ public class AICharacter extends Sprite {
         super(new Texture(name));
         this.world = world;
         setPosition(x, y);
-        this.speed = 500.0f;        
+        this.speed = 700.0f;
         createBody();
         AICharacter.numberOfHostiles++;
 
+        this.path = new Path();
         this.pathFinder = new IndexedAStarPathFinder<Node>(Map.graph);
 
     }
@@ -147,14 +148,28 @@ public class AICharacter extends Sprite {
      * @return true if there is a path between character and destination, false otherwise
      */
     public boolean goTo(float x, float y) {
-        // resets the path
-        this.path = new Path();
-        pathIndex = 0;
 
+        
         Vector2 position = this.b2body.getPosition();
 
         Node startNode = Map.graph.getNodeByXY((int)position.x, (int)position.y);
         Node endNode = Map.graph.getNodeByXY((int)x, (int)y);
+
+        // if the character is already at or moving to the destination
+        if (this.path.getCount() > 0) {
+            int currentEndNode = this.path.get(this.path.getCount() - 1).getIndex();
+            if (startNode.getIndex() == endNode.getIndex() ||  endNode.getIndex() == currentEndNode) {
+                return true;
+            }
+        }         
+
+        
+
+        // resets the path
+        this.path = new Path();        
+        this.pathFinder = new IndexedAStarPathFinder<Node>(Map.graph);
+        pathIndex = 1;
+
 
         // A* search between character and destination
         pathFinder.searchNodePath(startNode, endNode, new Distance(), path);
