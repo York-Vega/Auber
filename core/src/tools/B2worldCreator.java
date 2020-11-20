@@ -1,6 +1,6 @@
 package tools;
 
-import auber.Player;
+import characters.Player;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import screen.Gameplay;
+import sprites.Jail;
 import sprites.Systems;
 import sprites.Teleport;
 
@@ -51,11 +52,7 @@ public class B2worldCreator {
         // Creates the player at the spawn point on the spawn layer of the map
         for (MapObject object : layers.get("spawn").getObjects()) {
             Rectangle point = ((RectangleMapObject) object).getRectangle();
-            game.p1 = new Player(world, "player.png", point.x, point.y);
-
-            // TEST
-            //game.npc = new AICharacter(world, "player.png", 254, 4078);
-
+            game.p1 = new Player(world, point.x, point.y);
             break;
 
         }
@@ -74,6 +71,17 @@ public class B2worldCreator {
             // stor system object in the systems Arraylist
             game.systems.add(new Systems(world,map,rect, object.getName()));
         }
+
+        // create jails
+        int jail_number = 0;
+        for (MapObject object : layers.get("jail").getObjects()){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            new Jail(world,map,rect,jail_number);
+            System.out.println("jail is created");
+            jail_number ++;
+        }
+
+
 
     }
 }

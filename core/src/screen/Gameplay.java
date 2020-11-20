@@ -1,7 +1,7 @@
 package screen;
 
-import ai.Enemy_manager;
-import auber.Player;
+import characters.ai.EnemyManager;
+import characters.Player;
 import map.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -16,12 +16,14 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
+import screen.actors.ArrestedHeader;
 import screen.actors.HealthBar;
 import screen.actors.System_status_menu;
 import screen.actors.Teleport_Menu;
 import sprites.Systems;
 import tools.B2worldCreator;
 import tools.BackgroundRenderer;
+import tools.CharacterRenderer;
 import tools.Light_control;
 import tools.Object_ContactListener;
 import tools.Teleport_process;
@@ -39,9 +41,7 @@ public class Gameplay implements Screen {
 
     public static Player p1;
 
-//    TEST
-//    public AICharacter npc;
-    public Enemy_manager enemy_manager;
+    public EnemyManager enemyManager;
 
     public OrthographicCamera camera;
 
@@ -72,6 +72,7 @@ public class Gameplay implements Screen {
     public System_status_menu systemStatusMenu;
 
     private boolean paused = false;
+    public ArrestedHeader arrestedHeader;
 
 
     /**
@@ -91,6 +92,7 @@ public class Gameplay implements Screen {
         Map.create(map);
         renderer = new OrthogonalTiledMapRenderer(map);
 
+        CharacterRenderer.loadTextures();
         // create a light control object
         light_control = new Light_control(world);
 
@@ -118,12 +120,14 @@ public class Gameplay implements Screen {
         // use to update the player HP
         healthBar = hud.healthBar;
         // create a teleport_process instance
-        teleport_process = new Teleport_process(teleport_menu,p1,map);
+        teleport_process = new Teleport_process(teleport_menu, p1, map);
         // create a system_status_menu instance
         systemStatusMenu = hud.system_status_menu;
         systemStatusMenu.generate_systemLabels(systems);
+        // create a arrest_status header
+        arrestedHeader = hud.arrestedHeader;
         // create an enemy_manager instance
-        enemy_manager = new Enemy_manager(world,map,systems);
+        enemyManager = new EnemyManager(world,map,systems);
 
         
 
@@ -139,18 +143,19 @@ public class Gameplay implements Screen {
         delta = Gdx.graphics.getDeltaTime();
         backgroundRenderer.update(delta);
         world.step(delta, 8, 3);
-        p1.updatePlayer(delta);
+        p1.update(delta);
         teleport_process.validate();
         healthBar.update_HP(p1);
         hud.stage.act(delta);
         light_control.light_update(systems);
-        enemy_manager.update_enemy(delta);
+        enemyManager.update_enemy(delta);
         systemStatusMenu.update_status(systems);
 
         // if escape is pressed pause the game
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             this.pause();
         }
+        arrestedHeader.update_Arrested(p1);
     }
 
 
@@ -187,15 +192,21 @@ public class Gameplay implements Screen {
         backgroundRenderer.render();
         // render the tilemap
         renderer.setView(camera);
+
+
         renderer.render(backgroundLayers);
         // this is needed to be called before the batch.begin(), or scrren will freeze
         game.getBatch().setProjectionMatrix(camera.combined);
+
+        // render the box2d object shape, test purpose, need to be removed when deploy
+        //b2dr.render(world, camera.combined);
+
         // begin the batch
         game.getBatch().begin();
         // render auber
         p1.draw(game.getBatch());
         // render Infiltrators
-        enemy_manager.render_ememy(game.getBatch());
+        enemyManager.render_ememy(game.getBatch());
         // end the batch
         game.getBatch().end();
         // render tilemap that should apear infront of the player
@@ -205,7 +216,6 @@ public class Gameplay implements Screen {
         // render the hud
         hud.viewport.apply();
         hud.stage.draw();
-
 
         //dispose();
 

@@ -1,0 +1,678 @@
+
+dinoSprites.png
+size: 512,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+AUBER_crouch
+  rotate: false
+  xy: 0, 52
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+AUBER_hurt
+  rotate: false
+  xy: 52, 156
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+AUBER_hurt
+  rotate: false
+  xy: 104, 156
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+AUBER_idle
+  rotate: false
+  xy: 104, 156
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+AUBER_kick
+  rotate: false
+  xy: 104, 156
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+AUBER_hurt
+  rotate: false
+  xy: 182, 78
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+AUBER_idle
+  rotate: false
+  xy: 52, 130
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+AUBER_idle
+  rotate: false
+  xy: 52, 0
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+AUBER_idle
+  rotate: false
+  xy: 156, 26
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+AUBER_kick
+  rotate: false
+  xy: 78, 182
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+AUBER_kick
+  rotate: false
+  xy: 156, 130
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+AUBER_move
+  rotate: false
+  xy: 52, 182
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+AUBER_move
+  rotate: false
+  xy: 156, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+AUBER_move
+  rotate: false
+  xy: 182, 182
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+AUBER_move
+  rotate: false
+  xy: 208, 182
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 5
+AUBER_move
+  rotate: false
+  xy: 208, 156
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+AUBER_move
+  rotate: false
+  xy: 234, 130
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 4
+AUBER_sneak
+  rotate: false
+  xy: 0, 104
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+AUBER_sneak
+  rotate: false
+  xy: 78, 104
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 4
+AUBER_sneak
+  rotate: false
+  xy: 130, 104
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+AUBER_sneak
+  rotate: false
+  xy: 234, 182
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+AUBER_sneak
+  rotate: false
+  xy: 156, 52
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+AUBER_sneak
+  rotate: false
+  xy: 312, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 5
+NPC1_crouch
+  rotate: false
+  xy: 130, 0
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC1_hurt
+  rotate: false
+  xy: 0, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+NPC1_hurt
+  rotate: false
+  xy: 156, 182
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC1_hurt
+  rotate: false
+  xy: 104, 26
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC1_idle
+  rotate: false
+  xy: 78, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+NPC1_hurt
+  rotate: false
+  xy: 78, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC1_idle
+  rotate: false
+  xy: 78, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC1_kick
+  rotate: false
+  xy: 78, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC1_idle
+  rotate: false
+  xy: 208, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC1_idle
+  rotate: false
+  xy: 234, 156
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC1_kick
+  rotate: false
+  xy: 0, 182
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC1_kick
+  rotate: false
+  xy: 182, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC1_move
+  rotate: false
+  xy: 26, 104
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+NPC1_move
+  rotate: false
+  xy: 26, 52
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC1_move
+  rotate: false
+  xy: 52, 52
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 5
+NPC1_move
+  rotate: false
+  xy: 234, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC1_move
+  rotate: false
+  xy: 182, 104
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 4
+NPC1_move
+  rotate: false
+  xy: 286, 182
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC1_sneak
+  rotate: false
+  xy: 104, 182
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+NPC1_sneak
+  rotate: false
+  xy: 130, 156
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC1_sneak
+  rotate: false
+  xy: 26, 0
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 5
+NPC1_sneak
+  rotate: false
+  xy: 104, 52
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC1_sneak
+  rotate: false
+  xy: 260, 182
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 4
+NPC1_sneak
+  rotate: false
+  xy: 182, 52
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC2_crouch
+  rotate: false
+  xy: 182, 130
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC2_hurt
+  rotate: false
+  xy: 26, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+NPC2_hurt
+  rotate: false
+  xy: 26, 130
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC2_idle
+  rotate: false
+  xy: 26, 130
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC2_kick
+  rotate: false
+  xy: 26, 130
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC2_hurt
+  rotate: false
+  xy: 104, 130
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+AUBER_hurt
+  rotate: false
+  xy: 104, 130
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC3_hurt
+  rotate: false
+  xy: 104, 130
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC2_hurt
+  rotate: false
+  xy: 260, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC2_idle
+  rotate: false
+  xy: 26, 156
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+NPC2_idle
+  rotate: false
+  xy: 130, 130
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC2_idle
+  rotate: false
+  xy: 208, 130
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC2_kick
+  rotate: false
+  xy: 0, 156
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC2_kick
+  rotate: false
+  xy: 0, 0
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC2_move
+  rotate: false
+  xy: 104, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+NPC2_move
+  rotate: false
+  xy: 130, 182
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC2_move
+  rotate: false
+  xy: 26, 26
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 5
+NPC2_move
+  rotate: false
+  xy: 182, 156
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC2_move
+  rotate: false
+  xy: 130, 52
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 4
+NPC2_move
+  rotate: false
+  xy: 208, 104
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC2_sneak
+  rotate: false
+  xy: 26, 182
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+NPC2_sneak
+  rotate: false
+  xy: 0, 78
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC2_sneak
+  rotate: false
+  xy: 78, 156
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 5
+NPC2_sneak
+  rotate: false
+  xy: 78, 78
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC2_sneak
+  rotate: false
+  xy: 78, 26
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 4
+NPC2_sneak
+  rotate: false
+  xy: 78, 0
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC3_crouch
+  rotate: false
+  xy: 0, 26
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC3_hurt
+  rotate: false
+  xy: 130, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC3_hurt
+  rotate: false
+  xy: 52, 26
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+NPC3_idle
+  rotate: false
+  xy: 52, 78
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC3_idle
+  rotate: false
+  xy: 260, 156
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC3_kick
+  rotate: false
+  xy: 26, 78
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC3_hurt
+  rotate: false
+  xy: 26, 78
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC3_idle
+  rotate: false
+  xy: 26, 78
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC3_idle
+  rotate: false
+  xy: 26, 78
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+NPC3_kick
+  rotate: false
+  xy: 78, 52
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC3_kick
+  rotate: false
+  xy: 286, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC3_move
+  rotate: false
+  xy: 52, 208
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC3_move
+  rotate: false
+  xy: 52, 104
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 4
+NPC3_move
+  rotate: false
+  xy: 104, 104
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC3_move
+  rotate: false
+  xy: 130, 78
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+NPC3_move
+  rotate: false
+  xy: 156, 78
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC3_move
+  rotate: false
+  xy: 104, 0
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 5
+NPC3_sneak
+  rotate: false
+  xy: 0, 130
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+NPC3_sneak
+  rotate: false
+  xy: 78, 130
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+NPC3_sneak
+  rotate: false
+  xy: 156, 156
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+NPC3_sneak
+  rotate: false
+  xy: 104, 78
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 5
+NPC3_sneak
+  rotate: false
+  xy: 156, 104
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+NPC3_sneak
+  rotate: false
+  xy: 130, 26
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 4

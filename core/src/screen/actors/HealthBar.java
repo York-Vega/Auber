@@ -1,6 +1,6 @@
 package screen.actors;
 
-import auber.Player;
+import characters.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;

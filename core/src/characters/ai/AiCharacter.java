@@ -1,5 +1,6 @@
-package ai;
+package characters.ai;
 
+import characters.Character;
 import com.badlogic.gdx.ai.pfa.PathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,15 +12,16 @@ import map.Path;
 import map.Node;
 import com.badlogic.gdx.math.Vector2;
 import sprites.Systems;
+import tools.CharacterRenderer;
 
 /**
  * AI Character object for the game.
  */
-public class AICharacter extends Sprite {
-    public World world;
-    public Body b2body;
+public class AiCharacter extends Character {
 
-    public float speed; // in pixels per unit time
+    public float destX;
+    public float destY;
+
     private PathFinder<Node> pathFinder;
     private Path path;
     private int pathIndex;
@@ -31,44 +33,29 @@ public class AICharacter extends Sprite {
 
      * @param world The game world
      * 
-     * @param name The name of the sprite
-     * 
      * @param x The inital x location of the character
      * 
      * @param y The inital y location of the character
      */
-    public AICharacter(World world, String name, float x, float y)  {
-        super(new Texture(name));
-        this.world = world;
-        setPosition(x, y);
-        this.speed = 500.0f;        
-        createBody();
-        AICharacter.numberOfHostiles++;
+    public AiCharacter(World world, float x, float y) {
+        super(world, x, y, CharacterRenderer.Sprite.NPC1);
+        speed = 1000.0f;
+        AiCharacter.numberOfHostiles++;
 
-        this.pathFinder = new IndexedAStarPathFinder<Node>(Map.graph);
+        path = new Path();
+        pathFinder = new IndexedAStarPathFinder<Node>(Map.graph);
 
     }
         
     /**
     * Creates the physics bodies for the character Sprite.
     */
+    @Override
     public void createBody()  {
-        BodyDef bdef = new BodyDef();
-        bdef.position.set(this.getX() + getWidth() + 4, this.getY() + getHeight() + 4);
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        b2body = world.createBody(bdef);
-
-        FixtureDef fdef = new FixtureDef();
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth() / 2, getHeight() / 2 );
-
-        fdef.shape = shape;
-        b2body.setLinearDamping(10f);
-        b2body.createFixture(fdef); // for contact listener
-        b2body.setUserData("NPC_" + AICharacter.numberOfHostiles);
+        super.createBody();
+        b2body.setUserData("NPC_" + AiCharacter.numberOfHostiles);
         b2body.getFixtureList().get(0).setSensor(true);
         b2body.getFixtureList().get(0).setUserData(this);
-        shape.dispose();
     }
     
 
@@ -77,32 +64,32 @@ public class AICharacter extends Sprite {
 
      * @param dt The time in secconds since the last update
      */
-    public void update(float dt)  {
-
+    @Override
+    public void update(float delta)  {
         Vector2 direction = this.decideDirection();
-        this.move(dt, direction);
+        this.move(delta, direction);
+        // position sprite properly within the box
+        position.set(b2body.getPosition().x - size.x / 1,
+                     b2body.getPosition().y - size.y / 1 + 4);
+
+        renderer.update(delta, direction);
 
     }
 
     /**
-     * applies the move to the character
+     * applies the move to the character.
      */
-    public void move(float dt, Vector2 direction) {
+    public void move(float delta, Vector2 direction) {
 
         // applies a velocity of direction * time delta * speed 
-        Vector2 vel = direction.scl(dt * this.speed);
+        Vector2 vel = direction.scl(delta * this.speed);
         this.b2body.applyLinearImpulse(vel, this.b2body.getWorldCenter(), true);
-
-        // position sprite properly within the box
-        this.setPosition(b2body.getPosition().x - getWidth() / 2,
-                         b2body.getPosition().y - getHeight() / 2); 
     }
 
     /**
-     * Decides the direction to be made by the AI
-     * 
-     * returns a unit vector representing direction
-     * moves in the direction of the next node in the path
+     * Decides the direction to be made by the AI.
+
+     * @return a unit vector representing direction
      */
     private Vector2 decideDirection() {
         if (this.isMoving()) {
@@ -141,20 +128,52 @@ public class AICharacter extends Sprite {
     } 
     
     /**
+     * set the destination postion.
+
+     * @param x x component
+     * @param y y component
+     */
+    public void setDest(float x, float y) {
+        destX = x;
+        destY = y;
+    }
+
+    /**
+     * move to destination.
+     */
+    public void moveToDest() {
+        goTo(destX, destY);
+    }
+
+    /**
      * 
      * @param x x coordinate of destination in pixels
      * @param y y coordinate of destination in pixels
      * @return true if there is a path between character and destination, false otherwise
      */
     public boolean goTo(float x, float y) {
-        // resets the path
-        this.path = new Path();
-        pathIndex = 0;
 
+        
         Vector2 position = this.b2body.getPosition();
 
         Node startNode = Map.graph.getNodeByXY((int)position.x, (int)position.y);
         Node endNode = Map.graph.getNodeByXY((int)x, (int)y);
+
+        // if the character is already at or moving to the destination
+        if (this.path.getCount() > 0) {
+            int currentEndNode = this.path.get(this.path.getCount() - 1).getIndex();
+            if (startNode.getIndex() == endNode.getIndex() ||  endNode.getIndex() == currentEndNode) {
+                return true;
+            }
+        }         
+
+        
+
+        // resets the path
+        this.path = new Path();        
+        this.pathFinder = new IndexedAStarPathFinder<Node>(Map.graph);
+        pathIndex = 1;
+
 
         // A* search between character and destination
         pathFinder.searchNodePath(startNode, endNode, new Distance(), path);

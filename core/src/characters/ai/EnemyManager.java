@@ -1,4 +1,4 @@
-package ai;
+package characters.ai;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 /**
  * Manage enemies in the game
  */
-public class Enemy_manager {
+public class EnemyManager {
 
     public World world;
     public TiledMap map;
@@ -25,7 +25,7 @@ public class Enemy_manager {
     public static ArrayList<Systems> systems = new ArrayList<>();
     public static HashMap<Systems,Enemy> information;
 
-    public Enemy_manager(World world,TiledMap map,ArrayList<Systems> systems){
+    public EnemyManager(World world,TiledMap map,ArrayList<Systems> systems){
         this.world = world;
         this.map = map;
         this.systems = systems;
@@ -60,12 +60,12 @@ public class Enemy_manager {
      * create Enemy instance and store in Arraylist enemy
      * @param world
      */
-    public void generate_enemy(World world){
+    public void generate_enemy(World world) {
 
-        for(int i = 0; i < 8; i ++){
+        for (int i = 0; i < 8; i++) {
             float[] position = spawn_position.get(i);
             // pic needs to be changed with enemy pic
-            Enemy enemy = new Enemy(world,"player.png",position[0],position[1]);
+            Enemy enemy = new Enemy(world, position[0], position[1]);
             enemies.add(enemy);
 
         }
@@ -106,7 +106,7 @@ public class Enemy_manager {
             enemy.set_target_system(sys);
             // set the destination
             enemy.setDest(end_X,end_Y);
-            enemy.move_toDest();
+            enemy.moveToDest();
             // update the information hash table, aviod enemy targeting the same system
             information.put(sys,enemy);
 
@@ -134,24 +134,47 @@ public class Enemy_manager {
 
         for(Enemy enemy: enemies){
 
-            // get targeted system object
-            Systems sys = enemy.get_target_system();
-            // if no system left to sabotage, should start attacking auber
-            if (sys == null){
-                continue;
+            if (enemy.isArrested()){
+                // if enemy have a taget system
+                if (enemy.get_target_system() != null){
+                    // if the target system is not sabotaged, remove it from information for other enemies to target that system
+                    if (enemy.get_target_system().is_not_sabotaged() && information.containsKey(enemy.get_target_system())){
+                        information.remove(enemy.get_target_system());
+                        enemy.update(delta);
+                        continue;
+                    }
+                    enemy.update(delta);
+                    continue;
+                }
+                enemy.update(delta);
             }
-            if (enemy.is_attcking_mode()){
-                enemy.sabotage(sys);
+            else{
+                // get targeted system object
+                Systems sys = enemy.get_target_system();
+                // if no system left to sabotage, should start attacking auber
+                if (sys == null){
+                    // if size of inforamtion < 17 means still have systems not sabotaged, should keep generating next target
+                    if (information.size()<17){
+                        System.out.println(information.size());
+                        generateNextTarget(enemy);
+                        if (enemy.get_target_system() == null){
+                            continue;
+                        }
+                    }
+                    continue;
+                    // TO DO (attacking auber) if no systems left and enemy not in jail, it should start attacking auber
+                }
+                if (enemy.is_attcking_mode()){
+                    enemy.sabotage(sys);
+                }
+                // generate next traget if system sabotaged
+                if (sys.is_sabotaged()){
+                    generateNextTarget(enemy);
+                }
+                enemy.update(delta);
             }
-            // generate next traget if system sabotaged
-            if (sys.is_sabotaged()){
-                generateNextTarget(enemy);
-            }
-            enemy.update(delta);
         }
-
     }
-
 
     /**
      * If enemy successfuly sabotage one target, generate next target for it
@@ -165,7 +188,7 @@ public class Enemy_manager {
                 enemy.setDest(end_X,end_Y);
                 enemy.set_target_system(system);
                 information.put(system,enemy);
-                enemy.move_toDest();
+                enemy.moveToDest();
                 // set enemy back to standBy mode before it contacts with the next target system, otherwise the system will lose HP before contact
                 enemy.set_standByMode();
                 return;
@@ -175,6 +198,7 @@ public class Enemy_manager {
         enemy.set_standByMode();
         enemy.target_system = null;
     }
+
 
 
 }
