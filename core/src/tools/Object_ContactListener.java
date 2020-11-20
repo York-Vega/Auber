@@ -1,8 +1,8 @@
 package tools;
 
 
-import ai.Enemy;
-import auber.Player;
+import characters.ai.Enemy;
+import characters.Player;
 import com.badlogic.gdx.physics.box2d.*;
 import sprites.Systems;
 

@@ -1,6 +1,6 @@
 package tools;
 
-import auber.Player;
+import characters.Player;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -116,13 +116,13 @@ public class Teleport_process {
         jail_index ++;
         System.out.println(jail_index );
         auber.b2body.setTransform(jail_X,jail_Y,0);
-        auber.nearby_enemy.b2body.setTransform(jail_X,jail_Y,0);
+        auber.nearbyEnemy.b2body.setTransform(jail_X,jail_Y,0);
         // add the enemy to arrested list, shouldn't be arrested again
-        auber.arrested_enemy.add(auber.nearby_enemy);
-        auber.arrested_count ++;
+        auber.arrestedEnemy.add(auber.nearbyEnemy);
+        auber.arrestedCount ++;
         // remove enemy's target system if it has one
-        auber.nearby_enemy.target_system = null;
-        auber.nearby_enemy = null;
+        auber.nearbyEnemy.target_system = null;
+        auber.nearbyEnemy = null;
         selected_room.setSelected("Teleport");
         selected_room.setDisabled(true);
     }
