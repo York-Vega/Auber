@@ -152,7 +152,6 @@ public class Gameplay implements Screen {
         hud.stage.act(delta);
         light_control.light_update(systems);
         Door_Controll.updateDoors(systems, delta);
-        enemy_manager.update_enemy(delta);
         enemyManager.update_enemy(delta);
         systemStatusMenu.update_status(systems);
 

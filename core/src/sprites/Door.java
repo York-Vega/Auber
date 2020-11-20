@@ -18,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class Door extends InteractiveTileObject{
     private boolean locked;
+    private boolean isJailDoor;
     // total number of doors in the world
     private static int noDoors = 0;
     
@@ -33,6 +34,7 @@ public class Door extends InteractiveTileObject{
         
         this.bounds = bounds;
         this.locked = locked;
+        this.isJailDoor = locked;
 
         this.createBody(world);
         this.fixture.setUserData("door_interact_" + Door.noDoors); // for contact_listener
@@ -51,7 +53,9 @@ public class Door extends InteractiveTileObject{
     }
 
     public void unlock() {
-        this.locked = false;
+        if (!this.isJailDoor) {
+            this.locked = false;
+        }        
     }
 
     //TODO: use with animations
@@ -88,6 +92,7 @@ public class Door extends InteractiveTileObject{
         // physical door cannot be moved by physics 
         bdef.type = BodyDef.BodyType.StaticBody;
         this.body = world.createBody(bdef);
+        
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
