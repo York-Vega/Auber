@@ -4,13 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
-import map.Map;
-import sprites.Systems;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import map.Map;
+import sprites.Systems;
+
 
 public class System_status_menu extends VerticalGroup {
 

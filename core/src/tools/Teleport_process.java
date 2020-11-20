@@ -1,6 +1,6 @@
 package tools;
 
-import auber.Player;
+import characters.Player;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -20,6 +20,7 @@ public class Teleport_process {
     public Teleport_Menu selected_room;
     public Player auber;
     public HashMap<String, ArrayList<Float>> teleporter_position;
+    public HashMap<Integer,ArrayList<Float>> jail_position;
 
 
     /**
@@ -33,6 +34,7 @@ public class Teleport_process {
         this.auber = auber;
         MapLayers layers = map.getLayers();
         teleporter_position = new HashMap<>();
+        jail_position = new HashMap<>();
         generate_position(layers);
     }
 
@@ -49,6 +51,18 @@ public class Teleport_process {
             teleport.add(tele.y);
             teleporter_position.put(object.getName(),teleport);
         }
+        // Test , should change with proper jail name for position
+        int jail_count = 0;
+        for(MapObject object: layers.get("jail").getObjects()){
+            Rectangle jail = ((RectangleMapObject) object).getRectangle();
+            ArrayList<Float> jails = new ArrayList<>();
+            jails.add(jail.x);
+            jails.add(jail.y);
+            jail_position.put(jail_count,jails);
+            jail_count ++;
+            System.out.println(jail_position);
+        }
+
     }
 
     /**
@@ -63,9 +77,13 @@ public class Teleport_process {
         // if auber's contact with teleporter detected, enable the selectBox
         if((String) auber.b2body.getUserData() == "ready_to_teleport" && selected_room.isDisabled()){
             selected_room.setDisabled(false);
-        }else if(((String) selected_room.getSelected() != "Teleport") && ((String) auber.b2body.getUserData() == "ready_to_teleport")){
+        }else if(((String) selected_room.getSelected() != "Teleport" && (String) selected_room.getSelected() != "Jail" )
+                && ((String) auber.b2body.getUserData() == "ready_to_teleport")){
             transform();
+        }else if((String) selected_room.getSelected() == "Jail" && auber.is_arresting() ){
+            jail_transform();
         }
+
     }
     /**
      * transfrom auber
@@ -82,7 +100,31 @@ public class Teleport_process {
         // set the selectBox back to Teleport and disable the selectedBox
         selected_room.setSelected("Teleport");
         selected_room.setDisabled(true);
+    }
 
+
+
+    // TEST
+    static int jail_index = 0;
+    /**
+     * transfor auber and arrested infiltrator to jail
+     */
+    public void jail_transform(){
+
+        float jail_X = jail_position.get(jail_index).get(0);
+        float jail_Y = jail_position.get(jail_index).get(1);
+        jail_index ++;
+        System.out.println(jail_index );
+        auber.b2body.setTransform(jail_X,jail_Y,0);
+        auber.nearbyEnemy.b2body.setTransform(jail_X,jail_Y,0);
+        // add the enemy to arrested list, shouldn't be arrested again
+        auber.arrestedEnemy.add(auber.nearbyEnemy);
+        auber.arrestedCount ++;
+        // remove enemy's target system if it has one
+        auber.nearbyEnemy.target_system = null;
+        auber.nearbyEnemy = null;
+        selected_room.setSelected("Teleport");
+        selected_room.setDisabled(true);
     }
 
 }
