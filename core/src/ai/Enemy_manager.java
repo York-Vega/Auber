@@ -153,8 +153,16 @@ public class Enemy_manager {
                 Systems sys = enemy.get_target_system();
                 // if no system left to sabotage, should start attacking auber
                 if (sys == null){
-                    // TO DO (attacking auber)
+                    // if size of inforamtion < 17 means still have systems not sabotaged, should keep generating next target
+                    if (information.size()<17){
+                        System.out.println(information.size());
+                        generateNextTarget(enemy);
+                        if (enemy.get_target_system() == null){
+                            continue;
+                        }
+                    }
                     continue;
+                    // TO DO (attacking auber) if no systems left and enemy not in jail, it should start attacking auber
                 }
                 if (enemy.is_attcking_mode()){
                     enemy.sabotage(sys);

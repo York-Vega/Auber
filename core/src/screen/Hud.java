@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import screen.actors.ArrestedHeader;
 import screen.actors.HealthBar;
 import screen.actors.System_status_menu;
 import screen.actors.Teleport_Menu;
@@ -25,6 +26,7 @@ public class Hud {
     public HealthBar healthBar;
     public Teleport_Menu teleport_menu;
     public System_status_menu system_status_menu;
+    public ArrestedHeader arrestedHeader;
 
     /**
      * Create a new instantiated hud.
@@ -46,16 +48,21 @@ public class Hud {
         table.setFillParent(true);
         // create teleport_menu (SelectBox<String>)actor
         teleport_menu = new Teleport_Menu();
-        // add teleport_menu to the table
-        table.add(teleport_menu).padLeft(20).width(Value.percentWidth(.2f, table));
         // create healthbar (ProgressBar)actor
         healthBar = new HealthBar();
+        // create a system_status_menu actor
+        system_status_menu = new System_status_menu();
+        // create a arrested count header actor
+        arrestedHeader = new ArrestedHeader();
+        // add teleport_menu to the table
+        table.add(teleport_menu).padLeft(20).width(Value.percentWidth(.2f, table));
         // add hp_text in front of bar, 20 is the space between hp text and teleport menu
         table.add(healthBar.hp_text).padLeft(20);
         // add healthBar to the table, 5 is the space between hp text and healthbar
         table.add(healthBar).padLeft(5).width(Value.percentWidth(.2f, table));
-        // create a system_status_menu instance
-        system_status_menu = new System_status_menu();
+        // add arrest header to the table
+        table.add(arrestedHeader).padLeft(40).width(Value.percentWidth(.2f,table));
+
         // show the layout, to be deleted when deploy
         //stage.setDebugAll(true);
         // add table to the stage

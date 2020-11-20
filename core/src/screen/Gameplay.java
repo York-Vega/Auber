@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
+import screen.actors.ArrestedHeader;
 import screen.actors.HealthBar;
 import screen.actors.System_status_menu;
 import screen.actors.Teleport_Menu;
@@ -38,8 +39,6 @@ public class Gameplay implements Screen {
 
     public static Player p1;
 
-//    TEST
-//    public AICharacter npc;
     public Enemy_manager enemy_manager;
 
     public OrthographicCamera camera;
@@ -69,6 +68,8 @@ public class Gameplay implements Screen {
     public ArrayList<Systems> systems = new ArrayList<>();
 
     public System_status_menu systemStatusMenu;
+
+    public ArrestedHeader arrestedHeader;
 
 
     /**
@@ -119,6 +120,8 @@ public class Gameplay implements Screen {
         // create a system_status_menu instance
         systemStatusMenu = hud.system_status_menu;
         systemStatusMenu.generate_systemLabels(systems);
+        // create a arrest_status header
+        arrestedHeader = hud.arrestedHeader;
         // create an enemy_manager instance
         enemy_manager = new Enemy_manager(world,map,systems);
 
@@ -141,6 +144,7 @@ public class Gameplay implements Screen {
         light_control.light_update(systems);
         enemy_manager.update_enemy(delta);
         systemStatusMenu.update_status(systems);
+        arrestedHeader.update_Arrested(p1);
     }
 
 
@@ -175,7 +179,7 @@ public class Gameplay implements Screen {
         game.getBatch().setProjectionMatrix(camera.combined);
 
         // render the box2d object shape, test purpose, need to be removed when deploy
-        b2dr.render(world, camera.combined);
+        //b2dr.render(world, camera.combined);
 
         // begin the batch
         game.getBatch().begin();
@@ -192,7 +196,6 @@ public class Gameplay implements Screen {
         // render the hud
         hud.viewport.apply();
         hud.stage.draw();
-
 
         //dispose();
 

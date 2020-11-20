@@ -8,16 +8,20 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
+import java.util.ArrayList;
+
 /**
  * Main player object for the game.
  */
 public class Player extends Sprite {
     public World world;
     public Body b2body;
+    public Enemy nearby_enemy;
     public float health;
     public boolean ishealing;
     public float playerSpeed = 60f;
-    public Enemy nearby_enemy;
+    public int arrested_count = 0;
+    public ArrayList<Enemy> arrested_enemy = new ArrayList<>();
 
 
     /**
@@ -175,4 +179,12 @@ public class Player extends Sprite {
         return nearby_enemy != null;
     }
 
+    /**
+     * avoid arresting enemy already in jail twice
+     * @param enemy
+     * @return
+     */
+    public boolean not_arrested(Enemy enemy){
+        return !arrested_enemy.contains(enemy);
+    }
 }

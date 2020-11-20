@@ -90,7 +90,7 @@ public class Object_ContactListener implements ContactListener {
                 Player auber = (Player) fixA.getUserData();
                 Enemy enemy = (Enemy) fixB.getUserData();
                 // if auber is not arresting other infiltrators, contacted infiltrators will be arrested
-                if (!auber.is_arresting()){
+                if (!auber.is_arresting() && auber.not_arrested(enemy)){
                     auber.setNearby_enemy(enemy);
                 }
             }
@@ -99,7 +99,7 @@ public class Object_ContactListener implements ContactListener {
                 Player auber = (Player) fixB.getUserData();
                 Enemy enemy = (Enemy) fixA.getUserData();
 
-                if (!auber.is_arresting()){
+                if (!auber.is_arresting() && auber.not_arrested(enemy)){
                     auber.setNearby_enemy(enemy);
                 }
             }
