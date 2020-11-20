@@ -4,6 +4,7 @@ import ai.Enemy_manager;
 import auber.Player;
 import map.Map;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -70,6 +71,8 @@ public class Gameplay implements Screen {
 
     public System_status_menu systemStatusMenu;
 
+    private boolean paused = false;
+
 
     /**
      * Creates a new instatntiated game.
@@ -122,6 +125,8 @@ public class Gameplay implements Screen {
         // create an enemy_manager instance
         enemy_manager = new Enemy_manager(world,map,systems);
 
+        
+
     }
 
     private float delta; 
@@ -141,6 +146,11 @@ public class Gameplay implements Screen {
         light_control.light_update(systems);
         enemy_manager.update_enemy(delta);
         systemStatusMenu.update_status(systems);
+
+        // if escape is pressed pause the game
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            this.pause();
+        }
     }
 
 
@@ -156,7 +166,16 @@ public class Gameplay implements Screen {
     @Override
     public void render(float delta) {
 
-        update();
+        // if the game is not paused, update it
+        // else if the pause menu indicates resume, resume the game
+        //else if the pause menu indicates exit, end the game 
+        if (!this.paused) {
+            update();
+        } else if (this.hud.pauseMenu.resume()) {
+            resume();
+        } else if (this.hud.pauseMenu.exit()) {
+            Gdx.app.exit();
+        }      
 
         // set camera follow the player
         camera.position.set(p1.b2body.getPosition().x, p1.b2body.getPosition().y, 0);
@@ -201,14 +220,24 @@ public class Gameplay implements Screen {
         hud.resize(width, height);
     }
 
+    /**
+     * to pause the game
+     * set the paused flag and show the pause menu
+     */
     @Override
     public void pause() {
-
+        this.paused = true;
+        this.hud.pauseMenu.show();
     }
 
+    /**
+     * to resume the game
+     * set the pause flag and hide the pause menu
+     */
     @Override
     public void resume() {
-
+        this.paused = false;
+        this.hud.pauseMenu.hide();
     }
 
     @Override

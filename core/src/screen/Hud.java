@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import screen.actors.HealthBar;
+import screen.actors.PauseMenu;
 import screen.actors.System_status_menu;
 import screen.actors.Teleport_Menu;
 
@@ -25,6 +25,7 @@ public class Hud {
     public HealthBar healthBar;
     public Teleport_Menu teleport_menu;
     public System_status_menu system_status_menu;
+    public PauseMenu pauseMenu;
 
     /**
      * Create a new instantiated hud.
@@ -34,7 +35,7 @@ public class Hud {
     public Hud(final SpriteBatch spriteBatch)  {
 
         // create a new viewport and a fixed camera for the stage
-        viewport = new FitViewport(1280, 720, new OrthographicCamera());
+        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera());
         viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         // pass in the game spritebatch
         stage = new Stage(viewport, spriteBatch);
@@ -54,6 +55,10 @@ public class Hud {
         table.add(healthBar.hp_text).padLeft(20);
         // add healthBar to the table, 5 is the space between hp text and healthbar
         table.add(healthBar).padLeft(5).width(Value.percentWidth(.2f, table));
+        // create and add a pause menu to the stage
+        pauseMenu = new PauseMenu();
+        stage.addActor(pauseMenu.pauseWindow());
+        
         // create a system_status_menu instance
         system_status_menu = new System_status_menu();
         // show the layout, to be deleted when deploy
@@ -63,6 +68,7 @@ public class Hud {
         // add system_status_menu to the stage
         stage.addActor(system_status_menu);
 
+        
     }
 
     public void resize(int width, int height)  {
