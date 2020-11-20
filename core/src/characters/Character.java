@@ -1,3 +1,5 @@
+package characters;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,9 +15,9 @@ public abstract class Character {
     public Body b2body;
     public float speed = 60f;
     
-    private CharacterRenderer renderer;
-    private Vector2 position;
-    private Vector2 size;
+    protected CharacterRenderer renderer;
+    protected Vector2 position;
+    protected Vector2 size;
 
     /**
      * creates an semi-initalised player the physics body is still uninitiated.
@@ -51,6 +53,7 @@ public abstract class Character {
         fdef.shape = shape;
 
         b2body.setLinearDamping(20f);
+        b2body.createFixture(fdef).setUserData(this);
 
         shape.dispose();
     }
@@ -60,14 +63,7 @@ public abstract class Character {
 
      * @param delta The time in secconds since the last update
      */
-    public void updatePlayer(float delta)  {
-        
-        // position sprite properly within the box
-        this.position.set(b2body.getPosition().x - size.x / 1,
-                         b2body.getPosition().y - size.y / 1 + 4);
-
-        renderer.update(delta, b2body.linVelLoc);
-    }
+    public abstract void update(float delta);
 
     public void draw(SpriteBatch batch) {
         renderer.render(position, batch);

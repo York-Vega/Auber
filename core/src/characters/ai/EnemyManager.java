@@ -1,4 +1,4 @@
-package ai;
+package characters.ai;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 /**
  * Manage enemies in the game
  */
-public class Enemy_manager {
+public class EnemyManager {
 
     public World world;
     public TiledMap map;
@@ -25,7 +25,7 @@ public class Enemy_manager {
     public static ArrayList<Systems> systems = new ArrayList<>();
     public static HashMap<Systems,Enemy> information;
 
-    public Enemy_manager(World world,TiledMap map,ArrayList<Systems> systems){
+    public EnemyManager(World world,TiledMap map,ArrayList<Systems> systems){
         this.world = world;
         this.map = map;
         this.systems = systems;
@@ -60,12 +60,12 @@ public class Enemy_manager {
      * create Enemy instance and store in Arraylist enemy
      * @param world
      */
-    public void generate_enemy(World world){
+    public void generate_enemy(World world) {
 
-        for(int i = 0; i < 8; i ++){
+        for (int i = 0; i < 8; i++) {
             float[] position = spawn_position.get(i);
             // pic needs to be changed with enemy pic
-            Enemy enemy = new Enemy(world,"player.png",position[0],position[1]);
+            Enemy enemy = new Enemy(world, position[0], position[1]);
             enemies.add(enemy);
 
         }
@@ -106,7 +106,7 @@ public class Enemy_manager {
             enemy.set_target_system(sys);
             // set the destination
             enemy.setDest(end_X,end_Y);
-            enemy.move_toDest();
+            enemy.moveToDest();
             // update the information hash table, aviod enemy targeting the same system
             information.put(sys,enemy);
 
@@ -188,7 +188,7 @@ public class Enemy_manager {
                 enemy.setDest(end_X,end_Y);
                 enemy.set_target_system(system);
                 information.put(system,enemy);
-                enemy.move_toDest();
+                enemy.moveToDest();
                 // set enemy back to standBy mode before it contacts with the next target system, otherwise the system will lose HP before contact
                 enemy.set_standByMode();
                 return;

@@ -1,6 +1,8 @@
-package auber;
+package characters;
 
-import ai.Enemy;
+import characters.ai.Enemy;
+import characters.Character;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,18 +15,12 @@ import java.util.ArrayList;
 /**
  * Main player object for the game.
  */
-public class Player {
-    public World world;
-    public Body b2body;
-    public Enemy nearby_enemy;
+public class Player extends Character {
+    public Enemy nearbyEnemy;
     public float health;
     public boolean ishealing;
-    public float playerSpeed = 60f;
-    private CharacterRenderer renderer;
-    private Vector2 position;
-    private Vector2 size;
-    public int arrested_count = 0;
-    public ArrayList<Enemy> arrested_enemy = new ArrayList<>();
+    public int arrestedCount = 0;
+    public ArrayList<Enemy> arrestedEnemy = new ArrayList<>();
 
 
     /**
@@ -32,21 +28,15 @@ public class Player {
 
      * @param world The game world
      * 
-     * @param name The name of the sprite
-     * 
      * @param x The inital x location of the player
      * 
      * @param y The inital y location of the player
      */
     public Player(World world, float x, float y)  {
-        this.world = world;
+        super(world, x, y, CharacterRenderer.Sprite.AUBER);
         this.health = 10f;
         this.ishealing = false;
-        position = new Vector2(x, y);
-        size = new Vector2(24, 24);
-        createBody();
 
-        renderer = new CharacterRenderer(CharacterRenderer.Sprite.AUBER);
     }
 
     public void setPosition(float x, float y) {
@@ -56,24 +46,10 @@ public class Player {
     /**
     * Creates the physics bodies for the player Sprite.
     */
+    @Override
     public void createBody()  {
-        BodyDef bdef = new BodyDef();
-        bdef.position.set(position.x + size.x, position.y + size.y);
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        b2body = world.createBody(bdef);
-
-        FixtureDef fdef = new FixtureDef();
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(size.x / 2, size.y / 2);
-
-        fdef.shape = shape;
-
-        b2body.setLinearDamping(20f);
-
-        b2body.createFixture(fdef).setUserData(this); // for contact listener
-        b2body.setUserData("auber");// for contact listener
-        shape.dispose();
-
+        super.createBody();
+        b2body.setUserData("auber"); // for contact listener
     }
     
     /**
@@ -81,25 +57,27 @@ public class Player {
 
      * @param delta The time in secconds since the last update
      */
-    public void updatePlayer(float delta)  {
+    @Override
+    public void update(float delta)  {
+        
         Vector2 input = new Vector2(0, 0);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            input.add(-playerSpeed, 0);
+            input.add(-speed, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            input.add(playerSpeed, 0);
+            input.add(speed, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            input.add(0, playerSpeed);
+            input.add(0, speed);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            input.add(0, -playerSpeed);
+            input.add(0, -speed);
         }
         b2body.applyLinearImpulse(input, b2body.getWorldCenter(), true);
 
-        //
-        if(nearby_enemy != null){
-            arrest(nearby_enemy);
+
+        if (nearbyEnemy != null) {
+            arrest(nearbyEnemy);
         }
 
         // position sprite properly within the box
@@ -113,7 +91,8 @@ public class Player {
     }
 
     /**
-     *
+     * Sets whether or not Player is currently healing.
+
      * @param isheal set ishealing to true or false
      */
     public void setHealing(boolean isheal) {
@@ -125,7 +104,7 @@ public class Player {
      */
     public void healing(float delta) {
         // healing should end or not start if auber left healing pod or not contact with healing pod
-        if (b2body.getUserData() == "auber"){
+        if (b2body.getUserData() == "auber") {
             setHealing(false);
             return;
         }
@@ -165,7 +144,7 @@ public class Player {
         enemy.set_ArrestedMode();
         // set enemy destination to auber's left,enemy should follow auber until it is in jail
         enemy.setDest(position.x, position.y);
-        enemy.move_toDest();
+        enemy.moveToDest();
 
     }
 
@@ -174,7 +153,7 @@ public class Player {
      * @param enemy
      */
     public void setNearby_enemy(Enemy enemy){
-        nearby_enemy = enemy;
+        nearbyEnemy = enemy;
     }
 
     /**
@@ -182,7 +161,7 @@ public class Player {
      * @return
      */
     public boolean is_arresting(){
-        return nearby_enemy != null;
+        return nearbyEnemy != null;
     }
 
     /**
@@ -191,6 +170,6 @@ public class Player {
      * @return
      */
     public boolean not_arrested(Enemy enemy){
-        return !arrested_enemy.contains(enemy);
+        return !arrestedEnemy.contains(enemy);
     }
 }

@@ -1,49 +1,29 @@
-package ai;
+package characters.ai;
 
-import auber.Player;
+import characters.Player;
 import com.badlogic.gdx.physics.box2d.World;
 import sprites.Systems;
 
-public class Enemy extends AICharacter{
+public class Enemy extends AiCharacter {
 
-    public float dest_x;
-    public float dest_y;
     public Systems target_system;
     public Systems current_contact_system; // used for contact listener
     public String mode;
     public static int numberofInfiltrators;
     /**
-     *  Enemy
-     * @param world
-     * @param name
+     * Enemy.
+
+     * @param world The game world
      * @param x position x
      * @param y position y
      */
-    public Enemy(World world, String name, float x, float y){
-        super(world,name,x,y);
-        this.dest_x = x;
-        this.dest_y = y;
-        numberofInfiltrators ++;
+    public Enemy(World world, float x, float y) {
+        super(world, x, y);
+        this.destX = x;
+        this.destY = y;
+        numberofInfiltrators++;
         this.b2body.setUserData("Infiltrators" + numberofInfiltrators);
         mode = "";
-    }
-
-
-    /**
-     * set the destinated postion
-     * @param x
-     * @param y
-     */
-    public void setDest(float x, float y){
-        this.dest_x = x;
-        this.dest_y = y;
-    }
-
-    /**
-     * move to destination
-     */
-    public void move_toDest(){
-        goTo(dest_x,dest_y);
     }
 
     /**
@@ -126,7 +106,7 @@ public class Enemy extends AICharacter{
      * @param auber
      */
     public void ability_slower_player(Player auber){
-        auber.playerSpeed -= 20f;
+        auber.speed -= 20f;
     }
 
     /**

@@ -1,6 +1,6 @@
 package tools;
 
-import auber.Player;
+import characters.Player;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
