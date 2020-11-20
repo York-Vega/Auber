@@ -180,7 +180,7 @@ public class Gameplay implements Screen {
         game.getBatch().setProjectionMatrix(camera.combined);
 
         // render the box2d object shape, test purpose, need to be removed when deploy
-        //b2dr.render(world, camera.combined);
+        b2dr.render(world, camera.combined);
 
         // begin the batch
         game.getBatch().begin();

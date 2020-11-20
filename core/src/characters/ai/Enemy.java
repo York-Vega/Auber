@@ -1,6 +1,9 @@
 package characters.ai;
 
 import characters.Player;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import sprites.Systems;
 
@@ -25,8 +28,29 @@ public class Enemy extends AiCharacter {
         this.destY = y;
         numberofInfiltrators++;
         this.b2body.setUserData("Infiltrators" + numberofInfiltrators);
+        createEdgeShape();
         mode = "";
     }
+
+    /**
+     * Create an EdgeShape for enemy to sensor auber for special ability
+     *
+     */
+    public void createEdgeShape() {
+
+        EdgeShape sensoringArea = new EdgeShape();
+        sensoringArea.set(new Vector2(32, 16), new Vector2(32,-16));
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = sensoringArea;
+        fixtureDef.isSensor = true;
+        b2body.createFixture(fixtureDef).setUserData(this);
+        
+
+    }
+
+
+
+
 
     /**
      * set sabotage system target.
@@ -112,14 +136,14 @@ public class Enemy extends AiCharacter {
      *
      * @param auber Player object
      */
-    public void ability_slower_player(Player auber) {
+    public void abilitySlowerPlayer(Player auber) {
         auber.speed -= 20f;
     }
 
     /**
      * increase its own speed.
      */
-    public void ability_speeding() {
+    public void abilitySpeeding() {
         this.speed  += 100f;
     }
 

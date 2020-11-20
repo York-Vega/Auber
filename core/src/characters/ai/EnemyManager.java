@@ -218,5 +218,5 @@ public class EnemyManager {
         enemy.set_standByMode();
         enemy.targetSystem = null;
     }
-    
+
 }
