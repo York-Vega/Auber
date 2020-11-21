@@ -15,6 +15,7 @@ public class Enemy extends AiCharacter {
     public String mode;
     public Ability ability;
     public static int numberofInfiltrators;
+    public boolean usingAbility; 
     /**
      * Enemy.
 
@@ -34,6 +35,7 @@ public class Enemy extends AiCharacter {
         System.out.println("Enemy get ability:" + ability.randomIndex);
         createEdgeShape(ability);
         mode = "";
+        usingAbility = false;
     }
 
     /**
@@ -52,9 +54,15 @@ public class Enemy extends AiCharacter {
 
     }
 
+    @Override
+    public void update(float delta) {
+        super.update(delta);
 
-
-
+        ability.update(delta, this);
+        if (!ability.inUse) {
+            usingAbility = false;
+        }
+    }
 
     /**
      * set sabotage system target.

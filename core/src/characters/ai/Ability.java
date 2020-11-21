@@ -4,21 +4,27 @@ import characters.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import java.sql.Time;
 import java.util.Random;
 
 public class Ability {
 
-    public boolean provked;
     public boolean disabled;
     public int randomIndex;
     public Player target;
+    public float useTime = 30;
+    public float cooldownTime = 30;
+    public boolean ready;
+    public boolean inUse;
+
     /**
      * Special Ability Enemy should have.
      *
      */
     public Ability() {
 
-        provked = false;
+        inUse = false;
+        ready = true;
         disabled = false;
         // give a random ability to enemy
         Random random = new Random();
@@ -53,15 +59,41 @@ public class Ability {
      * provoke ability status
      * @param provke should be set in contact listener
      */
-    public void provokeAbility(boolean provke) {
-        provked = provke;
+    public void provokeAbility() {
+        if (ready && !disabled) {
+            useTime = 30f;
+            inUse = true;
+            ready = false;
+        }
+    }
+
+    public void update(float delta, Enemy enemy) {
+        if (inUse) {
+            if (useTime >= delta) {
+                System.out.println("Use Time: " + useTime);
+                useTime -= delta;
+            } else {
+                removeAbility(enemy);
+                inUse = false;
+                cooldownTime = 30;
+                System.out.println("Starting Cooldown");
+            }
+        } else if (!ready) {
+            if (cooldownTime >= delta) {
+                System.out.println("cooldown time: " + cooldownTime);
+                cooldownTime -= delta;
+            } else {
+                ready = true;
+                System.out.println("Ability Ready");
+            }
+        }
     }
 
     /**
      * Disable ability
      * @param disable true when arrested
      */
-    public void disableAbility(boolean disable){
+    public void setDisable(boolean disable) {
         disabled = disable;
     }
 

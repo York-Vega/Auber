@@ -60,7 +60,7 @@ public class Object_ContactListener implements ContactListener {
 
         // if the auber is in contact with a door
         if(is_Doors(fixB) && fixA.getBody().getUserData() == "auber") {
-            System.out.println("start contact with " + fixB.getUserData().toString());
+            //System.out.println("start contact with " + fixB.getUserData().toString());
 
         }
 
@@ -76,7 +76,8 @@ public class Object_ContactListener implements ContactListener {
                         Ability ability = (Ability) fixA.getUserData();
                         Player auber = (Player) fixB.getUserData();
                         ability.setTarget(auber);
-                        ability.provokeAbility(true);
+                        ability.provokeAbility();
+
 
                         System.out.println("auber is under attack");
                     }
@@ -90,7 +91,7 @@ public class Object_ContactListener implements ContactListener {
                         Systems target_system = enemy.get_target_system();
                         Systems contact_system = (Systems) fixB.getUserData();
                         if (target_system == contact_system) {
-                            enemy.ability.disableAbility(true);
+                            enemy.ability.setDisable(true);
                             enemy.currentContactSystem = contact_system;
                             enemy.set_attackSystemMode();
                             target_system.set_sabotaging();
@@ -104,7 +105,7 @@ public class Object_ContactListener implements ContactListener {
                         Ability ability = (Ability) fixB.getUserData();
                         Player auber = (Player) fixA.getUserData();
                         ability.setTarget(auber);
-                        ability.provokeAbility(true);
+                        ability.provokeAbility();
                         System.out.println("auber is under attack");
                     }
 
@@ -114,7 +115,7 @@ public class Object_ContactListener implements ContactListener {
                         Systems target_system = enemy.get_target_system();
                         Systems contact_system = (Systems) fixA.getUserData();
                         if (target_system == contact_system) {
-                            enemy.ability.disableAbility(true);
+                            enemy.ability.setDisable(true);
                             enemy.currentContactSystem = contact_system;
                             enemy.set_attackSystemMode();
                             target_system.set_sabotaging();
@@ -134,7 +135,7 @@ public class Object_ContactListener implements ContactListener {
                 if (!auber.is_arresting() && auber.not_arrested(enemy)) {
                     auber.setNearby_enemy(enemy);
                     //enemy.set_standByMode();
-                    enemy.ability.disableAbility(true);
+                    enemy.ability.setDisable(true);
                 }
             } else if (is_Auber(fixB) && is_Infiltrators(fixA) && Enemy.class.isAssignableFrom(fixA.getUserData().getClass())) {
                 Player auber = (Player) fixB.getUserData();
@@ -142,7 +143,7 @@ public class Object_ContactListener implements ContactListener {
                 if (!auber.is_arresting() && auber.not_arrested(enemy)) {
                     auber.setNearby_enemy(enemy);
                     //enemy.set_standByMode();
-                    enemy.ability.disableAbility(true);
+                    enemy.ability.setDisable(true);
                 }
             }
         }
@@ -172,7 +173,7 @@ public class Object_ContactListener implements ContactListener {
 
         // if auber end contact with the door
         if (is_Doors(fixB) && fixA.getBody().getUserData() == "auber")  {
-            System.out.println("end contact with " + fixB.getUserData().toString());
+            //System.out.println("end contact with " + fixB.getUserData().toString());
         }
 
 
@@ -186,7 +187,7 @@ public class Object_ContactListener implements ContactListener {
                     // sensor area end contact with auber
                     if (is_Auber(fixB)) {
                         Ability ability = (Ability) fixA.getUserData();
-                        ability.provokeAbility(false);
+                        //ability.provokeAbility(false);
 
 
                     }
@@ -201,7 +202,7 @@ public class Object_ContactListener implements ContactListener {
                         // or enemy stop sabotaging the system
                         // the end contact between enemy and system it left will be listened
                         if (currentContactsystem == endContactSys) {
-                            enemy.ability.disableAbility(false);
+                            enemy.ability.setDisable(false);
                             float sysHp = currentContactsystem.hp;
                             if (sysHp > 1) {
                                 // if system's hp > 1, set it to not sabotaged status
@@ -217,7 +218,7 @@ public class Object_ContactListener implements ContactListener {
                     // sensor area end contact with auber
                     if (is_Auber(fixA)) {
                         Ability ability = (Ability) fixB.getUserData();
-                        ability.provokeAbility(false);
+                        //ability.provokeAbility(false);
 
                     }
                     // TO DO, sensor area end contact with NPC
@@ -230,7 +231,7 @@ public class Object_ContactListener implements ContactListener {
                         // or enemy stop sabotaging the system
                         // the end contact between enemy and system it left will be listened
                         if (currentContactsystem == endContactSys) {
-                            enemy.ability.disableAbility(false);
+                            enemy.ability.setDisable(false);
                             float sysHp = currentContactsystem.hp;
                             if (sysHp > 1) {
                                 // if system's hp > 1, set it to not sabotaged status

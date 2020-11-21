@@ -151,21 +151,15 @@ public class EnemyManager {
 
         for (Enemy enemy : enemies) {
 
-            if (enemy.ability.provked && ! enemy.ability.disabled && enemy.ability.target != null && !enemy.is_attcking_mode()) {
+            //if (enemy.ability.provked && ! enemy.ability.disabled && enemy.ability.target != null && !enemy.is_attcking_mode()) {
+            if (enemy.ability.inUse && !enemy.usingAbility) {    
                 Player target = enemy.ability.target;
                 enemy.ability.useAbility(enemy,target);
                 System.out.println("Enemy uses ability :" + enemy.ability.randomIndex);
                 enemy.update(delta);
+                enemy.usingAbility = true;
                 continue;
             }
-            if (!enemy.ability.provked && !enemy.ability.disabled && enemy.ability.target != null) {
-
-                enemy.ability.removeAbility(enemy);
-                enemy.ability.target = null;
-                enemy.update(delta);
-                continue;
-            }
-
             if (enemy.isArrested()) {
                 // if enemy have a taget system
                 if (enemy.get_target_system() != null) {
