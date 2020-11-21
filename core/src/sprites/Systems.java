@@ -26,6 +26,7 @@ public class Systems extends InteractiveTileObject{
         this.fixture.setSensor(true);
         // check whether is a healing pod or not
         isHealing_pod(name);
+        isDoors(name);
 
     }
 
@@ -33,6 +34,14 @@ public class Systems extends InteractiveTileObject{
         // if system is healingPod, set the fixture to sensor
         if (name.equals("healingPod")){
             this.fixture.getBody().setUserData("healingPod_not_sabotaged");
+            this.fixture.setSensor(true);
+        }
+    }
+
+    public void isDoors(String name){
+        // if system is healingPod, set the fixture to sensor
+        if (name.equals("doors")){
+            this.fixture.getBody().setUserData("doors_not_sabotaged");
             this.fixture.setSensor(true);
         }
     }

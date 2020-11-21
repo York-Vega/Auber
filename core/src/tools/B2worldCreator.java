@@ -5,9 +5,13 @@ import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
+
+import map.Map;
 import screen.Gameplay;
+import sprites.Door;
 import sprites.Jail;
 import sprites.Systems;
 import sprites.Teleport;
@@ -72,6 +76,15 @@ public class B2worldCreator {
             game.systems.add(new Systems(world,map,rect, object.getName()));
         }
 
+        // create doors <- this is interactive tiled map object
+        for (MapObject object : layers.get("doors").getObjects()){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            // create a new instantiated door object
+            // adds door object to the Doors Arraylist
+
+            game.doors.add(new Door(world,map,rect, object.getName().equals("jailDoor")));
+        }
+        
         // create jails
         int jail_number = 0;
         for (MapObject object : layers.get("jail").getObjects()){

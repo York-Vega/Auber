@@ -1,10 +1,10 @@
 package tools;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class BackgroundRenderer {
@@ -41,8 +41,8 @@ public class BackgroundRenderer {
         currentFrame = animation.getKeyFrame(timeElapsed, true);
     }
 
-    int width;
-    int height;
+    float width;
+    float height;
     final int tileWidth = 160;
 
     /**
@@ -52,8 +52,8 @@ public class BackgroundRenderer {
         batch.begin();
         width = viewport.getScreenWidth();
         height = viewport.getScreenHeight();
-        for (int x = 0; x <= width; x += tileWidth) {
-            for (int y = 0; y <= height; y += tileWidth) {
+        for (float x = -width/2; x <= width/2; x += tileWidth) {
+            for (float y = -height/2; y <= height/2; y += tileWidth) {
                 batch.draw(currentFrame, x, y, tileWidth, tileWidth);
             }
         }

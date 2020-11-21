@@ -9,7 +9,7 @@ import java.util.Hashtable;
 import sprites.Systems;
 
 
-public class systemStatusMenu extends VerticalGroup {
+public class SystemStatusMenu extends VerticalGroup {
 
     public Skin myskin;
 
@@ -19,7 +19,7 @@ public class systemStatusMenu extends VerticalGroup {
 
     public Hashtable<Systems, Label> statusMap = new Hashtable<>();
 
-    public systemStatusMenu() {
+    public SystemStatusMenu() {
 
         super();
         myskin = new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json"));

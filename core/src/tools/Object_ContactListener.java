@@ -4,6 +4,7 @@ import characters.Player;
 import characters.ai.Ability;
 import characters.ai.Enemy;
 import com.badlogic.gdx.physics.box2d.*;
+import sprites.Door;
 import sprites.Systems;
 
 import java.util.regex.Pattern;
@@ -38,9 +39,9 @@ public class Object_ContactListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         // use reg to check whether the object contacted is a teleporter or not
-        isTeleport = Pattern.matches(teleport_parten, (CharSequence) fixB.getBody().getUserData());
+        isTeleport = Pattern.matches(teleport_parten, fixB.getBody().getUserData().toString());
         // use reg to check whether the object contacted is a healpod
-        isHealingPod = Pattern.matches(healing_pattern, (String) fixB.getBody().getUserData());
+        isHealingPod = Pattern.matches(healing_pattern, fixB.getBody().getUserData().toString());
 
         // only auber contact with teleport will be listened
         if (isTeleport && fixA.getBody().getUserData() == "auber")  {
@@ -55,6 +56,14 @@ public class Object_ContactListener implements ContactListener {
                 fixA.getBody().setUserData("ready_to_heal");
             }
         }
+
+
+        // if the auber is in contact with a door
+        if(is_Doors(fixB) && fixA.getBody().getUserData() == "auber") {
+            System.out.println("start contact with " + fixB.getUserData().toString());
+
+        }
+
 
         // Infiltrators contact
         if (is_Infiltrators(fixA) || is_Infiltrators(fixB))  {
@@ -146,20 +155,28 @@ public class Object_ContactListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         // use reg to check whether the object end contact is a teleporter or not
-        isTeleport = Pattern.matches(teleport_parten, (String) fixB.getBody().getUserData());
+        isTeleport = Pattern.matches(teleport_parten,  fixB.getBody().getUserData().toString());
         // use reg to check whether the object end contact is a healpod
-        isHealingPod = Pattern.matches(healing_pattern,(String) fixB.getBody().getUserData());
+        isHealingPod = Pattern.matches(healing_pattern,fixB.getBody().getUserData().toString());
 
         // only auber contact with teleport will be listened
-        if (isTeleport && ((String) fixA.getBody().getUserData()).equals("ready_to_teleport")) {
+        if (isTeleport && (fixA.getBody().getUserData()).toString().equals("ready_to_teleport")) {
             // set the player.UserData to auber after the contact ended
             fixA.getBody().setUserData("auber");
         }
         // if auber end contact with healing pod, set auber's body data back to auber
-        if (isHealingPod && ((String) fixA.getBody().getUserData()).equals("ready_to_heal")) {
+        if (isHealingPod && ((String) fixA.getBody().getUserData()).toString().equals("ready_to_heal")) {
             // set the player.UserData to ready_to_heal for healing process
             fixA.getBody().setUserData("auber");
         }
+
+        // if auber end contact with the door
+        if (is_Doors(fixB) && fixA.getBody().getUserData() == "auber")  {
+            System.out.println("end contact with " + fixB.getUserData().toString());
+        }
+
+
+
 
         // // infiltrators end contact
         if (is_Infiltrators(fixA) || is_Infiltrators(fixB))  {
@@ -229,13 +246,19 @@ public class Object_ContactListener implements ContactListener {
     }
 
     public boolean is_Infiltrators(Fixture fixture) {
-        return Pattern.matches(infiltrators_pattern,(String) fixture.getBody().getUserData());
+        return Pattern.matches(infiltrators_pattern,fixture.getBody().getUserData().toString());
     }
 
     public boolean is_System(Fixture fixture) {
-        return Pattern.matches(system_pattern, (String) fixture.getBody().getUserData())
-                || Pattern.matches(healing_pattern, (String) fixture.getBody().getUserData());
+        return Pattern.matches(system_pattern,  fixture.getBody().getUserData().toString())
+                || Pattern.matches(healing_pattern, fixture.getBody().getUserData().toString())
+                || Pattern.matches(".*doors.*", fixture.getBody().getUserData().toString());
     }
+
+    public boolean is_Doors(Fixture fixture) {
+        return  Pattern.matches("door_.*" , fixture.getUserData().toString());
+    }
+
 
     public boolean is_Auber(Fixture fixture) {
         return fixture.getBody().getUserData().equals("auber");
@@ -244,7 +267,20 @@ public class Object_ContactListener implements ContactListener {
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
 
+        // if the character is about to come into contact with a door
+        if (is_Doors(fixB) && ((fixA.getBody().getUserData() == "auber") || is_Infiltrators(fixA)))  {
+            // gets the door
+            Object data = fixB.getBody().getUserData();
+            if (data instanceof Door) {
+
+                // if the door is locked, it is collidable,
+                // else it is not
+                contact.setEnabled(((Door)data).isLocked());
+            }
+        }
     }
 
     @Override

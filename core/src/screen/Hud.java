@@ -9,7 +9,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import screen.actors.ArrestedHeader;
 import screen.actors.HealthBar;
-import screen.actors.systemStatusMenu;
+import screen.actors.SystemStatusMenu;
+import screen.actors.PauseMenu;
 import screen.actors.Teleport_Menu;
 
 
@@ -24,7 +25,11 @@ public class Hud {
     // actors need to be added to the hud
     public HealthBar healthBar;
     public Teleport_Menu teleport_menu;
-    public systemStatusMenu system_status_menu;
+
+    public SystemStatusMenu system_status_menu;
+
+    public PauseMenu pauseMenu;
+
     public ArrestedHeader arrestedHeader;
 
     /**
@@ -50,7 +55,7 @@ public class Hud {
         // create healthbar (ProgressBar)actor
         healthBar = new HealthBar();
         // create a system_status_menu actor
-        system_status_menu = new systemStatusMenu();
+        system_status_menu = new SystemStatusMenu();
         // create a arrested count header actor
         arrestedHeader = new ArrestedHeader();
         // add teleport_menu to the table
@@ -59,21 +64,29 @@ public class Hud {
         table.add(healthBar.hp_text).padLeft(20);
         // add healthBar to the table, 5 is the space between hp text and healthbar
         table.add(healthBar).padLeft(5).width(Value.percentWidth(.2f, table));
+        // create and add a pause menu to the stage
+        pauseMenu = new PauseMenu();
+
+        
+        // create a system_status_menu instance
+        system_status_menu = new SystemStatusMenu();
         // add arrest header to the table
         table.add(arrestedHeader).padLeft(40).width(Value.percentWidth(.2f,table));
 
         // show the layout, to be deleted when deploy
-        //stage.setDebugAll(true);
+        stage.setDebugAll(true);
         // add table to the stage
         stage.addActor(table);
         // add system_status_menu to the stage
         stage.addActor(system_status_menu);
+        stage.addActor(pauseMenu.pauseWindow());
 
+        
     }
 
     public void resize(int width, int height)  {
         viewport.update(width, height);
-        
+
     }
 
 }

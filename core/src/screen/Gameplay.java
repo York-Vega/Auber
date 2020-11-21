@@ -4,6 +4,7 @@ import characters.ai.EnemyManager;
 import characters.Player;
 import map.Map;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,10 +18,13 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
 import screen.actors.ArrestedHeader;
 import screen.actors.HealthBar;
+import screen.actors.SystemStatusMenu;
 import screen.actors.Teleport_Menu;
+import sprites.Door;
 import sprites.Systems;
 import tools.B2worldCreator;
 import tools.BackgroundRenderer;
+import tools.Door_Controll;
 import tools.CharacterRenderer;
 import tools.LightControl;
 import tools.Object_ContactListener;
@@ -67,8 +71,10 @@ public class Gameplay implements Screen {
 
     public ArrayList<Systems> systems = new ArrayList<>();
 
-    public screen.actors.systemStatusMenu systemStatusMenu;
+    public SystemStatusMenu systemStatusMenu;
 
+    public static ArrayList<Door> doors = new ArrayList<>();
+    private boolean paused = false;
     public ArrestedHeader arrestedHeader;
 
 
@@ -126,6 +132,8 @@ public class Gameplay implements Screen {
         // create an enemy_manager instance
         enemyManager = new EnemyManager(world,map,systems);
 
+        
+
     }
 
     private float delta; 
@@ -143,8 +151,14 @@ public class Gameplay implements Screen {
         healthBar.update_HP(p1);
         hud.stage.act(delta);
         light_control.light_update(systems);
+        Door_Controll.updateDoors(systems, delta);
         enemyManager.update_enemy(delta);
         systemStatusMenu.update_status(systems);
+
+        // if escape is pressed pause the game
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            this.pause();
+        }
         arrestedHeader.update_Arrested(p1);
     }
 
@@ -155,29 +169,45 @@ public class Gameplay implements Screen {
         Gdx.input.setInputProcessor(hud.stage);
     }
 
-    private static final int[] backgroundLayers = new int[]{0, 1};
-    private static final int[] forgroundLayers = new int[]{};
+    private static final int[] backgroundLayers = new int[]{0, 1, 2};
+    private static final int[] forgroundLayers = new int[]{3};
 
     @Override
     public void render(float delta) {
 
-        update();
+        // if the game is not paused, update it
+        // else if the pause menu indicates resume, resume the game
+        //else if the pause menu indicates exit, end the game 
+        if (!this.paused) {
+            update();
+        } else if (this.hud.pauseMenu.resume()) {
+            resume();
+        } else if (this.hud.pauseMenu.exit()) {
+            Gdx.app.exit();
+        }      
+
+
+        // clear the screen
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        // set camera follow the player
+        camera.position.set(0, 0, 0);
+        camera.update();
+
+        // this is needed to be called before the batch.begin(), or scrren will freeze
+        game.getBatch().setProjectionMatrix(camera.combined);
+        viewport.apply();
+        backgroundRenderer.render();
 
         // set camera follow the player
         camera.position.set(p1.b2body.getPosition().x, p1.b2body.getPosition().y, 0);
         camera.update();
-        // clear the screen
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        viewport.apply();
-        backgroundRenderer.render();
-        // render the tilemap
-        renderer.setView(camera);
-
-
-        renderer.render(backgroundLayers);
-        // this is needed to be called before the batch.begin(), or scrren will freeze
         game.getBatch().setProjectionMatrix(camera.combined);
+
+        // render the tilemap background
+        renderer.setView(camera);
+        renderer.render(backgroundLayers);
 
         // render the box2d object shape, test purpose, need to be removed when deploy
         b2dr.render(world, camera.combined);
@@ -211,14 +241,24 @@ public class Gameplay implements Screen {
         hud.resize(width, height);
     }
 
+    /**
+     * to pause the game
+     * set the paused flag and show the pause menu
+     */
     @Override
     public void pause() {
-
+        this.paused = true;
+        this.hud.pauseMenu.show();
     }
 
+    /**
+     * to resume the game
+     * set the pause flag and hide the pause menu
+     */
     @Override
     public void resume() {
-
+        this.paused = false;
+        this.hud.pauseMenu.hide();
     }
 
     @Override
