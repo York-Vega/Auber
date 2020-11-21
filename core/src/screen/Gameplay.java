@@ -169,8 +169,8 @@ public class Gameplay implements Screen {
         Gdx.input.setInputProcessor(hud.stage);
     }
 
-    private static final int[] backgroundLayers = new int[]{0, 1};
-    private static final int[] forgroundLayers = new int[]{};
+    private static final int[] backgroundLayers = new int[]{0, 1, 2};
+    private static final int[] forgroundLayers = new int[]{3};
 
     @Override
     public void render(float delta) {
@@ -192,12 +192,11 @@ public class Gameplay implements Screen {
         // clear the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         viewport.apply();
         backgroundRenderer.render();
-        // render the tilemap
+        // render the tilemap background
         renderer.setView(camera);
-
-
         renderer.render(backgroundLayers);
         // this is needed to be called before the batch.begin(), or scrren will freeze
         game.getBatch().setProjectionMatrix(camera.combined);

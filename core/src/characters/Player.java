@@ -82,7 +82,7 @@ public class Player extends Character {
 
         // position sprite properly within the box
         this.setPosition(b2body.getPosition().x - size.x / 1,
-                         b2body.getPosition().y - size.y / 1 + 4);
+                         b2body.getPosition().y - size.y / 1 + 6);
 
         // should be called each loop of rendering
         healing(delta);
