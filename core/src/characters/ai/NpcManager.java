@@ -45,8 +45,8 @@ public class NpcManager {
 
         MapLayer npcSpawn = map.getLayers().get("npcSpawns");
 
-        while (spawnPositions.size() < 20){
-            for (MapObject object : npcSpawn.getObjects()){
+        while (spawnPositions.size() < 20) {
+            for (MapObject object : npcSpawn.getObjects()) {
                 Rectangle point = ((RectangleMapObject) object).getRectangle();
                 float [] position = new float[]{point.x, point.y};
                 double randomPo = Math.random();

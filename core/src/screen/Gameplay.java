@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
 import screen.actors.ArrestedHeader;
 import screen.actors.HealthBar;
-import screen.actors.System_status_menu;
+import screen.actors.SystemStatusMenu;
 import screen.actors.Teleport_Menu;
 import sprites.Door;
 import sprites.Systems;
@@ -26,7 +26,7 @@ import tools.B2worldCreator;
 import tools.BackgroundRenderer;
 import tools.Door_Controll;
 import tools.CharacterRenderer;
-import tools.Light_control;
+import tools.LightControl;
 import tools.Object_ContactListener;
 import tools.Teleport_process;
 
@@ -67,11 +67,11 @@ public class Gameplay implements Screen {
 
     public Teleport_Menu teleport_menu;
 
-    private Light_control light_control;
+    private LightControl light_control;
 
     public ArrayList<Systems> systems = new ArrayList<>();
 
-    public System_status_menu systemStatusMenu;
+    public SystemStatusMenu systemStatusMenu;
 
     public static ArrayList<Door> doors = new ArrayList<>();
     private boolean paused = false;
@@ -97,7 +97,7 @@ public class Gameplay implements Screen {
 
         CharacterRenderer.loadTextures();
         // create a light control object
-        light_control = new Light_control(world);
+        light_control = new LightControl(world);
 
         // this image is only for test purpose, needs to be changed with proper sprite
         //p1 = new Player(world, "player_test.png", 1133, 1011);
@@ -210,7 +210,7 @@ public class Gameplay implements Screen {
         renderer.render(backgroundLayers);
 
         // render the box2d object shape, test purpose, need to be removed when deploy
-        //b2dr.render(world, camera.combined);
+        b2dr.render(world, camera.combined);
 
         // begin the batch
         game.getBatch().begin();

@@ -6,7 +6,6 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import screen.actors.Teleport_Menu;
 
 import java.util.ArrayList;
@@ -80,8 +79,10 @@ public class Teleport_process {
         }else if(((String) selected_room.getSelected() != "Teleport" && (String) selected_room.getSelected() != "Jail" )
                 && ((String) auber.b2body.getUserData() == "ready_to_teleport")){
             transform();
-        }else if((String) selected_room.getSelected() == "Jail" && auber.is_arresting() ){
+        }else if((String) selected_room.getSelected() == "Jail" && auber.is_arresting()) {
             jail_transform();
+        }else if((String) selected_room.getSelected() == "Jail" && !auber.is_arresting()){
+            selected_room.setSelected("Teleport");
         }
 
     }
@@ -117,11 +118,12 @@ public class Teleport_process {
         System.out.println(jail_index );
         auber.b2body.setTransform(jail_X,jail_Y,0);
         auber.nearbyEnemy.b2body.setTransform(jail_X,jail_Y,0);
+        auber.nearbyEnemy.stop();
         // add the enemy to arrested list, shouldn't be arrested again
         auber.arrestedEnemy.add(auber.nearbyEnemy);
         auber.arrestedCount ++;
         // remove enemy's target system if it has one
-        auber.nearbyEnemy.target_system = null;
+        auber.nearbyEnemy.targetSystem = null;
         auber.nearbyEnemy = null;
         selected_room.setSelected("Teleport");
         selected_room.setDisabled(true);
