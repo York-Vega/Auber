@@ -1,6 +1,7 @@
 package characters.ai;
 
 import characters.Player;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -30,6 +31,7 @@ public class Enemy extends AiCharacter {
         numberofInfiltrators++;
         this.b2body.setUserData("Infiltrators" + numberofInfiltrators);
         ability = new Ability();
+        System.out.println("Enemy get ability:" + ability.randomIndex);
         createEdgeShape(ability);
         mode = "";
     }
@@ -41,7 +43,7 @@ public class Enemy extends AiCharacter {
     public void createEdgeShape(Ability ability) {
 
         EdgeShape sensoringArea = new EdgeShape();
-        sensoringArea.set(new Vector2(64, 16), new Vector2(64,-16));
+        sensoringArea.set(new Vector2(64, 32), new Vector2(64,-32));
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = sensoringArea;
         fixtureDef.isSensor = true;

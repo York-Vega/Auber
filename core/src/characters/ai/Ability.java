@@ -10,20 +10,27 @@ public class Ability {
 
     public boolean provked;
     public boolean disabled;
+    public int randomIndex;
     public Player target;
     /**
      * Special Ability Enemy should have.
      *
      */
-    public Ability() { provked = false; disabled = false; }
+    public Ability() {
+
+        provked = false;
+        disabled = false;
+        // give a random ability to enemy
+        Random random = new Random();
+        randomIndex = random.nextInt(4);
+        //randomIndex = 1;
+
+    }
 
     /**
      * Generate a random ability for enemy.
      */
     public void useAbility(Enemy enemy, Player player) {
-
-        Random random = new Random();
-        int randomIndex = random.nextInt(3);
 
         switch (randomIndex) {
             case 0:
@@ -70,7 +77,7 @@ public class Ability {
     public void slowDownPlayer(Player auber) {
 
         float currentSpeed = auber.speed;
-        auber.speed = currentSpeed * .5f;
+        auber.speed = currentSpeed * .5f * Gdx.graphics.getDeltaTime();
         Gdx.app.log("Auber:","Has been slow down");
     }
 
@@ -80,7 +87,11 @@ public class Ability {
     public void speeding(Enemy enemy) {
 
         float currentSpeed = enemy.speed;
-        enemy.speed = currentSpeed * 1.5f;
+        enemy.speed = currentSpeed * 3f ;
+        if (target != null){
+            enemy.setDest(target.b2body.getPosition().x-400,target.b2body.getPosition().y);
+        }
+
         Gdx.app.log("Enemy:","has speeding");
     }
 
@@ -91,7 +102,7 @@ public class Ability {
     public void attackPlayer(Player player) {
 
         float currentHp = player.health;
-        player.health = currentHp - 0.1f;
+        player.health = currentHp - 1f * Gdx.graphics.getDeltaTime();
         Gdx.app.log("Auber:","Has been attacked");
     }
 

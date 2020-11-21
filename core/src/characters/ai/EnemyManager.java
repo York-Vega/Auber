@@ -154,14 +154,15 @@ public class EnemyManager {
             if (enemy.ability.provked && ! enemy.ability.disabled && enemy.ability.target != null && !enemy.is_attcking_mode()) {
                 Player target = enemy.ability.target;
                 enemy.ability.useAbility(enemy,target);
-                enemy.update(10);
+                System.out.println("Enemy uses ability :" + enemy.ability.randomIndex);
+                enemy.update(delta);
                 continue;
             }
             if (!enemy.ability.provked && !enemy.ability.disabled && enemy.ability.target != null) {
 
                 enemy.ability.removeAbility(enemy);
                 enemy.ability.target = null;
-                enemy.update(10);
+                enemy.update(delta);
                 continue;
             }
 
@@ -184,14 +185,11 @@ public class EnemyManager {
                 if (sys == null) {
                     // still have systems not sabotaged, should keep generating next target
                     if (information.size() < 17) {
-                        System.out.println(enemy + " has finished sabotaging");
-                        //System.out.println(information.size());
                         generateNextTarget(enemy);
                         if (enemy.get_target_system() == null) {
                             continue;
                         }
                     }
-                    System.out.println("all systems sabotaged");
                     continue;
                     // TO DO (attacking auber) if no systems left and enemy not in jail,
                     // it should start attacking auber
