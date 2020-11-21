@@ -186,20 +186,28 @@ public class Gameplay implements Screen {
             Gdx.app.exit();
         }      
 
-        // set camera follow the player
-        camera.position.set(p1.b2body.getPosition().x, p1.b2body.getPosition().y, 0);
-        camera.update();
+
         // clear the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        // set camera follow the player
+        camera.position.set(0, 0, 0);
+        camera.update();
 
+        // this is needed to be called before the batch.begin(), or scrren will freeze
+        game.getBatch().setProjectionMatrix(camera.combined);
         viewport.apply();
         backgroundRenderer.render();
+
+        // set camera follow the player
+        camera.position.set(p1.b2body.getPosition().x, p1.b2body.getPosition().y, 0);
+        camera.update();
+        game.getBatch().setProjectionMatrix(camera.combined);
+
         // render the tilemap background
         renderer.setView(camera);
         renderer.render(backgroundLayers);
-        // this is needed to be called before the batch.begin(), or scrren will freeze
-        game.getBatch().setProjectionMatrix(camera.combined);
 
         // render the box2d object shape, test purpose, need to be removed when deploy
         //b2dr.render(world, camera.combined);
