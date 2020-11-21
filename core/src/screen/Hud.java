@@ -11,6 +11,7 @@ import screen.actors.ArrestedHeader;
 import screen.actors.HealthBar;
 import screen.actors.SystemStatusMenu;
 import screen.actors.PauseMenu;
+import screen.actors.SettingsMenu;
 import screen.actors.Teleport_Menu;
 
 
@@ -29,6 +30,7 @@ public class Hud {
     public SystemStatusMenu system_status_menu;
 
     public PauseMenu pauseMenu;
+    public SettingsMenu settingsMenu;
 
     public ArrestedHeader arrestedHeader;
 
@@ -64,10 +66,13 @@ public class Hud {
         table.add(healthBar.hp_text).padLeft(20);
         // add healthBar to the table, 5 is the space between hp text and healthbar
         table.add(healthBar).padLeft(5).width(Value.percentWidth(.2f, table));
-        // create and add a pause menu to the stage
-        pauseMenu = new PauseMenu();
-
         
+
+        settingsMenu = new SettingsMenu();
+        
+        // create and add a pause menu to the stage
+        pauseMenu = new PauseMenu(settingsMenu);
+
         // create a system_status_menu instance
         system_status_menu = new SystemStatusMenu();
         // add arrest header to the table
@@ -80,6 +85,7 @@ public class Hud {
         // add system_status_menu to the stage
         stage.addActor(system_status_menu);
         stage.addActor(pauseMenu.pauseWindow());
+        stage.addActor(settingsMenu.settingsWindow());
 
         
     }

@@ -11,24 +11,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 
-public class PauseMenu {
-    private Window pauseWindow;
-    private Skin skin = new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json"));
-    private boolean paused;
+public class PauseMenu extends Menu{
     private boolean exiting;
     TextButton resumeButton = new TextButton("Resume", skin);
     TextButton exitButton = new TextButton("Exit", skin);    
     TextButton settingsButton = new TextButton("Settings", skin);
     Label titleLabel = new Label("Paused", skin);
+    SettingsMenu settingsMenu;
 
-    public PauseMenu() {
-        this.pauseWindow = new Window("Pause", this.skin);
-        pauseWindow.setMovable(false);        
+    public PauseMenu(SettingsMenu settingsMenu) {
+        super("Pause");       
 
-        pauseWindow.setSize(200, 500);
-        pauseWindow.setPosition(1280 / 2 - pauseWindow.getWidth()/2,720 / 2 - pauseWindow.getHeight()/2);
-        pauseWindow.setVisible(false);
-        pauseWindow.setLayoutEnabled(false);        
+        this.settingsMenu = settingsMenu;
 
         //Adds actors to the menu
         resumeButton.setName("Resume");
@@ -36,27 +30,23 @@ public class PauseMenu {
         settingsButton.setName("Settings");
         titleLabel.setName("Title");
 
-        pauseWindow.add(resumeButton);
-        pauseWindow.add(exitButton);
-        pauseWindow.add(settingsButton);
-        pauseWindow.add(titleLabel);
+        window.add(resumeButton);
+        window.add(exitButton);
+        window.add(settingsButton);
+        window.add(titleLabel);
         
-        pauseWindow.findActor("Resume").setPosition(this.pauseWindow.getWidth()/2 - resumeButton.getWidth()/2, this.pauseWindow.getHeight() * 7/10 - resumeButton.getHeight()/2);        
-        pauseWindow.findActor("Settings").setPosition(this.pauseWindow.getWidth()/2 - settingsButton.getWidth()/2, this.pauseWindow.getHeight() * 5/10 - settingsButton.getHeight()/2);
-        pauseWindow.findActor("Exit").setPosition(this.pauseWindow.getWidth()/2 - exitButton.getWidth()/2, this.pauseWindow.getHeight() * 3/10 - exitButton.getHeight()/2);
-        pauseWindow.findActor("Title").setPosition(this.pauseWindow.getWidth()/2 - titleLabel.getWidth()/2, this.pauseWindow.getHeight() * 9/10 - titleLabel.getHeight()/2);
-
-        pauseWindow.setColor(Color.BLACK);
-
-        paused = false;
+        window.findActor("Resume").setPosition(this.window.getWidth()/2 - resumeButton.getWidth()/2, this.window.getHeight() * 7/10 - resumeButton.getHeight()/2);        
+        window.findActor("Settings").setPosition(this.window.getWidth()/2 - settingsButton.getWidth()/2, this.window.getHeight() * 5/10 - settingsButton.getHeight()/2);
+        window.findActor("Exit").setPosition(this.window.getWidth()/2 - exitButton.getWidth()/2, this.window.getHeight() * 3/10 - exitButton.getHeight()/2);
+        window.findActor("Title").setPosition(this.window.getWidth()/2 - titleLabel.getWidth()/2, this.window.getHeight() * 9/10 - titleLabel.getHeight()/2);
     }
 
     /**
      * shows the menu
      */
+    @Override
     public void show() {
-        pauseWindow.setVisible(true);
-        paused = true;
+        super.show();
 
         //Event listeners for buttons
         resumeButton.addListener(new ClickListener() {
@@ -71,24 +61,23 @@ public class PauseMenu {
                 exiting = true;
             }
         });
-
         settingsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // TODO: open the settings menu here
+                settingsMenu.show();
+                PauseMenu.super.hide();
             }
         });
     }
 
-    /**
-     * hides the menu
-     */
-    public void hide() { 
-        pauseWindow.setVisible(false);
+    @Override
+    public void hide() {
+        super.hide();
+        this.settingsMenu.hide();
     }
 
     public Window pauseWindow() {
-        return this.pauseWindow;
+        return this.window;
     }
 
     /**
@@ -96,7 +85,10 @@ public class PauseMenu {
      * @return whether or not gameplay should resume
      */
     public boolean resume() {
-        return (!paused) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE);           
+        if (settingsMenu.resume() && this.paused) {
+            this.show();
+        }
+        return (!this.paused) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE);           
        
     }
 

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
 import tools.CharacterRenderer;
+import tools.Controller;
 
 
 /**
@@ -60,16 +61,16 @@ public class Player extends Character {
     public void update(float delta)  {
         
         Vector2 input = new Vector2(0, 0);
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        if (Controller.isLeftPressed()) {
             input.add(-speed, 0);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        if (Controller.isRightPressed()) {
             input.add(speed, 0);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if (Controller.isUpPressed()) {
             input.add(0, speed);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        if (Controller.isDownPressed()) {
             input.add(0, -speed);
         }
         b2body.applyLinearImpulse(input, b2body.getWorldCenter(), true);
