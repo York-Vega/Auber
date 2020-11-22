@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
 import java.util.HashMap;
 import sprites.Systems;
-
+;
 
 
 /**
@@ -166,6 +166,7 @@ public class EnemyManager {
                     // remove it from information for other enemies to target that system.
                     if (enemy.get_target_system().is_not_sabotaged() && information.containsKey(enemy.get_target_system())) {
                         information.remove(enemy.get_target_system());
+                        enemy.targetSystem = null;
                         enemy.update(delta);
                         continue;
                     }
@@ -180,6 +181,7 @@ public class EnemyManager {
                     // still have systems not sabotaged, should keep generating next target
                     if (information.size() < 17) {
                         generateNextTarget(enemy);
+                        enemy.update(delta);
                         if (enemy.get_target_system() == null) {
                             continue;
                         }

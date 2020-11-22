@@ -116,7 +116,7 @@ public class Teleport_process {
         float jail_Y = jail_position.get(jail_index).get(1);
         jail_index ++;
         System.out.println(jail_index );
-        auber.b2body.setTransform(jail_X,jail_Y,0);
+        //auber.b2body.setTransform(jail_X,jail_Y,0);
         auber.nearbyEnemy.b2body.setTransform(jail_X,jail_Y,0);
         auber.nearbyEnemy.stop();
         // add the enemy to arrested list, shouldn't be arrested again

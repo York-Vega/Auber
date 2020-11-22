@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
-
+import java.util.Random;
 
 
 /**
@@ -20,8 +20,8 @@ public class NpcManager {
 
     public World world;
     public TiledMap map;
-    public ArrayList<Npc> npcs = new ArrayList<>();
-    public ArrayList<float[]> spawnPositions = new ArrayList<>();
+    public static ArrayList<Npc> npcs = new ArrayList<>();
+    public static ArrayList<float[]> spawnPositions = new ArrayList<>();
 
 
     /**
@@ -70,6 +70,9 @@ public class NpcManager {
 
             float[] position = spawnPositions.get(i);
             // set destination for npc
+            if (i == spawnPositions.size()-1){
+                destcount = 0;
+            }
             float[] dest = spawnPositions.get(destcount);
             destcount += 1;
             // pic for NPC needed
@@ -107,7 +110,7 @@ public class NpcManager {
             Vector2 position = npc.b2body.getPosition();
             float destX = npc.destX;
             float destY = npc.destY;
-            if (position.x == destX && position.y == destY) {
+            if (!npc.isMoving()) {
                 generateNextPosition(npc);
             }
             npc.update(delta);
@@ -117,13 +120,16 @@ public class NpcManager {
     }
 
     /**
-     * Generates the next random position an npc will pathfind to.
+     * Generates the next random position an npc will go to.
 
      * @param npc the npc to randomly pathfind
      */
     public void generateNextPosition(Npc npc) {
-        int random = (int) Math.random();
-        float [] destination = spawnPositions.get(random * 20);
+        int index;
+        Random random = new Random();
+        index = random.nextInt(20);
+
+        float [] destination = spawnPositions.get(index);
         npc.setDest(destination[0], destination[1]);
         npc.moveToDest();
     }

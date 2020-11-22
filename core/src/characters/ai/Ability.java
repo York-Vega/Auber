@@ -109,7 +109,7 @@ public class Ability {
     public void slowDownPlayer(Player auber) {
 
         float currentSpeed = auber.speed;
-        auber.speed = currentSpeed * .5f * Gdx.graphics.getDeltaTime();
+        auber.speed = currentSpeed * .5f ;
         Gdx.app.log("Auber:","Has been slow down");
     }
 
