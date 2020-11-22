@@ -2,6 +2,7 @@ package screen;
 
 import characters.ai.EnemyManager;
 import characters.Player;
+import characters.ai.NpcManager;
 import map.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -41,22 +42,30 @@ public class Gameplay implements Screen {
 
     private GameMain game;
 
+    public static ArrayList<Door> doors = new ArrayList<>();
+
+    public static ArrayList<Systems> systems = new ArrayList<>();
+
     public static Player p1;
 
     public EnemyManager enemyManager;
+
+    public NpcManager npcManager;
 
     public OrthographicCamera camera;
 
     public Viewport viewport;
 
-    /// Tile map loader
     private TmxMapLoader maploader;
+
     private TiledMap map;
+
     private OrthogonalTiledMapRenderer renderer;
 
     private BackgroundRenderer backgroundRenderer;
 
     private World world;
+
     private Box2DDebugRenderer b2dr;
 
     public Hud hud;
@@ -67,14 +76,12 @@ public class Gameplay implements Screen {
 
     public Teleport_Menu teleport_menu;
 
-    private LightControl light_control;
-
-    public ArrayList<Systems> systems = new ArrayList<>();
-
     public SystemStatusMenu systemStatusMenu;
 
-    public static ArrayList<Door> doors = new ArrayList<>();
+    private LightControl light_control;
+
     private boolean paused = false;
+
     public ArrestedHeader arrestedHeader;
 
 
@@ -99,10 +106,6 @@ public class Gameplay implements Screen {
         // create a light control object
         light_control = new LightControl(world);
 
-        // this image is only for test purpose, needs to be changed with proper sprite
-        //p1 = new Player(world, "player_test.png", 1133, 1011);
-
-        
         // create a new orthographic camera
         camera = new OrthographicCamera();
         // set the viewport area for camera
@@ -113,7 +116,7 @@ public class Gameplay implements Screen {
         // create a box2d render
         b2dr = new Box2DDebugRenderer();
         // create 2d box world for objects , walls, teleport...
-        B2worldCreator.createWorld(world, map, this); 
+        B2worldCreator.createWorld(world, map, this);
         // set the contact listener for the world
         world.setContactListener(new Object_ContactListener());
         // create the teleport drop down menu
@@ -131,12 +134,13 @@ public class Gameplay implements Screen {
         arrestedHeader = hud.arrestedHeader;
         // create an enemy_manager instance
         enemyManager = new EnemyManager(world,map,systems);
+        // create a Npc_manager instance
+        npcManager = new NpcManager(world,map);
 
-        
 
     }
 
-    private float delta; 
+    private float delta;
 
     /**
      * Updates the game, logic will go here called by libgdx GameMain.
@@ -153,6 +157,7 @@ public class Gameplay implements Screen {
         light_control.light_update(systems);
         Door_Controll.updateDoors(systems, delta);
         enemyManager.update_enemy(delta);
+        npcManager.updateNpc(delta);
         systemStatusMenu.update_status(systems);
 
         // if escape is pressed pause the game
@@ -177,20 +182,20 @@ public class Gameplay implements Screen {
 
         // if the game is not paused, update it
         // else if the pause menu indicates resume, resume the game
-        //else if the pause menu indicates exit, end the game 
+        //else if the pause menu indicates exit, end the game
         if (!this.paused) {
             update();
         } else if (this.hud.pauseMenu.resume()) {
             resume();
         } else if (this.hud.pauseMenu.exit()) {
             Gdx.app.exit();
-        }      
+        }
 
 
         // clear the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
+
         // set camera follow the player
         camera.position.set(0, 0, 0);
         camera.update();
@@ -218,6 +223,7 @@ public class Gameplay implements Screen {
         p1.draw(game.getBatch());
         // render Infiltrators
         enemyManager.render_ememy(game.getBatch());
+        npcManager.renderNpc(game.getBatch());
         // end the batch
         game.getBatch().end();
         // render tilemap that should apear infront of the player

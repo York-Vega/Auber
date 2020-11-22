@@ -16,6 +16,7 @@ public class Npc extends AiCharacter {
         super(world, x, y);
         numberof_crew++;
         super.b2body.setUserData("crew" + numberof_crew);
+        super.b2body.getFixtureList().get(0).setSensor(true);
         destX = x;
         destY = y;
     }

@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
 import java.util.HashMap;
 import sprites.Systems;
-
+;
 
 
 /**
@@ -151,27 +151,22 @@ public class EnemyManager {
 
         for (Enemy enemy : enemies) {
 
-            if (enemy.ability.provked && ! enemy.ability.disabled && enemy.ability.target != null && !enemy.is_attcking_mode()) {
+            //if (enemy.ability.provked && ! enemy.ability.disabled && enemy.ability.target != null && !enemy.is_attcking_mode()) {
+            if (enemy.ability.inUse && !enemy.usingAbility) {    
                 Player target = enemy.ability.target;
                 enemy.ability.useAbility(enemy,target);
                 System.out.println("Enemy uses ability :" + enemy.ability.randomIndex);
                 enemy.update(delta);
+                enemy.usingAbility = true;
                 continue;
             }
-            if (!enemy.ability.provked && !enemy.ability.disabled && enemy.ability.target != null) {
-
-                enemy.ability.removeAbility(enemy);
-                enemy.ability.target = null;
-                enemy.update(delta);
-                continue;
-            }
-
             if (enemy.isArrested()) {
                 // if enemy have a taget system
                 if (enemy.get_target_system() != null) {
                     // remove it from information for other enemies to target that system.
                     if (enemy.get_target_system().is_not_sabotaged() && information.containsKey(enemy.get_target_system())) {
                         information.remove(enemy.get_target_system());
+                        enemy.targetSystem = null;
                         enemy.update(delta);
                         continue;
                     }
@@ -186,6 +181,7 @@ public class EnemyManager {
                     // still have systems not sabotaged, should keep generating next target
                     if (information.size() < 17) {
                         generateNextTarget(enemy);
+                        enemy.update(delta);
                         if (enemy.get_target_system() == null) {
                             continue;
                         }

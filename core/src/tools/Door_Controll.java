@@ -24,7 +24,7 @@ public abstract class Door_Controll {
                 }                
             }
         } else if (time >= delta) {
-            System.out.println("Locked for: " + time + "s");
+            //System.out.println("Locked for: " + time + "s");
             time -= delta;            
         } else {
             unsabotage();
