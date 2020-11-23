@@ -19,6 +19,9 @@ public class SystemStatusMenu extends VerticalGroup {
 
     public Hashtable<Systems, Label> statusMap = new Hashtable<>();
 
+    /**
+     * Show status of each systems
+     */
     public SystemStatusMenu() {
 
         super();

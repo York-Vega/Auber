@@ -91,6 +91,7 @@ public class Enemy extends AiCharacter {
         if (system.hp > 0) {
             system.hp -= 0.1;
         } else {
+            system.hp = 0;
             system.set_sabotaged();
         }
     }

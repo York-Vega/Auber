@@ -17,7 +17,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
 
-
+/**
+ * Win or Lose Screen
+ */
 public class WinLoseScreen implements Screen {
 
     private Viewport viewport;
@@ -28,7 +30,7 @@ public class WinLoseScreen implements Screen {
     private String status;
 
     /**
-     * show the game is win or lose
+     * Create an instantiated instance of the win or lose screen
      * @param batch spriteBatch of the game
      * @param game  GameMain
      * @param status win or lose

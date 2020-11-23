@@ -7,7 +7,7 @@ public class Npc extends AiCharacter {
 
     /**
      * NPC object.
-
+     *
      * @param world The game world
      * @param x the initial spawn position x
      * @param y the initial spawn position y

@@ -16,7 +16,7 @@ import screen.actors.Teleport_Menu;
 
 
 /**
- * Hud to display information
+ * Hud to display information.
  */
 public class Hud {
 
@@ -84,6 +84,7 @@ public class Hud {
     }
 
     public void resize(int width, int height)  {
+
         viewport.update(width, height);
 
     }

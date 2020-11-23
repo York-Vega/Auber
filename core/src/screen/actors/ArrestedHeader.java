@@ -12,6 +12,7 @@ public class ArrestedHeader extends Label {
      * Label to show the number of arrested infiltrators.
      */
     public ArrestedHeader() {
+
         super("Arrested: 0/8", new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json")), "title");
         setName("Arrested:");
         getStyle().font.getData().setScale(.45f, .45f);

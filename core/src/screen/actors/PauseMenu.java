@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 
-public class PauseMenu extends Menu{
+public class PauseMenu extends Menu {
     private boolean exiting;
     TextButton resumeButton = new TextButton("Resume", skin);
     TextButton exitButton = new TextButton("Exit", skin);    

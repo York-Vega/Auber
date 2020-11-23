@@ -6,24 +6,24 @@ import com.badlogic.gdx.physics.box2d.World;
 
 
 /**
- * Teleporter that can be used in the map to teleport Auber to different rooms.
+ * Teleport that can be used in the map to teleport Auber to different rooms.
  */
 public class Teleport extends InteractiveTileObject {
 
     /**
-     * Creates a new instantiated Teleporter object.
+     * Creates a new instantiated Teleport object.
 
-     * @param world Physics world the teleporter should query
-     * @param map Tiled map teleporter will be placed in
-     * @param bounds The bounds of where the teleporter will sense Auber
-     * @param name the room name of the teleporter
+     * @param world Physics world the teleport should query
+     * @param map Tiled map teleport will be placed in
+     * @param bounds The bounds of where the teleport will sense Auber
+     * @param name the room name of the teleport
      */
     public Teleport(World world, TiledMap map, Rectangle bounds,  String name)  {
         super(world, map, bounds);
-        this.fixture.setUserData("teleporter_"+name);
+        this.fixture.setUserData("teleporter_" + name);
         // for contact_listener
-        this.fixture.getBody().setUserData("teleporter_"+name);
-        // set teleport as sensor so the collison will not happen between 
+        this.fixture.getBody().setUserData("teleporter_" + name);
+        // set teleport as sensor so the collision will not happen between
         // auber and teleport, but contact still be sensed
         this.fixture.setSensor(true);
     }

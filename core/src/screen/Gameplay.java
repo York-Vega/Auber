@@ -142,7 +142,6 @@ public class Gameplay implements Screen {
     public void update()  {
 
         float delta = Gdx.graphics.getDeltaTime();
-
         backgroundRenderer.update(delta);
         world.step(delta, 8, 3);
         hud.stage.act(delta);
@@ -155,14 +154,11 @@ public class Gameplay implements Screen {
         npcManager.updateNpc(delta);
         systemStatusMenu.update_status(systems);
         arrestedHeader.update_Arrested(player);
-
         // if escape is pressed pause the game
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             this.pause();
         }
-
         checkGameState();
-
 
     }
 
@@ -181,7 +177,7 @@ public class Gameplay implements Screen {
 
         // if the game is not paused, update it
         // else if the pause menu indicates resume, resume the game
-        //else if the pause menu indicates exit, end the game
+        // else if the pause menu indicates exit, end the game
         if (!this.paused) {
             update();
         } else if (this.hud.pauseMenu.resume()) {

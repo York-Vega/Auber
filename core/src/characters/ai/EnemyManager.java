@@ -187,8 +187,6 @@ public class EnemyManager {
                         }
                     }
                     continue;
-                    // TO DO (attacking auber) if no systems left and enemy not in jail,
-                    // it should start attacking auber
                 }
                 if (enemy.is_attcking_mode()) {
                     enemy.sabotage(sys);
