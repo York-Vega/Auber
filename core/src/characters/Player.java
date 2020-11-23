@@ -18,6 +18,7 @@ public class Player extends Character {
     public Enemy nearbyEnemy;
     public float health;
     public boolean ishealing;
+    public boolean arrest_pressed;
     public int arrestedCount = 0;
     public ArrayList<Enemy> arrestedEnemy = new ArrayList<>();
 
@@ -35,6 +36,7 @@ public class Player extends Character {
         super(world, x, y, CharacterRenderer.Sprite.AUBER);
         this.health = 100f;
         this.ishealing = false;
+        arrest_pressed = false;
 
     }
 
@@ -75,8 +77,11 @@ public class Player extends Character {
         }
         b2body.applyLinearImpulse(input, b2body.getWorldCenter(), true);
 
+        if (Controller.isArrestPressed()) {
+            arrest_pressed = true;
+        }
 
-        if (nearbyEnemy != null) {
+        if (nearbyEnemy != null && arrest_pressed) {
             arrest(nearbyEnemy);
         }
 

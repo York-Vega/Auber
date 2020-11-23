@@ -244,6 +244,28 @@ public class Object_ContactListener implements ContactListener {
                 }
             }
         }
+
+        // end auber arrest contact
+        if (is_Auber(fixA) || is_Auber(fixB)) {
+            // if contact happened between auber and infiltrators' body but not sensor area
+            if (is_Auber(fixA) && is_Infiltrators(fixB) && Enemy.class.isAssignableFrom(fixB.getUserData().getClass())) {
+                Player auber = (Player) fixA.getUserData();
+                Enemy enemy = (Enemy) fixB.getUserData();
+                if (!auber.arrest_pressed) {
+                    auber.setNearby_enemy(null);
+                    enemy.ability.setDisable(false);
+                }
+            } else if (is_Auber(fixB) && is_Infiltrators(fixA) && Enemy.class.isAssignableFrom(fixA.getUserData().getClass())) {
+                Player auber = (Player) fixB.getUserData();
+                Enemy enemy = (Enemy) fixA.getUserData();
+                if (!auber.arrest_pressed) {
+                    auber.setNearby_enemy(null);
+                    enemy.ability.setDisable(false);
+                }
+            }
+        }
+
+
     }
 
     public boolean is_Infiltrators(Fixture fixture) {
