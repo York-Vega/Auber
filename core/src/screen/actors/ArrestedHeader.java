@@ -8,18 +8,26 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class ArrestedHeader extends Label {
 
-    public ArrestedHeader(){
-        super("Arrested: 0/8",new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json")),"title");
+    /**
+     * Label to show the number of arrested infiltrators.
+     */
+    public ArrestedHeader() {
+        super("Arrested: 0/8", new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json")), "title");
         setName("Arrested:");
-        getStyle().font.getData().setScale(.45f,.45f);
+        getStyle().font.getData().setScale(.45f, .45f);
         setColor(Color.WHITE);
 
     }
 
-    public void update_Arrested(Player auber){
-        int arrested_count = auber.arrestedCount;
-        setText(getName() + arrested_count + "/8");
-        if (arrested_count > 0){
+    /**
+     * update the number of arrested infiltrators.
+     *
+     * @param auber player
+     */
+    public void update_Arrested(Player auber) {
+        int arrestedCount = auber.arrestedCount;
+        setText(getName() + arrestedCount + "/8");
+        if (arrestedCount > 0) {
             setColor(Color.GREEN);
         }
     }

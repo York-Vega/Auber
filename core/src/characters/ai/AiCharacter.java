@@ -200,4 +200,5 @@ public class AiCharacter extends Character {
         this.pathIndex = this.path.getCount();
     }
 
+
 }

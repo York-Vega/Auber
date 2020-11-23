@@ -89,7 +89,7 @@ public class Enemy extends AiCharacter {
      */
     public void sabotage(Systems system) {
         if (system.hp > 0) {
-            system.hp -= 1;
+            system.hp -= 0.1;
         } else {
             system.set_sabotaged();
         }

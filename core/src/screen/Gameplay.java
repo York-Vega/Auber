@@ -25,14 +25,13 @@ import sprites.Door;
 import sprites.Systems;
 import tools.B2worldCreator;
 import tools.BackgroundRenderer;
-import tools.Door_Controll;
 import tools.CharacterRenderer;
+import tools.Door_Controll;
 import tools.LightControl;
+import java.util.ArrayList;
 import tools.Object_ContactListener;
 import tools.Teleport_process;
 
-
-import java.util.ArrayList;
 
 
 /**
@@ -40,13 +39,13 @@ import java.util.ArrayList;
  */
 public class Gameplay implements Screen {
 
-    private GameMain game;
+    private final GameMain game;
 
     public static ArrayList<Door> doors = new ArrayList<>();
 
     public static ArrayList<Systems> systems = new ArrayList<>();
 
-    public static Player p1;
+    public static Player player;
 
     public EnemyManager enemyManager;
 
@@ -56,37 +55,36 @@ public class Gameplay implements Screen {
 
     public Viewport viewport;
 
-    private TmxMapLoader maploader;
-
-    private TiledMap map;
-
-    private OrthogonalTiledMapRenderer renderer;
-
-    private BackgroundRenderer backgroundRenderer;
-
-    private World world;
-
-    private Box2DDebugRenderer b2dr;
-
     public Hud hud;
 
-    public Teleport_process teleport_process;
+    public Teleport_process teleportProcess;
 
     public HealthBar healthBar;
 
-    public Teleport_Menu teleport_menu;
+    public Teleport_Menu teleportMenu;
 
     public SystemStatusMenu systemStatusMenu;
 
-    private LightControl light_control;
+    public ArrestedHeader arrestedHeader;
+
+    private final TmxMapLoader maploader;
+
+    private final TiledMap map;
+
+    private final OrthogonalTiledMapRenderer renderer;
+
+    private final BackgroundRenderer backgroundRenderer;
+
+    private final World world;
 
     private boolean paused = false;
 
-    public ArrestedHeader arrestedHeader;
+    private final LightControl lightControl;
+
 
 
     /**
-     * Creates a new instatntiated game.
+     * Creates a new instantiated game.
 
      * @param game The game object used in Libgdx things
      */
@@ -95,82 +93,83 @@ public class Gameplay implements Screen {
         this.game = game;
         // create a box2D world
         this.world = new World(new Vector2(0, 0), true);
-        // creater maploader for tiled map
+        // create map loader for tiled map
         maploader = new TmxMapLoader();
         // load the tiled map
         map = maploader.load("Map/Map.tmx");
         Map.create(map);
         renderer = new OrthogonalTiledMapRenderer(map);
-
+        // load all textures for render
         CharacterRenderer.loadTextures();
         // create a light control object
-        light_control = new LightControl(world);
-
+        lightControl = new LightControl(world);
         // create a new orthographic camera
         camera = new OrthographicCamera();
         // set the viewport area for camera
         viewport = new FitViewport(640, 360, camera);
-
+        // create a new background Render
         backgroundRenderer = new BackgroundRenderer(game.getBatch(), viewport);
-
-        // create a box2d render
-        b2dr = new Box2DDebugRenderer();
         // create 2d box world for objects , walls, teleport...
         B2worldCreator.createWorld(world, map, this);
         // set the contact listener for the world
         world.setContactListener(new Object_ContactListener());
-        // create the teleport drop down menu
+        // create HUD
         hud = new Hud(game.getBatch());
-        // to select teleport room
-        teleport_menu = hud.teleport_menu;
-        // use to update the player HP
+        // teleportMenu
+        teleportMenu = hud.teleportMenu;
+        // healthBar
         healthBar = hud.healthBar;
         // create a teleport_process instance
-        teleport_process = new Teleport_process(teleport_menu, p1, map);
-        // create a system_status_menu instance
-        systemStatusMenu = hud.system_status_menu;
+        teleportProcess = new Teleport_process(teleportMenu, player, map);
+        // system_status_menu
+        systemStatusMenu = hud.systemStatusMenu;
+        // generate all systems labels for status menu
         systemStatusMenu.generate_systemLabels(systems);
-        // create a arrest_status header
+        // create arrest_status header
         arrestedHeader = hud.arrestedHeader;
-        // create an enemy_manager instance
-        enemyManager = new EnemyManager(world,map,systems);
-        // create a Npc_manager instance
-        npcManager = new NpcManager(world,map);
-
+        // create enemy_manager instance
+        enemyManager = new EnemyManager(world, map, systems);
+        // create Npc_manager instance
+        npcManager = new NpcManager(world, map);
 
     }
 
-    private float delta;
+
 
     /**
      * Updates the game, logic will go here called by libgdx GameMain.
      */
     public void update()  {
 
-        delta = Gdx.graphics.getDeltaTime();
+        float delta = Gdx.graphics.getDeltaTime();
+
         backgroundRenderer.update(delta);
         world.step(delta, 8, 3);
-        p1.update(delta);
-        teleport_process.validate();
-        healthBar.update_HP(p1);
         hud.stage.act(delta);
-        light_control.light_update(systems);
+        player.update(delta);
+        teleportProcess.validate();
+        healthBar.update_HP(player);
+        lightControl.light_update(systems);
         Door_Controll.updateDoors(systems, delta);
         enemyManager.update_enemy(delta);
         npcManager.updateNpc(delta);
         systemStatusMenu.update_status(systems);
+        arrestedHeader.update_Arrested(player);
 
         // if escape is pressed pause the game
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             this.pause();
         }
-        arrestedHeader.update_Arrested(p1);
+
+        checkGameState();
+
+
     }
 
 
     @Override
     public void show() {
-        // !! This is important !!
+        // set hud to be the input processor
         Gdx.input.setInputProcessor(hud.stage);
     }
 
@@ -200,13 +199,13 @@ public class Gameplay implements Screen {
         camera.position.set(0, 0, 0);
         camera.update();
 
-        // this is needed to be called before the batch.begin(), or scrren will freeze
+        // this is needed to be called before the batch.begin(), or screen will freeze
         game.getBatch().setProjectionMatrix(camera.combined);
         viewport.apply();
         backgroundRenderer.render();
 
         // set camera follow the player
-        camera.position.set(p1.b2body.getPosition().x, p1.b2body.getPosition().y, 0);
+        camera.position.set(player.b2body.getPosition().x, player.b2body.getPosition().y, 0);
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
 
@@ -214,27 +213,23 @@ public class Gameplay implements Screen {
         renderer.setView(camera);
         renderer.render(backgroundLayers);
 
-        // render the box2d object shape, test purpose, need to be removed when deploy
-        b2dr.render(world, camera.combined);
-
         // begin the batch
         game.getBatch().begin();
-        // render auber
-        p1.draw(game.getBatch());
+        // render player
+        player.draw(game.getBatch());
         // render Infiltrators
         enemyManager.render_ememy(game.getBatch());
+        // render NPC
         npcManager.renderNpc(game.getBatch());
         // end the batch
         game.getBatch().end();
-        // render tilemap that should apear infront of the player
+        // render tilemap that should appear in front of the player
         renderer.render(forgroundLayers);
         // render the light
-        light_control.rayHandler.render();
+        lightControl.rayHandler.render();
         // render the hud
         hud.viewport.apply();
         hud.stage.draw();
-
-        //dispose();
 
     }
 
@@ -274,6 +269,26 @@ public class Gameplay implements Screen {
 
     @Override
     public void dispose() {
+
+    }
+
+    /**
+     * check whether game ends
+     */
+    public void checkGameState() {
+
+        if (player.arrestedCount == 8) {
+            game.setScreen(new WinLoseScreen(game.getBatch(), "YOU WIN!!"));
+        }
+        int sabotagedCount = 0;
+        for (Systems system : systems ){
+            if (system.is_sabotaged()){
+                sabotagedCount++;
+            }
+        }
+        if (sabotagedCount >= 15 || player.health <= 1){
+            game.setScreen(new WinLoseScreen(game.getBatch(), "YOU LOSE!!"));
+        }
 
     }
 }

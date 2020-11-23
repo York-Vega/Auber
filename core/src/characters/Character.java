@@ -18,13 +18,13 @@ public abstract class Character {
     protected Vector2 size;
 
     /**
-     * creates an semi-initalised player the physics body is still uninitiated.
+     * creates an semi-initialised player the physics body is still uninitiated.
 
      * @param world The game world
      * 
-     * @param x The inital x location of the player
+     * @param x The initial x location of the player
      * 
-     * @param y The inital y location of the player
+     * @param y The initial y location of the player
      */
     public Character(World world, float x, float y, CharacterRenderer.Sprite sprite)  {
         this.world = world;
@@ -59,7 +59,7 @@ public abstract class Character {
     /**
      * Updates the player, should be called every update cycle.
 
-     * @param delta The time in secconds since the last update
+     * @param delta The time in seconds since the last update
      */
     public abstract void update(float delta);
 

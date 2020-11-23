@@ -17,21 +17,25 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
 
-/**
- * MainMenu.
- */
-public class MainMenu implements Screen {
+
+public class WinLoseScreen implements Screen {
 
     private Viewport viewport;
     private OrthographicCamera camera;
     private TextureAtlas atlas;
     private Stage stage;
     private Skin skin;
+    private String status;
 
     /**
-     * Creates an instantiated instance of the MainMenu screen.
+     * show the game is win or lose
+     * @param batch spriteBatch of the game
+     * @param game  GameMain
+     * @param status win or lose
      */
-    public MainMenu(SpriteBatch batch) {
+    public WinLoseScreen(SpriteBatch batch, String status){
+
+        this.status = status;
         atlas = new TextureAtlas("neonui/neon-ui.atlas");
         skin = new Skin(Gdx.files.internal("neonui/neon-ui.json"), atlas);
 
@@ -48,7 +52,6 @@ public class MainMenu implements Screen {
 
     @Override
     public void show() {
-        // passes all input to the stage
         Gdx.input.setInputProcessor(stage);
 
         // create a main table into which all ui elements will be placed
@@ -56,30 +59,41 @@ public class MainMenu implements Screen {
         root.setFillParent(true);
         root.top();
 
-        // main play button (others can be added easily as needed)
-        TextButton playButton = new TextButton("Play", skin);
+        Label gamestatus = new Label(status, skin);
+        TextButton playButton = new TextButton("Play Again", skin);
+        TextButton exitButton = new TextButton("Exit", skin);
 
-        // creates a listener to listen for clicks on the button
-        // when button is clicked start an instance of Gameplay to start playing the game
+
+        // load a new game
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameMain game = (GameMain) Gdx.app.getApplicationListener();
-                game.setScreen(new Gameplay(game));
+                game.setScreen(new MainMenu(game.getBatch()));
             }
         });
 
-        Label title = new Label("Vega - Auber", skin);
+        // exit the game
+        exitButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
 
-        root.add(title);
+
+        root.add(gamestatus);
         root.row();
         root.add(playButton);
+        root.row();
+        root.add(exitButton);
 
         stage.addActor(root);
     }
 
     @Override
     public void render(float delta) {
+
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -106,10 +120,10 @@ public class MainMenu implements Screen {
     public void hide() {
 
     }
-    
+
     @Override
     public void dispose() {
-        skin.dispose();
-        atlas.dispose();
+
     }
+
 }

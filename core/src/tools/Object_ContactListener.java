@@ -187,11 +187,7 @@ public class Object_ContactListener implements ContactListener {
                     // sensor area end contact with auber
                     if (is_Auber(fixB)) {
                         Ability ability = (Ability) fixA.getUserData();
-                        //ability.provokeAbility(false);
-
-
                     }
-                    // TO DO, sensor area end contact with NPC
                 } else {
                     // mainbody end contact with system
                     if (is_System(fixB)) {

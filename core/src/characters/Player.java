@@ -182,4 +182,5 @@ public class Player extends Character {
     public boolean not_arrested(Enemy enemy) {
         return !arrestedEnemy.contains(enemy);
     }
+
 }

@@ -13,7 +13,7 @@ public class HealthBar extends ProgressBar {
     public Label hp_text;
 
     /**
-     * Progressbar healthbar
+     * healthbar to show the auber's health
      */
     public HealthBar(){
         super(0,100,.5f,false,new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json")));
@@ -22,7 +22,7 @@ public class HealthBar extends ProgressBar {
     }
 
     /**
-     *
+     * update the health of the player
      * @param auber player instance
      */
     public void update_HP(Player auber){

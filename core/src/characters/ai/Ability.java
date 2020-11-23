@@ -2,9 +2,6 @@ package characters.ai;
 
 import characters.Player;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-import java.sql.Time;
 import java.util.Random;
 
 public class Ability {
@@ -29,7 +26,6 @@ public class Ability {
         // give a random ability to enemy
         Random random = new Random();
         randomIndex = random.nextInt(4);
-        //randomIndex = 1;
 
     }
 
@@ -56,8 +52,8 @@ public class Ability {
     }
 
     /**
-     * provoke ability status
-     * @param provke should be set in contact listener
+     * provoke ability status.
+     *
      */
     public void provokeAbility() {
         if (ready && !disabled) {
@@ -67,38 +63,46 @@ public class Ability {
         }
     }
 
+    /**
+     * cool down timer.
+     *
+     * @param delta delta time
+     *
+     * @param enemy Enemy
+     */
     public void update(float delta, Enemy enemy) {
         if (inUse) {
             if (useTime >= delta) {
-                System.out.println("Use Time: " + useTime);
                 useTime -= delta;
             } else {
                 removeAbility(enemy);
                 inUse = false;
                 cooldownTime = 30;
-                System.out.println("Starting Cooldown");
             }
         } else if (!ready) {
             if (cooldownTime >= delta) {
-                System.out.println("cooldown time: " + cooldownTime);
                 cooldownTime -= delta;
             } else {
                 ready = true;
-                System.out.println("Ability Ready");
             }
         }
     }
 
     /**
-     * Disable ability
+     * Disable ability.
+     *
      * @param disable true when arrested
      */
     public void setDisable(boolean disable) {
         disabled = disable;
     }
 
-
-    public void setTarget(Player auber){
+    /**
+     * set the target.
+     *
+     * @param auber Player
+     */
+    public void setTarget(Player auber) {
         this.target = auber;
     }
 
@@ -109,8 +113,8 @@ public class Ability {
     public void slowDownPlayer(Player auber) {
 
         float currentSpeed = auber.speed;
-        auber.speed = currentSpeed * .5f ;
-        Gdx.app.log("Auber:","Has been slow down");
+        auber.speed = currentSpeed * .5f;
+
     }
 
     /**
@@ -119,12 +123,11 @@ public class Ability {
     public void speeding(Enemy enemy) {
 
         float currentSpeed = enemy.speed;
-        enemy.speed = currentSpeed * 3f ;
-        if (target != null){
-            enemy.setDest(target.b2body.getPosition().x-400,target.b2body.getPosition().y);
+        enemy.speed = currentSpeed * 3f;
+        if (target != null) {
+            enemy.setDest(target.b2body.getPosition().x - 400, target.b2body.getPosition().y);
         }
 
-        Gdx.app.log("Enemy:","has speeding");
     }
 
 
@@ -134,37 +137,23 @@ public class Ability {
     public void attackPlayer(Player player) {
 
         float currentHp = player.health;
-        player.health = currentHp - 1f * Gdx.graphics.getDeltaTime();
-        Gdx.app.log("Auber:","Has been attacked");
-    }
-
-    /**
-     * Become Invisible during contact.
-     */
-    public void invisible(Enemy enemy) {
-        // Can't figure out how to hide the enemy as it is not a sprite
-        // this is alternative option, transform enemy out of viewport like Teleport...
-        enemy.b2body.setTransform(9999, 9999, 0);
+        player.health = currentHp - 1f;
 
     }
 
     /**
-     * enemy will kill one NPC if they contact
+     * remove the ability effect.
+     *
+     * @param enemy Enemy
      */
-    public void sabotageNpc() {
-
-    }
-
-
-    public void removeAbility(Enemy enemy){
+    public void removeAbility(Enemy enemy) {
         enemy.speed = 1000f;
-        if (target != null){
+        if (target != null) {
             target.speed = 60f;
         }
 
-        Gdx.app.log("enemy:","ability removed");
+        Gdx.app.log("enemy:", "ability removed");
     }
-
 
 
 }
