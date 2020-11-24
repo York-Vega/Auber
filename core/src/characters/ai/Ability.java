@@ -45,7 +45,6 @@ public class Ability {
                 attackPlayer(player);
                 break;
             case 3:
-                System.out.println("enemy not given ability");
                 break;
         }
 
@@ -137,7 +136,7 @@ public class Ability {
     public void attackPlayer(Player player) {
 
         float currentHp = player.health;
-        player.health = currentHp - 1f;
+        player.health = currentHp - 10f;
 
     }
 
@@ -151,8 +150,6 @@ public class Ability {
         if (target != null) {
             target.speed = 60f;
         }
-
-        Gdx.app.log("enemy:", "ability removed");
     }
 
 

@@ -79,7 +79,6 @@ public class B2worldCreator {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             // create a new instantiated door object
             // adds door object to the Doors Arraylist
-
             game.doors.add(new Door(world,map,rect, object.getName().equals("jailDoor")));
         }
         
@@ -88,11 +87,7 @@ public class B2worldCreator {
         for (MapObject object : layers.get("jail").getObjects()){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             new Jail(world,map,rect,jail_number);
-            System.out.println("jail is created");
             jail_number ++;
         }
-
-
-
     }
 }

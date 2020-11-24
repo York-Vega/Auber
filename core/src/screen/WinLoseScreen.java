@@ -59,7 +59,7 @@ public class WinLoseScreen implements Screen {
         // create a main table into which all ui elements will be placed
         Table root = new Table();
         root.setFillParent(true);
-        root.top();
+        root.center();
 
         Label gamestatus = new Label(status, skin);
         TextButton playButton = new TextButton("Main Menu", skin);
@@ -86,7 +86,7 @@ public class WinLoseScreen implements Screen {
 
         root.add(gamestatus);
         root.row();
-        root.add(playButton);
+        root.add(playButton).spaceBottom(10).spaceTop(10);
         root.row();
         root.add(exitButton);
 

@@ -108,7 +108,7 @@ public class Teleport_process {
 
 
     static int jail_index = 0;
-    
+
     /**
      * transform auber and arrested infiltrator to jail.
      */

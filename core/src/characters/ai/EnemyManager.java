@@ -155,7 +155,6 @@ public class EnemyManager {
             if (enemy.ability.inUse && !enemy.usingAbility) {    
                 Player target = enemy.ability.target;
                 enemy.ability.useAbility(enemy,target);
-                System.out.println("Enemy uses ability :" + enemy.ability.randomIndex);
                 enemy.update(delta);
                 enemy.usingAbility = true;
                 continue;
@@ -208,7 +207,6 @@ public class EnemyManager {
     public void generateNextTarget(Enemy enemy) {
         for (Systems system : systems) {
             if (!information.containsKey(system)) {
-                System.out.println("generated");
                 float endx = system.getposition()[0];
                 float endy = system.getposition()[1];
                 enemy.setDest(endx, endy);

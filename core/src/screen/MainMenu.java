@@ -111,7 +111,7 @@ public class MainMenu implements Screen {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         backgroundRenderer.render();
-        camera.position.set(viewport.getScreenWidth() / 2, viewport.getScreenHeight() / 2, 0);
+        camera.position.set(viewport.getScreenWidth() / 2f, viewport.getScreenHeight() / 2f, 0);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         stage.draw();
