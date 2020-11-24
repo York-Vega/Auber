@@ -32,7 +32,6 @@ public class Enemy extends AiCharacter {
         numberofInfiltrators++;
         this.b2body.setUserData("Infiltrators" + numberofInfiltrators);
         ability = new Ability();
-        System.out.println("Enemy get ability:" + ability.randomIndex);
         createEdgeShape(ability);
         mode = "";
         usingAbility = false;

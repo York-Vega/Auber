@@ -120,8 +120,6 @@ public class Player extends Character {
             setHealing(true);
         } else if (b2body.getUserData() == "ready_to_heal" && health == 100f) {
             setHealing(false);
-            // test purpose
-            System.out.println("Auber is in full health, no need for healing ");
         }
         // healing process
         if (ishealing) {
@@ -130,8 +128,6 @@ public class Player extends Character {
             if (health > 100f) {
                 health = 100f;
             }
-            // test purpose, delete when deploy
-            System.out.println("Auber is healing, Auber current health: " + health);
         }
 
     }
