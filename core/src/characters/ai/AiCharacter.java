@@ -1,6 +1,8 @@
 package characters.ai;
 
 import characters.Character;
+
+import com.badlogic.gdx.ai.btree.decorator.Random;
 import com.badlogic.gdx.ai.pfa.PathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,7 +28,12 @@ public class AiCharacter extends Character {
     private Path path;
     private int pathIndex;
     
-    private static int numberOfHostiles; 
+    private static int numberOfHostiles = 0;
+    private static CharacterRenderer.Sprite[] sprites = new CharacterRenderer.Sprite[]{
+        CharacterRenderer.Sprite.NPC1,
+        CharacterRenderer.Sprite.NPC2,
+        CharacterRenderer.Sprite.NPC3
+    };
 
     /**
      * creates an semi-initalised AI character the physics body is still uninitiated.
@@ -38,7 +45,7 @@ public class AiCharacter extends Character {
      * @param y The inital y location of the character
      */
     public AiCharacter(World world, float x, float y) {
-        super(world, x, y, CharacterRenderer.Sprite.NPC1);
+        super(world, x, y, sprites[numberOfHostiles % 3]);
         speed = 1000.0f;
         AiCharacter.numberOfHostiles++;
 
