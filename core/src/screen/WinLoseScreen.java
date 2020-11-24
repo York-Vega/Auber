@@ -13,12 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
 
 /**
- * Win or Lose Screen
+ * Win or Lose Screen.
  */
 public class WinLoseScreen implements Screen {
 
@@ -30,20 +30,20 @@ public class WinLoseScreen implements Screen {
     private String status;
 
     /**
-     * Create an instantiated instance of the win or lose screen
+     * Create an instantiated instance of the win or lose screen.
+
      * @param batch spriteBatch of the game
-     * @param game  GameMain
      * @param status win or lose
      */
-    public WinLoseScreen(SpriteBatch batch, String status){
+    public WinLoseScreen(SpriteBatch batch, String status) {
 
         this.status = status;
-        atlas = new TextureAtlas("neonui/neon-ui.atlas");
-        skin = new Skin(Gdx.files.internal("neonui/neon-ui.json"), atlas);
+        atlas = new TextureAtlas("skin/hudskin/comic-ui.atlas");
+        skin = new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json"), atlas);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
-        viewport = new FitViewport(480, 270, camera);
+        viewport = new ScreenViewport(camera);
         viewport.apply();
 
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
@@ -62,7 +62,7 @@ public class WinLoseScreen implements Screen {
         root.top();
 
         Label gamestatus = new Label(status, skin);
-        TextButton playButton = new TextButton("Play Again", skin);
+        TextButton playButton = new TextButton("Main Menu", skin);
         TextButton exitButton = new TextButton("Exit", skin);
 
 
