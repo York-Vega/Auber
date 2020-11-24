@@ -86,8 +86,8 @@ public class WinLoseScreen implements Screen {
 
         root.add(gamestatus);
         root.row();
-        root.add(playButton).spaceBottom(10).spaceTop(10);
-        root.row();
+        //root.add(playButton).spaceBottom(10).spaceTop(10);
+        //root.row();
         root.add(exitButton);
 
         stage.addActor(root);
