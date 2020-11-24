@@ -12,10 +12,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
+
+import tools.BackgroundRenderer;
 
 /**
  * MainMenu.
@@ -27,23 +31,30 @@ public class MainMenu implements Screen {
     private TextureAtlas atlas;
     private Stage stage;
     private Skin skin;
+    private SpriteBatch batch;
+    private BackgroundRenderer backgroundRenderer;
 
     /**
      * Creates an instantiated instance of the MainMenu screen.
      */
     public MainMenu(SpriteBatch batch) {
-        atlas = new TextureAtlas("neonui/neon-ui.atlas");
-        skin = new Skin(Gdx.files.internal("neonui/neon-ui.json"), atlas);
+        this.batch = batch;
+        atlas = new TextureAtlas("skin/hudskin/comic-ui.atlas");
+        skin = new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json"), atlas);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
-        viewport = new FitViewport(480, 270, camera);
+        viewport = new ScreenViewport(camera);
         viewport.apply();
 
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         camera.update();
 
         stage = new Stage(viewport, batch);
+
+        backgroundRenderer = new BackgroundRenderer(batch, viewport);
+
+
     }
 
     @Override
@@ -54,7 +65,7 @@ public class MainMenu implements Screen {
         // create a main table into which all ui elements will be placed
         Table root = new Table();
         root.setFillParent(true);
-        root.top();
+        root.center();
 
         // main play button (others can be added easily as needed)
         TextButton playButton = new TextButton("Play", skin);
@@ -90,10 +101,19 @@ public class MainMenu implements Screen {
 
     @Override
     public void render(float delta) {
+        viewport.apply();
+        backgroundRenderer.update(delta);
+        stage.act();
+        
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        stage.act();
+        camera.position.set(0, 0, 0);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+        backgroundRenderer.render();
+        camera.position.set(viewport.getScreenWidth() / 2, viewport.getScreenHeight() / 2, 0);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
         stage.draw();
     }
 
