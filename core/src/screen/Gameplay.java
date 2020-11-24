@@ -81,14 +81,22 @@ public class Gameplay implements Screen {
 
     private final LightControl lightControl;
 
-
-
     /**
      * Creates a new instantiated game.
 
      * @param game The game object used in Libgdx things
      */
-    public Gameplay(GameMain game)  {
+    public Gameplay(GameMain game) {
+        this(game, new Vector2(640, 360));
+    }
+
+    /**
+     * Creates a new instantiated game.
+
+     * @param game The game object used in Libgdx things
+     * @param screenSize size of the rendered game screen, doesn't effect screen size
+     */
+    protected Gameplay(GameMain game, Vector2 screenSize) {
 
         this.game = game;
         // create a box2D world
@@ -106,7 +114,7 @@ public class Gameplay implements Screen {
         // create a new orthographic camera
         camera = new OrthographicCamera();
         // set the viewport area for camera
-        viewport = new FitViewport(640, 360, camera);
+        viewport = new FitViewport(screenSize.x, screenSize.y, camera);
         // create a new background Render
         backgroundRenderer = new BackgroundRenderer(game.getBatch(), viewport);
         // create 2d box world for objects , walls, teleport...

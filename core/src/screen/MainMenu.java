@@ -58,6 +58,7 @@ public class MainMenu implements Screen {
 
         // main play button (others can be added easily as needed)
         TextButton playButton = new TextButton("Play", skin);
+        TextButton demoButton = new TextButton("Demo", skin);
 
         // creates a listener to listen for clicks on the button
         // when button is clicked start an instance of Gameplay to start playing the game
@@ -68,12 +69,21 @@ public class MainMenu implements Screen {
                 game.setScreen(new Gameplay(game));
             }
         });
+        demoButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GameMain game = (GameMain) Gdx.app.getApplicationListener();
+                game.setScreen(new GameDemo(game));
+            }
+        });
 
         Label title = new Label("Vega - Auber", skin);
 
         root.add(title);
         root.row();
         root.add(playButton);
+        root.row();
+        root.add(demoButton);
 
         stage.addActor(root);
     }

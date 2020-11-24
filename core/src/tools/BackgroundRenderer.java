@@ -43,17 +43,18 @@ public class BackgroundRenderer {
 
     float width;
     float height;
-    final int tileWidth = 160;
+    int tileWidth = 160;
 
     /**
      * renders the background.
      */
     public void render() {
         batch.begin();
-        width = viewport.getScreenWidth();
-        height = viewport.getScreenHeight();
-        for (float x = -width/2; x <= width/2; x += tileWidth) {
-            for (float y = -height/2; y <= height/2; y += tileWidth) {
+        width = viewport.getWorldWidth();
+        height = viewport.getWorldHeight();
+        tileWidth = (int) (width / 5);
+        for (float x = -width / 2; x <= width / 2; x += tileWidth) {
+            for (float y = -height / 2; y <= height / 2; y += tileWidth) {
                 batch.draw(currentFrame, x, y, tileWidth, tileWidth);
             }
         }
