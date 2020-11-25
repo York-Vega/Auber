@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
 import java.util.HashMap;
 import sprites.Systems;
-;
+
 
 
 /**
@@ -101,7 +101,8 @@ public class EnemyManager {
             // generate a index [0,15]
             int index = (int) (randomD * 15);
             // take away healing pod for initial traget, for difficulty
-            while (randomIndex.contains(index) && !systems.get(index).sys_name.equals("headlingPod")) {
+            while (randomIndex.contains(index) 
+                    && !systems.get(index).sysName.equals("headlingPod")) {
                 randomD = Math.random();
                 index = (int) (randomD * 15);
             }
@@ -151,10 +152,11 @@ public class EnemyManager {
 
         for (Enemy enemy : enemies) {
 
-            //if (enemy.ability.provked && ! enemy.ability.disabled && enemy.ability.target != null && !enemy.is_attcking_mode()) {
+            //if (enemy.ability.provked && ! enemy.ability.disabled 
+            //&& enemy.ability.target != null && !enemy.is_attcking_mode()) {
             if (enemy.ability.inUse && !enemy.usingAbility) {    
                 Player target = enemy.ability.target;
-                enemy.ability.useAbility(enemy,target);
+                enemy.ability.useAbility(enemy, target);
                 enemy.update(delta);
                 enemy.usingAbility = true;
                 continue;
@@ -163,7 +165,8 @@ public class EnemyManager {
                 // if enemy have a taget system
                 if (enemy.get_target_system() != null) {
                     // remove it from information for other enemies to target that system.
-                    if (enemy.get_target_system().is_not_sabotaged() && information.containsKey(enemy.get_target_system())) {
+                    if (enemy.get_target_system().is_not_sabotaged() 
+                            && information.containsKey(enemy.get_target_system())) {
                         information.remove(enemy.get_target_system());
                         enemy.targetSystem = null;
                         enemy.update(delta);
@@ -213,7 +216,8 @@ public class EnemyManager {
                 enemy.set_target_system(system);
                 information.put(system, enemy);
                 enemy.moveToDest();
-                // set enemy back to standBy mode before it contacts with the next target system, otherwise the system will lose HP before contact
+                // set enemy back to standBy mode before it contacts with the next target system,
+                // otherwise the system will lose HP before contact
                 enemy.set_standByMode();
                 return;
             }

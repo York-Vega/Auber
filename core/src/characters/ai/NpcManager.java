@@ -6,7 +6,6 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
 import java.util.Random;
@@ -40,6 +39,8 @@ public class NpcManager {
 
     /**
      * generate random spawn positions for npc.
+
+     * @param map The world map to generate inital position
      */
     public void generate_initialPosition(TiledMap map) {
 
@@ -70,7 +71,7 @@ public class NpcManager {
 
             float[] position = spawnPositions.get(i);
             // set destination for npc
-            if (i == spawnPositions.size()-1){
+            if (i == spawnPositions.size() - 1) {
                 destcount = 0;
             }
             float[] dest = spawnPositions.get(destcount);
@@ -106,15 +107,10 @@ public class NpcManager {
     public void updateNpc(float delta) {
 
         for (Npc npc : npcs) {
-
-            Vector2 position = npc.b2body.getPosition();
-            float destX = npc.destX;
-            float destY = npc.destY;
             if (!npc.isMoving()) {
                 generateNextPosition(npc);
             }
             npc.update(delta);
-
         }
 
     }

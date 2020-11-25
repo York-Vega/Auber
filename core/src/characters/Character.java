@@ -25,6 +25,8 @@ public abstract class Character {
      * @param x The initial x location of the player
      * 
      * @param y The initial y location of the player
+     * 
+     * @param sprite The sprite the character should look like
      */
     public Character(World world, float x, float y, CharacterRenderer.Sprite sprite)  {
         this.world = world;

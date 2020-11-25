@@ -1,9 +1,8 @@
 package screen;
 
-import characters.ai.EnemyManager;
 import characters.Player;
+import characters.ai.EnemyManager;
 import characters.ai.NpcManager;
-import map.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -17,6 +16,8 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
+import java.util.ArrayList;
+import map.Map;
 import screen.actors.ArrestedHeader;
 import screen.actors.HealthBar;
 import screen.actors.SystemStatusMenu;
@@ -26,11 +27,10 @@ import sprites.Systems;
 import tools.B2worldCreator;
 import tools.BackgroundRenderer;
 import tools.CharacterRenderer;
-import tools.Door_Controll;
+import tools.DoorControll;
 import tools.LightControl;
-import java.util.ArrayList;
-import tools.Object_ContactListener;
-import tools.Teleport_process;
+import tools.ObjectContactListener;
+import tools.TeleportProcess;
 
 
 
@@ -57,7 +57,7 @@ public class Gameplay implements Screen {
 
     public Hud hud;
 
-    public Teleport_process teleportProcess;
+    public TeleportProcess teleportProcess;
 
     public HealthBar healthBar;
 
@@ -120,7 +120,7 @@ public class Gameplay implements Screen {
         // create 2d box world for objects , walls, teleport...
         B2worldCreator.createWorld(world, map, this);
         // set the contact listener for the world
-        world.setContactListener(new Object_ContactListener());
+        world.setContactListener(new ObjectContactListener());
         // create HUD
         hud = new Hud(game.getBatch());
         // teleportMenu
@@ -128,7 +128,7 @@ public class Gameplay implements Screen {
         // healthBar
         healthBar = hud.healthBar;
         // create a teleport_process instance
-        teleportProcess = new Teleport_process(teleportMenu, player, map);
+        teleportProcess = new TeleportProcess(teleportMenu, player, map);
         // system_status_menu
         systemStatusMenu = hud.systemStatusMenu;
         // generate all systems labels for status menu
@@ -155,9 +155,9 @@ public class Gameplay implements Screen {
         hud.stage.act(delta);
         player.update(delta);
         teleportProcess.validate();
-        healthBar.update_HP(player);
+        healthBar.updateHp(player);
         lightControl.light_update(systems);
-        Door_Controll.updateDoors(systems, delta);
+        DoorControll.updateDoors(systems, delta);
         enemyManager.update_enemy(delta);
         npcManager.updateNpc(delta);
         systemStatusMenu.update_status(systems);
@@ -248,7 +248,7 @@ public class Gameplay implements Screen {
 
     /**
      * to pause the game
-     * set the paused flag and show the pause menu
+     * set the paused flag and show the pause menu.
      */
     @Override
     public void pause() {
@@ -258,7 +258,7 @@ public class Gameplay implements Screen {
 
     /**
      * to resume the game
-     * set the pause flag and hide the pause menu
+     * set the pause flag and hide the pause menu.
      */
     @Override
     public void resume() {
@@ -277,7 +277,7 @@ public class Gameplay implements Screen {
     }
 
     /**
-     * check whether game ends
+     * check whether game ends.
      */
     public void checkGameState() {
 
@@ -285,12 +285,12 @@ public class Gameplay implements Screen {
             game.setScreen(new WinLoseScreen(game.getBatch(), "YOU WIN!!"));
         }
         int sabotagedCount = 0;
-        for (Systems system : systems ){
-            if (system.is_sabotaged()){
+        for (Systems system : systems) {
+            if (system.is_sabotaged()) {
                 sabotagedCount++;
             }
         }
-        if (sabotagedCount >= 15 || player.health <= 1){
+        if (sabotagedCount >= 15 || player.health <= 1) {
             game.setScreen(new WinLoseScreen(game.getBatch(), "YOU LOSE!!"));
         }
 

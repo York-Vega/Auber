@@ -20,7 +20,7 @@ public abstract class InteractiveTileObject {
      * Creates a new instantiated InteractiveTileobject.
 
      * @param world Physics world the teleporter should query
-     * @param map Tiled map onject will be placed in
+     * @param map Tiled map object will be placed in
      * @param bounds The bounds of where the object will interact with entities
      */
     public InteractiveTileObject(World world, TiledMap map, Rectangle bounds) {

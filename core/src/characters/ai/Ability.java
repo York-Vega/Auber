@@ -1,7 +1,6 @@
 package characters.ai;
 
 import characters.Player;
-import com.badlogic.gdx.Gdx;
 import java.util.Random;
 
 public class Ability {
@@ -15,9 +14,9 @@ public class Ability {
     public boolean inUse;
 
     /**
-     * Special Ability Enemy should have.
-     *
-     */
+    * Special Ability Enemy should have.
+    *
+    */
     public Ability() {
 
         inUse = false;
@@ -31,28 +30,30 @@ public class Ability {
 
     /**
      * Generate a random ability for enemy.
+
+     * @param enemy The enemy who should use their ability
+     * @param player The player to target
      */
     public void useAbility(Enemy enemy, Player player) {
 
         switch (randomIndex) {
-            case 0:
-                slowDownPlayer(player);
-                break;
-            case 1:
-                speeding(enemy);
-                break;
-            case 2:
-                attackPlayer(player);
-                break;
-            case 3:
-                break;
+          case 0:
+              slowDownPlayer(player);
+              break;
+          case 1:
+              speeding(enemy);
+              break;
+          case 2:
+              attackPlayer(player);
+              break;
+          default:
+              break;
         }
 
     }
 
     /**
      * provoke ability status.
-     *
      */
     public void provokeAbility() {
         if (ready && !disabled) {
@@ -64,9 +65,8 @@ public class Ability {
 
     /**
      * cool down timer.
-     *
+
      * @param delta delta time
-     *
      * @param enemy Enemy
      */
     public void update(float delta, Enemy enemy) {
@@ -108,6 +108,8 @@ public class Ability {
 
     /**
      * Slow down player's speed.
+
+     * @param auber The player character to slow
      */
     public void slowDownPlayer(Player auber) {
 
@@ -118,6 +120,8 @@ public class Ability {
 
     /**
      * Increase speed for enemy.
+
+     * @param enemy the enemy who sould use the speed ability
      */
     public void speeding(Enemy enemy) {
 
@@ -132,6 +136,8 @@ public class Ability {
 
     /**
      * Make damage to player.
+
+     * @param player Player to attack
      */
     public void attackPlayer(Player player) {
 

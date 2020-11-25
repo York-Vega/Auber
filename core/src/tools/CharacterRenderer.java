@@ -1,15 +1,13 @@
 package tools;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * CharacterRenderer is used to render player and npc characters. for each character a new instance
@@ -91,6 +89,7 @@ public class CharacterRenderer {
      * @param dt time in secconds since last update call
      * @param movement the direction of movement. don't pass velocity but instead acceleration
      */
+    @SuppressWarnings("unchecked")
     public void update(float dt, Vector2 movement) {
         timeInState += dt;
 
@@ -116,10 +115,12 @@ public class CharacterRenderer {
             state = nextState;
         }
 
+        
         Animation<TextureRegion> animation = 
-                (Animation<TextureRegion>) animations[sprite.index][state.index];
+            (Animation<TextureRegion>) animations[sprite.index][state.index];
         currentFrame = animation.getKeyFrame(timeInState, true);
-
+        
+            
     }
 
     /**

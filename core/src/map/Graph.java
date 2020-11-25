@@ -2,23 +2,24 @@ package map;
 
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
-import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * Graph class to represent the map to be used in path finding algorithms 
+ * Graph class to represent the map to be used in path finding algorithms.
  */
 public class Graph implements IndexedGraph<Node> {
     Array<Node> nodes;
 
-    public Graph (TiledMap map) {
+    /**
+     * Instantiates a new graph for the given map.
+
+     * @param map The tiled map to generate he graph with
+     */
+    public Graph(TiledMap map) {
         // stores the tile layer of the map
-        TiledMapTileLayer tiles = (TiledMapTileLayer)map.getLayers().get(0);
+        TiledMapTileLayer tiles = (TiledMapTileLayer) map.getLayers().get(0);
         
         int height = Map.mapTileHeight;
         int width = Map.mapTileWidth;
@@ -26,21 +27,21 @@ public class Graph implements IndexedGraph<Node> {
         this.nodes = new Array<Node>();
 
         // initialises all nodes
-        for (int y = 0; y < height; y++){
-            for(int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 this.nodes.add(new Node());
             }
         }
 
         // assigns correct edges to each node
-        for (int y = 0; y < height; y++){
-            for(int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 // stores the current and surrounding cells which contain tiles
                 TiledMapTileLayer.Cell current = tiles.getCell(x, y);
-                TiledMapTileLayer.Cell left = tiles.getCell(x-1, y);
-                TiledMapTileLayer.Cell right = tiles.getCell(x+1, y);
-                TiledMapTileLayer.Cell up = tiles.getCell(x, y+1);
-                TiledMapTileLayer.Cell down = tiles.getCell(x, y-1);
+                TiledMapTileLayer.Cell left = tiles.getCell(x - 1, y);
+                TiledMapTileLayer.Cell right = tiles.getCell(x + 1, y);
+                TiledMapTileLayer.Cell up = tiles.getCell(x, y + 1);
+                TiledMapTileLayer.Cell down = tiles.getCell(x, y - 1);
 
                 Node currentNode = nodes.get(width * y + x);
                 
@@ -48,19 +49,19 @@ public class Graph implements IndexedGraph<Node> {
                 // Note: a cell is null if a player cannot be in that tile
                 if (current != null) {                   
                     if (y != 0 && down != null) {
-                        Node downNode = nodes.get(width * (y-1) + x);
+                        Node downNode = nodes.get(width * (y - 1) + x);
                         currentNode.createEdge(downNode, 1);
                     }
                     if (x != 0 && left != null) {
-                        Node leftNode = nodes.get(width * y + x-1);
+                        Node leftNode = nodes.get(width * y + x - 1);
                         currentNode.createEdge(leftNode, 1);
                     }
-                    if (y != height-1 && up != null) {
-                        Node upNode = nodes.get(width * (y+1) + x);
+                    if (y != height - 1 && up != null) {
+                        Node upNode = nodes.get(width * (y + 1) + x);
                         currentNode.createEdge(upNode, 1);
                     }
-                    if (x != width-1 && right != null) {
-                        Node rightNode = nodes.get(width * y + x+1);
+                    if (x != width - 1 && right != null) {
+                        Node rightNode = nodes.get(width * y + x + 1);
                         currentNode.createEdge(rightNode, 1);
                     }                                  
                 }
@@ -84,12 +85,13 @@ public class Graph implements IndexedGraph<Node> {
     }
 
     /**
-     * 
-     * @param x
-     * @param y
+     * get a pathfinding node by the x, y pixle position.
+
+     * @param x pixle position
+     * @param y pixle position
      * @return the node at position (x, y)
      */
-    public Node getNodeByXY(int x, int y) {
+    public Node getNodeByXy(int x, int y) {
         int modx = x / Map.tilePixelWidth;
         int mody = y / Map.tilePixelHeight;
 

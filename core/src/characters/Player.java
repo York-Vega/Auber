@@ -1,8 +1,6 @@
 package characters;
 
 import characters.ai.Enemy;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -18,7 +16,7 @@ public class Player extends Character {
     public Enemy nearbyEnemy;
     public float health;
     public boolean ishealing;
-    public boolean arrest_pressed;
+    public boolean arrestPressed;
     public int arrestedCount = 0;
     public ArrayList<Enemy> arrestedEnemy = new ArrayList<>();
 
@@ -36,7 +34,7 @@ public class Player extends Character {
         super(world, x, y, CharacterRenderer.Sprite.AUBER);
         this.health = 100f;
         this.ishealing = false;
-        arrest_pressed = false;
+        arrestPressed = false;
 
     }
 
@@ -78,10 +76,10 @@ public class Player extends Character {
         b2body.applyLinearImpulse(input, b2body.getWorldCenter(), true);
 
         if (Controller.isArrestPressed()) {
-            arrest_pressed = true;
+            arrestPressed = true;
         }
 
-        if (nearbyEnemy != null && arrest_pressed) {
+        if (nearbyEnemy != null && arrestPressed) {
             arrest(nearbyEnemy);
         }
 

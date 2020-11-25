@@ -4,7 +4,7 @@ import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * Node Class represents a tile in the map
+ * Node Class represents a tile in the map.
  */
 public class Node {
     private static int nextIndex = 0; 
@@ -12,6 +12,9 @@ public class Node {
     private Array<Connection<Node>> edges;
     private int index;
 
+    /**
+     * Represents node for pathfinding.
+     */
     public Node() {
         this.edges = new Array<Connection<Node>>();
         this.index = nextIndex;

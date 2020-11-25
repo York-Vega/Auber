@@ -20,7 +20,9 @@ public class LightControl {
     }
 
     /**
-     * update the light
+     * update the light.
+
+     * @param systems the list of all systems to check for sabotaged lights
      */
     public void light_update(ArrayList<Systems> systems) {
 
@@ -41,7 +43,7 @@ public class LightControl {
     public boolean isLightsabotaged(ArrayList<Systems> systems) {
 
         for (Systems sys : systems) {
-            if (sys.sys_name.equals("lights")) {
+            if (sys.sysName.equals("lights")) {
                 return sys.is_sabotaged();
             }
         }

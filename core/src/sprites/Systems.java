@@ -6,18 +6,20 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Systems extends InteractiveTileObject {
 
-    public String sys_name;
+    public String sysName;
     public float hp;
+
     /**
      * Creates a new instantiated System object.
      *
-     * @param world  Physics world the teleport should query
-     * @param map    Tiled map object will be placed in
+     * @param world Physics world the teleport should query
+     * @param map Tiled map object will be placed in
      * @param bounds The bounds of where the object will interact with entities
+     * @param name They name of the system
      */
     public Systems(World world, TiledMap map, Rectangle bounds, String name) {
         super(world, map, bounds);
-        sys_name = name;
+        sysName = name;
         hp = 100;
         // use the fixture.userdata to store the system object.
         this.fixture.setUserData(this);
@@ -30,6 +32,11 @@ public class Systems extends InteractiveTileObject {
 
     }
 
+    /**
+     * If the system is a healing pod userdata accordingly.
+
+     * @param name The name of the system
+     */
     public void isHealing_pod(String name) {
         // if system is healingPod, set the fixture to sensor
         if (name.equals("healingPod")) {
@@ -38,6 +45,11 @@ public class Systems extends InteractiveTileObject {
         }
     }
 
+    /**
+     * If the system is a door set userdata accordingly.
+
+     * @param name The name of the system
+     */
     public void isDoors(String name) {
         // if system is healingPod, set the fixture to sensor
         if (name.equals("doors")) {
@@ -47,7 +59,7 @@ public class Systems extends InteractiveTileObject {
     }
 
     public String getSystemName() {
-        return sys_name;
+        return sysName;
     }
 
     /**

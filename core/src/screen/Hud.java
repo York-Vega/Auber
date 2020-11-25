@@ -9,11 +9,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import screen.actors.ArrestedHeader;
 import screen.actors.HealthBar;
-import screen.actors.SystemStatusMenu;
 import screen.actors.PauseMenu;
 import screen.actors.SettingsMenu;
+import screen.actors.SystemStatusMenu;
 import screen.actors.Teleport_Menu;
-
 
 /**
  * Hud to display information.
@@ -38,7 +37,7 @@ public class Hud {
 
      * @param spriteBatch the GamePlay batch
      */
-    public Hud(final SpriteBatch spriteBatch)  {
+    public Hud(final SpriteBatch spriteBatch) {
 
         // create a new viewport and a fixed camera for the stage
         viewport = new FitViewport(1280, 720, new OrthographicCamera());
@@ -67,8 +66,9 @@ public class Hud {
         systemStatusMenu = new SystemStatusMenu();
         // add teleport menu to the table
         table.add(teleportMenu).padLeft(20).width(Value.percentWidth(.2f, table));
-        // add hp_text in front of bar, 20 is the space between hp text and teleport menu
-        table.add(healthBar.hp_text).padLeft(20);
+        // add hp_text in front of bar, 20 is the space between hp text and teleport
+        // menu
+        table.add(healthBar.hpText).padLeft(20);
         // add healthBar to the table, 5 is the space between hp text and health bar
         table.add(healthBar).padLeft(5).width(Value.percentWidth(.2f, table));
         // add arrest header to the table
@@ -83,7 +83,13 @@ public class Hud {
 
     }
 
-    public void resize(int width, int height)  {
+    /**
+     * Resize the viewport.
+
+     * @param width  in pixles
+     * @param height in pixles
+     */
+    public void resize(int width, int height) {
 
         viewport.update(width, height);
 

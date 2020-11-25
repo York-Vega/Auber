@@ -19,6 +19,7 @@ public class BackgroundRenderer {
      * A class to handle rendering the space background.
 
      * @param batch spritebatch to draw with
+     * @param viewport The viewport to render the background using
      */
     public BackgroundRenderer(SpriteBatch batch, Viewport viewport) {
         this.viewport = viewport;

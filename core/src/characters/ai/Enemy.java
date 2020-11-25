@@ -1,7 +1,5 @@
 package characters.ai;
 
-import characters.Player;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -38,13 +36,14 @@ public class Enemy extends AiCharacter {
     }
 
     /**
-     * Create an EdgeShape for enemy to sensor auber for special ability
-     *
+     * Create an EdgeShape for enemy to sense auber for special ability.
+
+     * @param ability Ability to be triggered
      */
     public void createEdgeShape(Ability ability) {
 
         EdgeShape sensoringArea = new EdgeShape();
-        sensoringArea.set(new Vector2(64, 32), new Vector2(64,-32));
+        sensoringArea.set(new Vector2(64, 32), new Vector2(64, -32));
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = sensoringArea;
         fixtureDef.isSensor = true;
@@ -65,7 +64,7 @@ public class Enemy extends AiCharacter {
 
     /**
      * set sabotage system target.
-     *
+
      * @param system Systems Arraylist
      */
     public void set_target_system(Systems system) {
@@ -74,7 +73,7 @@ public class Enemy extends AiCharacter {
 
     /**
      * Get target system object.
-     *
+
      * @return targeted system
      */
     public Systems get_target_system() {
@@ -83,7 +82,7 @@ public class Enemy extends AiCharacter {
 
     /**
      * ability to sabotage the system.
-     *
+
      * @param system system object
      */
     public void sabotage(Systems system) {
@@ -134,6 +133,11 @@ public class Enemy extends AiCharacter {
         mode = "arrested";
     }
 
+    /**
+     * getter for arrested.
+
+     * @return bool if the enemy is arrested
+     */
     public boolean isArrested() {
         return mode.equals("arrested");
     }

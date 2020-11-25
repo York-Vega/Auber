@@ -20,7 +20,7 @@ public class SystemStatusMenu extends VerticalGroup {
     public Hashtable<Systems, Label> statusMap = new Hashtable<>();
 
     /**
-     * Show status of each systems
+     * Show status of each systems.
      */
     public SystemStatusMenu() {
 
@@ -79,7 +79,7 @@ public class SystemStatusMenu extends VerticalGroup {
             if (system.is_sabotaging()) {
 
                 sysLabel.setColor(Color.RED);
-                sysLabel.setText(system.sys_name + ": Under Attack" + ": (" + system.hp + "%)");
+                sysLabel.setText(system.sysName + ": Under Attack" + ": (" + system.hp + "%)");
 
             }
             // if system is sabotaged, label should go gray
@@ -87,10 +87,10 @@ public class SystemStatusMenu extends VerticalGroup {
                 // alreday sabotaged
                 if (sysLabel.getColor().equals(Color.GRAY)) {
 
-                    sysLabel.setText(system.sys_name + ": Sabotaged(" + system.hp + "%)");
+                    sysLabel.setText(system.sysName + ": Sabotaged(" + system.hp + "%)");
 
                 } else {
-                    sysLabel.setText(system.sys_name + ": Sabotaged("  + system.hp + "%)");
+                    sysLabel.setText(system.sysName + ": Sabotaged("  + system.hp + "%)");
                     sysLabel.setColor(Color.GRAY);
                     // update sabotaged count
                     count += 1;
@@ -107,7 +107,7 @@ public class SystemStatusMenu extends VerticalGroup {
             // if system not being sabotaging or enemy stop sabotaging label should back to normal
             if (system.is_not_sabotaged()) {
                 sysLabel.setColor(Color.WHITE);
-                sysLabel.setText(system.sys_name + ": (" + system.hp + "%)");
+                sysLabel.setText(system.sysName + ": (" + system.hp + "%)");
 
             }
         }

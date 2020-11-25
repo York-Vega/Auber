@@ -7,7 +7,6 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
-
 import screen.Gameplay;
 import sprites.Door;
 import sprites.Jail;
@@ -54,7 +53,7 @@ public class B2worldCreator {
         // Creates the player at the spawn point on the spawn layer of the map
         for (MapObject object : layers.get("spawn").getObjects()) {
             Rectangle point = ((RectangleMapObject) object).getRectangle();
-            game.player = new Player(world, point.x, point.y);
+            Gameplay.player = new Player(world, point.x, point.y);
             break;
 
         }
@@ -67,27 +66,27 @@ public class B2worldCreator {
         }
 
         // create systems <- this is interactive tiled map object
-        for (MapObject object : layers.get("systems").getObjects()){
+        for (MapObject object : layers.get("systems").getObjects()) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             // create a new instantiated System object
             // stor system object in the systems Arraylist
-            game.systems.add(new Systems(world,map,rect, object.getName()));
+            Gameplay.systems.add(new Systems(world, map, rect, object.getName()));
         }
 
         // create doors <- this is interactive tiled map object
-        for (MapObject object : layers.get("doors").getObjects()){
+        for (MapObject object : layers.get("doors").getObjects()) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             // create a new instantiated door object
             // adds door object to the Doors Arraylist
-            game.doors.add(new Door(world,map,rect, object.getName().equals("jailDoor")));
+            Gameplay.doors.add(new Door(world, map, rect, object.getName().equals("jailDoor")));
         }
         
         // create jails
-        int jail_number = 0;
-        for (MapObject object : layers.get("jail").getObjects()){
+        int jailNumber = 0;
+        for (MapObject object : layers.get("jail").getObjects()) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Jail(world,map,rect,jail_number);
-            jail_number ++;
+            new Jail(world, map, rect, jailNumber);
+            jailNumber++;
         }
     }
 }
