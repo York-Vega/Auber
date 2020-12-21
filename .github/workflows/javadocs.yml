@@ -18,7 +18,7 @@ jobs:
         run: |
           ./gradlew javadoc
           rm -rf docs/javadocs
-          mv core/build/docs/javadoc docs/javadocs@
+          mv core/build/docs/javadoc docs/javadocs
 
       - name: Commit changes
         run: |
