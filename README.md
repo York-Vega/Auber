@@ -1,4 +1,4 @@
-# auber-vega
+# Auber Vega
 ![Javadocs](https://github.com/threecubedstudios/auber-vega/workflows/Javadocs/badge.svg)
 ![Java CI with Gradle](https://github.com/threecubedstudios/auber-vega/workflows/Java%20CI%20with%20Gradle/badge.svg)
 
