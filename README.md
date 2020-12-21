@@ -5,6 +5,10 @@
 Welcome to the improved version of **Team Vega**'s Auber Game.
 
 ## Installation
+- [Grab the latest version of Auber]
+- Run it by double clicking on it, or with `java -jar auber.jar`
+
+## Build from source
 ```bash
 git clone git@github.com:threecubedstudios/auber-vega.git
 cd auber-vega
