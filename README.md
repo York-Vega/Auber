@@ -4,7 +4,7 @@
 
 Welcome to the improved version of **Team Vega**'s Auber Game.
 
-Installation instructions:
+## Installation
 ```bash
 git clone git@github.com:threecubedstudios/auber-vega.git
 cd auber-vega
