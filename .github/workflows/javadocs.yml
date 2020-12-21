@@ -15,7 +15,10 @@ jobs:
         run: chmod +x gradlew
 
       - name: Generate Javadocs
-        run: ./gradlew javadoc
+        run: |
+          ./gradlew javadoc
+          rm -r docs/javadoc
+          mv core/build/docs/javadoc docs/javadoc
 
       - name: Commit changes
         run: |
