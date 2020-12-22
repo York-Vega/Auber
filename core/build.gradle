@@ -5,3 +5,10 @@ sourceSets.main.java.srcDirs = [ "src/main/java/" ]
 sourceSets.test.java.srcDirs = [ "src/test/java/" ]
 
 eclipse.project.name = appName + "-core"
+
+test {
+        testLogging.showStandardStreams = true
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+}
