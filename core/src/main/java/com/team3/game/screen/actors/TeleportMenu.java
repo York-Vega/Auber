@@ -5,6 +5,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 
+/**
+ * Adds a teleport menu to the game.
+ */
 public class TeleportMenu extends SelectBox<String> {
 
   public String[] teleporter;

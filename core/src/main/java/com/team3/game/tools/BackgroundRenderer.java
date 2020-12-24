@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+/**
+ * Renders the background of the game.
+ */
 public class BackgroundRenderer {
 
   private TextureAtlas atlas = new TextureAtlas("background/background.atlas");

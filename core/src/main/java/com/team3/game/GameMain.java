@@ -4,6 +4,9 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.team3.game.screen.MainMenu;
 
+/**
+ * Class to render a main screen.
+ */
 public class GameMain extends Game {
   SpriteBatch batch;
 

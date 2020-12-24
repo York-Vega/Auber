@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
+/**
+ * Displays menu on screen.
+ */
 public class Menu {
   protected Window window;
   protected Skin skin = new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json"));

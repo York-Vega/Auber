@@ -22,6 +22,11 @@ public abstract class Map {
   // Graph representing the Map
   public static Graph graph;
 
+  /**
+   * Initialize a map.
+   * 
+   * @param map
+   */
   public static void create(TiledMap map) {
     MapProperties properties = map.getProperties();
 

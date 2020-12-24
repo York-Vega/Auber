@@ -3,6 +3,9 @@ package com.team3.game.characters.ai;
 import com.team3.game.characters.Player;
 import java.util.Random;
 
+/**
+ * Ability class that defines, chooses and sets properties of abilities for the player and enemy.
+ */
 public class Ability {
 
   public boolean disabled;

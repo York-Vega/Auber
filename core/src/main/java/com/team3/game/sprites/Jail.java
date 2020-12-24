@@ -4,6 +4,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 
+/**
+ * Creates a jail for the arrested infiltrators.
+ */
 public class Jail extends InteractiveTileObject {
 
   /**

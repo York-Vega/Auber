@@ -44,6 +44,9 @@ public class Path implements GraphPath<Node> {
     nodes.reverse();
   }
 
+  /**
+   * Prints a log of nodes.
+   */
   public void log() {
     for (int i = 0; i < nodes.size; i++) {
       Node n = nodes.get(i);

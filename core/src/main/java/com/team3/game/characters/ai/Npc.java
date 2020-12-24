@@ -2,6 +2,9 @@ package com.team3.game.characters.ai;
 
 import com.badlogic.gdx.physics.box2d.World;
 
+/**
+ * Initializes an npc object.
+ */
 public class Npc extends AiCharacter {
   public static int numberof_crew;
 

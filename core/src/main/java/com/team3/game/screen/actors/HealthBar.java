@@ -6,6 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.team3.game.characters.Player;
 
+/**
+ * Displays the player's healthbar.
+ */
 public class HealthBar extends ProgressBar {
   // label before the bar
   public Label hpText;

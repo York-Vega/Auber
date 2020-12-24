@@ -6,6 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.team3.game.characters.Player;
 
+/**
+ * Displays the number of arrested infiltrators.
+ */
 public class ArrestedHeader extends Label {
 
   /**

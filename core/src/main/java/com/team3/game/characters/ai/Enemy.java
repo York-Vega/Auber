@@ -6,6 +6,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.team3.game.sprites.Systems;
 
+/**
+ * Creates enemy and sets them to sabotage systems.
+ */
 public class Enemy extends AiCharacter {
 
   public Systems targetSystem;
