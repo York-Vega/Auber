@@ -23,7 +23,7 @@ public class Systems extends InteractiveTileObject {
     hp = 100;
     // use the fixture.userdata to store the system object.
     this.fixture.setUserData(this);
-    // use the body.userdata to store the saboage status. used for contact listener
+    // use the body.userdata to store the sabotage status. used for contact listener
     this.fixture.getBody().setUserData("system_not_sabotaged");
     this.fixture.setSensor(true);
     // check whether is a healing pod or not

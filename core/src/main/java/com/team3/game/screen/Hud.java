@@ -13,7 +13,7 @@ import com.team3.game.screen.actors.HealthBar;
 import com.team3.game.screen.actors.PauseMenu;
 import com.team3.game.screen.actors.SettingsMenu;
 import com.team3.game.screen.actors.SystemStatusMenu;
-import com.team3.game.screen.actors.Teleport_Menu;
+import com.team3.game.screen.actors.TeleportMenu;
 
 /**
  * Hud to display information.
@@ -24,7 +24,7 @@ public class Hud {
   public Viewport viewport;
 
   public HealthBar healthBar;
-  public Teleport_Menu teleportMenu;
+  public TeleportMenu teleportMenu;
 
   public SystemStatusMenu systemStatusMenu;
 
@@ -52,7 +52,7 @@ public class Hud {
     // set the table same as the size of the stage
     table.setFillParent(true);
     // create teleport_menu (SelectBox<String>)actor
-    teleportMenu = new Teleport_Menu();
+    teleportMenu = new TeleportMenu();
     // create health bar (ProgressBar)actor
     healthBar = new HealthBar();
     // create a system_status_menu (Vertical Group) actor
@@ -87,8 +87,8 @@ public class Hud {
   /**
    * Resize the viewport.
 
-   * @param width  in pixles
-   * @param height in pixles
+   * @param width  in pixels
+   * @param height in pixels
    */
   public void resize(int width, int height) {
 

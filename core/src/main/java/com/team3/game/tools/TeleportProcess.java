@@ -6,7 +6,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.team3.game.characters.Player;
-import com.team3.game.screen.actors.Teleport_Menu;
+import com.team3.game.screen.actors.TeleportMenu;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,7 +16,7 @@ import java.util.HashMap;
  */
 public class TeleportProcess {
 
-  public Teleport_Menu selectedRoom;
+  public TeleportMenu selectedRoom;
   public Player auber;
   public HashMap<String, ArrayList<Float>> teleporterPosition;
   public HashMap<Integer, ArrayList<Float>> jailPosition;
@@ -29,7 +29,7 @@ public class TeleportProcess {
    * @param auber the player object
    * @param map tiled map used to get positions of teleports
    */
-  public TeleportProcess(Teleport_Menu selectedRoom, Player auber, TiledMap map) {
+  public TeleportProcess(TeleportMenu selectedRoom, Player auber, TiledMap map) {
     this.selectedRoom = selectedRoom;
     this.auber = auber;
     MapLayers layers = map.getLayers();
@@ -90,7 +90,7 @@ public class TeleportProcess {
   }
 
   /**
-   * transfrom auber.
+   * transform auber.
    */
   public void transform() {
     // get the room name to be teleported form the selectBox

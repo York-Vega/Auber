@@ -1,12 +1,9 @@
 package com.team3.game.tools;
 
-import java.util.ArrayList;
-
+import box2dLight.RayHandler;
 import com.badlogic.gdx.physics.box2d.World;
 import com.team3.game.sprites.Systems;
-
-import box2dLight.RayHandler;
-
+import java.util.ArrayList;
 
 public class LightControl {
 

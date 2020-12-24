@@ -1,8 +1,5 @@
 package com.team3.game.screen.actors;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -10,7 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.Align;
 import com.team3.game.sprites.Systems;
-
+import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class SystemStatusMenu extends VerticalGroup {
 
@@ -56,7 +54,7 @@ public class SystemStatusMenu extends VerticalGroup {
     for (Systems system : systems) {
       Label sys = new Label(system.getSystemName(), myskin, "alt");
       sys.setColor(Color.WHITE);
-      // setname to store name if ememy stop sabotaing, change the label text back to normal
+      // setname to store name if enemy stop sabotaging, change the label text back to normal
       sys.setName(system.getSystemName());
       // scale the font size
       sys.getStyle().font.getData().setScale(.8f, .8f);
@@ -87,7 +85,7 @@ public class SystemStatusMenu extends VerticalGroup {
       }
       // if system is sabotaged, label should go gray
       if (system.is_sabotaged()) {
-        // alreday sabotaged
+        // already sabotaged
         if (sysLabel.getColor().equals(Color.GRAY)) {
 
           sysLabel.setText(system.sysName + ": Sabotaged(" + system.hp + "%)");

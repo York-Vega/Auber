@@ -1,13 +1,14 @@
 package com.team3.game.tools;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import com.team3.game.screen.Gameplay;
 import com.team3.game.sprites.Door;
 import com.team3.game.sprites.Systems;
+import java.util.ArrayList;
+import java.util.Random;
 
-public abstract class DoorControll {
+
+
+public abstract class DoorControl {
   private static int MaxDoorsToLock = 3;
   private static float MaxTime = 30;
   private static float time = MaxTime;
@@ -15,10 +16,10 @@ public abstract class DoorControll {
   private static ArrayList<Door> doors;
 
   /**
-   * Uppdates all the doors in the map.
+   * Updates all the doors in the map.
 
    * @param systems the list of systems
-   * @param delta secconds since last update
+   * @param delta seconds since last update
    */
   public static void updateDoors(ArrayList<Systems> systems, float delta) {
     if (!isSabotaged) {

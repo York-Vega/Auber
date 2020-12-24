@@ -95,7 +95,7 @@ public class Enemy extends AiCharacter {
   }
 
   /**
-   * set enemy to attcking mode.
+   * set enemy to attacking mode.
    */
   public void set_attackSystemMode() {
     mode = "attacking_system";
@@ -109,7 +109,7 @@ public class Enemy extends AiCharacter {
   }
 
   /**
-   * check enemy is attcking a system or not.
+   * check enemy is attacking a system or not.
    *
    * @return true if it is in attacking mode
    */

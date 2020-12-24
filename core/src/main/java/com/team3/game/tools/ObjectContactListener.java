@@ -1,7 +1,5 @@
 package com.team3.game.tools;
 
-import java.util.regex.Pattern;
-
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -12,7 +10,7 @@ import com.team3.game.characters.ai.Ability;
 import com.team3.game.characters.ai.Enemy;
 import com.team3.game.sprites.Door;
 import com.team3.game.sprites.Systems;
-
+import java.util.regex.Pattern;
 
 public class ObjectContactListener implements ContactListener {
 
@@ -144,7 +142,7 @@ public class ObjectContactListener implements ContactListener {
           //enemy.set_standByMode();
           enemy.ability.setDisable(true);
         }
-          }
+      }
     }
   }
 
@@ -177,7 +175,7 @@ public class ObjectContactListener implements ContactListener {
         && ((String) fixA.getBody().getUserData()).toString().equals("ready_to_heal")) {
       // set the player.UserData to ready_to_heal for healing process
       fixA.getBody().setUserData("auber");
-        }
+    }
 
 
     // // infiltrators end contact
@@ -222,7 +220,7 @@ public class ObjectContactListener implements ContactListener {
         // left the current system, should set it back to null
         currentContactsystem = null;
 
-          }
+      }
     }
 
     // end auber arrest contact
@@ -244,7 +242,7 @@ public class ObjectContactListener implements ContactListener {
           auber.setNearby_enemy(null);
           enemy.ability.setDisable(false);
         }
-          }
+      }
     }
 
 
@@ -308,7 +306,7 @@ public class ObjectContactListener implements ContactListener {
         // else it is not
         contact.setEnabled(((Door) data).isLocked());
       }
-        }
+    }
   }
 
   @Override

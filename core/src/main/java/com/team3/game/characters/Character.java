@@ -22,7 +22,7 @@ public abstract class Character {
   protected Vector2 size;
 
   /**
-   * creates an semi-initialised player the physics body is still uninitiated.
+   * creates an semi-initialized player the physics body is still uninitiated.
 
    * @param world The game world
    * 

@@ -26,10 +26,13 @@ public abstract class Controller {
     return Gdx.input.isKeyPressed(right);
   }
 
-  public static boolean isArrestPressed() { return Gdx.input.isKeyPressed(Input.Keys.A); }
+  public static boolean isArrestPressed() { 
+    return Gdx.input.isKeyPressed(Input.Keys.A); 
+  }
 
   /**
-   * sets the controls of the user
+   * sets the controls of the user.
+   * 
    * @param u up key string
    * @param d down key string
    * @param l left key string

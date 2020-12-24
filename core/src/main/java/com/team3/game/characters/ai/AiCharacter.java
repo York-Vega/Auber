@@ -26,18 +26,18 @@ public class AiCharacter extends Character {
   private static int numberOfHostiles = 0;
   private static CharacterRenderer.Sprite[] sprites = new CharacterRenderer.Sprite[] {
     CharacterRenderer.Sprite.NPC1,
-      CharacterRenderer.Sprite.NPC2,
-      CharacterRenderer.Sprite.NPC3
-  };
+    CharacterRenderer.Sprite.NPC2,
+    CharacterRenderer.Sprite.NPC3
+    };
 
   /**
-   * creates an semi-initalised AI character the physics body is still uninitiated.
+   * creates an semi-initialized AI character the physics body is still uninitiated.
 
    * @param world The game world
    * 
-   * @param x The inital x location of the character
+   * @param x The initial x location of the character
    * 
-   * @param y The inital y location of the character
+   * @param y The initial y location of the character
    */
   public AiCharacter(World world, float x, float y) {
     super(world, x, y, sprites[numberOfHostiles % 3]);
@@ -64,7 +64,7 @@ public class AiCharacter extends Character {
   /**
    * Updates the character, should be called every update cycle.
 
-   * @param delta The time in secconds since the last update
+   * @param delta The time in seconds since the last update
    */
   @Override
   public void update(float delta)  {
@@ -81,7 +81,7 @@ public class AiCharacter extends Character {
   /**
    * applies the move to the character.
 
-   * @param delta secconds since last update
+   * @param delta seconds since last update
    * @param direction direction to move character
    */
   public void move(float delta, Vector2 direction) {
@@ -109,12 +109,12 @@ public class AiCharacter extends Character {
       float ycomp = 0;
 
       // if the difference in x values between character and node is above 1
-      // move in x directio n towards node
+      // move in x direction n towards node
       if (Math.abs(x - targetX) > 1) {
         xcomp = targetX - x;
       } 
       // if the difference in y values between character and node is above 1
-      // move in y directio n towards node
+      // move in y direction n towards node
       if (Math.abs(y - targetY) > 1) {
         ycomp = targetY - y;
       } 
@@ -133,7 +133,7 @@ public class AiCharacter extends Character {
   } 
 
   /**
-   * set the destination postion.
+   * set the destination position.
 
    * @param x x component
    * @param y y component
@@ -171,7 +171,7 @@ public class AiCharacter extends Character {
       if (startNode.getIndex() == endNode.getIndex()
           || endNode.getIndex() == currentEndNode) {
         return true;
-          }
+      }
     }         
 
 

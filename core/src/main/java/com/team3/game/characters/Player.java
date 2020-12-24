@@ -1,14 +1,12 @@
 package com.team3.game.characters;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.team3.game.characters.ai.Enemy;
 import com.team3.game.tools.CharacterRenderer;
 import com.team3.game.tools.Controller;
-
+import java.util.ArrayList;
 
 /**
  * Main player object for the game.
@@ -23,13 +21,13 @@ public class Player extends Character {
 
 
   /**
-   * creates an semi-initalised player the physics body is still uninitiated.
+   * creates an semi-initialized player the physics body is still uninitiated.
 
    * @param world The game world
    * 
-   * @param x The inital x location of the player
+   * @param x The initial x location of the player
    * 
-   * @param y The inital y location of the player
+   * @param y The initial y location of the player
    */
   public Player(World world, float x, float y)  {
     super(world, x, y, CharacterRenderer.Sprite.AUBER);
@@ -56,7 +54,7 @@ public class Player extends Character {
   /**
    * Updates the player, should be called every update cycle.
 
-   * @param delta The time in secconds since the last update
+   * @param delta The time in seconds since the last update
    */
   @Override
   public void update(float delta)  {
@@ -106,7 +104,7 @@ public class Player extends Character {
   /**
    * Healing auber.
    *
-   * @param delta The time in secconds since the last update
+   * @param delta The time in seconds since the last update
    */
   public void healing(float delta) {
     // healing should end or not start if auber left healing pod or not contact with healing pod
