@@ -12,6 +12,9 @@ import com.team3.game.sprites.Door;
 import com.team3.game.sprites.Systems;
 import java.util.regex.Pattern;
 
+/**
+ * Determines outcomes when different objects come in contact.
+ */
 public class ObjectContactListener implements ContactListener {
 
   // regex to determine whether contact object is a teleport or not

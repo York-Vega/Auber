@@ -8,6 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.team3.game.tools.Controller;
 
+/**
+ * Adds a settings menu to the game.
+ */
 public class SettingsMenu extends Menu {
 
   TextButton acceptButton = new TextButton("Accept", skin);

@@ -8,6 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+/**
+ * Adds a pause menu to the game.
+ */
 public class PauseMenu extends Menu {
   private boolean exiting;
   TextButton resumeButton = new TextButton("Resume", skin);

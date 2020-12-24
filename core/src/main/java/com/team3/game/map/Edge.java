@@ -10,6 +10,9 @@ public class Edge implements Connection<Node> {
   Node fromNode;
   Node toNode;
 
+  /**
+   * Defines cost and nodes to travel between - an edge with its heuristic value.
+   */
   public Edge(float cost, Node fromNode, Node toNode) {
     this.cost = cost;
     this.fromNode = fromNode;

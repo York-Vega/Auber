@@ -3,6 +3,9 @@ package com.team3.game.tools;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
+/**
+ * Allows for user input to control the character.
+ */
 public abstract class Controller {
   // initial controls
   private static int up = Input.Keys.UP;

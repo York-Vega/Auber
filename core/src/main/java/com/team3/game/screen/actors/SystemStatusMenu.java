@@ -10,6 +10,9 @@ import com.team3.game.sprites.Systems;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+/**
+ * Adds a status menu of the system to the game.
+ */
 public class SystemStatusMenu extends VerticalGroup {
 
   public Skin myskin;

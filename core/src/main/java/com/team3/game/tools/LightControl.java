@@ -5,6 +5,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.team3.game.sprites.Systems;
 import java.util.ArrayList;
 
+/**
+ * Handles the lighting of the game.
+ */
 public class LightControl {
 
   public RayHandler rayHandler;
