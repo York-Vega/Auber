@@ -1,13 +1,13 @@
 package com.team3.game.tools;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import com.team3.game.screen.Gameplay;
 import com.team3.game.sprites.Door;
 import com.team3.game.sprites.Systems;
+import java.util.ArrayList;
+import java.util.Random;
 
-public abstract class DoorControll {
+
+public abstract class DoorControl {
   private static int MaxDoorsToLock = 3;
   private static float MaxTime = 30;
   private static float time = MaxTime;

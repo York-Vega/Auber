@@ -1,8 +1,5 @@
 package com.team3.game.screen.actors;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -10,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.Align;
 import com.team3.game.sprites.Systems;
+import java.util.ArrayList;
+import java.util.Hashtable;
 
 
 public class SystemStatusMenu extends VerticalGroup {
@@ -26,7 +25,6 @@ public class SystemStatusMenu extends VerticalGroup {
    * Show status of each systems.
    */
   public SystemStatusMenu() {
-
     super();
     myskin = new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json"));
     setFillParent(true);
@@ -42,8 +40,6 @@ public class SystemStatusMenu extends VerticalGroup {
     columnAlign(Align.left).space(3);
     padLeft(20);
     padTop(20);
-
-
   }
 
   /**
@@ -52,7 +48,6 @@ public class SystemStatusMenu extends VerticalGroup {
    * @param systems Arraylist of System objects
    */
   public void generate_systemLabels(ArrayList<Systems> systems) {
-
     for (Systems system : systems) {
       Label sys = new Label(system.getSystemName(), myskin, "alt");
       sys.setColor(Color.WHITE);
@@ -102,20 +97,14 @@ public class SystemStatusMenu extends VerticalGroup {
             // if system sabotaged over 10, change color of title to red
             sabotageCount.setColor(Color.RED);
           }
-
         }
         // just be sabotaged
-
       }
       // if system not being sabotaging or enemy stop sabotaging label should back to normal
       if (system.is_not_sabotaged()) {
         sysLabel.setColor(Color.WHITE);
         sysLabel.setText(system.sysName + ": (" + system.hp + "%)");
-
       }
     }
-
   }
-
-
 }
