@@ -10,12 +10,12 @@ public class TeleportMenu extends SelectBox<String> {
   public String[] teleporter;
 
   /**
-   * Selectbox teleport menu.
+   * selectbox teleport menu.
    */
   public TeleportMenu() {
     super(new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json")));
-    teleporter = new String[]{
-      "Teleport", "controlRoom", "mess", "infirmary", "hangar", "reactor", "Jail"};
+    teleporter = new String[]{"Teleport", "controlRoom", "mess", "infirmary", 
+      "hangar", "reactor", "Jail"};
     setItems(teleporter);
     // center the list
     getList().setAlignment(Align.center);

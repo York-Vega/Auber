@@ -40,7 +40,7 @@ public class NpcManager {
   /**
    * generate random spawn positions for npc.
 
-   * @param map The world map to generate inital position
+   * @param map The world map to generate initial position
    */
   public void generate_initialPosition(TiledMap map) {
 
@@ -102,7 +102,7 @@ public class NpcManager {
   /**
    * update npc, should be called in GamePlay update.
 
-   * @param delta The time in secconds since the last update
+   * @param delta The time in seconds since the last update
    */
   public void updateNpc(float delta) {
 

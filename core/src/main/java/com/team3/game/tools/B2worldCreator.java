@@ -24,7 +24,7 @@ import com.team3.game.sprites.Teleport;
 public class B2worldCreator {
 
   /**
-   * Creates all the intractive objects and hooks them into the world physics.
+   * Creates all the interactive objects and hooks them into the world physics.
    *
    * @param world Physics world objects should look for interactions in
    * @param map   Map we should look for objects in

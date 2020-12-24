@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.team3.game.screen.MainMenu;
 
-public class GameMain extends Game  {
+public class GameMain extends Game {
   SpriteBatch batch;
 
   @Override

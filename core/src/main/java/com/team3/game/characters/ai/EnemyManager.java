@@ -1,8 +1,5 @@
 package com.team3.game.characters.ai;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -12,8 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import com.team3.game.characters.Player;
 import com.team3.game.sprites.Systems;
-
-
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Manage enemies in the game.
@@ -101,12 +98,12 @@ public class EnemyManager {
       double randomD = Math.random();
       // generate a index [0,15]
       int index = (int) (randomD * 15);
-      // take away healing pod for initial traget, for difficulty
+      // take away healing pod for initial target, for difficulty
       while (randomIndex.contains(index) 
           && !systems.get(index).sysName.equals("headlingPod")) {
         randomD = Math.random();
         index = (int) (randomD * 15);
-          }
+      }
       randomIndex.add(index);
     }
 
@@ -124,7 +121,7 @@ public class EnemyManager {
       // set the destination
       enemy.setDest(endX, endY);
       enemy.moveToDest();
-      // update the information hash table, aviod enemy targeting the same system
+      // update the information hash table, avoid enemy targeting the same system
       information.put(sys, enemy);
 
     }
@@ -147,7 +144,7 @@ public class EnemyManager {
   /**
    * update the enemy, should be called in gameplay update.
    *
-   * @param delta The time in secconds since the last update
+   * @param delta The time in seconds since the last update
    */
   public void update_enemy(float delta) {
 
@@ -163,7 +160,7 @@ public class EnemyManager {
         continue;
       }
       if (enemy.isArrested()) {
-        // if enemy have a taget system
+        // if enemy have a target system
         if (enemy.get_target_system() != null) {
           // remove it from information for other enemies to target that system.
           if (enemy.get_target_system().is_not_sabotaged() 
@@ -172,7 +169,7 @@ public class EnemyManager {
             enemy.targetSystem = null;
             enemy.update(delta);
             continue;
-              }
+          }
           enemy.update(delta);
           continue;
         }
@@ -194,39 +191,39 @@ public class EnemyManager {
         if (enemy.is_attcking_mode()) {
           enemy.sabotage(sys);
         }
-        // generate next traget if system sabotaged
+        // generate next target if system sabotaged
         if (sys.is_sabotaged()) {
           generateNextTarget(enemy);
         }
       }
       enemy.update(delta);
-      }
     }
-
-    /**
-     * If enemy successfully sabotage one target, generate next target for it.
-     *
-     * @param enemy enemy object
-     */
-    public void generateNextTarget(Enemy enemy) {
-      for (Systems system : systems) {
-        if (!information.containsKey(system)) {
-          float endx = system.getposition()[0];
-          float endy = system.getposition()[1];
-          enemy.setDest(endx, endy);
-          enemy.set_target_system(system);
-          information.put(system, enemy);
-          enemy.moveToDest();
-          // set enemy back to standBy mode before it contacts with the next target system,
-          // otherwise the system will lose HP before contact
-          enemy.set_standByMode();
-          return;
-        }
-      }
-      // if there is no systems left for sabotaging,
-      // set enemy to standby mode and remove the target system
-      enemy.set_standByMode();
-      enemy.targetSystem = null;
-    }
-
   }
+
+  /**
+    * If enemy successfully sabotage one target, generate next target for it.
+    *
+    * @param enemy enemy object
+    */
+  public void generateNextTarget(Enemy enemy) {
+    for (Systems system : systems) {
+      if (!information.containsKey(system)) {
+        float endx = system.getposition()[0];
+        float endy = system.getposition()[1];
+        enemy.setDest(endx, endy);
+        enemy.set_target_system(system);
+        information.put(system, enemy);
+        enemy.moveToDest();
+        // set enemy back to standBy mode before it contacts with the next target system,
+        // otherwise the system will lose HP before contact
+        enemy.set_standByMode();
+        return;
+      }
+    }
+    // if there is no systems left for sabotaging,
+    // set enemy to standby mode and remove the target system
+    enemy.set_standByMode();
+    enemy.targetSystem = null;
+  }
+
+}

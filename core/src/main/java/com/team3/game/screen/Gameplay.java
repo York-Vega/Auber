@@ -32,8 +32,6 @@ import com.team3.game.tools.ObjectContactListener;
 import com.team3.game.tools.TeleportProcess;
 import java.util.ArrayList;
 
-
-
 /**
  * Main gameplay object, holds all game data.
  */
@@ -83,7 +81,7 @@ public class Gameplay implements Screen {
 
   /**
    * Creates a new instantiated game.
-
+   * 
    * @param game The game object used in Libgdx things
    */
   public Gameplay(GameMain game) {
@@ -92,9 +90,10 @@ public class Gameplay implements Screen {
 
   /**
    * Creates a new instantiated game.
-
-   * @param game The game object used in Libgdx things
-   * @param screenSize size of the rendered game screen, doesn't effect screen size
+   * 
+   * @param game       The game object used in Libgdx things.
+   * @param screenSize size of the rendered game screen, doesn't effect scree
+   *                   size
    */
   protected Gameplay(GameMain game, Vector2 screenSize) {
 
@@ -142,12 +141,10 @@ public class Gameplay implements Screen {
 
   }
 
-
-
   /**
    * Updates the game, logic will go here called by libgdx GameMain.
    */
-  public void update()  {
+  public void update() {
 
     float delta = Gdx.graphics.getDeltaTime();
     backgroundRenderer.update(delta);
@@ -170,15 +167,14 @@ public class Gameplay implements Screen {
 
   }
 
-
   @Override
   public void show() {
     // set hud to be the input processor
     Gdx.input.setInputProcessor(hud.stage);
   }
 
-  private static final int[] backgroundLayers = new int[]{0, 1, 2};
-  private static final int[] forgroundLayers = new int[]{3};
+  private static final int[] backgroundLayers = new int[] { 0, 1, 2 };
+  private static final int[] forgroundLayers = new int[] { 3 };
 
   @Override
   public void render(float delta) {
@@ -193,7 +189,6 @@ public class Gameplay implements Screen {
     } else if (this.hud.pauseMenu.exit()) {
       Gdx.app.exit();
     }
-
 
     // clear the screen
     Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -237,7 +232,6 @@ public class Gameplay implements Screen {
 
   }
 
-
   @Override
   public void resize(int width, int height) {
 
@@ -247,8 +241,7 @@ public class Gameplay implements Screen {
   }
 
   /**
-   * to pause the game
-   * set the paused flag and show the pause menu.
+   * to pause the game set the paused flag and show the pause menu.
    */
   @Override
   public void pause() {
@@ -257,8 +250,7 @@ public class Gameplay implements Screen {
   }
 
   /**
-   * to resume the game
-   * set the pause flag and hide the pause menu.
+   * to resume the game set the pause flag and hide the pause menu.
    */
   @Override
   public void resume() {

@@ -15,10 +15,10 @@ public abstract class DoorControl {
   private static ArrayList<Door> doors;
 
   /**
-   * Uppdates all the doors in the map.
+   * Updates all the doors in the map.
 
    * @param systems the list of systems
-   * @param delta secconds since last update
+   * @param delta seconds since last update
    */
   public static void updateDoors(ArrayList<Systems> systems, float delta) {
     if (!isSabotaged) {

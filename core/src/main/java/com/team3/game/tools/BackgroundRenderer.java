@@ -34,7 +34,7 @@ public class BackgroundRenderer {
   /**
    * updates the animation.
 
-   * @param delta secconds since last update
+   * @param delta seconds since last update
    */
   public void update(float delta) {
 

@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.Array;
  * should be created.
  * 
  * <p>Before use make sure to call CharacterRenderer.loadTextures() 
- * to staically load all of the textures.
+ * to statically load all of the textures.
  */
 public class CharacterRenderer {
 
@@ -86,7 +86,7 @@ public class CharacterRenderer {
   /**
    * Updates the animation based on time passed and character movement.
 
-   * @param dt time in secconds since last update call
+   * @param dt time in seconds since last update call
    * @param movement the direction of movement. don't pass velocity but instead acceleration
    */
   @SuppressWarnings("unchecked")
@@ -117,14 +117,14 @@ public class CharacterRenderer {
 
 
     Animation<TextureRegion> animation = 
-      (Animation<TextureRegion>) animations[sprite.index][state.index];
+        (Animation<TextureRegion>) animations[sprite.index][state.index];
     currentFrame = animation.getKeyFrame(timeInState, true);
 
 
   }
 
   /**
-   * Reders the character at the given position using the given SpriteBatch.
+   * Renders the character at the given position using the given SpriteBatch.
 
    * @param position the bottom left of the character
    * @param batch SpriteBatch to be drawn with, make sure to use SpriteBatch.begin() before hand

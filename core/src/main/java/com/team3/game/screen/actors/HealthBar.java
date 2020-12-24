@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.team3.game.characters.Player;
 
 public class HealthBar extends ProgressBar {
-  // label bofore the bar
+  // label before the bar
   public Label hpText;
 
   /**

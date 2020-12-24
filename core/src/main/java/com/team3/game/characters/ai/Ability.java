@@ -1,8 +1,7 @@
 package com.team3.game.characters.ai;
 
-import java.util.Random;
-
 import com.team3.game.characters.Player;
+import java.util.Random;
 
 public class Ability {
 
@@ -122,7 +121,7 @@ public class Ability {
   /**
    * Increase speed for enemy.
 
-   * @param enemy the enemy who sould use the speed ability
+   * @param enemy the enemy who should use the speed ability
    */
   public void speeding(Enemy enemy) {
 

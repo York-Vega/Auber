@@ -87,8 +87,8 @@ public class Hud {
   /**
    * Resize the viewport.
 
-   * @param width  in pixles
-   * @param height in pixles
+   * @param width  in pixels
+   * @param height in pixels
    */
   public void resize(int width, int height) {
 
