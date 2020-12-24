@@ -7,6 +7,7 @@ Welcome to the improved version of **Team Vega**'s Auber Game.
 ## Installation
 - [Grab the latest version of Auber](https://github.com/threecubedstudios/auber-vega/releases/latest/)
 - Run it by double clicking on it, or with `java -jar auber.jar`
+- Make sure to use `google_checks.xml` to configure checkstyle correctly
 
 ## Build from source (Windows)
 ```bash
