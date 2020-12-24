@@ -148,10 +148,10 @@ public class SettingsMenu extends Menu {
    * must be spelt exactly how they are in the API e.g. capital letters at index 0
    */
   private void changeControlls() {
-    String up = (String) ((TextField) window.findActor("UpTF")).getText();
-    String down = (String) ((TextField) window.findActor("DownTF")).getText();
-    String left = (String) ((TextField) window.findActor("LeftTF")).getText();
-    String right = (String) ((TextField) window.findActor("RightTF")).getText();
+    String up = ((TextField) window.findActor("UpTF")).getText();
+    String down = ((TextField) window.findActor("DownTF")).getText();
+    String left = ((TextField) window.findActor("LeftTF")).getText();
+    String right = ((TextField) window.findActor("RightTF")).getText();
 
     Controller.changeControls(up, down, left, right);
   }

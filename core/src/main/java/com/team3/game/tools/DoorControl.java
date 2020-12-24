@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-
 public abstract class DoorControl {
   private static int MaxDoorsToLock = 3;
   private static float MaxTime = 30;

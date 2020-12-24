@@ -12,8 +12,8 @@ public class Menu {
 
   protected Menu(String name) {
     this.window = new Window(name, this.skin);
-    window.setMovable(false);
 
+    window.setMovable(false);
     window.setSize(200, 500);
     window.setPosition(1280 / 2 - window.getWidth() / 2, 720 / 2 - window.getHeight() / 2);
     window.setVisible(false);
