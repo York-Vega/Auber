@@ -25,7 +25,7 @@ public abstract class Map {
   /**
    * Initialize a map.
    * 
-   * @param map
+   * @param map Passes the map parameter
    */
   public static void create(TiledMap map) {
     MapProperties properties = map.getProperties();
