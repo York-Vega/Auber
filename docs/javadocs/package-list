@@ -1,8 +1,8 @@
-characters
-characters.ai
 com.team3.game
-map
-screen
-screen.actors
-sprites
-tools
+com.team3.game.characters
+com.team3.game.characters.ai
+com.team3.game.map
+com.team3.game.screen
+com.team3.game.screen.actors
+com.team3.game.sprites
+com.team3.game.tools
