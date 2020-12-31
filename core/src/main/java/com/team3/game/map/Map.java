@@ -24,7 +24,7 @@ public abstract class Map {
 
   /**
    * Initialize a map.
-   * 
+   *
    * @param map Passes the map parameter
    */
   public static void create(TiledMap map) {

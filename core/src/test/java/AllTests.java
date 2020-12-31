@@ -7,7 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-    testGameMain.class
+    TestGameMain.class
 })
 
 // Run AllTests to test everything within @SuitClasses
