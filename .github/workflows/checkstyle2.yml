@@ -15,6 +15,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Install Checkstyle
       run: |
+        sudo apt update
         sudo apt install checkstyle
         curl https://raw.githubusercontent.com/checkstyle/checkstyle/master/src/main/resources/google_checks.xml -o google_checks.xml
     - name: Run Checkstyle
