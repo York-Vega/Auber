@@ -81,7 +81,7 @@ public class Gameplay implements Screen {
 
   /**
    * Creates a new instantiated game.
-   * 
+   *
    * @param game The game object used in Libgdx things
    */
   public Gameplay(GameMain game) {
@@ -90,7 +90,7 @@ public class Gameplay implements Screen {
 
   /**
    * Creates a new instantiated game.
-   * 
+   *
    * @param game       The game object used in Libgdx things.
    * @param screenSize size of the rendered game screen, doesn't effect scree
    *                   size

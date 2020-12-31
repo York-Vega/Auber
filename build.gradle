@@ -39,6 +39,9 @@ allprojects {
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
 
+    dependencies {
+        checkstyle 'com.puppycrawl.tools:checkstyle:8.37'
+    }
 }
 
 project(":desktop") {

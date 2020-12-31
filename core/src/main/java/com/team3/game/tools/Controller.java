@@ -35,7 +35,7 @@ public abstract class Controller {
 
   /**
    * sets the controls of the user.
-   * 
+   *
    * @param u up key string
    * @param d down key string
    * @param l left key string
@@ -43,19 +43,21 @@ public abstract class Controller {
    */
   public static void changeControls(String u, String d, String l, String r) {
     int newUp = Input.Keys.valueOf(u.toString()); 
-    int newDown = Input.Keys.valueOf(d.toString()); 
-    int newLeft = Input.Keys.valueOf(l.toString()); 
-    int newRight = Input.Keys.valueOf(r.toString()); 
-
     if (newUp != -1) {
       up = newUp;
     }
+
+    int newDown = Input.Keys.valueOf(d.toString()); 
     if (newDown != -1) {
       down = newDown;
     }
+
+    int newLeft = Input.Keys.valueOf(l.toString()); 
     if (newLeft != -1) {
       left = newLeft;
     }
+
+    int newRight = Input.Keys.valueOf(r.toString()); 
     if (newRight != -1) {
       right = newRight;
     }

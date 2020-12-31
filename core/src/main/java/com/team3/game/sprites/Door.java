@@ -18,7 +18,7 @@ public class Door extends InteractiveTileObject {
 
   /**
    * Instantiates a new door.
-   * 
+   *
    * @param world  the game world the door inhabits
    * @param map    the map the door is created from
    * @param bounds bounds of the activating region this is the two neighboring
@@ -62,7 +62,7 @@ public class Door extends InteractiveTileObject {
 
   /**
    * finds the open state of a door.
-   * 
+   *
    * @return true if the door has been opened, false otherwise
    */
   public boolean open() {
@@ -76,7 +76,7 @@ public class Door extends InteractiveTileObject {
 
   /**
    * Creates the physical body of the door.
-   * 
+   *
    * @param world the physics world to create the physics body in
    */
   private void createBody(World world) {

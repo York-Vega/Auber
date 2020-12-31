@@ -3,7 +3,12 @@ package com.team3.game.sprites;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * A static object in the map that can be interacted with.
@@ -18,7 +23,7 @@ public abstract class InteractiveTileObject {
 
   /**
    * Creates a new instantiated InteractiveTileObject.
-   * 
+   *
    * @param world  Physics world the teleporter should query
    * @param map    Tiled map object will be placed in
    * @param bounds The bounds of where the object will interact with entities
