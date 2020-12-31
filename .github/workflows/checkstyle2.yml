@@ -20,5 +20,4 @@ jobs:
         curl https://raw.githubusercontent.com/checkstyle/checkstyle/775590ffbf13fb5044adde2dc35c4b34729c211b/src/main/resources/google_checks.xml -o google_checks.xml
     - name: Run Checkstyle
       run: |
-        checkstyle -v
         checkstyle . -c google_checks.xml
