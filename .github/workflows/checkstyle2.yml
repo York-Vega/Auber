@@ -13,7 +13,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Run Checkstyle
+    - name: Install Checkstyle
       run: |
         sudo apt install checkstyle
+    - name: Run Checkstyle
+      run: |
         checkstyle . -c google_checks.xml
