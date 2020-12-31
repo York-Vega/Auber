@@ -1,4 +1,4 @@
-name: Checkstyle
+name: Checkstyle2
 
 on:
   push:
@@ -13,9 +13,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Run check style
-      uses: nikitasavinov/checkstyle-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        reporter: 'github-check'
-        tool_name: 'testtool'
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Install Checkstyle
+      run: |
+        ./gradlew checkstyleMain
+        ./gradlew checkstyleTest
