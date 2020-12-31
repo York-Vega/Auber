@@ -1,0 +1,19 @@
+name: Checkstyle
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  checkstyle_job:
+    runs-on: ubuntu-latest
+    name: Checkstyle job
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Run Checkstyle
+      run:
+        sudo apt install checkstyle
+        checkstyle . -c google_checks.xml
