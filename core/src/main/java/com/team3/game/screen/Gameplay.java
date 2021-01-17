@@ -275,6 +275,5 @@ public class Gameplay extends ScreenAdapter {
     if (sabotagedCount >= 15 || player.health <= 1) {
       game.setScreen(new WinLoseScreen(game.getBatch(), "YOU LOSE!!"));
     }
-
   }
 }

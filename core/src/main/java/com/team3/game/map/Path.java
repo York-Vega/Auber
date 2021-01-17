@@ -52,7 +52,6 @@ public class Path implements GraphPath<Node> {
       Node n = nodes.get(i);
       int targetY = (n.getIndex() / Map.mapTileWidth) * Map.tilePixelHeight;
       int targetX = (n.getIndex() % Map.mapTileWidth) * Map.tilePixelWidth;
-      System.out.println(targetX + ", " + targetY);
     }
   }
 

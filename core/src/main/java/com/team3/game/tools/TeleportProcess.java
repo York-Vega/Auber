@@ -60,7 +60,6 @@ public class TeleportProcess {
       jails.add(jail.y);
       jailPosition.put(jailCount, jails);
       jailCount++;
-      System.out.println(jailPosition);
     }
 
   }

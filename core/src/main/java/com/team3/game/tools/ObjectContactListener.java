@@ -104,7 +104,6 @@ public class ObjectContactListener implements ContactListener {
             Player auber = (Player) fixA.getUserData();
             ability.setTarget(auber);
             ability.provokeAbility();
-            System.out.println("auber is under attack");
           }
         } else {
           if (is_System(fixA)) {
