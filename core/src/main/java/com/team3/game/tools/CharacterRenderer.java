@@ -86,8 +86,8 @@ public class CharacterRenderer {
   /**
    * Updates the animation based on time passed and character movement.
 
-   * @param dt time in seconds since last update call
-   * @param movement the direction of movement. don't pass velocity but instead acceleration
+   * @param dt Time in seconds since last update call
+   * @param movement The direction of movement. don't pass velocity but instead acceleration
    */
   @SuppressWarnings("unchecked")
   public void update(float dt, Vector2 movement) {
@@ -126,7 +126,7 @@ public class CharacterRenderer {
   /**
    * Renders the character at the given position using the given SpriteBatch.
 
-   * @param position the bottom left of the character
+   * @param position The bottom left of the character
    * @param batch SpriteBatch to be drawn with, make sure to use SpriteBatch.begin() before hand
    */
   public void render(Vector2 position, SpriteBatch batch) {

@@ -15,16 +15,16 @@ public class LightControl {
   /**
    * Creates a new instantiated light_control.
 
-   * @param world game world
+   * @param world Game world
    */
   public LightControl(World world) {
     rayHandler = new RayHandler(world);
   }
 
   /**
-   * update the light.
+   * Update the light.
 
-   * @param systems the list of all systems to check for sabotaged lights
+   * @param systems The list of all systems to check for sabotaged lights
    */
   public void light_update(ArrayList<Systems> systems) {
 
@@ -37,10 +37,10 @@ public class LightControl {
   }
 
   /**
-   * if the light is sabotaged or not.
+   * If the light is sabotaged or not.
    *
    * @param systems Arraylist store all systems object
-   * @return true if light system is sabotaged
+   * @return True if light system is sabotaged
    */
   public boolean isLightsabotaged(ArrayList<Systems> systems) {
 

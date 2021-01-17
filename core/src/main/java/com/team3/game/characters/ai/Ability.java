@@ -18,7 +18,6 @@ public class Ability {
 
   /**
    * Special Ability Enemy should have.
-   *
    */
   public Ability() {
 
@@ -56,7 +55,7 @@ public class Ability {
   }
 
   /**
-   * provoke ability status.
+   * Provoke ability status.
    */
   public void provokeAbility() {
     if (ready && !disabled) {
@@ -67,9 +66,9 @@ public class Ability {
   }
 
   /**
-   * cool down timer.
+   * Cool down timer.
 
-   * @param delta delta time
+   * @param delta Delta time
    * @param enemy Enemy
    */
   public void update(float delta, Enemy enemy) {
@@ -93,14 +92,14 @@ public class Ability {
   /**
    * Disable ability.
    *
-   * @param disable true when arrested
+   * @param disable True when arrested
    */
   public void setDisable(boolean disable) {
     disabled = disable;
   }
 
   /**
-   * set the target.
+   * Set the target.
    *
    * @param auber Player
    */
@@ -124,7 +123,7 @@ public class Ability {
   /**
    * Increase speed for enemy.
 
-   * @param enemy the enemy who should use the speed ability
+   * @param enemy The enemy who should use the speed ability
    */
   public void speeding(Enemy enemy) {
 
@@ -150,7 +149,7 @@ public class Ability {
   }
 
   /**
-   * remove the ability effect.
+   * Remove the ability effect.
    *
    * @param enemy Enemy
    */

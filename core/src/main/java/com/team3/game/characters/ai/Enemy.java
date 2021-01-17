@@ -12,7 +12,7 @@ import com.team3.game.sprites.Systems;
 public class Enemy extends AiCharacter {
 
   public Systems targetSystem;
-  public Systems currentContactSystem; // used for contact listener
+  public Systems currentContactSystem; // Used for contact listener.
   public String mode;
   public Ability ability;
   public static int numberofInfiltrators;
@@ -21,10 +21,8 @@ public class Enemy extends AiCharacter {
    * Enemy.
 
    * @param world The game world
-   *
-   * @param x position x
-   *
-   * @param y position y
+   * @param x Position x
+   * @param y Position y
    */
   public Enemy(World world, float x, float y) {
     super(world, x, y);
@@ -50,7 +48,7 @@ public class Enemy extends AiCharacter {
     FixtureDef fixtureDef = new FixtureDef();
     fixtureDef.shape = sensoringArea;
     fixtureDef.isSensor = true;
-    // store ability in sensor userdata to retrieve it in contactListener
+    // Store ability in sensor userdata to retrieve it in contactListener.
     b2body.createFixture(fixtureDef).setUserData(ability);
 
   }
@@ -66,7 +64,7 @@ public class Enemy extends AiCharacter {
   }
 
   /**
-   * set sabotage system target.
+   * Set sabotage system target.
 
    * @param system Systems Arraylist
    */
@@ -77,20 +75,20 @@ public class Enemy extends AiCharacter {
   /**
    * Get target system object.
 
-   * @return targeted system
+   * @return Targeted system
    */
   public Systems get_target_system() {
     return targetSystem;
   }
 
   /**
-   * ability to sabotage the system.
+   * Ability to sabotage the system.
 
-   * @param system system object
+   * @param system System object
    */
   public void sabotage(Systems system) {
     if (system.hp > 0) {
-      system.hp -= 0.1;
+      system.hp -= 0.05;
     } else {
       system.hp = 0;
       system.set_sabotaged();
@@ -98,48 +96,48 @@ public class Enemy extends AiCharacter {
   }
 
   /**
-   * set enemy to attacking mode.
+   * Set enemy to attacking mode.
    */
   public void set_attackSystemMode() {
     mode = "attacking_system";
   }
 
   /**
-   * set enemy to standby mode.
+   * Set enemy to standby mode.
    */
   public void set_standByMode() {
     mode = "";
   }
 
   /**
-   * check enemy is attacking a system or not.
+   * Check enemy is attacking a system or not.
    *
-   * @return true if it is in attacking mode
+   * @return True if it is in attacking mode
    */
   public boolean is_attcking_mode() {
     return mode.equals("attacking_system");
   }
 
   /**
-   * check enemy is standby or not.
+   * Check enemy is standby or not.
    *
-   * @return true if it is in standby mode
+   * @return True if it is in standby mode
    */
   public boolean is_standBy_mode() {
     return mode.equals("");
   }
 
   /**
-   * set enemy to arrested.
+   * Set enemy to arrested.
    */
   public void set_ArrestedMode() {
     mode = "arrested";
   }
 
   /**
-   * getter for arrested.
+   * Getter for arrested.
 
-   * @return bool if the enemy is arrested
+   * @return Bool if the enemy is arrested
    */
   public boolean isArrested() {
     return mode.equals("arrested");

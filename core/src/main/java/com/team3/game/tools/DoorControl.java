@@ -19,8 +19,8 @@ public abstract class DoorControl {
   /**
    * Updates all the doors in the map.
 
-   * @param systems the list of systems
-   * @param delta seconds since last update
+   * @param systems The list of systems
+   * @param delta Seconds since last update
    */
   public static void updateDoors(ArrayList<Systems> systems, float delta) {
     if (!isSabotaged) {
@@ -32,7 +32,6 @@ public abstract class DoorControl {
         }                
       }
     } else if (time >= delta) {
-      //System.out.println("Locked for: " + time + "s");
       time -= delta;            
     } else {
       unsabotage();

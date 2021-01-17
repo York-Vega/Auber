@@ -24,12 +24,12 @@ public class Systems extends InteractiveTileObject {
     super(world, map, bounds);
     sysName = name;
     hp = 100;
-    // use the fixture.userdata to store the system object.
+    // Use the fixture.userdata to store the system object.
     this.fixture.setUserData(this);
-    // use the body.userdata to store the sabotage status. used for contact listener
+    // Use the body.userdata to store the sabotage status used for contact listener.
     this.fixture.getBody().setUserData("system_not_sabotaged");
     this.fixture.setSensor(true);
-    // check whether is a healing pod or not
+    // Check whether is a healing pod or not.
     isHealing_pod(name);
     isDoors(name);
 
@@ -41,7 +41,7 @@ public class Systems extends InteractiveTileObject {
    * @param name The name of the system
    */
   public void isHealing_pod(String name) {
-    // if system is healingPod, set the fixture to sensor
+    // If system is healingPod, set the fixture to sensor.
     if (name.equals("healingPod")) {
       this.fixture.getBody().setUserData("healingPod_not_sabotaged");
       this.fixture.setSensor(true);
@@ -54,7 +54,7 @@ public class Systems extends InteractiveTileObject {
    * @param name The name of the system
    */
   public void isDoors(String name) {
-    // if system is healingPod, set the fixture to sensor
+    // If system is healingPod, set the fixture to sensor.
     if (name.equals("doors")) {
       this.fixture.getBody().setUserData("doors_not_sabotaged");
       this.fixture.setSensor(true);
@@ -66,9 +66,9 @@ public class Systems extends InteractiveTileObject {
   }
 
   /**
-   *  sabotage status.
+   * Sabotage status.
    *
-   * @return sabotage status
+   * @return Sabotage status
    */
   public String getSabotage_status() {
     return (String) this.body.getUserData();
@@ -79,48 +79,48 @@ public class Systems extends InteractiveTileObject {
   }
 
   /**
-   * set system to sabotaged.
+   * Set system to sabotaged.
    */
   public void set_sabotaged() {
     body.setUserData("system_sabotaged");
   }
 
   /**
-   * set system to not sabotaged.
+   * Set system to not sabotaged.
    */
   public void set_not_sabotaged() {
     body.setUserData("system_not_sabotaged");
   }
 
   /**
-   * set system to sabotaging.
+   * Set system to sabotaging.
    */
   public void set_sabotaging() {
     body.setUserData("system_sabotaging");
   }
 
   /**
-   * check system is sabotaged or not.
+   * Check system is sabotaged or not.
    *
-   * @return true if system is sabotaged
+   * @return True if system is sabotaged
    */
   public boolean is_sabotaged() {
     return body.getUserData().equals("system_sabotaged");
   }
 
   /**
-   * check system is under sabotaging or not.
+   * Check system is under sabotaging or not.
    *
-   * @return return true if is sabotaging
+   * @return Return true if is sabotaging
    */
   public boolean is_sabotaging() {
     return body.getUserData().equals("system_sabotaging");
   }
 
   /**
-   * check system is not sabotaged or not.
+   * Check system is not sabotaged or not.
    *
-   * @return true if system is not sabotaged and not sabotaging
+   * @return True if system is not sabotaged and not sabotaging
    */
   public boolean is_not_sabotaged() {
     return body.getUserData().equals("system_not_sabotaged");

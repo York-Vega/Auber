@@ -29,7 +29,7 @@ public class EnemyManager {
    * EnemyManager to manage enemies behavior.
 
    *
-   * @param world box2D world
+   * @param world Box2D world
    *
    * @param map Tiled map
    *
@@ -46,7 +46,7 @@ public class EnemyManager {
   }
 
   /**
-   * generate random start position for enemies.
+   * Generate random start position for enemies.
    *
    * @param map TiledMap object
    */
@@ -68,7 +68,7 @@ public class EnemyManager {
   }
 
   /**
-   * create Enemy instance and store in Arraylist enemy.
+   * Create Enemy instance and store in Arraylist enemy.
    *
    * @param world World object
    */
@@ -76,7 +76,7 @@ public class EnemyManager {
 
     for (int i = 0; i < 8; i++) {
       float[] position = spawn_position.get(i);
-      // pic needs to be changed with enemy pic
+      // Pic needs to be changed with enemy pic.
       Enemy enemy = new Enemy(world, position[0], position[1]);
       enemies.add(enemy);
 
@@ -85,20 +85,20 @@ public class EnemyManager {
   }
 
   /**
-   *  generate 8 initial targets for enemies.
+   * Generate 8 initial targets for enemies.
    *
    * @param systems Arraylist stores system objects
    */
   public void initial_sabotageTarget(ArrayList<Systems> systems) {
 
     ArrayList<Integer> randomIndex = new ArrayList<>();
-    // generate random target positions
+    // Generate random target positions.
     for (int i = 0; i < 8; i++) {
-      // generate a double  [0,1]
+      // Generate a double [0,1].
       double randomD = Math.random();
-      // generate a index [0,15]
+      // Generate a index [0,15].
       int index = (int) (randomD * 15);
-      // take away healing pod for initial target, for difficulty
+      // Take away healing pod for initial target, for difficulty.
       while (randomIndex.contains(index) 
           && !systems.get(index).sysName.equals("headlingPod")) {
         randomD = Math.random();
@@ -107,7 +107,7 @@ public class EnemyManager {
       randomIndex.add(index);
     }
 
-    // set targets
+    // Set targets.
     for (int i = 0; i < randomIndex.size(); i++) {
       int index = randomIndex.get(i);
       Systems sys = systems.get(index);
@@ -116,12 +116,12 @@ public class EnemyManager {
       float endY = sys.getposition()[1];
 
       Enemy enemy = enemies.get(i);
-      // set the target
+      // Set the target.
       enemy.set_target_system(sys);
-      // set the destination
+      // Set the destination.
       enemy.setDest(endX, endY);
       enemy.moveToDest();
-      // update the information hash table, avoid enemy targeting the same system
+      // Update the information hash table, avoid enemy targeting the same system.
       information.put(sys, enemy);
 
     }
@@ -129,7 +129,7 @@ public class EnemyManager {
   }
 
   /**
-   * render the enemy, should be called in gameplay render loop.
+   * Render the enemy, should be called in gameplay render loop.
    *
    * @param batch SpriteBatch used in game
    */
@@ -142,16 +142,13 @@ public class EnemyManager {
   }
 
   /**
-   * update the enemy, should be called in gameplay update.
+   * Update the enemy, should be called in gameplay update.
    *
    * @param delta The time in seconds since the last update
    */
   public void update_enemy(float delta) {
 
     for (Enemy enemy : enemies) {
-
-      //if (enemy.ability.provked && ! enemy.ability.disabled 
-      //&& enemy.ability.target != null && !enemy.is_attcking_mode()) {
       if (enemy.ability.inUse && !enemy.usingAbility) {    
         Player target = enemy.ability.target;
         enemy.ability.useAbility(enemy, target);
@@ -160,9 +157,9 @@ public class EnemyManager {
         continue;
       }
       if (enemy.isArrested()) {
-        // if enemy have a target system
+        // If enemy have a target system.
         if (enemy.get_target_system() != null) {
-          // remove it from information for other enemies to target that system.
+          // Remove it from information for other enemies to target that system.
           if (enemy.get_target_system().is_not_sabotaged() 
               && information.containsKey(enemy.get_target_system())) {
             information.remove(enemy.get_target_system());
@@ -174,11 +171,11 @@ public class EnemyManager {
           continue;
         }
       } else {
-        // get targeted system object
+        // Get targeted system object.
         Systems sys = enemy.get_target_system();
-        // if no system left to sabotage, should start attacking auber
+        // If no system left to sabotage, should start attacking auber.
         if (sys == null) {
-          // still have systems not sabotaged, should keep generating next target
+          // Still have systems not sabotaged, should keep generating next target.
           if (information.size() < 17) {
             generateNextTarget(enemy);
             enemy.update(delta);
@@ -191,7 +188,7 @@ public class EnemyManager {
         if (enemy.is_attcking_mode()) {
           enemy.sabotage(sys);
         }
-        // generate next target if system sabotaged
+        // Generate next target if system sabotaged.
         if (sys.is_sabotaged()) {
           generateNextTarget(enemy);
         }
@@ -203,7 +200,7 @@ public class EnemyManager {
   /**
     * If enemy successfully sabotage one target, generate next target for it.
     *
-    * @param enemy enemy object
+    * @param enemy Enemy object
     */
   public void generateNextTarget(Enemy enemy) {
     for (Systems system : systems) {
@@ -214,14 +211,14 @@ public class EnemyManager {
         enemy.set_target_system(system);
         information.put(system, enemy);
         enemy.moveToDest();
-        // set enemy back to standBy mode before it contacts with the next target system,
-        // otherwise the system will lose HP before contact
+        // Set enemy back to standBy mode before it contacts with the next target system,
+        // otherwise the system will lose HP before contact.
         enemy.set_standByMode();
         return;
       }
     }
-    // if there is no systems left for sabotaging,
-    // set enemy to standby mode and remove the target system
+    // If there is no systems left for sabotaging,
+    // set enemy to standby mode and remove the target system.
     enemy.set_standByMode();
     enemy.targetSystem = null;
   }

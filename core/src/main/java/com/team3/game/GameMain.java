@@ -18,7 +18,7 @@ public class GameMain extends Game {
 
   @Override
   public void render() {
-    super.render(); // render multiple screen
+    super.render(); // Render multiple screen.
   }
 
   public SpriteBatch getBatch() {

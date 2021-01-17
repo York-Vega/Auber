@@ -10,11 +10,11 @@ import com.team3.game.characters.Player;
  * Displays the player's healthbar.
  */
 public class HealthBar extends ProgressBar {
-  // label before the bar
+  // Label before the bar.
   public Label hpText;
 
   /**
-   * healthbar to show the auber's health.
+   * Healthbar to show the auber's health.
    */
   public HealthBar() {
     super(0, 100, .5f, false, new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json")));
@@ -23,9 +23,9 @@ public class HealthBar extends ProgressBar {
   }
 
   /**
-   * update the health of the player.
+   * Update the health of the player.
 
-   * @param auber player instance
+   * @param auber Player instance
    */
   public void updateHp(Player auber) {
     setValue(auber.health);
