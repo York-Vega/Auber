@@ -32,8 +32,8 @@ public class WinLoseScreen implements Screen {
   /**
    * Create an instantiated instance of the win or lose screen.
 
-   * @param batch spriteBatch of the game
-   * @param status win or lose
+   * @param batch SpriteBatch of the game
+   * @param status Win or lose
    */
   public WinLoseScreen(SpriteBatch batch, String status) {
 
@@ -56,7 +56,7 @@ public class WinLoseScreen implements Screen {
   public void show() {
     Gdx.input.setInputProcessor(stage);
 
-    // create a main table into which all ui elements will be placed
+    // Create a main table into which all ui elements will be placed.
     Table root = new Table();
     root.setFillParent(true);
     root.center();
@@ -66,7 +66,7 @@ public class WinLoseScreen implements Screen {
     TextButton exitButton = new TextButton("Exit", skin);
 
 
-    // load a new game
+    // Load a new game.
     playButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
@@ -75,7 +75,7 @@ public class WinLoseScreen implements Screen {
       }
     });
 
-    // exit the game
+    // Exit the game.
     exitButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
@@ -83,11 +83,8 @@ public class WinLoseScreen implements Screen {
       }
     });
 
-
     root.add(gamestatus);
     root.row();
-    //root.add(playButton).spaceBottom(10).spaceTop(10);
-    //root.row();
     root.add(exitButton);
 
     stage.addActor(root);

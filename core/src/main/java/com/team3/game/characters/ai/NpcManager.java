@@ -12,7 +12,7 @@ import java.util.Random;
 
 
 /**
- * manage npcs in the game.
+ * Manage NPCs in the game.
  */
 public class NpcManager {
 
@@ -27,7 +27,7 @@ public class NpcManager {
    * Instantiates a new NPC Manager.
 
    * @param world The game world
-   * @param map the tiled map
+   * @param map The tiled map
    */
   public NpcManager(World world, TiledMap map) {
 
@@ -38,7 +38,7 @@ public class NpcManager {
   }
 
   /**
-   * generate random spawn positions for npc.
+   * Generate random spawn positions for NPC.
 
    * @param map The world map to generate initial position
    */
@@ -59,7 +59,7 @@ public class NpcManager {
   }
 
   /**
-   * create NPC in box2D world and set initial destination for npcs.
+   * Create NPC in box2D world and set initial destination for NPCs.
 
    * @param world The game world
    */
@@ -70,13 +70,13 @@ public class NpcManager {
     for (int i = 0; i < spawnPositions.size(); i++) {
 
       float[] position = spawnPositions.get(i);
-      // set destination for npc
+      // Set destination for NPC.
       if (i == spawnPositions.size() - 1) {
         destcount = 0;
       }
       float[] dest = spawnPositions.get(destcount);
       destcount += 1;
-      // pic for NPC needed
+      // Pic for NPC needed.
       Npc npc = new Npc(world, position[0], position[1]);
       npc.setDest(dest[0], dest[1]);
       npc.moveToDest();
@@ -87,9 +87,9 @@ public class NpcManager {
   }
 
   /**
-   * render the npc, should be called in render loop.
+   * Render the NPC, should be called in render loop.
 
-   * @param batch the SpriteBatch to draw the npc to
+   * @param batch The SpriteBatch to draw the NPC to.
    */
   public void renderNpc(SpriteBatch batch) {
     for (Npc npc : npcs) {
@@ -100,7 +100,7 @@ public class NpcManager {
 
 
   /**
-   * update npc, should be called in GamePlay update.
+   * Update NPC, should be called in GamePlay update.
 
    * @param delta The time in seconds since the last update
    */
@@ -116,9 +116,9 @@ public class NpcManager {
   }
 
   /**
-   * Generates the next random position an npc will go to.
+   * Generates the next random position an NPC will go to.
 
-   * @param npc the npc to randomly pathfind
+   * @param npc The NPC to randomly pathfind
    */
   public void generateNextPosition(Npc npc) {
     int index;

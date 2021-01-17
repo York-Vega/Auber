@@ -18,7 +18,7 @@ public class Graph implements IndexedGraph<Node> {
     * @param map The tiled map to generate he graph with
     */
   public Graph(TiledMap map) {
-    // stores the tile layer of the map
+    // Stores the tile layer of the map.
     TiledMapTileLayer tiles = (TiledMapTileLayer) map.getLayers().get(0);
         
     int height = Map.mapTileHeight;
@@ -26,17 +26,17 @@ public class Graph implements IndexedGraph<Node> {
 
     this.nodes = new Array<Node>();
 
-    // initializes all nodes
+    // Initializes all nodes.
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
         this.nodes.add(new Node());
       }
     }
 
-    // assigns correct edges to each node
+    // Assigns correct edges to each node.
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
-        // stores the current and surrounding cells which contain tiles
+        // Stores the current and surrounding cells which contain tiles.
         TiledMapTileLayer.Cell current = tiles.getCell(x, y);
         TiledMapTileLayer.Cell left = tiles.getCell(x - 1, y);
         TiledMapTileLayer.Cell right = tiles.getCell(x + 1, y);
@@ -45,8 +45,8 @@ public class Graph implements IndexedGraph<Node> {
 
         Node currentNode = nodes.get(width * y + x);
                 
-        // creates edges between neighboring habitable nodes
-        // Note: a cell is null if a player cannot be in that tile
+        // Creates edges between neighboring habitable nodes.
+        // Note: a cell is null if a player cannot be in that tile.
         if (current != null) {                   
           if (y != 0 && down != null) {
             Node downNode = nodes.get(width * (y - 1) + x);
@@ -85,11 +85,11 @@ public class Graph implements IndexedGraph<Node> {
   }
 
   /**
-    * get a pathfinding node by the x, y pixel position.
+    * Get a pathfinding node by the x, y pixel position.
 
-    * @param x pixel position
-    * @param y pixel position
-    * @return the node at position (x, y)
+    * @param x Pixel position
+    * @param y Pixel position
+    * @return The node at position (x, y)
     */
   public Node getNodeByXy(int x, int y) {
     int modx = x / Map.tilePixelWidth;

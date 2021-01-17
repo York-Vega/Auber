@@ -12,8 +12,8 @@ public class Npc extends AiCharacter {
    * NPC object.
    *
    * @param world The game world
-   * @param x the initial spawn position x
-   * @param y the initial spawn position y
+   * @param x The initial spawn position x
+   * @param y The initial spawn position y
    */
   public Npc(World world, float x, float y) {
     super(world, x, y);

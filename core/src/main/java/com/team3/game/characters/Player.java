@@ -21,7 +21,7 @@ public class Player extends Character {
 
 
   /**
-   * creates an semi-initialized player the physics body is still uninitiated.
+   * Creates an semi-initialized player the physics body is still uninitiated.
 
    * @param world The game world
    * 
@@ -47,8 +47,7 @@ public class Player extends Character {
   @Override
   public void createBody()  {
     super.createBody();
-    b2body.setUserData("auber"); // for contact listener
-    //b2body.getFixtureList().get(0).setSensor(true);
+    b2body.setUserData("auber"); // For contact listener.
   }
 
   /**
@@ -82,11 +81,11 @@ public class Player extends Character {
       arrest(nearbyEnemy);
     }
 
-    // position sprite properly within the box
+    // Position sprite properly within the box.
     this.setPosition(b2body.getPosition().x - size.x / 1,
         b2body.getPosition().y - size.y / 1 + 6);
 
-    // should be called each loop of rendering
+    // Should be called each loop of rendering.
     healing(delta);
 
     renderer.update(delta, input);
@@ -95,7 +94,7 @@ public class Player extends Character {
   /**
    * Sets whether or not Player is currently healing.
 
-   * @param isheal set ishealing to true or false
+   * @param isheal Set isHealing to true or false
    */
   public void setHealing(boolean isheal) {
     ishealing = isheal;
@@ -107,20 +106,20 @@ public class Player extends Character {
    * @param delta The time in seconds since the last update
    */
   public void healing(float delta) {
-    // healing should end or not start if auber left healing pod or not contact with healing pod
+    // Healing should end or not start if auber left healing pod or not contact with healing pod.
     if (b2body.getUserData() == "auber") {
       setHealing(false);
       return;
     }
-    // healing should start if auber in healing pod and not in full health
+    // Healing should start if auber in healing pod and not in full health.
     if (b2body.getUserData() == "ready_to_heal" && health < 100f) {
       setHealing(true);
     } else if (b2body.getUserData() == "ready_to_heal" && health == 100f) {
       setHealing(false);
     }
-    // healing process
+    // Healing process.
     if (ishealing) {
-      // adjust healing amount accordingly
+      // Adjust healing amount accordingly.
       health += 20f * delta;
       if (health > 100f) {
         health = 100f;
@@ -139,16 +138,16 @@ public class Player extends Character {
    * @param enemy The enemy object
    */
   public void arrest(Enemy enemy) {
-    // stop enemy's sabotaging if it does
+    // Stop enemy's sabotaging if it does.
     enemy.set_ArrestedMode();
-    // set enemy destination to auber's left,enemy should follow auber until it is in jail
+    // Set enemy destination to auber's left,enemy should follow auber until it is in jail.
     enemy.setDest(position.x, position.y);
     enemy.moveToDest();
 
   }
 
   /**
-   * set the nearby enemy.
+   * Set the nearby enemy.
    *
    * @param enemy The enemy object
    */
@@ -159,14 +158,14 @@ public class Player extends Character {
   /**
    * If auber is arresting an enemy.
    *
-   * @return true if auber is currently arresting an enemy
+   * @return True if auber is currently arresting an enemy
    */
   public boolean is_arresting() {
     return nearbyEnemy != null;
   }
 
   /**
-   * avoid arresting enemy already in jail twice.
+   * Avoid arresting enemy already in jail twice.
    *
    * @param enemy The enemy object
    *

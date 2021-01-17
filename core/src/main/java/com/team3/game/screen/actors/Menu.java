@@ -27,7 +27,7 @@ public class Menu {
   }
 
   /**
-   * shows the menu.
+   * Shows the menu.
    */
   public void show() {
     window.setVisible(true);
@@ -35,7 +35,7 @@ public class Menu {
   }
 
   /**
-   * hides the menu.
+   * Hides the menu.
    */
   public void hide() {
     window.setVisible(false);
