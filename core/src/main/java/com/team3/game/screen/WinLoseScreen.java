@@ -1,7 +1,7 @@
 package com.team3.game.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,7 +20,7 @@ import com.team3.game.GameMain;
 /**
  * Win or Lose Screen.
  */
-public class WinLoseScreen implements Screen {
+public class WinLoseScreen extends ScreenAdapter {
 
   private Viewport viewport;
   private OrthographicCamera camera;
@@ -107,25 +107,4 @@ public class WinLoseScreen implements Screen {
   public void resize(int width, int height) {
     viewport.update(width, height, true);
   }
-
-  @Override
-  public void pause() {
-
-  }
-
-  @Override
-  public void resume() {
-
-  }
-
-  @Override
-  public void hide() {
-
-  }
-
-  @Override
-  public void dispose() {
-
-  }
-
 }

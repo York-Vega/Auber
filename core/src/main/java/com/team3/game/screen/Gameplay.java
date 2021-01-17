@@ -2,7 +2,7 @@ package com.team3.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -35,7 +35,7 @@ import java.util.ArrayList;
 /**
  * Main gameplay object, holds all game data.
  */
-public class Gameplay implements Screen {
+public class Gameplay extends ScreenAdapter {
 
   private final GameMain game;
 
@@ -256,16 +256,6 @@ public class Gameplay implements Screen {
   public void resume() {
     this.paused = false;
     this.hud.pauseMenu.hide();
-  }
-
-  @Override
-  public void hide() {
-
-  }
-
-  @Override
-  public void dispose() {
-
   }
 
   /**

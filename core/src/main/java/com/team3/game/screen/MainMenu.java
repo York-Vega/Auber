@@ -1,7 +1,7 @@
 package com.team3.game.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,7 +21,7 @@ import com.team3.game.tools.BackgroundRenderer;
 /**
  * MainMenu.
  */
-public class MainMenu implements Screen {
+public class MainMenu extends ScreenAdapter {
 
   private Viewport viewport;
   private OrthographicCamera camera;
