@@ -4,6 +4,9 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.team3.game.GameMain;
 
+/**
+ * The desktop launcher.
+ */
 public class DesktopLauncher {
   /**
    * The main method of the desktop build.
