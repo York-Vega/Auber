@@ -147,8 +147,8 @@ public class SettingsMenu extends Menu {
   }
 
   /**
-   * changes the controls of the player to the ones in the text fields NOTE: keys
-   * must be spelt exactly how they are in the API e.g. capital letters at index 0
+   * Changes the controls of the player to the ones in the text fields, 
+   * NOTE: keys must be spelt exactly how they are in the API e.g. capital letters at index 0.
    */
   private void changeControlls() {
     String up = ((TextField) window.findActor("UpTF")).getText();

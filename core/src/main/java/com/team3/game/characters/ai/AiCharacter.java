@@ -31,7 +31,7 @@ public class AiCharacter extends Character {
     };
 
   /**
-   * creates an semi-initialized AI character the physics body is still uninitiated.
+   * Creates an semi-initialized AI character the physics body is still uninitiated.
 
    * @param world The game world
    * 
@@ -79,14 +79,14 @@ public class AiCharacter extends Character {
   }
 
   /**
-   * applies the move to the character.
+   * Applies the move to the character.
 
-   * @param delta seconds since last update
-   * @param direction direction to move character
+   * @param delta Seconds since last update
+   * @param direction Direction to move character
    */
   public void move(float delta, Vector2 direction) {
 
-    // applies a velocity of direction * time delta * speed 
+    // Applies a velocity of direction * time delta * speed.
     Vector2 vel = direction.scl(delta * this.speed);
     this.b2body.applyLinearImpulse(vel, this.b2body.getWorldCenter(), true);
   }
@@ -94,7 +94,7 @@ public class AiCharacter extends Character {
   /**
    * Decides the direction to be made by the AI.
 
-   * @return a unit vector representing direction
+   * @return A unit vector representing direction
    */
   private Vector2 decideDirection() {
     if (this.isMoving()) {
@@ -108,19 +108,19 @@ public class AiCharacter extends Character {
       float xcomp = 0;
       float ycomp = 0;
 
-      // if the difference in x values between character and node is above 1
-      // move in x direction n towards node
+      // If the difference in x values between character and node is above 1
+      // move in x direction n towards node.
       if (Math.abs(x - targetX) > 1) {
         xcomp = targetX - x;
       } 
-      // if the difference in y values between character and node is above 1
-      // move in y direction n towards node
+      // If the difference in y values between character and node is above 1
+      // move in y direction n towards node.
       if (Math.abs(y - targetY) > 1) {
         ycomp = targetY - y;
       } 
 
-      // if the character is in the bounds of the node 
-      // target the next node            
+      // If the character is in the bounds of the node 
+      // target the next node.            
       if (Math.abs(y - targetY) < 4 && Math.abs(x - targetX) < 4) {
         this.pathIndex++;
         return new Vector2(0, 0);
@@ -133,7 +133,7 @@ public class AiCharacter extends Character {
   } 
 
   /**
-   * set the destination position.
+   * Set the destination position.
 
    * @param x x component
    * @param y y component
@@ -144,7 +144,7 @@ public class AiCharacter extends Character {
   }
 
   /**
-   * move to destination.
+   * Move to destination.
    */
   public void moveToDest() {
     goTo(destX, destY);
@@ -155,7 +155,7 @@ public class AiCharacter extends Character {
 
    * @param x x coordinate of destination in pixels
    * @param y y coordinate of destination in pixels
-   * @return true if there is a path between character and destination, false otherwise
+   * @return True if there is a path between character and destination, false otherwise
    */
   public boolean goTo(float x, float y) {
 
@@ -165,7 +165,7 @@ public class AiCharacter extends Character {
     Node startNode = Map.graph.getNodeByXy((int) position.x, (int) position.y);
     Node endNode = Map.graph.getNodeByXy((int) x, (int) y);
 
-    // if the character is already at or moving to the destination
+    // If the character is already at or moving to the destination.
     if (this.path.getCount() > 0) {
       int currentEndNode = this.path.get(this.path.getCount() - 1).getIndex();
       if (startNode.getIndex() == endNode.getIndex()
@@ -176,16 +176,16 @@ public class AiCharacter extends Character {
 
 
 
-    // resets the path
+    // Resets the path.
     this.path = new Path();        
     this.pathFinder = new IndexedAStarPathFinder<Node>(Map.graph);
     pathIndex = 1;
 
 
-    // A* search between character and destination
+    // A* search between character and destination.
     pathFinder.searchNodePath(startNode, endNode, new Distance(), path);
 
-    // if the path is empty 
+    // If the path is empty.
     if (path.getCount() == 0) {
       return false;
     } else {
@@ -194,16 +194,16 @@ public class AiCharacter extends Character {
   }
 
   /**
-   * if the character is currently moving along a path.
+   * If the character is currently moving along a path.
 
-   * @return whether the character is currently following a path
+   * @return Whether the character is currently following a path
    */
   public boolean isMoving() {
     return this.pathIndex < this.path.getCount();
   }
 
   /**
-   * stops the character from following its path.
+   * Stops the character from following its path.
    */
   public void stop() {
     this.pathIndex = this.path.getCount();

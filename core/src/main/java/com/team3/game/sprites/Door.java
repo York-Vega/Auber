@@ -13,15 +13,15 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Door extends InteractiveTileObject {
   private boolean locked;
   private boolean isJailDoor;
-  // total number of doors in the world
+  // Total number of doors in the world.
   private static int noDoors = 0;
 
   /**
    * Instantiates a new door.
    *
-   * @param world  the game world the door inhabits
-   * @param map    the map the door is created from
-   * @param bounds bounds of the activating region this is the two neighboring
+   * @param world  The game world the door inhabits
+   * @param map    The map the door is created from
+   * @param bounds Bounds of the activating region this is the two neighboring
    *               tiles of the door and the door itself
    * @param locked If the door starts locked
    */
@@ -33,7 +33,7 @@ public class Door extends InteractiveTileObject {
     this.isJailDoor = locked;
 
     this.createBody(world);
-    this.fixture.setUserData("door_interact_" + Door.noDoors); // for contact_listener
+    this.fixture.setUserData("door_interact_" + Door.noDoors); // For contact listener.
     this.fixture.getBody().setUserData(this);
     Door.noDoors++;
 
@@ -61,13 +61,13 @@ public class Door extends InteractiveTileObject {
   }
 
   /**
-   * finds the open state of a door.
+   * Finds the open state of a door.
    *
-   * @return true if the door has been opened, false otherwise
+   * @return True if the door has been opened, false otherwise
    */
   public boolean open() {
     if (!this.locked) {
-      // open the door
+      // Open the door.
       return true;
     } else {
       return false;
@@ -77,15 +77,15 @@ public class Door extends InteractiveTileObject {
   /**
    * Creates the physical body of the door.
    *
-   * @param world the physics world to create the physics body in
+   * @param world The physics world to create the physics body in
    */
   private void createBody(World world) {
-    // ensure only the door blocks and not the surrounding interactive tiles
+    // Ensure only the door blocks and not the surrounding interactive tiles.
 
     BodyDef bdef = new BodyDef();
 
-    // adjusts shape depending on what direction the door faces
-    // up-down vs left-right
+    // Adjusts shape depending on what direction the door faces.
+    // Up-down vs left-right.
     int xdiv = 2;
     int ydiv = 2;
     if (this.bounds.width < this.bounds.height) {
@@ -96,7 +96,7 @@ public class Door extends InteractiveTileObject {
 
     bdef.position.set(this.bounds.x + this.bounds.width / 2, 
         this.bounds.y + this.bounds.height / 2);
-    // physical door cannot be moved by physics
+    // Physical door cannot be moved by physics.
     bdef.type = BodyDef.BodyType.StaticBody;
     this.body = world.createBody(bdef);
 

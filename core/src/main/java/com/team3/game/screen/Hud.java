@@ -36,48 +36,47 @@ public class Hud {
   /**
    * Create a new instantiated hud.
 
-   * @param spriteBatch the GamePlay batch
+   * @param spriteBatch The GamePlay batch
    */
   public Hud(final SpriteBatch spriteBatch) {
 
-    // create a new viewport and a fixed camera for the stage
+    // Create a new viewport and a fixed camera for the stage.
     viewport = new FitViewport(1280, 720, new OrthographicCamera());
     viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-    // pass in the game spritebatch
+    // Pass in the game spritebatch.
     stage = new Stage(viewport, spriteBatch);
-    // create a new table as a container to lay out the actors
+    // Create a new table as a container to lay out the actors.
     Table table = new Table();
-    // pad the table to the top of screen
+    // Pad the table to the top of screen.
     table.top();
-    // set the table same as the size of the stage
+    // Set the table same as the size of the stage.
     table.setFillParent(true);
-    // create teleport_menu (SelectBox<String>)actor
+    // Create TeleportMenu (SelectBox<String>) actor.
     teleportMenu = new TeleportMenu();
-    // create health bar (ProgressBar)actor
+    // Create health bar (ProgressBar) actor.
     healthBar = new HealthBar();
-    // create a system_status_menu (Vertical Group) actor
+    // Create a SystemStatusMenu (Vertical Group) actor.
     systemStatusMenu = new SystemStatusMenu();
-    // create a arrested count header actor
+    // Create a arrested count header actor.
     arrestedHeader = new ArrestedHeader();
-    // create a setting menu
+    // Create a setting menu.
     settingsMenu = new SettingsMenu();
-    // create and add a pause menu to the stage
+    // Create and add a pause menu to the stage.
     pauseMenu = new PauseMenu(settingsMenu);
-    // create a system_status_menu instance
+    // Create a SystemStatusMenu instance.
     systemStatusMenu = new SystemStatusMenu();
-    // add teleport menu to the table
+    // Add teleport menu to the table
     table.add(teleportMenu).padLeft(20).width(Value.percentWidth(.2f, table));
-    // add hp_text in front of bar, 20 is the space between hp text and teleport
-    // menu
+    // Add hp text in front of bar, 20 is the space between hp text and teleport menu.
     table.add(healthBar.hpText).padLeft(20);
-    // add healthBar to the table, 5 is the space between hp text and health bar
+    // Add healthBar to the table, 5 is the space between hp text and health bar.
     table.add(healthBar).padLeft(5).width(Value.percentWidth(.2f, table));
-    // add arrest header to the table
+    // Add arrest header to the table.
     table.add(arrestedHeader).padLeft(40).width(Value.percentWidth(.2f, table));
 
-    // add table to the stage
+    // Add table to the stage.
     stage.addActor(table);
-    // add system_status_menu to the stage
+    // Add system_status_menu to the stage.
     stage.addActor(systemStatusMenu);
     stage.addActor(pauseMenu.pauseWindow());
     stage.addActor(settingsMenu.settingsWindow());
@@ -87,8 +86,8 @@ public class Hud {
   /**
    * Resize the viewport.
 
-   * @param width  in pixels
-   * @param height in pixels
+   * @param width  In pixels
+   * @param height In pixels
    */
   public void resize(int width, int height) {
 

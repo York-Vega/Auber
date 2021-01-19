@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 
 /**
- * Teleport_process.
+ * Teleport process.
  */
 public class TeleportProcess {
 
@@ -23,11 +23,11 @@ public class TeleportProcess {
 
 
   /**
-   * Create a new instantiated teleport_process.
+   * Create a new instantiated teleport process.
    *
-   * @param selectedRoom the selectBox object from the stage
-   * @param auber the player object
-   * @param map tiled map used to get positions of teleports
+   * @param selectedRoom The selectBox object from the stage
+   * @param auber The player object
+   * @param map Tiled map used to get positions of teleports
    */
   public TeleportProcess(TeleportMenu selectedRoom, Player auber, TiledMap map) {
     this.selectedRoom = selectedRoom;
@@ -39,9 +39,9 @@ public class TeleportProcess {
   }
 
   /**
-   * store the positions of the teleports in Hashmap.
+   * Store the positions of the teleports in Hashmap.
 
-   * @param layers layers of the tiled map
+   * @param layers Layers of the tiled map
    */
   public void generate_position(MapLayers layers) {
     for (MapObject object : layers.get("teleports").getObjects()) {
@@ -51,7 +51,7 @@ public class TeleportProcess {
       teleport.add(tele.y);
       teleporterPosition.put(object.getName(), teleport);
     }
-    // Test , should change with proper jail name for position
+    // Test, should change with proper jail name for position.
     int jailCount = 0;
     for (MapObject object : layers.get("jail").getObjects()) {
       Rectangle jail = ((RectangleMapObject) object).getRectangle();
@@ -65,15 +65,15 @@ public class TeleportProcess {
   }
 
   /**
-   * validate the teleport process.
+   * Validate the teleport process.
    */
   public void validate() {
 
-    // if auber not in contact with a teleporter, the menu(selected box) should be disabled
+    // If auber not in contact with a teleporter, the menu (selected box) should be disabled.
     if (((String) auber.b2body.getUserData()).equals("auber")) {
       selectedRoom.setDisabled(true);
     }
-    // if auber's contact with teleporter detected, enable the selectBox
+    // If auber's contact with teleporter detected, enable the selectBox.
     if (((String) auber.b2body.getUserData()).equals("ready_to_teleport") 
         && selectedRoom.isDisabled()) {
       selectedRoom.setDisabled(false);
@@ -89,18 +89,18 @@ public class TeleportProcess {
   }
 
   /**
-   * transform auber.
+   * Transform auber.
    */
   public void transform() {
-    // get the room name to be teleported form the selectBox
+    // Get the room name to be teleported form the selectBox.
     String room = selectedRoom.getSelected();
-    // get the X cord from Data.teleporter_Position(HashMap<String,ArrayList>)
+    // Get the X cord from Data.teleporterPosition(HashMap<String,ArrayList>).
     float roomX = teleporterPosition.get(room).get(0);
-    // get the Y cord from Data.teleporter_Position(HashMap<String,ArrayList>)
+    // Get the Y cord from Data.teleporterPosition(HashMap<String,ArrayList>).
     float roomY = teleporterPosition.get(room).get(1);
-    // transform auber to the chosen room
+    // Transform auber to the chosen room.
     auber.b2body.setTransform(roomX, roomY, 0);
-    // set the selectBox back to Teleport and disable the selectedBox
+    // Set the selectBox back to Teleport and disable the selectedBox.
     selectedRoom.setSelected("Teleport");
     selectedRoom.setDisabled(true);
   }
@@ -111,20 +111,20 @@ public class TeleportProcess {
   static int jail_index = 0;
 
   /**
-   * transform auber and arrested infiltrator to jail.
+   * Transform auber and arrested infiltrator to jail.
    */
   public void jail_transform() {
 
     float jailX = jailPosition.get(jail_index).get(0);
     float jailY = jailPosition.get(jail_index).get(1);
     jail_index++;
-    //auber.b2body.setTransform(jail_X,jail_Y,0);
+  
     auber.nearbyEnemy.b2body.setTransform(jailX, jailY, 0);
     auber.nearbyEnemy.stop();
-    // add the enemy to arrested list, shouldn't be arrested again
+    // Add the enemy to arrested list, shouldn't be arrested again.
     auber.arrestedEnemy.add(auber.nearbyEnemy);
     auber.arrestedCount++;
-    // remove enemy's target system if it has one
+    // Remove enemy's target system if it has one.
     auber.nearbyEnemy.targetSystem = null;
     auber.nearbyEnemy = null;
     auber.arrestPressed = false;

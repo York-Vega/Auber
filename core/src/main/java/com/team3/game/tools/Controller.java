@@ -7,7 +7,7 @@ import com.badlogic.gdx.Input;
  * Allows for user input to control the character.
  */
 public abstract class Controller {
-  // initial controls
+  // Initial controls.
   private static int up = Input.Keys.UP;
   private static int down = Input.Keys.DOWN;
   private static int left = Input.Keys.LEFT;
@@ -34,12 +34,12 @@ public abstract class Controller {
   }
 
   /**
-   * sets the controls of the user.
+   * Sets the controls of the user.
    *
-   * @param u up key string
-   * @param d down key string
-   * @param l left key string
-   * @param r right key string
+   * @param u Up key string
+   * @param d Down key string
+   * @param l Left key string
+   * @param r Right key string
    */
   public static void changeControls(String u, String d, String l, String r) {
     int newUp = Input.Keys.valueOf(u.toString()); 

@@ -58,20 +58,20 @@ public class MainMenu extends ScreenAdapter {
 
   @Override
   public void show() {
-    // passes all input to the stage
+    // Passes all input to the stage.
     Gdx.input.setInputProcessor(stage);
 
-    // create a main table into which all ui elements will be placed
+    // Create a main table into which all ui elements will be placed.
     Table root = new Table();
     root.setFillParent(true);
     root.center();
 
-    // main play button (others can be added easily as needed)
+    // Main play button (others can be added easily as needed).
     TextButton playButton = new TextButton("Play", skin);
     TextButton demoButton = new TextButton("Demo", skin);
 
-    // creates a listener to listen for clicks on the button
-    // when button is clicked start an instance of Gameplay to start playing the game
+    // Creates a listener to listen for clicks on the button,
+    // when button is clicked start an instance of Gameplay to start playing the game.
     playButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
