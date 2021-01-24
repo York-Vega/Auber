@@ -7,7 +7,16 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-    TestGameMain.class
+    TestArrestedHeader.class,
+    TestBackgroundRenderer.class,
+    TestCharacterRenderer.class,
+    TestGameplay.class,
+    TestHealthBar.class,
+    TestMainMenu.class,
+    TestMenu.class,
+    TestSystemStatusMenu.class,
+    TestTeleportMenu.class,
+    TestWinLoseScreen.class
 })
 
 // Run AllTests to test everything within @SuitClasses
