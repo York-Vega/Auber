@@ -25,9 +25,9 @@ public class ArrestedHeader extends Label {
   }
 
   /**
-   * update the number of arrested infiltrators.
+   * Update the number of arrested infiltrators.
    *
-   * @param auber player
+   * @param auber Player
    */
   public void update_Arrested(Player auber) {
     int arrestedCount = auber.arrestedCount;

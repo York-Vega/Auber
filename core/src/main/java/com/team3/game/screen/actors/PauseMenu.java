@@ -22,14 +22,14 @@ public class PauseMenu extends Menu {
   /**
    * The pause menu for the game.
 
-   * @param settingsMenu the settings menu to include
+   * @param settingsMenu The settings menu to include
    */
   public PauseMenu(SettingsMenu settingsMenu) {
     super("Pause");
 
     this.settingsMenu = settingsMenu;
 
-    // Adds actors to the menu
+    // Adds actors to the menu.
     resumeButton.setName("Resume");
     exitButton.setName("Exit");
     settingsButton.setName("Settings");
@@ -58,13 +58,13 @@ public class PauseMenu extends Menu {
   }
 
   /**
-   * shows the menu.
+   * Shows the menu.
    */
   @Override
   public void show() {
     super.show();
 
-    // Event listeners for buttons
+    // Event listeners for buttons.
     resumeButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
@@ -97,9 +97,9 @@ public class PauseMenu extends Menu {
   }
 
   /**
-   * if the game should resume.
+   * If the game should resume.
 
-   * @return whether or not gameplay should resume
+   * @return Whether or not gameplay should resume
    */
   public boolean resume() {
     if (settingsMenu.resume() && this.paused) {

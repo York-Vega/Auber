@@ -21,7 +21,7 @@ public class BackgroundRenderer {
   /**
    * A class to handle rendering the space background.
 
-   * @param batch spritebatch to draw with
+   * @param batch Spritebatch to draw with
    * @param viewport The viewport to render the background using
    */
   public BackgroundRenderer(SpriteBatch batch, Viewport viewport) {
@@ -35,9 +35,9 @@ public class BackgroundRenderer {
   private float timeElapsed = 0f;
 
   /**
-   * updates the animation.
+   * Updates the animation.
 
-   * @param delta seconds since last update
+   * @param delta Seconds since last update
    */
   public void update(float delta) {
 
@@ -50,7 +50,7 @@ public class BackgroundRenderer {
   int tileWidth = 160;
 
   /**
-   * renders the background.
+   * Renders the background.
    */
   public void render() {
     batch.begin();

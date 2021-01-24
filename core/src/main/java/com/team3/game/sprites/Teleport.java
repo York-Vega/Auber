@@ -16,15 +16,15 @@ public class Teleport extends InteractiveTileObject {
    * @param world Physics world the teleport should query
    * @param map Tiled map teleport will be placed in
    * @param bounds The bounds of where the teleport will sense Auber
-   * @param name the room name of the teleport
+   * @param name The room name of the teleport
    */
   public Teleport(World world, TiledMap map, Rectangle bounds,  String name)  {
     super(world, map, bounds);
     this.fixture.setUserData("teleporter_" + name);
-    // for contact_listener
+    // For contact listener.
     this.fixture.getBody().setUserData("teleporter_" + name);
-    // set teleport as sensor so the collision will not happen between
-    // auber and teleport, but contact still be sensed
+    // Set teleport as sensor so the collision will not happen between
+    // auber and teleport, but contact still be sensed.
     this.fixture.setSensor(true);
   }
 }

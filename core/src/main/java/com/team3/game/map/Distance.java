@@ -15,7 +15,7 @@ public class Distance implements Heuristic<Node> {
     int endY = endNode.getIndex() / Map.mapTileWidth;
     int endX = endNode.getIndex() % Map.mapTileWidth;
 
-    // distance in manhattan form
+    // Distance in manhattan form.
     return Math.abs(startX - endX) + Math.abs(startY - endY);
   }
     

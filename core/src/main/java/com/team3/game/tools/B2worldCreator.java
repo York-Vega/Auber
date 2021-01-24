@@ -37,10 +37,10 @@ public class B2worldCreator {
     FixtureDef fdef = new FixtureDef();
     Body body;
 
-    // Get all layers of map
+    // Get all layers of map.
     MapLayers layers = map.getLayers();
 
-    // create the walls
+    // Create the walls.
     for (MapObject object : layers.get("walls").getObjects()) {
 
       Rectangle rect = ((RectangleMapObject) object).getRectangle();
@@ -54,7 +54,7 @@ public class B2worldCreator {
       body.setUserData("walls");
     }
 
-    // Creates the player at the spawn point on the spawn layer of the map
+    // Creates the player at the spawn point on the spawn layer of the map.
     for (MapObject object : layers.get("spawn").getObjects()) {
       Rectangle point = ((RectangleMapObject) object).getRectangle();
       Gameplay.player = new Player(world, point.x, point.y);
@@ -62,30 +62,30 @@ public class B2worldCreator {
 
     }
 
-    //create teleport <- this is interactive tiled map object
+    // Create teleport <- this is interactive tiled map object.
     for (MapObject object : layers.get("teleports").getObjects()) {
       Rectangle rect = ((RectangleMapObject) object).getRectangle();
-      // create a new instantiated Teleport object
+      // Create a new instantiated Teleport object.
       new Teleport(world, map, rect, object.getName());
     }
 
-    // create systems <- this is interactive tiled map object
+    // Create systems <- this is interactive tiled map object.
     for (MapObject object : layers.get("systems").getObjects()) {
       Rectangle rect = ((RectangleMapObject) object).getRectangle();
-      // create a new instantiated System object
-      // stor system object in the systems Arraylist
+      // Create a new instantiated System object.
+      // Store system object in the systems Arraylist.
       Gameplay.systems.add(new Systems(world, map, rect, object.getName()));
     }
 
-    // create doors <- this is interactive tiled map object
+    // Create doors <- this is interactive tiled map object.
     for (MapObject object : layers.get("doors").getObjects()) {
       Rectangle rect = ((RectangleMapObject) object).getRectangle();
-      // create a new instantiated door object
-      // adds door object to the Doors Arraylist
+      // Create a new instantiated door object.
+      // Adds door object to the Doors Arraylist.
       Gameplay.doors.add(new Door(world, map, rect, object.getName().equals("jailDoor")));
     }
 
-    // create jails
+    // Create jails
     int jailNumber = 0;
     for (MapObject object : layers.get("jail").getObjects()) {
       Rectangle rect = ((RectangleMapObject) object).getRectangle();

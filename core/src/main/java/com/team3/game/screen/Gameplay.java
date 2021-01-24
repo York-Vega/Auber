@@ -82,7 +82,7 @@ public class Gameplay extends ScreenAdapter {
   /**
    * Creates a new instantiated game.
    *
-   * @param game The game object used in Libgdx things
+   * @param game The game object used in Libgdx
    */
   public Gameplay(GameMain game) {
     this(game, new Vector2(640, 360));
@@ -91,52 +91,51 @@ public class Gameplay extends ScreenAdapter {
   /**
    * Creates a new instantiated game.
    *
-   * @param game       The game object used in Libgdx things.
-   * @param screenSize size of the rendered game screen, doesn't effect scree
-   *                   size
+   * @param game       The game object used in Libgdx
+   * @param screenSize Size of the rendered game screen, doesn't effect screen size                
    */
   protected Gameplay(GameMain game, Vector2 screenSize) {
 
     this.game = game;
-    // create a box2D world
+    // Create a box2D world.
     this.world = new World(new Vector2(0, 0), true);
-    // create map loader for tiled map
+    // Create map loader for tiled map.
     maploader = new TmxMapLoader();
-    // load the tiled map
+    // Load the tiled map.
     map = maploader.load("Map/Map.tmx");
     Map.create(map);
     renderer = new OrthogonalTiledMapRenderer(map);
-    // load all textures for render
+    // Load all textures for render.
     CharacterRenderer.loadTextures();
-    // create a light control object
+    // Create a light control object.
     lightControl = new LightControl(world);
-    // create a new orthographic camera
+    // Create a new orthographic camera.
     camera = new OrthographicCamera();
-    // set the viewport area for camera
+    // Set the viewport area for camera.
     viewport = new FitViewport(screenSize.x, screenSize.y, camera);
-    // create a new background Render
+    // Create a new background Render.
     backgroundRenderer = new BackgroundRenderer(game.getBatch(), viewport);
-    // create 2d box world for objects , walls, teleport...
+    // Create 2d box world for objects , walls, teleport...
     B2worldCreator.createWorld(world, map, this);
-    // set the contact listener for the world
+    // Set the contact listener for the world.
     world.setContactListener(new ObjectContactListener());
-    // create HUD
+    // Create HUD.
     hud = new Hud(game.getBatch());
-    // teleportMenu
+    // TeleportMenu.
     teleportMenu = hud.teleportMenu;
-    // healthBar
+    // HealthBar.
     healthBar = hud.healthBar;
-    // create a teleport_process instance
+    // Create a teleport_process instance.
     teleportProcess = new TeleportProcess(teleportMenu, player, map);
-    // system_status_menu
+    // System_status_menu
     systemStatusMenu = hud.systemStatusMenu;
-    // generate all systems labels for status menu
+    // Generate all systems labels for status menu.
     systemStatusMenu.generate_systemLabels(systems);
-    // create arrest_status header
+    // Create arrest_status header.
     arrestedHeader = hud.arrestedHeader;
-    // create enemy_manager instance
+    // Create enemy_manager instance.
     enemyManager = new EnemyManager(world, map, systems);
-    // create Npc_manager instance
+    // Create Npc_manager instance.
     npcManager = new NpcManager(world, map);
 
   }
@@ -159,7 +158,7 @@ public class Gameplay extends ScreenAdapter {
     npcManager.updateNpc(delta);
     systemStatusMenu.update_status(systems);
     arrestedHeader.update_Arrested(player);
-    // if escape is pressed pause the game
+    // If escape is pressed pause the game.
     if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
       this.pause();
     }
@@ -169,7 +168,7 @@ public class Gameplay extends ScreenAdapter {
 
   @Override
   public void show() {
-    // set hud to be the input processor
+    // Set hud to be the input processor.
     Gdx.input.setInputProcessor(hud.stage);
   }
 
@@ -179,9 +178,9 @@ public class Gameplay extends ScreenAdapter {
   @Override
   public void render(float delta) {
 
-    // if the game is not paused, update it
-    // else if the pause menu indicates resume, resume the game
-    // else if the pause menu indicates exit, end the game
+    // If the game is not paused, update it,
+    // else if the pause menu indicates resume, resume the game,
+    // else if the pause menu indicates exit, end the game.
     if (!this.paused) {
       update();
     } else if (this.hud.pauseMenu.resume()) {
@@ -190,43 +189,43 @@ public class Gameplay extends ScreenAdapter {
       Gdx.app.exit();
     }
 
-    // clear the screen
+    // Clear the screen.
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-    // set camera follow the player
+    // Set camera follow the player.
     camera.position.set(0, 0, 0);
     camera.update();
 
-    // this is needed to be called before the batch.begin(), or screen will freeze
+    // This is needed to be called before the batch.begin(), or screen will freeze.
     game.getBatch().setProjectionMatrix(camera.combined);
     viewport.apply();
     backgroundRenderer.render();
 
-    // set camera follow the player
+    // Set camera follow the player.
     camera.position.set(player.b2body.getPosition().x, player.b2body.getPosition().y, 0);
     camera.update();
     game.getBatch().setProjectionMatrix(camera.combined);
 
-    // render the tilemap background
+    // Render the tilemap background.
     renderer.setView(camera);
     renderer.render(backgroundLayers);
 
-    // begin the batch
+    // Begin the batch.
     game.getBatch().begin();
-    // render player
+    // Render player.
     player.draw(game.getBatch());
-    // render Infiltrators
+    // Render infiltrators.
     enemyManager.render_ememy(game.getBatch());
-    // render NPC
+    // Render NPC.
     npcManager.renderNpc(game.getBatch());
-    // end the batch
+    // End the batch.
     game.getBatch().end();
-    // render tilemap that should appear in front of the player
+    // Render tilemap that should appear in front of the player.
     renderer.render(forgroundLayers);
-    // render the light
+    // Render the light.
     lightControl.rayHandler.render();
-    // render the hud
+    // Render the hud.
     hud.viewport.apply();
     hud.stage.draw();
 
@@ -241,7 +240,7 @@ public class Gameplay extends ScreenAdapter {
   }
 
   /**
-   * to pause the game set the paused flag and show the pause menu.
+   * To pause the game set the paused flag and show the pause menu.
    */
   @Override
   public void pause() {
@@ -250,7 +249,7 @@ public class Gameplay extends ScreenAdapter {
   }
 
   /**
-   * to resume the game set the pause flag and hide the pause menu.
+   * To resume the game set the pause flag and hide the pause menu.
    */
   @Override
   public void resume() {
@@ -259,7 +258,7 @@ public class Gameplay extends ScreenAdapter {
   }
 
   /**
-   * check whether game ends.
+   * Check whether game ends.
    */
   public void checkGameState() {
 
