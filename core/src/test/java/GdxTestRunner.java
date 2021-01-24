@@ -25,11 +25,11 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner
    * @throws InitializationError Type of error
    */
   public GdxTestRunner(Class<?> klass) throws InitializationError {
-	  super(klass);
-	  HeadlessApplicationConfiguration conf = new HeadlessApplicationConfiguration();
+    super(klass);
+    HeadlessApplicationConfiguration conf = new HeadlessApplicationConfiguration();
 
-	  new HeadlessApplication(this, conf);
-	  Gdx.gl = mock(GL20.class);
+    new HeadlessApplication(this, conf);
+    Gdx.gl = mock(GL20.class);
   }
 
   @Override
@@ -42,12 +42,12 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner
 
   @Override
   public void render() {
-	  synchronized (invokeInRender) {
-		  for (Map.Entry<FrameworkMethod, RunNotifier> each : invokeInRender.entrySet()) {
-			  super.runChild(each.getKey(), each.getValue());
-		  }
-		  invokeInRender.clear();
-	  }
+    synchronized (invokeInRender) {
+      for (Map.Entry<FrameworkMethod, RunNotifier> each : invokeInRender.entrySet()) {
+        super.runChild(each.getKey(), each.getValue());
+      }
+      invokeInRender.clear();
+    }
   }
 
   @Override
@@ -64,29 +64,30 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner
 
   @Override
   protected void runChild(FrameworkMethod method, RunNotifier notifier) {
-	  synchronized (invokeInRender) {
-		  // Add for invoking in render phase, where gl context is available.
-		  invokeInRender.put(method, notifier);
-	  }
-	  // Wait until that test was invoked.
-	  waitUntilInvokedInRenderMethod();
+    synchronized (invokeInRender) {
+      // Add for invoking in render phase, where gl context is available.
+      invokeInRender.put(method, notifier);
+    }
+    // Wait until that test was invoked.
+    waitUntilInvokedInRenderMethod();
   }
 
   /**
-		* Wait until we're invoked in render.
-		*/
+    * Wait until we're invoked in render.
+    */
   private void waitUntilInvokedInRenderMethod() {
-	  try {
-		  while (true) {
-			  Thread.sleep(10);
-			  synchronized (invokeInRender) {
-				  if (invokeInRender.isEmpty())
+    try {
+      while (true) {
+        Thread.sleep(10);
+        synchronized (invokeInRender) {
+          if (invokeInRender.isEmpty()) {
             break;
-			  }
-		  }
-	  } catch (InterruptedException e) {
-		  e.printStackTrace();
-	  }
+          }
+        }
+      }
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
 }
