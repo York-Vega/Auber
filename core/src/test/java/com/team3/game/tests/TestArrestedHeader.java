@@ -1,13 +1,16 @@
+package com.team3.game.tests;
+
 import static org.junit.Assert.assertTrue;
 
 import com.badlogic.gdx.Gdx;
+import com.team3.game.GdxTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(GdxTestRunner.class)
-public class TestCharacterRenderer {
+public class TestArrestedHeader {
 
-  static final String[] assets = { "sprites/dinoSprites.atlas" };
+  static final String[] assets = { "skin/hudskin/comic-ui.json" };
 
   @Test
   public void allAssetsAvailable() {

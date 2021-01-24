@@ -1,6 +1,9 @@
+package com.team3.game.tests;
+
 import static org.junit.Assert.assertTrue;
 
 import com.badlogic.gdx.Gdx;
+import com.team3.game.GdxTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

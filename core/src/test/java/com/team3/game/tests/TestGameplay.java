@@ -1,13 +1,16 @@
+package com.team3.game.tests;
+
 import static org.junit.Assert.assertTrue;
 
 import com.badlogic.gdx.Gdx;
+import com.team3.game.GdxTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(GdxTestRunner.class)
-public class TestWinLoseScreen {
+public class TestGameplay {
 
-  static final String[] assets = { "skin/hudskin/comic-ui.atlas", "skin/hudskin/comic-ui.json" };
+  static final String[] assets = { "Map/Map.tmx" };
 
   @Test
   public void allAssetsAvailable() {
