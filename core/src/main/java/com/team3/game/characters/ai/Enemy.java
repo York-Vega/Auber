@@ -4,15 +4,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.team3.game.sprites.Systems;
+import com.team3.game.sprites.System;
 
 /**
  * Creates enemy and sets them to sabotage systems.
  */
 public class Enemy extends AiCharacter {
 
-  public Systems targetSystem;
-  public Systems currentContactSystem; // Used for contact listener.
+  public System targetSystem;
+  public System currentContactSystem; // Used for contact listener.
   public String mode;
   public Ability ability;
   public static int numberofInfiltrators;
@@ -66,18 +66,18 @@ public class Enemy extends AiCharacter {
   /**
    * Set sabotage system target.
 
-   * @param system Systems Arraylist
+   * @param system The system to target
    */
-  public void set_target_system(Systems system) {
+  public void set_target_system(System system) {
     targetSystem = system;
   }
 
   /**
-   * Get target system object.
+   * Get the targetted system object.
 
-   * @return Targeted system
+   * @return The targeted system
    */
-  public Systems get_target_system() {
+  public System get_target_system() {
     return targetSystem;
   }
 
@@ -86,7 +86,7 @@ public class Enemy extends AiCharacter {
 
    * @param system System object
    */
-  public void sabotage(Systems system) {
+  public void sabotage(System system) {
     if (system.hp > 0) {
       system.hp -= 0.05;
     } else {
@@ -142,13 +142,4 @@ public class Enemy extends AiCharacter {
   public boolean isArrested() {
     return mode.equals("arrested");
   }
-
-
-  // TO DO
-  // Enemies special abilities
-  // ...
-
-
-
-
 }

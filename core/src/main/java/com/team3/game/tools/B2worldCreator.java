@@ -14,7 +14,7 @@ import com.team3.game.characters.Player;
 import com.team3.game.screen.Gameplay;
 import com.team3.game.sprites.Door;
 import com.team3.game.sprites.Jail;
-import com.team3.game.sprites.Systems;
+import com.team3.game.sprites.System;
 import com.team3.game.sprites.Teleport;
 
 
@@ -74,7 +74,7 @@ public class B2worldCreator {
       Rectangle rect = ((RectangleMapObject) object).getRectangle();
       // Create a new instantiated System object.
       // Store system object in the systems Arraylist.
-      Gameplay.systems.add(new Systems(world, map, rect, object.getName()));
+      Gameplay.systems.add(new System(world, map, rect, object.getName()));
     }
 
     // Create doors <- this is interactive tiled map object.

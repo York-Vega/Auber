@@ -4,6 +4,7 @@ import com.badlogic.gdx.ai.pfa.PathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Json;
 import com.team3.game.characters.Character;
 import com.team3.game.map.Distance;
 import com.team3.game.map.Map;
@@ -207,5 +208,12 @@ public class AiCharacter extends Character {
    */
   public void stop() {
     this.pathIndex = this.path.getCount();
+  }
+
+  @Override
+  public void write(Json json) {
+    super.write(json);
+    json.writeValue("destinationX", destX);
+    json.writeValue("destinationY", destY);
   }
 }

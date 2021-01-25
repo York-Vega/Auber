@@ -2,7 +2,7 @@ package com.team3.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -10,6 +10,9 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.Json.Serializable;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
@@ -22,7 +25,7 @@ import com.team3.game.screen.actors.HealthBar;
 import com.team3.game.screen.actors.SystemStatusMenu;
 import com.team3.game.screen.actors.TeleportMenu;
 import com.team3.game.sprites.Door;
-import com.team3.game.sprites.Systems;
+import com.team3.game.sprites.System;
 import com.team3.game.tools.B2worldCreator;
 import com.team3.game.tools.BackgroundRenderer;
 import com.team3.game.tools.CharacterRenderer;
@@ -32,16 +35,17 @@ import com.team3.game.tools.ObjectContactListener;
 import com.team3.game.tools.TeleportProcess;
 import java.util.ArrayList;
 
+
 /**
  * Main gameplay object, holds all game data.
  */
-public class Gameplay implements Screen {
+public class Gameplay extends ScreenAdapter implements Serializable {
 
   private final GameMain game;
 
   public static ArrayList<Door> doors = new ArrayList<>();
 
-  public static ArrayList<Systems> systems = new ArrayList<>();
+  public static ArrayList<System> systems = new ArrayList<>();
 
   public static Player player;
 
@@ -257,16 +261,6 @@ public class Gameplay implements Screen {
     this.hud.pauseMenu.hide();
   }
 
-  @Override
-  public void hide() {
-
-  }
-
-  @Override
-  public void dispose() {
-
-  }
-
   /**
    * Check whether game ends.
    */
@@ -276,7 +270,7 @@ public class Gameplay implements Screen {
       game.setScreen(new WinLoseScreen(game.getBatch(), "YOU WIN!!"));
     }
     int sabotagedCount = 0;
-    for (Systems system : systems) {
+    for (System system : systems) {
       if (system.is_sabotaged()) {
         sabotagedCount++;
       }
@@ -284,6 +278,15 @@ public class Gameplay implements Screen {
     if (sabotagedCount >= 15 || player.health <= 1) {
       game.setScreen(new WinLoseScreen(game.getBatch(), "YOU LOSE!!"));
     }
-
   }
+
+  @Override
+  public void write(Json json) {
+    json.writeValue("systems", systems);
+    json.writeValue("enemy_manager", enemyManager);
+    json.writeValue("npc_manager", npcManager);
+  }
+
+  @Override
+  public void read(Json json, JsonValue jsonMap) {}
 }

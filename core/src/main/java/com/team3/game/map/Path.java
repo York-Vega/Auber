@@ -43,5 +43,4 @@ public class Path implements GraphPath<Node> {
   public void reverse() {
     nodes.reverse();
   }
-
 }

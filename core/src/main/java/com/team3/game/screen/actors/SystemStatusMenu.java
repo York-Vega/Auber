@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.Align;
-import com.team3.game.sprites.Systems;
+import com.team3.game.sprites.System;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -21,7 +21,7 @@ public class SystemStatusMenu extends VerticalGroup {
 
   public int count = 0;
 
-  public Hashtable<Systems, Label> statusMap = new Hashtable<>();
+  public Hashtable<System, Label> statusMap = new Hashtable<>();
 
   /**
    * Show status of each systems.
@@ -49,8 +49,8 @@ public class SystemStatusMenu extends VerticalGroup {
    *
    * @param systems Arraylist of System objects
    */
-  public void generate_systemLabels(ArrayList<Systems> systems) {
-    for (Systems system : systems) {
+  public void generate_systemLabels(ArrayList<System> systems) {
+    for (System system : systems) {
       Label sys = new Label(system.getSystemName(), myskin, "alt");
       sys.setColor(Color.WHITE);
       // setName to store name if enemy stop sabotaging, change the label text back to normal.
@@ -69,9 +69,9 @@ public class SystemStatusMenu extends VerticalGroup {
    *
    * @param systems Arraylist of System objects
    */
-  public void update_status(ArrayList<Systems> systems) {
+  public void update_status(ArrayList<System> systems) {
 
-    for (Systems system : systems) {
+    for (System system : systems) {
 
       Label sysLabel = statusMap.get(system);
 
