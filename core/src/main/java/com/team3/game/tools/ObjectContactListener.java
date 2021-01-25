@@ -9,7 +9,7 @@ import com.team3.game.characters.Player;
 import com.team3.game.characters.ai.Ability;
 import com.team3.game.characters.ai.Enemy;
 import com.team3.game.sprites.Door;
-import com.team3.game.sprites.Systems;
+import com.team3.game.sprites.System;
 import java.util.regex.Pattern;
 
 /**
@@ -85,8 +85,8 @@ public class ObjectContactListener implements ContactListener {
           if (is_System(fixB)) {
             // Only when NPC contact with the target system, sabotage process will begin.
             Enemy enemy = (Enemy) fixA.getUserData();
-            Systems targetSystem = enemy.get_target_system();
-            Systems contactSystem = (Systems) fixB.getUserData();
+            System targetSystem = enemy.get_target_system();
+            System contactSystem = (System) fixB.getUserData();
             if (targetSystem == contactSystem) {
               enemy.ability.setDisable(true);
               enemy.currentContactSystem = contactSystem;
@@ -108,8 +108,8 @@ public class ObjectContactListener implements ContactListener {
         } else {
           if (is_System(fixA)) {
             Enemy enemy = (Enemy) fixB.getUserData();
-            Systems targetSystem = enemy.get_target_system();
-            Systems contactSystem = (Systems) fixA.getUserData();
+            System targetSystem = enemy.get_target_system();
+            System contactSystem = (System) fixA.getUserData();
             if (targetSystem == contactSystem) {
               enemy.ability.setDisable(true);
               enemy.currentContactSystem = contactSystem;
@@ -184,8 +184,8 @@ public class ObjectContactListener implements ContactListener {
       if (is_Infiltrators(fixA) && is_System(fixB) 
           && Enemy.class.isAssignableFrom(fixA.getUserData().getClass())) {
         Enemy enemy = (Enemy) fixA.getUserData();
-        Systems currentContactsystem = enemy.currentContactSystem;
-        Systems endContactSys = (Systems) fixB.getUserData();
+        System currentContactsystem = enemy.currentContactSystem;
+        System endContactSys = (System) fixB.getUserData();
         // Contact will be listened if enemy finished sabotaging a system 
         // and have generated next target system or enemy stop sabotaging the system,
         // the end contact between enemy and system will be listened.
@@ -204,8 +204,8 @@ public class ObjectContactListener implements ContactListener {
           && Enemy.class.isAssignableFrom(fixB.getUserData().getClass())) {
 
         Enemy enemy = (Enemy) fixB.getUserData();
-        Systems currentContactsystem = enemy.currentContactSystem;
-        Systems endContactSys = (Systems) fixA.getUserData();
+        System currentContactsystem = enemy.currentContactSystem;
+        System endContactSys = (System) fixA.getUserData();
         // Contact will be listened if enemy finished sabotaging a system and have
         // generated next target system or enemy stop sabotaging the system,
         // the end contact between enemy and system it left will be listened.

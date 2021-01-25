@@ -7,6 +7,9 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.Json.Serializable;
+import com.badlogic.gdx.utils.JsonValue;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,7 +17,7 @@ import java.util.Random;
 /**
  * Manage NPCs in the game.
  */
-public class NpcManager {
+public class NpcManager implements Serializable {
 
 
   public World world;
@@ -125,9 +128,18 @@ public class NpcManager {
     Random random = new Random();
     index = random.nextInt(20);
 
-    float [] destination = spawnPositions.get(index);
+    float[] destination = spawnPositions.get(index);
     npc.setDest(destination[0], destination[1]);
     npc.moveToDest();
+  }
+
+  @Override
+  public void write(Json json) {
+    json.writeValue("npcs", npcs);
+  }
+
+  @Override
+  public void read(Json json, JsonValue jsonData) {
   }
 
 

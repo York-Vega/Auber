@@ -7,12 +7,15 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.Json.Serializable;
+import com.badlogic.gdx.utils.JsonValue;
 import com.team3.game.tools.CharacterRenderer;
 
 /**
  * Main player object for the game.
  */
-public abstract class Character {
+public abstract class Character implements Serializable {
   public World world;
   public Body b2body;
   public float speed = 60f;
@@ -73,4 +76,15 @@ public abstract class Character {
     renderer.render(position, batch);
   }
 
+  @Override
+  public void write(Json json) {
+    json.writeValue("speed", speed);
+    json.writeValue("position", position);
+    json.writeValue("size", size);
+  }
+
+  @Override
+  public void read(Json json, JsonValue jsonData) {
+    // TODO
+  }
 }

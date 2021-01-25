@@ -7,23 +7,26 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.Json.Serializable;
+import com.badlogic.gdx.utils.JsonValue;
 import com.team3.game.characters.Player;
-import com.team3.game.sprites.Systems;
+import com.team3.game.sprites.System;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Manage enemies in the game.
  */
-public class EnemyManager {
+public class EnemyManager implements Serializable {
 
   public World world;
   public TiledMap map;
   public static ArrayList<Enemy> enemies = new ArrayList<>();
   public static ArrayList<float[]> spawn_position = new ArrayList<>();
   public static ArrayList<float[]> target_position = new ArrayList<>();
-  public static ArrayList<Systems> systems = new ArrayList<>();
-  public static HashMap<Systems, Enemy> information;
+  public static ArrayList<System> systems = new ArrayList<>();
+  public static HashMap<System, Enemy> information;
 
   /**
    * EnemyManager to manage enemies behavior.
@@ -35,7 +38,7 @@ public class EnemyManager {
    *
    * @param systems Arraylist Systems objects
    */
-  public EnemyManager(World world, TiledMap map, ArrayList<Systems> systems) {
+  public EnemyManager(World world, TiledMap map, ArrayList<System> systems) {
     this.world = world;
     this.map = map;
     EnemyManager.systems = systems;
@@ -89,7 +92,7 @@ public class EnemyManager {
    *
    * @param systems Arraylist stores system objects
    */
-  public void initial_sabotageTarget(ArrayList<Systems> systems) {
+  public void initial_sabotageTarget(ArrayList<System> systems) {
 
     ArrayList<Integer> randomIndex = new ArrayList<>();
     // Generate random target positions.
@@ -110,7 +113,7 @@ public class EnemyManager {
     // Set targets.
     for (int i = 0; i < randomIndex.size(); i++) {
       int index = randomIndex.get(i);
-      Systems sys = systems.get(index);
+      System sys = systems.get(index);
 
       float endX = sys.getposition()[0];
       float endY = sys.getposition()[1];
@@ -172,7 +175,7 @@ public class EnemyManager {
         }
       } else {
         // Get targeted system object.
-        Systems sys = enemy.get_target_system();
+        System sys = enemy.get_target_system();
         // If no system left to sabotage, should start attacking auber.
         if (sys == null) {
           // Still have systems not sabotaged, should keep generating next target.
@@ -203,7 +206,7 @@ public class EnemyManager {
     * @param enemy Enemy object
     */
   public void generateNextTarget(Enemy enemy) {
-    for (Systems system : systems) {
+    for (System system : systems) {
       if (!information.containsKey(system)) {
         float endx = system.getposition()[0];
         float endy = system.getposition()[1];
@@ -223,4 +226,14 @@ public class EnemyManager {
     enemy.targetSystem = null;
   }
 
+  @Override
+  public void write(Json json) {
+    json.writeValue("enemies", enemies);
+  }
+
+  @Override
+  public void read(Json json, JsonValue jsonData) {
+    // TODO Auto-generated method stub
+    
+  }
 }

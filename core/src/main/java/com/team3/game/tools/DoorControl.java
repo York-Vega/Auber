@@ -2,7 +2,7 @@ package com.team3.game.tools;
 
 import com.team3.game.screen.Gameplay;
 import com.team3.game.sprites.Door;
-import com.team3.game.sprites.Systems;
+import com.team3.game.sprites.System;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,7 +22,7 @@ public abstract class DoorControl {
    * @param systems The list of systems
    * @param delta Seconds since last update
    */
-  public static void updateDoors(ArrayList<Systems> systems, float delta) {
+  public static void updateDoors(ArrayList<System> systems, float delta) {
     if (!isSabotaged) {
       if (isDoorsSabotaged(systems)) {
         if (time == MaxTime) {
@@ -38,8 +38,8 @@ public abstract class DoorControl {
     }
   }
 
-  private static boolean isDoorsSabotaged(ArrayList<Systems> systems) {
-    for (Systems sys : systems) {
+  private static boolean isDoorsSabotaged(ArrayList<System> systems) {
+    for (System sys : systems) {
       if (sys.sysName.equals("doors")) {
         if (sys.is_sabotaged()) {
           isSabotaged = true;

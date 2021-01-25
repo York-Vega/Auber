@@ -3,11 +3,14 @@ package com.team3.game.sprites;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.Json.Serializable;
 
 /**
  * Creates a system template.
  */
-public class Systems extends InteractiveTileObject {
+public class System extends InteractiveTileObject implements Serializable {
 
   public String sysName;
   public float hp;
@@ -20,7 +23,7 @@ public class Systems extends InteractiveTileObject {
    * @param bounds The bounds of where the object will interact with entities
    * @param name They name of the system
    */
-  public Systems(World world, TiledMap map, Rectangle bounds, String name) {
+  public System(World world, TiledMap map, Rectangle bounds, String name) {
     super(world, map, bounds);
     sysName = name;
     hp = 100;
@@ -125,4 +128,13 @@ public class Systems extends InteractiveTileObject {
   public boolean is_not_sabotaged() {
     return body.getUserData().equals("system_not_sabotaged");
   }
+
+  @Override
+  public void write(Json json) {
+    json.writeValue("name", sysName);
+    json.writeValue("hp", hp);
+  }
+
+  @Override
+  public void read(Json json, JsonValue jsonMap) {}
 }

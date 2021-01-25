@@ -13,10 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
 import com.team3.game.tools.BackgroundRenderer;
+import com.team3.game.tools.Serializer;
 
 /**
  * MainMenu.
@@ -76,7 +78,10 @@ public class MainMenu extends ScreenAdapter {
       @Override
       public void clicked(InputEvent event, float x, float y) {
         GameMain game = (GameMain) Gdx.app.getApplicationListener();
-        game.setScreen(new Gameplay(game));
+        Gameplay gameplay = new Gameplay(game);
+        Serializer serializer = new Serializer(gameplay);
+        serializer.toFile("test", true);
+        game.setScreen(gameplay);
       }
     });
     demoButton.addListener(new ClickListener() {
