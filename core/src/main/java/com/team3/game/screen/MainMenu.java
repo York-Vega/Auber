@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
@@ -80,6 +79,7 @@ public class MainMenu extends ScreenAdapter {
         GameMain game = (GameMain) Gdx.app.getApplicationListener();
         Gameplay gameplay = new Gameplay(game);
         Serializer serializer = new Serializer(gameplay);
+        Gameplay test = serializer.fromFile("test");
         serializer.toFile("test", true);
         game.setScreen(gameplay);
       }

@@ -34,11 +34,24 @@ public class Serializer {
   /**
    * Write a JSON string representing the current game state to a file.
    *
-   * @param fileName The name of the file to save to
+   * @param fileName The name of the file to save to (excluding its json extension)
    * @param pretty Whether the file should be spaced and indented
    **/
   public void toFile(String fileName, boolean pretty) {
     FileHandle file = Gdx.files.local("saves/" + fileName + ".json");
     file.writeString(dumpStr(pretty), false);
+  }
+
+  /**
+   * Generate a gameplay object from a JSON save file.
+   *
+   * @param fileName The name of the save file (excluding its json extension)
+   * @return A gameplay object representing the loaded game state
+   **/
+  public Gameplay fromFile(String fileName) {
+    Json json = new Json();
+    FileHandle file = Gdx.files.local("saves/" + fileName + ".json");
+    Gameplay gameplay = json.fromJson(Gameplay.class, file.readString());
+    return gameplay;
   }
 }
