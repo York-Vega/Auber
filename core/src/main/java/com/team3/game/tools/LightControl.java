@@ -2,7 +2,7 @@ package com.team3.game.tools;
 
 import box2dLight.RayHandler;
 import com.badlogic.gdx.physics.box2d.World;
-import com.team3.game.sprites.System;
+import com.team3.game.sprites.StationSystem;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +26,7 @@ public class LightControl {
 
    * @param systems The list of all systems to check for sabotaged lights
    */
-  public void light_update(ArrayList<System> systems) {
+  public void light_update(ArrayList<StationSystem> systems) {
 
     if (isLightsabotaged(systems)) {
       rayHandler.setAmbientLight(.3f);
@@ -42,9 +42,9 @@ public class LightControl {
    * @param systems Arraylist store all systems object
    * @return True if light system is sabotaged
    */
-  public boolean isLightsabotaged(ArrayList<System> systems) {
+  public boolean isLightsabotaged(ArrayList<StationSystem> systems) {
 
-    for (System sys : systems) {
+    for (StationSystem sys : systems) {
       if (sys.sysName.equals("lights")) {
         return sys.is_sabotaged();
       }

@@ -4,15 +4,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.team3.game.sprites.System;
+import com.team3.game.sprites.StationSystem;
 
 /**
  * Creates enemy and sets them to sabotage systems.
  */
 public class Enemy extends AiCharacter {
 
-  public System targetSystem;
-  public System currentContactSystem; // Used for contact listener.
+  public StationSystem targetSystem;
+  public StationSystem currentContactSystem; // Used for contact listener.
   public String mode;
   public Ability ability;
   public static int numberofInfiltrators;
@@ -68,7 +68,7 @@ public class Enemy extends AiCharacter {
 
    * @param system The system to target
    */
-  public void set_target_system(System system) {
+  public void set_target_system(StationSystem system) {
     targetSystem = system;
   }
 
@@ -77,7 +77,7 @@ public class Enemy extends AiCharacter {
 
    * @return The targeted system
    */
-  public System get_target_system() {
+  public StationSystem get_target_system() {
     return targetSystem;
   }
 
@@ -86,7 +86,7 @@ public class Enemy extends AiCharacter {
 
    * @param system System object
    */
-  public void sabotage(System system) {
+  public void sabotage(StationSystem system) {
     if (system.hp > 0) {
       system.hp -= 0.05;
     } else {

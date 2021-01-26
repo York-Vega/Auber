@@ -25,7 +25,7 @@ import com.team3.game.screen.actors.HealthBar;
 import com.team3.game.screen.actors.SystemStatusMenu;
 import com.team3.game.screen.actors.TeleportMenu;
 import com.team3.game.sprites.Door;
-import com.team3.game.sprites.System;
+import com.team3.game.sprites.StationSystem;
 import com.team3.game.tools.B2worldCreator;
 import com.team3.game.tools.BackgroundRenderer;
 import com.team3.game.tools.CharacterRenderer;
@@ -45,7 +45,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
 
   public static ArrayList<Door> doors = new ArrayList<>();
 
-  public static ArrayList<System> systems = new ArrayList<>();
+  public static ArrayList<StationSystem> systems = new ArrayList<>();
 
   public static Player player;
 
@@ -270,7 +270,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
       game.setScreen(new WinLoseScreen(game.getBatch(), "YOU WIN!!"));
     }
     int sabotagedCount = 0;
-    for (System system : systems) {
+    for (StationSystem system : systems) {
       if (system.is_sabotaged()) {
         sabotagedCount++;
       }
@@ -288,5 +288,6 @@ public class Gameplay extends ScreenAdapter implements Serializable {
   }
 
   @Override
-  public void read(Json json, JsonValue jsonMap) {}
+  public void read(Json json, JsonValue jsonMap) {
+  }
 }

@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.JsonValue;
 /**
  * Creates a system template.
  */
-public class System extends InteractiveTileObject implements Serializable {
+public class StationSystem extends InteractiveTileObject implements Serializable {
 
   public String sysName;
   public float hp;
@@ -23,7 +23,7 @@ public class System extends InteractiveTileObject implements Serializable {
    * @param bounds The bounds of where the object will interact with entities
    * @param name They name of the system
    */
-  public System(World world, TiledMap map, Rectangle bounds, String name) {
+  public StationSystem(World world, TiledMap map, Rectangle bounds, String name) {
     super(world, map, bounds);
     sysName = name;
     hp = 100;

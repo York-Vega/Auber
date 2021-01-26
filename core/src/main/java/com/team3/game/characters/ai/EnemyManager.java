@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Json.Serializable;
 import com.badlogic.gdx.utils.JsonValue;
 import com.team3.game.characters.Player;
-import com.team3.game.sprites.System;
+import com.team3.game.sprites.StationSystem;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,8 +25,8 @@ public class EnemyManager implements Serializable {
   public static ArrayList<Enemy> enemies = new ArrayList<>();
   public static ArrayList<float[]> spawn_position = new ArrayList<>();
   public static ArrayList<float[]> target_position = new ArrayList<>();
-  public static ArrayList<System> systems = new ArrayList<>();
-  public static HashMap<System, Enemy> information;
+  public static ArrayList<StationSystem> systems = new ArrayList<>();
+  public static HashMap<StationSystem, Enemy> information;
 
   /**
    * EnemyManager to manage enemies behavior.
@@ -38,7 +38,7 @@ public class EnemyManager implements Serializable {
    *
    * @param systems Arraylist Systems objects
    */
-  public EnemyManager(World world, TiledMap map, ArrayList<System> systems) {
+  public EnemyManager(World world, TiledMap map, ArrayList<StationSystem> systems) {
     this.world = world;
     this.map = map;
     EnemyManager.systems = systems;
@@ -92,7 +92,7 @@ public class EnemyManager implements Serializable {
    *
    * @param systems Arraylist stores system objects
    */
-  public void initial_sabotageTarget(ArrayList<System> systems) {
+  public void initial_sabotageTarget(ArrayList<StationSystem> systems) {
 
     ArrayList<Integer> randomIndex = new ArrayList<>();
     // Generate random target positions.
@@ -113,7 +113,7 @@ public class EnemyManager implements Serializable {
     // Set targets.
     for (int i = 0; i < randomIndex.size(); i++) {
       int index = randomIndex.get(i);
-      System sys = systems.get(index);
+      StationSystem sys = systems.get(index);
 
       float endX = sys.getposition()[0];
       float endY = sys.getposition()[1];
@@ -175,7 +175,7 @@ public class EnemyManager implements Serializable {
         }
       } else {
         // Get targeted system object.
-        System sys = enemy.get_target_system();
+        StationSystem sys = enemy.get_target_system();
         // If no system left to sabotage, should start attacking auber.
         if (sys == null) {
           // Still have systems not sabotaged, should keep generating next target.
@@ -206,7 +206,7 @@ public class EnemyManager implements Serializable {
     * @param enemy Enemy object
     */
   public void generateNextTarget(Enemy enemy) {
-    for (System system : systems) {
+    for (StationSystem system : systems) {
       if (!information.containsKey(system)) {
         float endx = system.getposition()[0];
         float endy = system.getposition()[1];
