@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import com.badlogic.gdx.math.Vector2;
 import com.team3.game.GdxTestRunner;
 import com.team3.game.characters.Player;
+import com.team3.game.tools.CharacterRenderer;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -17,6 +18,8 @@ import org.mockito.internal.util.reflection.Whitebox;
 public class TestMovement {
 
   Player player = new Player(null, 0, 0);
+  CharacterRenderer.Sprite sprite;
+  CharacterRenderer renderer = new CharacterRenderer(sprite);
 
   @Test
   public void testMovement() throws AWTException {
