@@ -35,9 +35,9 @@ public class AiCharacter extends Character {
    * Creates an semi-initialized AI character the physics body is still uninitiated.
 
    * @param world The game world
-   * 
+   *
    * @param x The initial x location of the character
-   * 
+   *
    * @param y The initial y location of the character
    */
   public AiCharacter(World world, float x, float y) {
@@ -113,25 +113,25 @@ public class AiCharacter extends Character {
       // move in x direction n towards node.
       if (Math.abs(x - targetX) > 1) {
         xcomp = targetX - x;
-      } 
+      }
       // If the difference in y values between character and node is above 1
       // move in y direction n towards node.
       if (Math.abs(y - targetY) > 1) {
         ycomp = targetY - y;
-      } 
+      }
 
-      // If the character is in the bounds of the node 
-      // target the next node.            
+      // If the character is in the bounds of the node
+      // target the next node.
       if (Math.abs(y - targetY) < 4 && Math.abs(x - targetX) < 4) {
         this.pathIndex++;
         return new Vector2(0, 0);
       }
 
-      float abs = (float) Math.sqrt(Math.pow(xcomp, 2) + Math.pow(ycomp, 2)); 
+      float abs = (float) Math.sqrt(Math.pow(xcomp, 2) + Math.pow(ycomp, 2));
       return new Vector2(xcomp / abs, ycomp / abs);
-    } 
+    }
     return new Vector2(0, 0);
-  } 
+  }
 
   /**
    * Set the destination position.
@@ -173,17 +173,20 @@ public class AiCharacter extends Character {
           || endNode.getIndex() == currentEndNode) {
         return true;
       }
-    }         
+    }
 
 
 
     // Resets the path.
-    this.path = new Path();        
+    this.path = new Path();
     this.pathFinder = new IndexedAStarPathFinder<Node>(Map.graph);
     pathIndex = 1;
 
 
     // A* search between character and destination.
+    System.out.println(startNode.toString());
+    System.out.println(endNode.toString());
+    System.out.println(path.toString());
     pathFinder.searchNodePath(startNode, endNode, new Distance(), path);
 
     // If the path is empty.
@@ -213,7 +216,10 @@ public class AiCharacter extends Character {
   @Override
   public void write(Json json) {
     super.write(json);
-    json.writeValue("destinationX", destX);
-    json.writeValue("destinationY", destY);
+    //json.writeValue("destinationX", destX);
+    //json.writeValue("destinationY", destY);
+    //json.writeValue("pathFinder", pathFinder);
+    //json.writeValue("path", path);
+    //json.writeValue("pathIndex", pathIndex);
   }
 }

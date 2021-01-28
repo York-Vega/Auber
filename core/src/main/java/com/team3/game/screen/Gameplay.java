@@ -96,7 +96,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
    * Creates a new instantiated game.
    *
    * @param game       The game object used in Libgdx
-   * @param screenSize Size of the rendered game screen, doesn't effect screen size                
+   * @param screenSize Size of the rendered game screen, doesn't effect screen size
    */
   protected Gameplay(GameMain game, Vector2 screenSize) {
 
@@ -287,7 +287,10 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     json.writeValue("npc_manager", npcManager);
   }
 
+  /**
+   * This is blank for a reason. For the JSON read method of Gameplay see
+   * {@link Serializer#fromFile}.
+   * */
   @Override
-  public void read(Json json, JsonValue jsonMap) {
-  }
+  public void read(Json json, JsonValue jsonMap) {}
 }

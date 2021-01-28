@@ -102,7 +102,7 @@ public class EnemyManager implements Serializable {
       // Generate a index [0,15].
       int index = (int) (randomD * 15);
       // Take away healing pod for initial target, for difficulty.
-      while (randomIndex.contains(index) 
+      while (randomIndex.contains(index)
           && !systems.get(index).sysName.equals("headlingPod")) {
         randomD = Math.random();
         index = (int) (randomD * 15);
