@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(GdxTestRunner.class)
-public class TestAssetsAvailable {
+public class TestAssets {
 
   // Testing only the assets the are required within the game itself.
   static final String[] assets = { "skin/hudskin/comic-ui.json", "background/background.png",
