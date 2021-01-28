@@ -55,12 +55,8 @@ public class B2worldCreator {
     }
 
     // Creates the player at the spawn point on the spawn layer of the map.
-    for (MapObject object : layers.get("spawn").getObjects()) {
-      Rectangle point = ((RectangleMapObject) object).getRectangle();
-      Gameplay.player = new Player(world, point.x, point.y);
-      break;
-
-    }
+    Rectangle point = ((RectangleMapObject) layers.get("spawn").getObjects().get(0)).getRectangle();
+    Gameplay.player = new Player(world, point.x, point.y);
 
     // Create teleport <- this is interactive tiled map object.
     for (MapObject object : layers.get("teleports").getObjects()) {
