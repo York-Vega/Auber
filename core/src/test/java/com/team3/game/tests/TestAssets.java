@@ -8,9 +8,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(GdxTestRunner.class)
-public class TestSystemStatusMenu {
+public class TestAssets {
 
-  static final String[] assets = { "skin/hudskin/comic-ui.json" };
+  // Testing only the assets the are required within the game itself.
+  static final String[] assets = { "skin/hudskin/comic-ui.json", "background/background.png",
+    "sprites/dinoSprites.atlas", "Map/Map.tmx", "skin/hudskin/comic-ui.atlas" };
 
   @Test
   public void allAssetsAvailable() {

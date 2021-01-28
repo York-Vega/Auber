@@ -16,6 +16,7 @@ package com.team3.game;
 
 import static org.mockito.Mockito.mock;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
@@ -34,6 +35,8 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner
   private Map<FrameworkMethod, RunNotifier> invokeInRender = 
       new HashMap<FrameworkMethod, RunNotifier>();
 
+  protected Application game;
+
   /**
    * Creates a headless application using OpenGL.
    *
@@ -44,7 +47,7 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner
     super(klass);
     HeadlessApplicationConfiguration conf = new HeadlessApplicationConfiguration();
 
-    new HeadlessApplication(this, conf);
+    game = new HeadlessApplication(this, conf);
     Gdx.gl = mock(GL20.class);
   }
 
