@@ -77,11 +77,13 @@ public class MainMenu extends ScreenAdapter {
       @Override
       public void clicked(InputEvent event, float x, float y) {
         GameMain game = (GameMain) Gdx.app.getApplicationListener();
-        Gameplay gameplay = new Gameplay(game);
-        Serializer serializer = new Serializer(gameplay);
-        Gameplay test = serializer.fromFile("test");
-        serializer.toFile("test", true);
-        game.setScreen(gameplay);
+        /*
+        Serializer serializer = new Serializer();
+        serializer.toFile("test1", true, new Gameplay(game));
+        */
+        /*
+        Gameplay test = serializer.fromFile("test", game); */
+        game.setScreen(new Gameplay(game));
       }
     });
     demoButton.addListener(new ClickListener() {
