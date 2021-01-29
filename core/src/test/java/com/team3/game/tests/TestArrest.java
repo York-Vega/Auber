@@ -2,6 +2,8 @@ package com.team3.game.tests;
 
 import static org.junit.Assert.assertTrue;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.team3.game.GdxTestRunner;
@@ -22,12 +24,14 @@ public class TestArrest {
     /*Code has error where it won't run due to being unable to load & read gdx-box2d64. 
     This is present as of the latest pull request*/
     
+
     CharacterRenderer.loadTextures();
     TmxMapLoader maploader = new TmxMapLoader();
     TiledMap map = maploader.load("Map/Map.tmx");
     Map.create(map);
-    Player player = new Player(null, 0, 0);
-    Enemy enemy = new Enemy(null, 0, 0);
+    World world = new World(new Vector2(0, 0), true);
+    Player player = new Player(world, 0, 0);
+    Enemy enemy = new Enemy(world, 0, 0);
     player.arrest(enemy);
     
     assertTrue("Test unsuccessful, enemy was not arrested", enemy.isArrested());
