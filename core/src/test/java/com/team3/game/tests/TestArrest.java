@@ -8,9 +8,6 @@ import com.team3.game.GdxTestRunner;
 import com.team3.game.characters.Player;
 import com.team3.game.characters.ai.Enemy;
 import com.team3.game.tools.ObjectContactListener;
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -19,22 +16,16 @@ public class TestArrest {
   
   
   @Test
-  public void testArrest() throws AWTException {
+  public void testArrest() {
     
     /*Code has error where it won't run due to being unable to load & read gdx-box2d64. 
     This is present as of the latest pull request*/
 
     World world = new World(new Vector2(0, 0), true);
-    Robot robot = new Robot();  // Create instance of robot class
-    int keyCode = KeyEvent.VK_A; // The A key
     world.setContactListener(new ObjectContactListener());
     Player player = new Player(world, 0, 0);
     Enemy enemy = new Enemy(world, 0, 0);
-    robot.keyPress(keyCode);
-    player.update(1);
-    enemy.update(1);
-    robot.delay(40);
-    robot.keyRelease(keyCode);
+    player.arrest(enemy);
     
     assertTrue("Test unsuccessful, enemy was not arrested", enemy.isArrested());
   }
