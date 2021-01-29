@@ -16,6 +16,11 @@ import org.mockito.internal.util.reflection.Whitebox;
 
 @RunWith(GdxTestRunner.class)
 public class TestMovement {
+  public Robot robot;
+
+  public TestMovement() throws AWTException {
+    robot = new Robot(); // Create instance of robot class.
+  }
 
   @Test
   public void testMoveUp() throws AWTException {
@@ -43,7 +48,6 @@ public class TestMovement {
     Player player = new Player(world, 0, 0);
     float speed = 6f;
     Vector2 input = new Vector2(0, 0); // Stores expected movement.
-    Robot robot = new Robot(); // Create instance of robot class.
     int keyCode = KeyEvent.VK_DOWN; // The down arrow key.
     robot.keyPress(keyCode);
 
