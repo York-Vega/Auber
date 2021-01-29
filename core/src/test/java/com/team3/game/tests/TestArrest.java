@@ -25,15 +25,15 @@ public class TestArrest {
     This is present as of the latest pull request*/
 
     World world = new World(new Vector2(0, 0), true);
-    Player player = new Player(world, 0, 0);
     Robot robot = new Robot();  // Create instance of robot class
     int keyCode = KeyEvent.VK_A; // The A key
+    Player player = new Player(world, 0, 0);
     Enemy enemy = new Enemy(world, 0, 0);
     world.setContactListener(new ObjectContactListener());
     
     robot.keyPress(keyCode);
-    enemy.update(1);
     player.update(1);
+    enemy.update(1);
     robot.delay(40);
     robot.keyRelease(keyCode);
     
