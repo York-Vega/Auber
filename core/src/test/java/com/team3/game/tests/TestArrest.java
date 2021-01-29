@@ -5,13 +5,12 @@ import static org.junit.Assert.assertTrue;
 import com.team3.game.GdxTestRunner;
 import com.team3.game.characters.Player;
 import com.team3.game.characters.ai.Enemy;
-import com.team3.game.tools.ObjectContactListener;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.math.Vector2;
+import com.team3.game.tools.ObjectContactListener;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -34,6 +33,7 @@ public class TestArrest {
     
     robot.keyPress(keyCode);
     player.update(1);
+    enemy.update(1);
     robot.delay(40);
     robot.keyRelease(keyCode);
     
