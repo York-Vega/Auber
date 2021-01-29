@@ -11,5 +11,6 @@ test {
         testLogging.showStandardStreams = true
         testLogging {
             events "passed", "skipped", "failed"
+            exceptionFormat "full"
         }
 }
