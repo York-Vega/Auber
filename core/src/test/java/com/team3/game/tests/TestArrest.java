@@ -15,16 +15,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(GdxTestRunner.class)
-public class TestArrest {
-  
+public class TestArrest { 
   
   @Test
   public void testArrest() {
-    
-    /*Code has error where it won't run due to being unable to load & read gdx-box2d64. 
-    This is present as of the latest pull request*/
-    
-
     CharacterRenderer.loadTextures();
     TmxMapLoader maploader = new TmxMapLoader();
     TiledMap map = maploader.load("Map/Map.tmx");
