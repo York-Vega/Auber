@@ -27,10 +27,9 @@ public class TestArrest {
     World world = new World(new Vector2(0, 0), true);
     Robot robot = new Robot();  // Create instance of robot class
     int keyCode = KeyEvent.VK_A; // The A key
+    world.setContactListener(new ObjectContactListener());
     Player player = new Player(world, 0, 0);
     Enemy enemy = new Enemy(world, 0, 0);
-    world.setContactListener(new ObjectContactListener());
-    
     robot.keyPress(keyCode);
     player.update(1);
     enemy.update(1);
