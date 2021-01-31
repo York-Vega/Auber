@@ -15,7 +15,7 @@ public class TestAssets {
     "sprites/dinoSprites.atlas", "Map/Map.tmx", "skin/hudskin/comic-ui.atlas" };
 
   @Test
-  public void allAssetsAvailable() {
+  public void allAssetsAvailable() throws Exception {
     for (String asset : assets) {
       assertTrue("Error, could not find asset " + asset,
           Gdx.files.internal("assets/" + asset).exists());
