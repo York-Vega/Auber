@@ -84,7 +84,5 @@ public abstract class Character implements Serializable {
   }
 
   @Override
-  public void read(Json json, JsonValue jsonData) {
-    System.out.println("WARNENKK");
-  }
+  public void read(Json json, JsonValue jsonData) { }
 }

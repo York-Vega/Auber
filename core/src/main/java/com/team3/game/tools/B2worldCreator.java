@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -23,6 +24,14 @@ import com.team3.game.sprites.Teleport;
  */
 public class B2worldCreator {
 
+  public static void createWorld(World world, TiledMap map, Gameplay game) {
+    MapLayers layers = map.getLayers();
+
+    // Creates the player at the spawn point on the spawn layer of the map.
+    Rectangle point = ((RectangleMapObject) layers.get("spawn").getObjects().get(0)).getRectangle();
+    createWorld(world, map, game, new Vector2(point.getX(), point.getY()));
+  }
+
   /**
    * Creates all the interactive objects and hooks them into the world physics.
    *
@@ -30,7 +39,7 @@ public class B2worldCreator {
    * @param map   Map we should look for objects in
    * @param game  Gameplay
    */
-  public static void createWorld(World world, TiledMap map, Gameplay game) {
+  public static void createWorld(World world, TiledMap map, Gameplay game, Vector2 playerPosition) {
 
     BodyDef bdef = new BodyDef();
     PolygonShape shape = new PolygonShape();
@@ -54,9 +63,7 @@ public class B2worldCreator {
       body.setUserData("walls");
     }
 
-    // Creates the player at the spawn point on the spawn layer of the map.
-    Rectangle point = ((RectangleMapObject) layers.get("spawn").getObjects().get(0)).getRectangle();
-    Gameplay.player = new Player(world, point.x, point.y);
+    Gameplay.player = new Player(world, playerPosition.x, playerPosition.y);
 
     // Create teleport <- this is interactive tiled map object.
     for (MapObject object : layers.get("teleports").getObjects()) {

@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.team3.game.sprites.StationSystem;
 
 /**
@@ -142,4 +144,13 @@ public class Enemy extends AiCharacter {
   public boolean isArrested() {
     return mode.equals("arrested");
   }
+
+  @Override
+  public void write(Json json) {
+    super.write(json);
+    json.writeValue("target_system", targetSystem.getSystemName());
+  }
+
+  @Override
+  public void read(Json json, JsonValue jsonData) { }
 }

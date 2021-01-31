@@ -22,6 +22,8 @@ public class NpcManager implements Serializable {
 
   public World world;
   public TiledMap map;
+
+  // WHY IS THIS STATIC???
   public static ArrayList<Npc> npcs = new ArrayList<>();
   public static ArrayList<float[]> spawnPositions = new ArrayList<>();
 
@@ -33,20 +35,15 @@ public class NpcManager implements Serializable {
    * @param map The tiled map
    */
   public NpcManager(World world, TiledMap map) {
-
     this.world = world;
     this.map = map;
-    generate_initialPosition(map);
-    generateNpc(world);
+    generateInitialPositions();
   }
 
   /**
-   * Generate random spawn positions for NPC.
-
-   * @param map The world map to generate initial position
+   * Generate 20 random spawn locations for NPCs to use.
    */
-  public void generate_initialPosition(TiledMap map) {
-
+  public void generateInitialPositions() {
     MapLayer npcSpawn = map.getLayers().get("npcSpawns");
 
     while (spawnPositions.size() < 20) {
@@ -62,12 +59,9 @@ public class NpcManager implements Serializable {
   }
 
   /**
-   * Create NPC in box2D world and set initial destination for NPCs.
-
-   * @param world The game world
+   * Create NPCs in box2D world and set initial destination for NPCs.
    */
-  public void generateNpc(World world) {
-
+  public void generateNpcs() {
     int destcount = 1;
 
     for (int i = 0; i < spawnPositions.size(); i++) {
@@ -140,6 +134,8 @@ public class NpcManager implements Serializable {
 
   @Override
   public void read(Json json, JsonValue jsonData) {
+    System.out.println("ASJD");
+    // json.readValue()
   }
 
 

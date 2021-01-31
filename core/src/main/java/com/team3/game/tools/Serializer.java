@@ -3,9 +3,17 @@ package com.team3.game.tools;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.team3.game.GameMain;
+import com.team3.game.characters.ai.Enemy;
+import com.team3.game.characters.ai.EnemyManager;
+import com.team3.game.characters.ai.Npc;
+import com.team3.game.characters.ai.NpcManager;
 import com.team3.game.screen.Gameplay;
+import com.team3.game.sprites.StationSystem;
+
+import java.util.ArrayList;
 
 
 /**
@@ -56,9 +64,34 @@ public class Serializer {
       @SuppressWarnings("rawtypes")
       @Override
       public Gameplay read(Json json, JsonValue jsonData, Class type) {
-        Gameplay gameplay = new Gameplay(main);
-        System.out.println(json.toString());
-        System.out.println(jsonData.toString());
+        Gameplay gameplay = new Gameplay(main, true);
+        // System.out.println(jsonData.getChild("npc_manager").toString());
+
+        for (JsonValue systemData : jsonData.get("systems")) {
+          Gameplay.systems.stream()
+              .filter(system -> systemData.getString("name").equals(system.getSystemName()));
+        }
+
+        // TODO: Some NPCs don't have a path. Due to static vars somewhere
+        for (JsonValue npcData : jsonData.getChild("npc_manager")) {
+          JsonValue positionData = npcData.get("position");
+          Npc npc = new Npc(gameplay.world, positionData.get("x").asFloat(), 
+              positionData.get("y").asFloat());
+          npc.destX = npcData.get("dest_x").asFloat();
+          npc.destY = npcData.get("dest_y").asFloat();
+          npc.moveToDest();
+          NpcManager.npcs.add(npc);
+        }
+
+        for (JsonValue enemyData : jsonData.getChild("enemy_manager")) {
+          JsonValue positionData = enemyData.get("position");
+          Enemy enemy = new Enemy(gameplay.world, positionData.get("x").asFloat(), 
+              positionData.get("y").asFloat());
+          // Get system from name
+          // Set enemy target system to system
+          EnemyManager.enemies.add(enemy);
+        }
+
         return gameplay;
       }
     });

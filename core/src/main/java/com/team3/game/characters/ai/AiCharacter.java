@@ -175,18 +175,12 @@ public class AiCharacter extends Character {
       }
     }
 
-
-
     // Resets the path.
     this.path = new Path();
     this.pathFinder = new IndexedAStarPathFinder<Node>(Map.graph);
     pathIndex = 1;
 
-
     // A* search between character and destination.
-    System.out.println(startNode.toString());
-    System.out.println(endNode.toString());
-    System.out.println(path.toString());
     pathFinder.searchNodePath(startNode, endNode, new Distance(), path);
 
     // If the path is empty.
@@ -216,10 +210,7 @@ public class AiCharacter extends Character {
   @Override
   public void write(Json json) {
     super.write(json);
-    //json.writeValue("destinationX", destX);
-    //json.writeValue("destinationY", destY);
-    //json.writeValue("pathFinder", pathFinder);
-    //json.writeValue("path", path);
-    //json.writeValue("pathIndex", pathIndex);
+    json.writeValue("dest_x", destX);
+    json.writeValue("dest_y", destY);
   }
 }
