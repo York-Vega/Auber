@@ -69,8 +69,8 @@ public class AiCharacter extends Character {
    */
   @Override
   public void update(float delta)  {
-    Vector2 direction = this.decideDirection();
-    this.move(delta, direction);
+    Vector2 direction = decideDirection();
+    move(delta, direction);
     // position sprite properly within the box
     position.set(b2body.getPosition().x - size.x / 1,
         b2body.getPosition().y - size.y / 1 + 4);
