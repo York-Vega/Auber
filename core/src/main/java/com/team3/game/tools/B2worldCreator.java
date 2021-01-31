@@ -24,6 +24,13 @@ import com.team3.game.sprites.Teleport;
  */
 public class B2worldCreator {
 
+  /**
+   * Creates all the interactive objects and hooks them into the world physics.
+   *
+   * @param world Physics world objects should look for interactions in
+   * @param map   Map we should look for objects in
+   * @param game  Gameplay
+   */
   public static void createWorld(World world, TiledMap map, Gameplay game) {
     MapLayers layers = map.getLayers();
 
@@ -38,6 +45,7 @@ public class B2worldCreator {
    * @param world Physics world objects should look for interactions in
    * @param map   Map we should look for objects in
    * @param game  Gameplay
+   * @param playerPosition The position to initialise the player at
    */
   public static void createWorld(World world, TiledMap map, Gameplay game, Vector2 playerPosition) {
 
