@@ -15,6 +15,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Scaling;
 import com.team3.game.GameMain;
 import com.team3.game.tools.BackgroundRenderer;
 import com.team3.game.tools.Serializer;
@@ -31,6 +34,7 @@ public class MainMenu extends ScreenAdapter {
   private Skin skin;
   private SpriteBatch batch;
   private BackgroundRenderer backgroundRenderer;
+  private Texture instructionsTexture;
 
   /**
    * Creates an instantiated instance of the MainMenu screen.
@@ -41,6 +45,7 @@ public class MainMenu extends ScreenAdapter {
     this.batch = batch;
     atlas = new TextureAtlas("skin/hudskin/comic-ui.atlas");
     skin = new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json"), atlas);
+    instructionsTexture = new Texture(Gdx.files.internal("menu/instructions.png"));
 
     camera = new OrthographicCamera();
     camera.setToOrtho(false);
@@ -94,13 +99,20 @@ public class MainMenu extends ScreenAdapter {
       }
     });
 
+    // Game title
     Label title = new Label("Vega - Auber", skin);
+
+    // Instructions image
+    Image instructionsImage = new Image(instructionsTexture);
+    instructionsImage.setScaling(Scaling.fit);
 
     root.add(title);
     root.row();
     root.add(playButton);
     root.row();
     root.add(demoButton);
+    root.row();
+    root.add(instructionsImage);
 
     stage.addActor(root);
   }
