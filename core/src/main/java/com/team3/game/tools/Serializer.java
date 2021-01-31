@@ -3,7 +3,6 @@ package com.team3.game.tools;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.team3.game.GameMain;
 import com.team3.game.characters.ai.Enemy;
@@ -13,20 +12,18 @@ import com.team3.game.characters.ai.NpcManager;
 import com.team3.game.screen.Gameplay;
 import com.team3.game.sprites.StationSystem;
 
-import java.util.ArrayList;
-
 
 /**
- * Handle the serialization of a game state to and from JSON.
+ * Utility class that handles JSON serialization.
  **/
-public class Serializer {
+public final class Serializer {
   /**
    * Dump the current state of the world to a JSON string.
    *
    * @param pretty Whether to return a spaced and indented string or not
    * @return A JSON string representing the game state
    **/
-  public String dumpStr(Gameplay gameplay, boolean pretty) {
+  public static String dumpStr(Gameplay gameplay, boolean pretty) {
     Json json = new Json();
 
     if (pretty) {
@@ -41,7 +38,7 @@ public class Serializer {
    * @param fileName The name of the file to save to (excluding its json extension)
    * @param pretty Whether the file should be spaced and indented
    **/
-  public void toFile(String fileName, boolean pretty, Gameplay gameplay) {
+  public static void toFile(String fileName, boolean pretty, Gameplay gameplay) {
     FileHandle file = Gdx.files.local("saves/" + fileName + ".json");
     file.writeString(dumpStr(gameplay, pretty), false);
   }
@@ -52,7 +49,7 @@ public class Serializer {
    * @param fileName The name of the save file (excluding its json extension)
    * @return A gameplay object representing the loaded game state
    **/
-  public Gameplay fromFile(String fileName, final GameMain main) {
+  public static Gameplay fromFile(String fileName, final GameMain main) {
     Json json = new Json();
     json.setSerializer(Gameplay.class, new Json.Serializer<Gameplay>() {
       @SuppressWarnings("rawtypes")
@@ -68,17 +65,18 @@ public class Serializer {
         // System.out.println(jsonData.getChild("npc_manager").toString());
 
         for (JsonValue systemData : jsonData.get("systems")) {
-          Gameplay.systems.stream()
-              .filter(system -> systemData.getString("name").equals(system.getSystemName()));
+          StationSystem system = Gameplay.systems.stream()
+              .filter(currentSystem -> systemData.getString("name")
+                  .equals(currentSystem.getSystemName())).findFirst().get();
+          system.hp = systemData.getFloat("hp");
         }
 
-        // TODO: Some NPCs don't have a path. Due to static vars somewhere
         for (JsonValue npcData : jsonData.getChild("npc_manager")) {
           JsonValue positionData = npcData.get("position");
           Npc npc = new Npc(gameplay.world, positionData.get("x").asFloat(), 
               positionData.get("y").asFloat());
-          npc.destX = npcData.get("dest_x").asFloat();
-          npc.destY = npcData.get("dest_y").asFloat();
+          npc.destX = npcData.getFloat("dest_x");
+          npc.destY = npcData.getFloat("dest_y");
           npc.moveToDest();
           NpcManager.npcs.add(npc);
         }
@@ -87,8 +85,14 @@ public class Serializer {
           JsonValue positionData = enemyData.get("position");
           Enemy enemy = new Enemy(gameplay.world, positionData.get("x").asFloat(), 
               positionData.get("y").asFloat());
-          // Get system from name
-          // Set enemy target system to system
+
+          // Get the target system from the stored string
+          StationSystem targetSystem = Gameplay.systems.stream()
+              .filter(currentSystem -> enemyData.getString("target_system")
+                  .equals(currentSystem.getSystemName())).findFirst().get();
+
+          // Assign system target to enemy
+          enemy.set_target_system(targetSystem);
           EnemyManager.enemies.add(enemy);
         }
 
