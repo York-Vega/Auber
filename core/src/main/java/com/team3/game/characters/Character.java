@@ -35,7 +35,7 @@ public abstract class Character implements Serializable {
    * 
    * @param sprite The sprite the character should look like
    */
-  public Character(World world, float x, float y, CharacterRenderer.Sprite sprite)  {
+  public Character(World world, float x, float y, CharacterRenderer.Sprite sprite) {
     this.world = world;
     position = new Vector2(x, y);
     size = new Vector2(24, 24);
