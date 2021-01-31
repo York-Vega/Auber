@@ -38,8 +38,7 @@ public class Hud {
 
    * @param spriteBatch The GamePlay batch
    */
-  public Hud(final SpriteBatch spriteBatch) {
-
+  public Hud(final SpriteBatch spriteBatch, Gameplay gameplay) {
     // Create a new viewport and a fixed camera for the stage.
     viewport = new FitViewport(1280, 720, new OrthographicCamera());
     viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -62,7 +61,7 @@ public class Hud {
     // Create a setting menu.
     settingsMenu = new SettingsMenu();
     // Create and add a pause menu to the stage.
-    pauseMenu = new PauseMenu(settingsMenu);
+    pauseMenu = new PauseMenu(settingsMenu, gameplay);
     // Create a SystemStatusMenu instance.
     systemStatusMenu = new SystemStatusMenu();
     // Add teleport menu to the table

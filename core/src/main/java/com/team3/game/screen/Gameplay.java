@@ -32,6 +32,7 @@ import com.team3.game.tools.CharacterRenderer;
 import com.team3.game.tools.DoorControl;
 import com.team3.game.tools.LightControl;
 import com.team3.game.tools.ObjectContactListener;
+import com.team3.game.tools.Serializer;
 import com.team3.game.tools.TeleportProcess;
 import java.util.ArrayList;
 
@@ -71,13 +72,13 @@ public class Gameplay extends ScreenAdapter implements Serializable {
 
   private final TmxMapLoader maploader;
 
-  private final TiledMap map;
+  public final TiledMap map;
 
   private final OrthogonalTiledMapRenderer renderer;
 
   private final BackgroundRenderer backgroundRenderer;
 
-  private final World world;
+  public final World world;
 
   private boolean paused = false;
 
@@ -88,17 +89,17 @@ public class Gameplay extends ScreenAdapter implements Serializable {
    *
    * @param game The game object used in Libgdx
    */
-  public Gameplay(GameMain game) {
-    this(game, new Vector2(640, 360));
+  public Gameplay(GameMain game, boolean fromJson) {
+    this(game, new Vector2(640, 360), fromJson);
   }
 
   /**
    * Creates a new instantiated game.
    *
    * @param game       The game object used in Libgdx
-   * @param screenSize Size of the rendered game screen, doesn't effect screen size                
+   * @param screenSize Size of the rendered game screen, doesn't effect screen size
    */
-  protected Gameplay(GameMain game, Vector2 screenSize) {
+  public Gameplay(GameMain game, Vector2 screenSize, boolean fromJson) {
 
     this.game = game;
     // Create a box2D world.
@@ -124,7 +125,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     // Set the contact listener for the world.
     world.setContactListener(new ObjectContactListener());
     // Create HUD.
-    hud = new Hud(game.getBatch());
+    hud = new Hud(game.getBatch(), this);
     // TeleportMenu.
     teleportMenu = hud.teleportMenu;
     // HealthBar.
@@ -133,7 +134,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     teleportProcess = new TeleportProcess(teleportMenu, player, map);
     // System_status_menu
     systemStatusMenu = hud.systemStatusMenu;
-    // Generate all systems labels for status menu.
+    // Generate all ystems labels for status menu.
     systemStatusMenu.generate_systemLabels(systems);
     // Create arrest_status header.
     arrestedHeader = hud.arrestedHeader;
@@ -142,6 +143,10 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     // Create Npc_manager instance.
     npcManager = new NpcManager(world, map);
 
+    if (!fromJson) {
+      enemyManager.initialiseRandomEnemies();
+      npcManager.generateNpcs();
+    }
   }
 
   /**
@@ -287,7 +292,10 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     json.writeValue("npc_manager", npcManager);
   }
 
+  /**
+   * This is blank for a reason. For the JSON read method of Gameplay see
+   * {@link Serializer#fromFile}.
+   * */
   @Override
-  public void read(Json json, JsonValue jsonMap) {
-  }
+  public void read(Json json, JsonValue jsonMap) {}
 }

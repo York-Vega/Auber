@@ -43,9 +43,15 @@ public class EnemyManager implements Serializable {
     this.map = map;
     EnemyManager.systems = systems;
     information = new HashMap<>();
+  }
+
+  /**
+   * Initialise random enemies with random targets.
+   **/
+  public void initialiseRandomEnemies() {
     generate_spawn_position(map);
     generate_enemy(world);
-    initial_sabotageTarget(systems);
+    initialSabotageTarget(systems);
   }
 
   /**
@@ -92,7 +98,7 @@ public class EnemyManager implements Serializable {
    *
    * @param systems Arraylist stores system objects
    */
-  public void initial_sabotageTarget(ArrayList<StationSystem> systems) {
+  public void initialSabotageTarget(ArrayList<StationSystem> systems) {
 
     ArrayList<Integer> randomIndex = new ArrayList<>();
     // Generate random target positions.
@@ -102,7 +108,7 @@ public class EnemyManager implements Serializable {
       // Generate a index [0,15].
       int index = (int) (randomD * 15);
       // Take away healing pod for initial target, for difficulty.
-      while (randomIndex.contains(index) 
+      while (randomIndex.contains(index)
           && !systems.get(index).sysName.equals("headlingPod")) {
         randomD = Math.random();
         index = (int) (randomD * 15);
@@ -115,14 +121,13 @@ public class EnemyManager implements Serializable {
       int index = randomIndex.get(i);
       StationSystem sys = systems.get(index);
 
-      float endX = sys.getposition()[0];
-      float endY = sys.getposition()[1];
-
       Enemy enemy = enemies.get(i);
       // Set the target.
       enemy.set_target_system(sys);
       // Set the destination.
-      enemy.setDest(endX, endY);
+      enemy.setDest(
+          sys.getPosition()[0],
+          sys.getPosition()[1]);
       enemy.moveToDest();
       // Update the information hash table, avoid enemy targeting the same system.
       information.put(sys, enemy);
@@ -208,9 +213,10 @@ public class EnemyManager implements Serializable {
   public void generateNextTarget(Enemy enemy) {
     for (StationSystem system : systems) {
       if (!information.containsKey(system)) {
-        float endx = system.getposition()[0];
-        float endy = system.getposition()[1];
-        enemy.setDest(endx, endy);
+        enemy.setDest(
+            system.getPosition()[0],
+            system.getPosition()[1]
+        );
         enemy.set_target_system(system);
         information.put(system, enemy);
         enemy.moveToDest();
@@ -233,7 +239,5 @@ public class EnemyManager implements Serializable {
 
   @Override
   public void read(Json json, JsonValue jsonData) {
-    // TODO Auto-generated method stub
-    
   }
 }

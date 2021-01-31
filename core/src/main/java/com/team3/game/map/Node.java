@@ -32,5 +32,4 @@ public class Node {
   public void createEdge(Node toNode, float cost) {
     edges.add(new Edge(cost, this, toNode));
   }
-
 }

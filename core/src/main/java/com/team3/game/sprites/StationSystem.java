@@ -77,8 +77,8 @@ public class StationSystem extends InteractiveTileObject implements Serializable
     return (String) this.body.getUserData();
   }
 
-  public float[] getposition() {
-    return new float[]{this.body.getPosition().x, this.body.getPosition().y};
+  public float[] getPosition() {
+    return new float[] {this.body.getPosition().x, this.body.getPosition().y};
   }
 
   /**
