@@ -32,6 +32,7 @@ import com.team3.game.tools.CharacterRenderer;
 import com.team3.game.tools.DoorControl;
 import com.team3.game.tools.LightControl;
 import com.team3.game.tools.ObjectContactListener;
+import com.team3.game.tools.Serializer;
 import com.team3.game.tools.TeleportProcess;
 import java.util.ArrayList;
 
@@ -124,7 +125,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     // Set the contact listener for the world.
     world.setContactListener(new ObjectContactListener());
     // Create HUD.
-    hud = new Hud(game.getBatch());
+    hud = new Hud(game.getBatch(), this);
     // TeleportMenu.
     teleportMenu = hud.teleportMenu;
     // HealthBar.
