@@ -1,6 +1,7 @@
 :root {
   --color-1: #F8F8F8;
   --color-2: #181328;
+  --cubed-color: #040c22;
 }
 
 body {
@@ -24,6 +25,38 @@ h6 {
 
 h1 {
   font-size: 5em;
+}
+
+footer {
+  background-color: var(--cubed-color);
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer img {
+  width: 50px;
+  padding: 3px;
+}
+
+#old-group {
+  padding-right: 20px;
+  border-right: 1px solid;
+}
+
+#new-group {
+  padding-left: 20px;
+}
+
+#footer-studios {
+  text-transform: uppercase;
+  letter-spacing: 3px;
 }
 
 #title-div {
