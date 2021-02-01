@@ -32,9 +32,9 @@ public class SystemStatusMenu extends VerticalGroup {
     setFillParent(true);
 
     // Sabotage count label to display number of sabotaged systems.
-    sabotageCount = new Label("SABOTAGED:0/17", myskin, "title");
+    sabotageCount = new Label("SABOTAGED: 0/17", myskin, "title");
     sabotageCount.setName("SABOTAGED:");
-    sabotageCount.getStyle().font.getData().setScale(.45f, .45f);
+    sabotageCount.getStyle().font.getData().setScale(.5f, .5f);
 
     addActor(sabotageCount);
 
@@ -51,12 +51,12 @@ public class SystemStatusMenu extends VerticalGroup {
    */
   public void generate_systemLabels(ArrayList<StationSystem> systems) {
     for (StationSystem system : systems) {
-      Label sys = new Label(system.getSystemName(), myskin, "alt");
+      Label sys = new Label(system.getSystemName(), myskin, "title");
       sys.setColor(Color.WHITE);
       // setName to store name if enemy stop sabotaging, change the label text back to normal.
       sys.setName(system.getSystemName());
       // Scale the font size.
-      sys.getStyle().font.getData().setScale(.8f, .8f);
+      sys.getStyle().font.getData().setScale(.35f, .35f);
       addActor(sys);
       // Build hashmap for system and menu.
       statusMap.put(system, sys);
@@ -79,7 +79,7 @@ public class SystemStatusMenu extends VerticalGroup {
       if (system.is_sabotaging()) {
 
         sysLabel.setColor(Color.RED);
-        sysLabel.setText(system.sysName + ": Under Attack" + ": (" + system.hp + "%)");
+        sysLabel.setText(system.sysName + ": Under Attack" + ": (" + Math.round(system.hp) + "%)");
 
       }
       // If system is sabotaged, label should go gray.
@@ -87,14 +87,14 @@ public class SystemStatusMenu extends VerticalGroup {
         // Already sabotaged.
         if (sysLabel.getColor().equals(Color.GRAY)) {
 
-          sysLabel.setText(system.sysName + ": Sabotaged(" + system.hp + "%)");
+          sysLabel.setText(system.sysName + ": Sabotaged(" + Math.round(system.hp) + "%)");
 
         } else {
-          sysLabel.setText(system.sysName + ": Sabotaged("  + system.hp + "%)");
+          sysLabel.setText(system.sysName + ": Sabotaged("  + Math.round(system.hp) + "%)");
           sysLabel.setColor(Color.GRAY);
           // Update sabotaged count.
           count += 1;
-          sabotageCount.setText(sabotageCount.getName() + count + "/17");
+          sabotageCount.setText(sabotageCount.getName() + " " + count + "/17");
           if (count >= 10) {
             // If system sabotaged over 10, change color of title to red.
             sabotageCount.setColor(Color.RED);
@@ -105,7 +105,7 @@ public class SystemStatusMenu extends VerticalGroup {
       // If system not being sabotaging or enemy stop sabotaging label should back to normal.
       if (system.is_not_sabotaged()) {
         sysLabel.setColor(Color.WHITE);
-        sysLabel.setText(system.sysName + ": (" + system.hp + "%)");
+        sysLabel.setText(system.sysName + ": (" + Math.round(system.hp) + "%)");
       }
     }
   }

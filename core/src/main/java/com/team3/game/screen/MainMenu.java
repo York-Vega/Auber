@@ -72,13 +72,13 @@ public class MainMenu extends ScreenAdapter {
     root.setFillParent(true);
     root.center();
 
-    // Main play button (others can be added easily as needed).
-    TextButton playButton = new TextButton("Play", skin);
-    TextButton demoButton = new TextButton("Demo", skin);
+    // New Game Buttons (Three difficulties)
+    TextButton newEasyButton = new TextButton("New Game (Easy)", skin);
+    TextButton newMediumButton = new TextButton("New Game (Medium)", skin);
+    TextButton newHardButton = new TextButton("New Game (Hard)", skin);
 
-    // Creates a listener to listen for clicks on the button,
-    // when button is clicked start an instance of Gameplay to start playing the game.
-    playButton.addListener(new ClickListener() {
+    //TODO Start game on three different difficulties depending on which button is clicked (helper function required)
+    newEasyButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
         GameMain game = (GameMain) Gdx.app.getApplicationListener();
@@ -86,6 +86,38 @@ public class MainMenu extends ScreenAdapter {
         game.setScreen(gameplay);
       }
     });
+
+    newMediumButton.addListener(new ClickListener() {
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+        GameMain game = (GameMain) Gdx.app.getApplicationListener();
+        Gameplay gameplay = new Gameplay(game, false);
+        game.setScreen(gameplay);
+      }
+    });
+
+    newHardButton.addListener(new ClickListener() {
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+        GameMain game = (GameMain) Gdx.app.getApplicationListener();
+        Gameplay gameplay = new Gameplay(game, false);
+        game.setScreen(gameplay);
+      }
+    });
+
+    // Continue Game Button
+    TextButton continueButton = new TextButton("Continue Game", skin);
+    newEasyButton.addListener(new ClickListener() {
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+
+        //TODO Daniel, load game instance here
+
+      }
+    });
+
+    // Demo button
+    TextButton demoButton = new TextButton("Demo", skin);
     demoButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
@@ -103,7 +135,13 @@ public class MainMenu extends ScreenAdapter {
 
     root.add(title);
     root.row();
-    root.add(playButton);
+    root.add(newEasyButton);
+    root.row();
+    root.add(newMediumButton);
+    root.row();
+    root.add(newHardButton);
+    root.row();
+    root.add(continueButton);
     root.row();
     root.add(demoButton);
     root.row();
