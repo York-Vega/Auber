@@ -72,7 +72,7 @@ public class AiCharacter extends Character {
     Vector2 direction = decideDirection();
     move(delta, direction);
     // position sprite properly within the box
-    position.set(b2body.getPosition().x - size.x,
+    position.set(b2body.getPosition().x - size.x / 1,
         b2body.getPosition().y - size.y / 1 + 4);
 
     renderer.update(delta, direction);
