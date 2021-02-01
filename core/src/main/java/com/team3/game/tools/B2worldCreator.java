@@ -17,6 +17,7 @@ import com.team3.game.sprites.Door;
 import com.team3.game.sprites.Jail;
 import com.team3.game.sprites.StationSystem;
 import com.team3.game.sprites.Teleport;
+import com.team3.game.sprites.Powerup;
 
 
 /**
@@ -78,6 +79,13 @@ public class B2worldCreator {
       Rectangle rect = ((RectangleMapObject) object).getRectangle();
       // Create a new instantiated Teleport object.
       new Teleport(world, map, rect, object.getName());
+    }
+
+    // Create powerup <- this is interactive tiled map object.
+    for (MapObject object : layers.get("powerups").getObjects()) {
+      Rectangle rect = ((RectangleMapObject) object).getRectangle();
+      // Create a new instantiated Powerup object.
+      new Powerup(world, map, rect, object.getName());
     }
 
     // Create systems <- this is interactive tiled map object.

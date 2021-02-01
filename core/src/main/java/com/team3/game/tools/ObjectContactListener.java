@@ -20,14 +20,21 @@ public class ObjectContactListener implements ContactListener {
   // Regex to determine whether contact object is a teleport or not.
   private final String teleportPattern = ".*teleporter.*";
   private boolean isTeleport;
-  // Regex to determine whether contact object is a healing pod or not.
-  private final String healingPattern = ".*healingPod.*";
-  private boolean isHealingPod;
+
+  // Regex to determine whether contact object is a powerup or not.
+  private final String powerupPattern = ".*powerup.*";
+  private boolean isPowerup;
+
+  // Regex to determine type of powerup
+  private final String powerup1Pattern = ".*speed.*";
+  private final String powerup2Pattern = ".*vision.*";
 
   private final String systemPattern = ".*system.*";
   private final String infiltratorsPattern = ".*Infiltrators.*";
 
-
+  // Regex to determine whether contact object is a healing pod or not.
+  private final String healingPattern = ".*healingPod.*";
+  private boolean isHealingPod;
 
   /**
    * If auber has contact with the teleport, the auber's userData to ready_to_teleport, 
@@ -49,13 +56,26 @@ public class ObjectContactListener implements ContactListener {
 
     // Use reg to check whether the object contacted is a teleporter or not.
     isTeleport = Pattern.matches(teleportPattern, fixB.getBody().getUserData().toString());
+    // Use reg to check whether the object contacted is a powerup.
+    isPowerup = Pattern.matches(powerupPattern, fixB.getBody().getUserData().toString());
     // Use reg to check whether the object contacted is a healpod.
     isHealingPod = Pattern.matches(healingPattern, fixB.getBody().getUserData().toString());
 
     // Only auber contact with teleport will be listened.
     if (isTeleport && fixA.getBody().getUserData() == "auber")  {
+
+      System.out.print("tele");
+
       // Set the player.UserData to ready_to_teleport for teleport process.
       fixA.getBody().setUserData("ready_to_teleport");
+    }
+
+    // Only auber contact with powerup will be listened.
+    if (isPowerup && fixA.getBody().getUserData() == "auber")  {
+
+      fixB.getBody().setUserData("picked_up");
+      System.out.print("prup");
+
     }
 
     // If auber contact with healing pod and healing pod is not sabotaged.

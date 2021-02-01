@@ -134,7 +134,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     teleportProcess = new TeleportProcess(teleportMenu, player, map);
     // System_status_menu
     systemStatusMenu = hud.systemStatusMenu;
-    // Generate all ystems labels for status menu.
+    // Generate all systems labels for status menu.
     systemStatusMenu.generate_systemLabels(systems);
     // Create arrest_status header.
     arrestedHeader = hud.arrestedHeader;
