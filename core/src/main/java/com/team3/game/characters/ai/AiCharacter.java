@@ -72,7 +72,7 @@ public class AiCharacter extends Character {
     Vector2 direction = decideDirection();
     move(delta, direction);
     // position sprite properly within the box
-    position.set(b2body.getPosition().x - size.x / 1,
+    position.set(b2body.getPosition().x - size.x,
         b2body.getPosition().y - size.y / 1 + 4);
 
     renderer.update(delta, direction);
@@ -105,6 +105,10 @@ public class AiCharacter extends Character {
 
       float x = this.b2body.getPosition().x;
       float y = this.b2body.getPosition().y;
+
+      System.out.println("---");
+      System.out.println(targetX - x);
+      System.out.println(targetY - y);
 
       float xcomp = 0;
       float ycomp = 0;
@@ -159,8 +163,6 @@ public class AiCharacter extends Character {
    * @return True if there is a path between character and destination, false otherwise
    */
   public boolean goTo(float x, float y) {
-
-
     Vector2 position = this.b2body.getPosition();
 
     Node startNode = Map.graph.getNodeByXy((int) position.x, (int) position.y);
