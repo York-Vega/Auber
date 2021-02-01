@@ -28,9 +28,4 @@ public class Powerup extends InteractiveTileObject {
         this.fixture.setSensor(true);
     }
 
-    public void pickup() {
-        System.out.println("picked up");
-        this.fixture.setSensor(false);
-    }
-
 }

@@ -28,6 +28,9 @@ public class ObjectContactListener implements ContactListener {
   // Regex to determine type of powerup
   private final String powerup1Pattern = ".*speed.*";
   private final String powerup2Pattern = ".*vision.*";
+  private final String powerup3Pattern = ".*repair.*";
+  private final String powerup4Pattern = ".*heal.*";
+  private final String powerup5Pattern = ".*arrest.*";
 
   private final String systemPattern = ".*system.*";
   private final String infiltratorsPattern = ".*Infiltrators.*";
@@ -64,8 +67,6 @@ public class ObjectContactListener implements ContactListener {
     // Only auber contact with teleport will be listened.
     if (isTeleport && fixA.getBody().getUserData() == "auber")  {
 
-      System.out.print("tele");
-
       // Set the player.UserData to ready_to_teleport for teleport process.
       fixA.getBody().setUserData("ready_to_teleport");
     }
@@ -73,8 +74,29 @@ public class ObjectContactListener implements ContactListener {
     // Only auber contact with powerup will be listened.
     if (isPowerup && fixA.getBody().getUserData() == "auber")  {
 
-      fixB.getBody().setUserData("picked_up");
-      System.out.print("prup");
+      if (Pattern.matches(powerup1Pattern, fixB.getBody().getUserData().toString())) {
+        //TODO powerup1 SPEED add to inventory
+        fixB.getBody().setUserData("speed");
+        System.out.print("speed");
+      } else if (Pattern.matches(powerup2Pattern, fixB.getBody().getUserData().toString())) {
+        //TODO powerup2 VISION add to inventory
+        fixB.getBody().setUserData("vision");
+        System.out.print("vision");
+      } else if (Pattern.matches(powerup3Pattern, fixB.getBody().getUserData().toString())) {
+        //TODO powerup3 REPAIR add to inventory
+        fixB.getBody().setUserData("repair");
+        System.out.print("repair");
+      } else if (Pattern.matches(powerup4Pattern, fixB.getBody().getUserData().toString())) {
+        //TODO powerup3 HEAL add to inventory
+        fixB.getBody().setUserData("heal");
+        System.out.print("heal");
+      } else if (Pattern.matches(powerup5Pattern, fixB.getBody().getUserData().toString())) {
+        //TODO powerup3 ARREST add to inventory
+        fixB.getBody().setUserData("arrest");
+        System.out.print("arrest");
+      }
+
+      System.out.print("picked up!");
 
     }
 

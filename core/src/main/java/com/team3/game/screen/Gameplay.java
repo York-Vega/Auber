@@ -20,10 +20,7 @@ import com.team3.game.characters.Player;
 import com.team3.game.characters.ai.EnemyManager;
 import com.team3.game.characters.ai.NpcManager;
 import com.team3.game.map.Map;
-import com.team3.game.screen.actors.ArrestedHeader;
-import com.team3.game.screen.actors.HealthBar;
-import com.team3.game.screen.actors.SystemStatusMenu;
-import com.team3.game.screen.actors.TeleportMenu;
+import com.team3.game.screen.actors.*;
 import com.team3.game.sprites.Door;
 import com.team3.game.sprites.StationSystem;
 import com.team3.game.tools.B2worldCreator;
@@ -67,6 +64,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
   public TeleportMenu teleportMenu;
 
   public SystemStatusMenu systemStatusMenu;
+
+  public PowerupMenu powerupStatusMenu;
 
   public ArrestedHeader arrestedHeader;
 
@@ -134,6 +133,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     teleportProcess = new TeleportProcess(teleportMenu, player, map);
     // System_status_menu
     systemStatusMenu = hud.systemStatusMenu;
+    // PowerupMenu
+    powerupStatusMenu = hud.powerupMenu;
     // Generate all systems labels for status menu.
     systemStatusMenu.generate_systemLabels(systems);
     // Create arrest_status header.
@@ -166,6 +167,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     enemyManager.update_enemy(delta);
     npcManager.updateNpc(delta);
     systemStatusMenu.update_status(systems);
+    powerupStatusMenu.update_powerup_status(player.currentPowerup);
     arrestedHeader.update_Arrested(player);
     // If escape is pressed pause the game.
     if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
