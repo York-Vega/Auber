@@ -73,14 +73,27 @@ public class MainMenu extends ScreenAdapter {
     root.center();
 
     // Main play button (others can be added easily as needed).
-    TextButton playButton = new TextButton("Play", skin);
-    TextButton demoButton = new TextButton("Demo", skin);
     final GameMain game = (GameMain) Gdx.app.getApplicationListener();
 
     // New Game Buttons (Three difficulties)
+
     TextButton newEasyButton = new TextButton("New Game (Easy)", skin);
+    newEasyButton.addListener(new ClickListener() {
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+        Gameplay gameplay = new Gameplay(game, false);
+        game.setScreen(gameplay);
+      }
+    });
+
     TextButton newMediumButton = new TextButton("New Game (Medium)", skin);
-    TextButton newHardButton = new TextButton("New Game (Hard)", skin);
+    newMediumButton.addListener(new ClickListener() {
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+        Gameplay gameplay = new Gameplay(game, false);
+        game.setScreen(gameplay);
+      }
+    });
 
     newEasyButton.addListener(new ClickListener() {
       @Override
@@ -90,19 +103,20 @@ public class MainMenu extends ScreenAdapter {
       }
     });
 
+    TextButton newHardButton = new TextButton("New Game (Hard)", skin);
     newMediumButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
+        GameMain game = (GameMain) Gdx.app.getApplicationListener();
         Gameplay gameplay = new Gameplay(game, false);
         game.setScreen(gameplay);
       }
     });
 
-    // Creates a listener to listen for clicks on the button,
-    // when button is clicked start an instance of Gameplay to start playing the game.
-    playButton.addListener(new ClickListener() {
+    newHardButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
+        GameMain game = (GameMain) Gdx.app.getApplicationListener();
         Gameplay gameplay = new Gameplay(game, false);
         game.setScreen(gameplay);
       }
@@ -136,7 +150,13 @@ public class MainMenu extends ScreenAdapter {
 
     root.add(title);
     root.row();
-    root.add(playButton);
+    root.add(newEasyButton);
+    root.row();
+    root.add(newMediumButton);
+    root.row();
+    root.add(newHardButton);
+    root.row();
+    root.add(continueButton);
     root.row();
     root.add(demoButton);
     root.row();

@@ -19,7 +19,8 @@ public class HealthBar extends ProgressBar {
   public HealthBar() {
     super(0, 100, .5f, false, new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json")));
     setAnimateDuration(1.5f);
-    hpText = new Label("HP", new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json")));
+    hpText = new Label("HP", new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json")), "title");
+    hpText.getStyle().font.getData().setScale(.5f, .5f);
   }
 
   /**
