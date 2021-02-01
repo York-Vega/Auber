@@ -77,7 +77,6 @@ public class MainMenu extends ScreenAdapter {
     TextButton newMediumButton = new TextButton("New Game (Medium)", skin);
     TextButton newHardButton = new TextButton("New Game (Hard)", skin);
 
-    //TODO Start game on three different difficulties depending on which button is clicked (helper function required)
     newEasyButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
@@ -107,7 +106,7 @@ public class MainMenu extends ScreenAdapter {
 
     // Continue Game Button
     TextButton continueButton = new TextButton("Continue Game", skin);
-    newEasyButton.addListener(new ClickListener() {
+    continueButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
 
