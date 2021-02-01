@@ -93,6 +93,10 @@ public final class Serializer {
 
           // Assign system target to enemy
           enemy.set_target_system(targetSystem);
+
+          // Set the enemies "mode"
+          enemy.mode = enemyData.getString("mode");
+
           EnemyManager.enemies.add(enemy);
         }
 
