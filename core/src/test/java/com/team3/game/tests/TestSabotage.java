@@ -2,7 +2,6 @@ package com.team3.game.tests;
 
 import static org.junit.Assert.assertTrue;
 
-import java.lang.Math;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
@@ -52,7 +51,7 @@ public class TestSabotage {
     StationSystem system = new StationSystem(world, map, new Rectangle(0, 0, 0, 0), "healingPod");
 
     //action of sabotage, should result in the system being sabotaged
-    while (system.hp >= 0) {
+    while (system.hp > 0) {
       enemy.sabotage(system);
     }
 
