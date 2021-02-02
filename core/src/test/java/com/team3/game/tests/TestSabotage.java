@@ -2,7 +2,6 @@ package com.team3.game.tests;
 
 import static org.junit.Assert.assertTrue;
 
-import java.lang.Math;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
