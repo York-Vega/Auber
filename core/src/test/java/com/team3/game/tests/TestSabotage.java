@@ -2,6 +2,7 @@ package com.team3.game.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -20,9 +21,9 @@ import org.junit.runner.RunWith;
 public class TestSabotage { 
   
   @Test
-  public void testSabotage() {
+  public void testDealDamage() {
 
-    //Instantiating necessary values to test sabotage
+    //Instantiating necessary values to test
     CharacterRenderer.loadTextures();
     TmxMapLoader maploader = new TmxMapLoader();
     TiledMap map = maploader.load("Map/Map.tmx");
@@ -37,6 +38,26 @@ public class TestSabotage {
     //test to see if damage matches the expected value, and if damage was dealt at all
     assertEquals("Unexpected value in system health", (double)system.hp, 99.5, 0);
     assertFalse("No damage was dealt", system.hp == 100);
+
+  }
+
+  @Test
+  public void TestCompleteDestruction() {
+    
+    //Instantiating necessary values to test
+    CharacterRenderer.loadTextures();
+    TmxMapLoader maploader = new TmxMapLoader();
+    TiledMap map = maploader.load("Map/Map.tmx");
+    Map.create(map);
+    World world = new World(new Vector2(0, 0), true);
+    Enemy enemy = new Enemy(world, 0, 0);
+    StationSystem system = new StationSystem(world, map, new Rectangle(0, 0, 0, 0), "healingPod");
+
+    //action of sabotage, should result in the system being sabotaged
+    while (system.hp != 0) enemy.sabotage(system);
+
+    //test to see if the system is sabotaged
+    assertTrue("System is not sabotaged", system.is_sabotaged());
 
   }
 }
