@@ -52,7 +52,7 @@ public class TestSabotage {
     StationSystem system = new StationSystem(world, map, new Rectangle(0, 0, 0, 0), "healingPod");
 
     //action of sabotage, should result in the system being sabotaged
-    while (system.hp >= 0) {
+    while (system.hp > 0) {
       enemy.sabotage(system);
     }
 
