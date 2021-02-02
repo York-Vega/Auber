@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 public class TestWin {
     
   @Test
-  public void testWin(){
-      
+  public void testWinCondition() throws Exception {
+    
   }
 }
