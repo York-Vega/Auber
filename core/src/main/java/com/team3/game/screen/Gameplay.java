@@ -97,7 +97,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
    * Creates a new instantiated game.
    *
    * @param game       The game object used in Libgdx
-   * @param screenSize Size of the rendered game screen, doesn't effect screen size
+   * @param screenSize Size of the rendered game screen, doesn't affect screen size
    */
   public Gameplay(GameMain game, Vector2 screenSize, boolean fromJson) {
 
