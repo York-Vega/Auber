@@ -36,7 +36,7 @@ public class TestSabotage {
     enemy.sabotage(system);
 
     //test to see if damage matches the expected value, and if damage was dealt at all
-    assertEquals("Unexpected value in system health", system.hp, 99.5, 0);
+    assertEquals("Unexpected value in system health", system.hp, 99.5, 0.01);
     assertFalse("No damage was dealt", system.hp == 100);
 
   }
