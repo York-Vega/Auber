@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.GameMain;
 import com.team3.game.tools.BackgroundRenderer;
+import com.team3.game.tools.Serializer;
 
 /**
  * MainMenu.
