@@ -55,7 +55,7 @@ public class TestSabotage {
 
     //action of sabotage, should result in the system being sabotaged
     while (system.hp != 0) {
-        enemy.sabotage(system);
+      enemy.sabotage(system);
     }
 
     //test to see if the system is sabotaged
