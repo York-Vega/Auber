@@ -58,11 +58,18 @@ public class Enemy extends AiCharacter {
   @Override
   public void update(float delta) {
     super.update(delta);
+    System.out.println(isMoving());
 
     ability.update(delta, this);
     if (!ability.inUse) {
       usingAbility = false;
     }
+    System.out.println("---");
+    System.out.println(position.x);
+    System.out.println(destX);
+    System.out.println(position.y);
+    System.out.println(destY);
+    System.out.println("---");
   }
 
   /**
