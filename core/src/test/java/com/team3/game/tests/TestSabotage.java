@@ -34,8 +34,7 @@ public class TestSabotage {
     enemy.sabotage(system);
 
     //test to see if damage if damage was dealt
-    assertTrue("No damage was dealt to the system", Math.round(system.hp) != 100);
-
+    assertTrue("No damage was dealt to the system", system.hp < 100);
   }
 
   @Test
