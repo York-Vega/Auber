@@ -149,6 +149,7 @@ public class Enemy extends AiCharacter {
   public void write(Json json) {
     super.write(json);
     json.writeValue("target_system", targetSystem.getSystemName());
+    json.writeValue("mode", mode);
   }
 
   @Override
