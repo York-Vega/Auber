@@ -2,6 +2,7 @@ package com.team3.game.tests;
 
 import static org.junit.Assert.assertTrue;
 
+import java.lang.Math;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
@@ -14,7 +15,6 @@ import com.team3.game.sprites.StationSystem;
 import com.team3.game.tools.CharacterRenderer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import java.lang.Math;
 
 @RunWith(GdxTestRunner.class)
 public class TestSabotage { 
