@@ -106,10 +106,6 @@ public class AiCharacter extends Character {
       float x = this.b2body.getPosition().x;
       float y = this.b2body.getPosition().y;
 
-      System.out.println("---");
-      System.out.println(targetX - x);
-      System.out.println(targetY - y);
-
       float xcomp = 0;
       float ycomp = 0;
 

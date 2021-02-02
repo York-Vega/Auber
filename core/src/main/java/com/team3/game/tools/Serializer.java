@@ -62,7 +62,6 @@ public final class Serializer {
       @Override
       public Gameplay read(Json json, JsonValue jsonData, Class type) {
         Gameplay gameplay = new Gameplay(main, true);
-        // System.out.println(jsonData.getChild("npc_manager").toString());
 
         for (JsonValue systemData : jsonData.get("systems")) {
           StationSystem system = Gameplay.systems.stream()
