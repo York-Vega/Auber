@@ -34,9 +34,8 @@ public class TestSabotage {
     //action of sabotage, should result in damage being dealt once
     enemy.sabotage(system);
 
-    //test to see if damage matches the expected value, and if damage was dealt at all
-    assertTrue("Unexpected value in system health", Math.round(system.hp) == 99);
-    assertTrue("No damage was dealt", Math.round(system.hp) != 100);
+    //test to see if damage if damage was dealt
+    assertTrue("No damage was dealt to the system", Math.round(system.hp) != 100);
 
   }
 
