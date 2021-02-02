@@ -85,21 +85,32 @@ public final class Serializer {
           NpcManager.npcs.add(npc);
         }
 
+        // This isn't bound to anything because of the interesting use of static
+        new EnemyManager(gameplay.world, gameplay.map, Gameplay.systems);
+
         for (JsonValue enemyData : jsonData.getChild("enemy_manager")) {
-          JsonValue positionData = enemyData.get("position");
-          Enemy enemy = new Enemy(gameplay.world, positionData.get("x").asFloat(), 
-              positionData.get("y").asFloat());
+          Enemy enemy = new Enemy(gameplay.world, enemyData.get("dest_x").asFloat(), 
+              enemyData.get("dest_y").asFloat());
 
           // Get the target system from the stored string
           StationSystem targetSystem = Gameplay.systems.stream()
               .filter(currentSystem -> enemyData.getString("target_system")
                   .equals(currentSystem.getSystemName())).findFirst().get();
+          
+          EnemyManager.information.put(targetSystem, enemy);
+
+          JsonValue positionData = enemyData.get("position");
+          enemy.position.x = positionData.getFloat("x");
+          enemy.position.y = positionData.getFloat("y");
 
           // Assign system target to enemy
           enemy.set_target_system(targetSystem);
+          enemy.moveToDest();
 
           // Set the enemies "mode"
           enemy.mode = enemyData.getString("mode");
+          System.out.println(enemy.mode);
+          System.out.println(enemy.get_target_system().sysName);
 
           EnemyManager.enemies.add(enemy);
         }

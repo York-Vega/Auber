@@ -21,7 +21,7 @@ public abstract class Character implements Serializable {
   public float speed = 60f;
 
   protected CharacterRenderer renderer;
-  protected Vector2 position;
+  public Vector2 position;
   public Vector2 size;
 
   /**
