@@ -22,7 +22,7 @@ public abstract class Character implements Serializable {
 
   protected CharacterRenderer renderer;
   protected Vector2 position;
-  protected Vector2 size;
+  public Vector2 size;
 
   /**
    * Creates an semi-initialized player the physics body is still uninitiated.

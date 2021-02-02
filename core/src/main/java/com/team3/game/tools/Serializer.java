@@ -63,6 +63,11 @@ public final class Serializer {
       public Gameplay read(Json json, JsonValue jsonData, Class type) {
         Gameplay gameplay = new Gameplay(main, true);
 
+        JsonValue playerPositionData = jsonData.get("player").get("position");
+        Gameplay.player.b2body.setTransform(
+            playerPositionData.getFloat("x") + Gameplay.player.size.x,
+            playerPositionData.getFloat("y") + Gameplay.player.size.y, 0);
+
         for (JsonValue systemData : jsonData.get("systems")) {
           StationSystem system = Gameplay.systems.stream()
               .filter(currentSystem -> systemData.getString("name")

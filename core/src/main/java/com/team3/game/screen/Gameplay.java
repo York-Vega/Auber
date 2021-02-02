@@ -290,6 +290,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     json.writeValue("systems", systems);
     json.writeValue("enemy_manager", enemyManager);
     json.writeValue("npc_manager", npcManager);
+    json.writeValue("player", player);
   }
 
   /**
