@@ -18,7 +18,7 @@ import org.junit.runner.RunWith;
 public class TestArrest { 
   
   @Test
-  public void testArrest() {
+  public void testArrestInfiltrator() throws Exception {
     CharacterRenderer.loadTextures();
     TmxMapLoader maploader = new TmxMapLoader();
     TiledMap map = maploader.load("Map/Map.tmx");
