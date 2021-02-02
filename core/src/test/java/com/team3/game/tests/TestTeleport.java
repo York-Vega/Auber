@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 public class TestTeleport {
     
   @Test
-  public void testTeleport(){
+  public void testTeleportAbility() throws Exception {
       
   }
 }

@@ -72,7 +72,6 @@ public class MainMenu extends ScreenAdapter {
     root.setFillParent(true);
     root.center();
 
-    // Main play button (others can be added easily as needed).
     final GameMain game = (GameMain) Gdx.app.getApplicationListener();
 
     // New Game Buttons (Three difficulties)
@@ -95,28 +94,10 @@ public class MainMenu extends ScreenAdapter {
       }
     });
 
-    newEasyButton.addListener(new ClickListener() {
-      @Override
-      public void clicked(InputEvent event, float x, float y) {
-        Gameplay gameplay = new Gameplay(game, false);
-        game.setScreen(gameplay);
-      }
-    });
-
     TextButton newHardButton = new TextButton("New Game (Hard)", skin);
-    newMediumButton.addListener(new ClickListener() {
-      @Override
-      public void clicked(InputEvent event, float x, float y) {
-        GameMain game = (GameMain) Gdx.app.getApplicationListener();
-        Gameplay gameplay = new Gameplay(game, false);
-        game.setScreen(gameplay);
-      }
-    });
-
     newHardButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        GameMain game = (GameMain) Gdx.app.getApplicationListener();
         Gameplay gameplay = new Gameplay(game, false);
         game.setScreen(gameplay);
       }
@@ -194,3 +175,4 @@ public class MainMenu extends ScreenAdapter {
     atlas.dispose();
   }
 }
+

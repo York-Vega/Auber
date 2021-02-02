@@ -35,7 +35,7 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner
   private Map<FrameworkMethod, RunNotifier> invokeInRender = 
       new HashMap<FrameworkMethod, RunNotifier>();
 
-  protected Application game;
+  protected Application app;
 
   /**
    * Creates a headless application using OpenGL.
@@ -47,7 +47,7 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner
     super(klass);
     HeadlessApplicationConfiguration conf = new HeadlessApplicationConfiguration();
 
-    game = new HeadlessApplication(this, conf);
+    app = new HeadlessApplication(this, conf);
     Gdx.gl = mock(GL20.class);
 
   }

@@ -133,10 +133,7 @@ public class NpcManager implements Serializable {
   }
 
   @Override
-  public void read(Json json, JsonValue jsonData) {
-    System.out.println("ASJD");
-    // json.readValue()
-  }
+  public void read(Json json, JsonValue jsonData) { }
 
 
 }
