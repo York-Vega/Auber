@@ -1,7 +1,5 @@
 package com.team3.game.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -16,6 +14,7 @@ import com.team3.game.sprites.StationSystem;
 import com.team3.game.tools.CharacterRenderer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import java.lang.Math;
 
 @RunWith(GdxTestRunner.class)
 public class TestSabotage { 
@@ -36,8 +35,8 @@ public class TestSabotage {
     enemy.sabotage(system);
 
     //test to see if damage matches the expected value, and if damage was dealt at all
-    assertTrue("Unexpected value in system health", system.hp == 99.5);
-    assertFalse("No damage was dealt", system.hp == 100);
+    assertTrue("Unexpected value in system health", Math.round(system.hp) == 99);
+    assertTrue("No damage was dealt", Math.round(system.hp) != 100);
 
   }
 
