@@ -42,6 +42,9 @@ public class AiCharacter extends Character {
    */
   public AiCharacter(World world, float x, float y) {
     super(world, x, y, sprites[numberOfHostiles % 3]);
+
+    // From what I can tell, the scale for the speed of AI characters differs from that for the
+    // player
     speed = 1000.0f;
     AiCharacter.numberOfHostiles++;
 

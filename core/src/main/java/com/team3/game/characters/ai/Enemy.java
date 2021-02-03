@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.team3.game.screen.Gameplay;
 import com.team3.game.sprites.StationSystem;
 
 /**
@@ -140,6 +141,7 @@ public class Enemy extends AiCharacter {
    */
   public void set_ArrestedMode() {
     mode = "arrested";
+    speed = 3000f;
   }
 
   /**
