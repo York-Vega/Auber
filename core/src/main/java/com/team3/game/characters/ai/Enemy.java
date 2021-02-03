@@ -58,11 +58,18 @@ public class Enemy extends AiCharacter {
   @Override
   public void update(float delta) {
     super.update(delta);
+    System.out.println(isMoving());
 
     ability.update(delta, this);
     if (!ability.inUse) {
       usingAbility = false;
     }
+    System.out.println("---");
+    System.out.println(position.x);
+    System.out.println(destX);
+    System.out.println(position.y);
+    System.out.println(destY);
+    System.out.println("---");
   }
 
   /**
@@ -89,9 +96,8 @@ public class Enemy extends AiCharacter {
    * @param system System object
    */
   public void sabotage(StationSystem system) {
-    if (system.hp > 0) {
-      system.hp -= 0.05;
-    } else {
+    system.hp -= 0.05;
+    if (system.hp < 0) {
       system.hp = 0;
       system.set_sabotaged();
     }
