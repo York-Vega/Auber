@@ -17,10 +17,10 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(GdxTestRunner.class)
-public class TestGenerateEnemy {
+public class TestGenerateEnemies {
     
   @Test
-  public void testGenerateEnemy() throws Exception {
+  public void testGenerateEnemies() throws Exception {
     CharacterRenderer.loadTextures();
     TmxMapLoader maploader = new TmxMapLoader();
     TiledMap map = maploader.load("Map/Map.tmx");
