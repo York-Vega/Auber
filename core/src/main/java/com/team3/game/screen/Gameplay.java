@@ -70,6 +70,10 @@ public class Gameplay extends ScreenAdapter implements Serializable {
 
   public ArrestedHeader arrestedHeader;
 
+  public static enum Difficulty {
+    EASY, MEDIUM, HARD
+  }
+
   private final TmxMapLoader maploader;
 
   public final TiledMap map;
