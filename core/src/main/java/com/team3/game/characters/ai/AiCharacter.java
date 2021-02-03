@@ -42,6 +42,9 @@ public class AiCharacter extends Character {
    */
   public AiCharacter(World world, float x, float y) {
     super(world, x, y, sprites[numberOfHostiles % 3]);
+
+    // From what I can tell, the scale for the speed of AI characters differs from that for the
+    // player
     speed = 1000.0f;
     AiCharacter.numberOfHostiles++;
 
@@ -72,8 +75,8 @@ public class AiCharacter extends Character {
     Vector2 direction = decideDirection();
     move(delta, direction);
     // position sprite properly within the box
-    position.set(b2body.getPosition().x - size.x / 1,
-        b2body.getPosition().y - size.y / 1 + 4);
+    position.set(b2body.getPosition().x - size.x,
+        b2body.getPosition().y - size.y + 4);
 
     renderer.update(delta, direction);
 
