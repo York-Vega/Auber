@@ -19,7 +19,7 @@ public class Enemy extends AiCharacter {
   public String mode;
   public Ability ability;
   public static int numberofInfiltrators;
-  public boolean usingAbility; 
+  public boolean usingAbility;
   /**
    * Enemy.
 
@@ -90,7 +90,7 @@ public class Enemy extends AiCharacter {
    * @param system System object
    */
   public void sabotage(StationSystem system) {
-    system.hp -= 0.05;
+    system.hp -= Gameplay.SABOTAGE_RATE; 
     if (system.hp < 0) {
       system.hp = 0;
       system.set_sabotaged();

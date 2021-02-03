@@ -61,7 +61,8 @@ public final class Serializer {
       @SuppressWarnings("rawtypes")
       @Override
       public Gameplay read(Json json, JsonValue jsonData, Class type) {
-        Gameplay gameplay = new Gameplay(main, true);
+        Gameplay gameplay = new Gameplay(main, true, Gameplay.Difficulty.MEDIUM);
+        Gameplay.SABOTAGE_RATE = jsonData.getFloat("sabotage_rate");
 
         JsonValue playerPositionData = jsonData.get("player").get("position");
         Gameplay.player.b2body.setTransform(

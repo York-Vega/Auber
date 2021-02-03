@@ -80,7 +80,7 @@ public class MainMenu extends ScreenAdapter {
     newEasyButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        Gameplay gameplay = new Gameplay(game, false);
+        Gameplay gameplay = new Gameplay(game, false, Gameplay.Difficulty.EASY);
         game.setScreen(gameplay);
       }
     });
@@ -89,7 +89,7 @@ public class MainMenu extends ScreenAdapter {
     newMediumButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        Gameplay gameplay = new Gameplay(game, false);
+        Gameplay gameplay = new Gameplay(game, false, Gameplay.Difficulty.MEDIUM);
         game.setScreen(gameplay);
       }
     });
@@ -98,7 +98,7 @@ public class MainMenu extends ScreenAdapter {
     newHardButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        Gameplay gameplay = new Gameplay(game, false);
+        Gameplay gameplay = new Gameplay(game, false, Gameplay.Difficulty.HARD);
         game.setScreen(gameplay);
       }
     });
