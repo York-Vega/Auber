@@ -88,10 +88,11 @@ public class TestTeleport {
     Rectangle testLocation = new Rectangle(reactorX - 2, reactorY - 2, 4, 4);
     
     teleportProcess.validate();
-    
+    player.update(1);
+
     //test is passed if the player is at the target teleport location
     assertTrue("Player was unable to teleport to the specified location", 
-              testLocation.contains(player.b2body.getTransform().getPosition()));
+              testLocation.contains(player.position));
 
   }
 
