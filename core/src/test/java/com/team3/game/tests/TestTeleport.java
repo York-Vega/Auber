@@ -80,14 +80,15 @@ public class TestTeleport {
     location is the reactor*/
     player.b2body.setUserData("ready_to_teleport");
     teleportMenu.setSelected("reactor");
-    teleportProcess.validate();
 
     /*since floating point prevents exact equality, if the player teleport to a 4x4 range of the 
     target, then it will pass them test*/
     int reactorX = teleportProcess.teleporterPosition.get("reactor").get(0).intValue();
     int reactorY = teleportProcess.teleporterPosition.get("reactor").get(1).intValue();
     Rectangle testLocation = new Rectangle(reactorX - 2, reactorY - 2, 4, 4);
-
+    
+    teleportProcess.validate();
+    
     //test is passed if the player is at the target teleport location
     assertTrue("Player was unable to teleport to the specified location", 
               testLocation.contains(player.b2body.getTransform().getPosition()));
