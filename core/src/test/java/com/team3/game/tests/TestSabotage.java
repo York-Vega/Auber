@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
 public class TestSabotage { 
   
   @Test
-  public void testDealDamage() {
+  public void testDealDamage() throws Exception {
 
     //Instantiating necessary values to test
     CharacterRenderer.loadTextures();
@@ -38,7 +38,7 @@ public class TestSabotage {
   }
 
   @Test
-  public void testCompleteDestruction() {
+  public void testCompleteDestruction() throws Exception {
     
     //Instantiating necessary values to test
     CharacterRenderer.loadTextures();

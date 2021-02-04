@@ -23,7 +23,6 @@ public class NpcManager implements Serializable {
   public World world;
   public TiledMap map;
 
-  // WHY IS THIS STATIC???
   public static ArrayList<Npc> npcs = new ArrayList<>();
   public static ArrayList<float[]> spawnPositions = new ArrayList<>();
 
