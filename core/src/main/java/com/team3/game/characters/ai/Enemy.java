@@ -149,7 +149,12 @@ public class Enemy extends AiCharacter {
   @Override
   public void write(Json json) {
     super.write(json);
-    json.writeValue("target_system", targetSystem.getSystemName());
+    if (targetSystem != null) {
+      json.writeValue("target_system", targetSystem.getSystemName());
+    } else {
+      // If the Enemy has no target, its following the player (or arrested???)
+      json.writeValue("target_system", "");
+    }
     json.writeValue("mode", mode);
   }
 
