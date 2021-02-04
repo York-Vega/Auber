@@ -28,7 +28,8 @@ a {
   color: var(--color-1);
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.3em;
+  font-size: 1.1em;
+  text-align: center;
 }
 
 h1 {
