@@ -1,15 +1,10 @@
 package com.team3.game.screen.actors;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.Align;
-import com.team3.game.sprites.Powerup;
-import com.team3.game.sprites.StationSystem;
-import java.util.ArrayList;
-import java.util.Hashtable;
 
 /**
  * Adds a status menu of the player's powerups to the game.
@@ -40,14 +35,14 @@ public class PowerupMenu extends VerticalGroup {
         padBottom(20);
     }
 
-    /**
-     * Update the menu.
-     *
-     * @param powerup Arraylist of System objects
-     */
-    public void update_powerup_status(Powerup powerup) {
-
-        System.out.println(powerup);
+//    /**
+//     * Update the menu.
+//     *
+//     * @param powerup Arraylist of System objects
+//     */
+//    public void update_powerup_status(Powerup_old powerup) {
+//
+//        System.out.println(powerup);
 
         /*for (StationSystem system : systems) {
 
@@ -86,6 +81,6 @@ public class PowerupMenu extends VerticalGroup {
                 sysLabel.setText(system.sysName + ": (" + Math.round(system.hp) + "%)");
             }
         }*/
-    }
+    //}
 
 }

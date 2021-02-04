@@ -21,17 +21,7 @@ public class ObjectContactListener implements ContactListener {
   private final String teleportPattern = ".*teleporter.*";
   private boolean isTeleport;
 
-  // Regex to determine whether contact object is a powerup or not.
-  private final String powerupPattern = ".*powerup.*";
-  private boolean isPowerup;
-
-  // Regex to determine type of powerup
-  private final String powerup1Pattern = ".*speed.*";
-  private final String powerup2Pattern = ".*vision.*";
-  private final String powerup3Pattern = ".*repair.*";
-  private final String powerup4Pattern = ".*heal.*";
-  private final String powerup5Pattern = ".*arrest.*";
-
+  private final String powerupPattern = ".*Powerup.*";
   private final String systemPattern = ".*system.*";
   private final String infiltratorsPattern = ".*Infiltrators.*";
 
@@ -59,8 +49,6 @@ public class ObjectContactListener implements ContactListener {
 
     // Use reg to check whether the object contacted is a teleporter or not.
     isTeleport = Pattern.matches(teleportPattern, fixB.getBody().getUserData().toString());
-    // Use reg to check whether the object contacted is a powerup.
-    isPowerup = Pattern.matches(powerupPattern, fixB.getBody().getUserData().toString());
     // Use reg to check whether the object contacted is a healpod.
     isHealingPod = Pattern.matches(healingPattern, fixB.getBody().getUserData().toString());
 
@@ -71,34 +59,34 @@ public class ObjectContactListener implements ContactListener {
       fixA.getBody().setUserData("ready_to_teleport");
     }
 
-    // Only auber contact with powerup will be listened.
-    if (isPowerup && fixA.getBody().getUserData() == "auber")  {
-
-      if (Pattern.matches(powerup1Pattern, fixB.getBody().getUserData().toString())) {
-        //TODO powerup1 SPEED add to inventory
-        fixB.getBody().setUserData("speed");
-        System.out.print("speed");
-      } else if (Pattern.matches(powerup2Pattern, fixB.getBody().getUserData().toString())) {
-        //TODO powerup2 VISION add to inventory
-        fixB.getBody().setUserData("vision");
-        System.out.print("vision");
-      } else if (Pattern.matches(powerup3Pattern, fixB.getBody().getUserData().toString())) {
-        //TODO powerup3 REPAIR add to inventory
-        fixB.getBody().setUserData("repair");
-        System.out.print("repair");
-      } else if (Pattern.matches(powerup4Pattern, fixB.getBody().getUserData().toString())) {
-        //TODO powerup3 HEAL add to inventory
-        fixB.getBody().setUserData("heal");
-        System.out.print("heal");
-      } else if (Pattern.matches(powerup5Pattern, fixB.getBody().getUserData().toString())) {
-        //TODO powerup3 ARREST add to inventory
-        fixB.getBody().setUserData("arrest");
-        System.out.print("arrest");
-      }
-
-      System.out.print("picked up!");
-
-    }
+//    // Only auber contact with powerup will be listened.
+//    if (isPowerup && fixA.getBody().getUserData() == "auber")  {
+//
+//      if (Pattern.matches(powerup1Pattern, fixB.getBody().getUserData().toString())) {
+//        //TODO powerup1 SPEED add to inventory
+//        fixB.getBody().setUserData("speed");
+//        System.out.print("speed");
+//      } else if (Pattern.matches(powerup2Pattern, fixB.getBody().getUserData().toString())) {
+//        //TODO powerup2 VISION add to inventory
+//        fixB.getBody().setUserData("vision");
+//        System.out.print("vision");
+//      } else if (Pattern.matches(powerup3Pattern, fixB.getBody().getUserData().toString())) {
+//        //TODO powerup3 REPAIR add to inventory
+//        fixB.getBody().setUserData("repair");
+//        System.out.print("repair");
+//      } else if (Pattern.matches(powerup4Pattern, fixB.getBody().getUserData().toString())) {
+//        //TODO powerup3 HEAL add to inventory
+//        fixB.getBody().setUserData("heal");
+//        System.out.print("heal");
+//      } else if (Pattern.matches(powerup5Pattern, fixB.getBody().getUserData().toString())) {
+//        //TODO powerup3 ARREST add to inventory
+//        fixB.getBody().setUserData("arrest");
+//        System.out.print("arrest");
+//      }
+//
+//      System.out.print("picked up!");
+//
+//    }
 
     // If auber contact with healing pod and healing pod is not sabotaged.
     if (isHealingPod && ((String) fixA.getBody().getUserData()).equals("auber")) {
@@ -178,6 +166,30 @@ public class ObjectContactListener implements ContactListener {
         }
       } else if (is_Auber(fixB) && is_Infiltrators(fixA) 
           && Enemy.class.isAssignableFrom(fixA.getUserData().getClass())) {
+        Player auber = (Player) fixB.getUserData();
+        Enemy enemy = (Enemy) fixA.getUserData();
+        if (!auber.is_arresting() && auber.not_arrested(enemy)) {
+          auber.setNearby_enemy(enemy);
+          enemy.ability.setDisable(true);
+        }
+      }
+    }
+
+    // Powerup contact
+    if (is_Auber(fixA) || is_Auber(fixB)) {
+      // If contact happened between auber and infiltrators' body but not sensor area.
+      if (is_Auber(fixA) && is_Infiltrators(fixB)
+              && Enemy.class.isAssignableFrom(fixB.getUserData().getClass())) {
+        Player auber = (Player) fixA.getUserData();
+        Enemy enemy = (Enemy) fixB.getUserData();
+        // If auber is not arresting other infiltrators,
+        // contacted infiltrators will be arrested.
+        if (!auber.is_arresting() && auber.not_arrested(enemy)) {
+          auber.setNearby_enemy(enemy);
+          enemy.ability.setDisable(true);
+        }
+      } else if (is_Auber(fixB) && is_Infiltrators(fixA)
+              && Enemy.class.isAssignableFrom(fixA.getUserData().getClass())) {
         Player auber = (Player) fixB.getUserData();
         Enemy enemy = (Enemy) fixA.getUserData();
         if (!auber.is_arresting() && auber.not_arrested(enemy)) {
@@ -268,7 +280,7 @@ public class ObjectContactListener implements ContactListener {
     // End auber arrest contact.
     if (is_Auber(fixA) || is_Auber(fixB)) {
       // If contact happened between auber and infiltrators' body but not sensor area.
-      if (is_Auber(fixA) && is_Infiltrators(fixB) 
+      if (is_Auber(fixA) && is_Infiltrators(fixB)
           && Enemy.class.isAssignableFrom(fixB.getUserData().getClass())) {
         Player auber = (Player) fixA.getUserData();
         Enemy enemy = (Enemy) fixB.getUserData();
@@ -276,7 +288,7 @@ public class ObjectContactListener implements ContactListener {
           auber.setNearby_enemy(null);
           enemy.ability.setDisable(false);
         }
-      } else if (is_Auber(fixB) && is_Infiltrators(fixA) 
+      } else if (is_Auber(fixB) && is_Infiltrators(fixA)
           && Enemy.class.isAssignableFrom(fixA.getUserData().getClass())) {
         Player auber = (Player) fixB.getUserData();
         Enemy enemy = (Enemy) fixA.getUserData();
@@ -288,6 +300,16 @@ public class ObjectContactListener implements ContactListener {
     }
 
 
+  }
+
+  /**
+   * If the given fixture is a powerup.
+
+   * @param fixture Contact fixture
+   * @return True if fixture is an Powerup object
+   */
+  public boolean is_Powerup(Fixture fixture) {
+    return Pattern.matches(powerupPattern, fixture.getBody().getUserData().toString());
   }
 
   /**

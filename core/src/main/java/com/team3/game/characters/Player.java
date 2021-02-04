@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.team3.game.characters.ai.Enemy;
-import com.team3.game.sprites.Powerup;
 import com.team3.game.tools.CharacterRenderer;
 import com.team3.game.tools.Controller;
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ public class Player extends Character {
   public boolean arrestPressed;
   public int arrestedCount = 0;
   public ArrayList<Enemy> arrestedEnemy = new ArrayList<>();
-  public Powerup currentPowerup;
 
 
   /**
@@ -35,7 +33,6 @@ public class Player extends Character {
     super(world, x, y, CharacterRenderer.Sprite.AUBER);
     this.health = 100f;
     this.ishealing = false;
-    this.currentPowerup = null;
     arrestPressed = false;
 
   }
@@ -94,24 +91,6 @@ public class Player extends Character {
 
     renderer.update(delta, input);
   }
-
-  /**
-   * Sets the currently held parameter.
-
-   * @param powerup Sets the currently held powerup to the passed parameter
-   */
-  public void setCurrentPowerup(Powerup powerup) { currentPowerup = powerup; }
-
-/*  *//**
-   * Managing auber's powerups.
-   *
-   * @param delta The time in seconds since the last update
-   *//*
-  private void powerup(float delta) {
-    if (b2body.getUserData() == "picked_up") {
-      setCurrentPowerup();
-    }
-  }*/
 
   /**
    * Sets whether or not Player is currently healing.

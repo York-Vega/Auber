@@ -19,18 +19,13 @@ import com.team3.game.GameMain;
 import com.team3.game.characters.Player;
 import com.team3.game.characters.ai.EnemyManager;
 import com.team3.game.characters.ai.NpcManager;
+import com.team3.game.characters.ai.PowerupManager;
 import com.team3.game.map.Map;
 import com.team3.game.screen.actors.*;
 import com.team3.game.sprites.Door;
 import com.team3.game.sprites.StationSystem;
-import com.team3.game.tools.B2worldCreator;
-import com.team3.game.tools.BackgroundRenderer;
-import com.team3.game.tools.CharacterRenderer;
-import com.team3.game.tools.DoorControl;
-import com.team3.game.tools.LightControl;
-import com.team3.game.tools.ObjectContactListener;
-import com.team3.game.tools.Serializer;
-import com.team3.game.tools.TeleportProcess;
+import com.team3.game.tools.*;
+
 import java.util.ArrayList;
 
 
@@ -50,6 +45,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
   public EnemyManager enemyManager;
 
   public NpcManager npcManager;
+
+  public PowerupManager powerupManager;
 
   public OrthographicCamera camera;
 
@@ -111,6 +108,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     renderer = new OrthogonalTiledMapRenderer(map);
     // Load all textures for render.
     CharacterRenderer.loadTextures();
+    PowerupRenderer.loadTextures();
     // Create a light control object.
     lightControl = new LightControl(world);
     // Create a new orthographic camera.
@@ -143,6 +141,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     enemyManager = new EnemyManager(world, map, systems);
     // Create Npc_manager instance.
     npcManager = new NpcManager(world, map);
+    // Create powerup_manager instance
+    powerupManager = new PowerupManager(world, map);
 
     if (!fromJson) {
       enemyManager.initialiseRandomEnemies();
@@ -166,8 +166,9 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     DoorControl.updateDoors(systems, delta);
     enemyManager.update_enemy(delta);
     npcManager.updateNpc(delta);
+    powerupManager.updatePowerups(delta);
     systemStatusMenu.update_status(systems);
-    powerupStatusMenu.update_powerup_status(player.currentPowerup);
+    //powerupStatusMenu.update_powerup_status(player.currentPowerupOld);
     arrestedHeader.update_Arrested(player);
     // If escape is pressed pause the game.
     if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -230,6 +231,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     enemyManager.render_ememy(game.getBatch());
     // Render NPC.
     npcManager.renderNpc(game.getBatch());
+    // Render powerups
+    powerupManager.renderPowerup(game.getBatch());
     // End the batch.
     game.getBatch().end();
     // Render tilemap that should appear in front of the player.

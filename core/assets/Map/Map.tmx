@@ -193,7 +193,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="12" name="powerups">
+ <objectgroup id="12" name="powerupSpawns">
   <object id="536" name="speed" x="559" y="909.667">
    <point/>
   </object>
