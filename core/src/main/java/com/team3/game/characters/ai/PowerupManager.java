@@ -17,63 +17,63 @@ import java.util.Random;
 public class PowerupManager {
 
 
-    public World world;
-    public TiledMap map;
+  public World world;
+  public TiledMap map;
 
-    // WHY IS THIS STATIC???
-    public static ArrayList<Powerup> powerups = new ArrayList<>();
-    public static ArrayList<float[]> spawnPositions = new ArrayList<>();
+  // WHY IS THIS STATIC???
+  public static ArrayList<Powerup> powerups = new ArrayList<>();
+  public static ArrayList<float[]> spawnPositions = new ArrayList<>();
 
 
-    /**
-     * Instantiates a new powerups Manager.
+  /**
+   * Instantiates a new powerups Manager.
 
-     * @param world The game world
-     * @param map The tiled map
-     */
-    public PowerupManager(World world, TiledMap map) {
-        this.world = world;
-        this.map = map;
-        generatePowerups();
+   * @param world The game world
+   * @param map The tiled map
+   */
+  public PowerupManager(World world, TiledMap map) {
+    this.world = world;
+    this.map = map;
+    generatePowerups();
+  }
+
+  /**
+   * Create powerups in box2D world.
+   */
+  public void generatePowerups() {
+    MapLayer powerupSpawn = map.getLayers().get("powerupSpawns");
+    for (MapObject object : powerupSpawn.getObjects()) {
+      Rectangle point = ((RectangleMapObject) object).getRectangle();
+      String name = object.getName();
+      float [] position = new float[]{point.x, point.y};
+
+      Powerup powerup = new Powerup(world, position[0], position[1], name);
+      powerups.add(powerup);
+    }
+  }
+
+  /**
+   * Render the powerup, should be called in render loop.
+
+   * @param batch The SpriteBatch to draw the powerup to.
+   */
+  public void renderPowerup(SpriteBatch batch) {
+    for (Powerup powerup : powerups) {
+      powerup.draw(batch);
+    }
+  }
+
+  /**
+   * Update powerups.
+
+   * @param delta The time in seconds since the last update
+   */
+  public void updatePowerups(float delta) {
+
+    for (Powerup powerup : powerups) {
+      powerup.update(delta);
     }
 
-    /**
-     * Create powerups in box2D world.
-     */
-    public void generatePowerups() {
-        MapLayer powerupSpawn = map.getLayers().get("powerupSpawns");
-        for (MapObject object : powerupSpawn.getObjects()) {
-            Rectangle point = ((RectangleMapObject) object).getRectangle();
-            String name = object.getName();
-            float [] position = new float[]{point.x, point.y};
-
-            Powerup powerup = new Powerup(world, position[0], position[1], name);
-            powerups.add(powerup);
-        }
-    }
-
-    /**
-     * Render the powerup, should be called in render loop.
-
-     * @param batch The SpriteBatch to draw the powerup to.
-     */
-    public void renderPowerup(SpriteBatch batch) {
-        for (Powerup powerup: powerups) {
-            powerup.draw(batch);
-        }
-    }
-
-    /**
-     * Update powerups.
-
-     * @param delta The time in seconds since the last update
-     */
-    public void updatePowerups(float delta) {
-
-        for (Powerup powerup : powerups) {
-            powerup.update(delta);
-        }
-
-    }
+  }
 
 }
