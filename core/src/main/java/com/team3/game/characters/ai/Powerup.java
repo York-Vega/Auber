@@ -1,6 +1,8 @@
 package com.team3.game.characters.ai;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -17,6 +19,12 @@ public class Powerup {
   private static PowerupRenderer.Sprite[] sprites = new PowerupRenderer.Sprite[] {
     PowerupRenderer.Sprite.POWERUP,
     };
+
+  private static TextureAtlas atlas = new TextureAtlas("sprites/powerupSprites.atlas");
+
+  private String[] textureNames = { "POWERUP_speed", "POWERUP_vision", "POWERUP_repair",
+                                    "POWERUP_heal", "POWERUP_arrest" };
+  public Sprite sprite;
 
   public World world;
   public PowerupRenderer renderer;
@@ -52,6 +60,26 @@ public class Powerup {
     PowerupRenderer.Sprite toRender = sprites[0];
 
     renderer = new PowerupRenderer(toRender);
+
+    switch (type) {
+      case SPEED:
+        sprite = atlas.createSprite(textureNames[0]);
+        break;
+      case VISION:
+        sprite = atlas.createSprite(textureNames[1]);
+        break;
+      case REPAIR:
+        sprite = atlas.createSprite(textureNames[2]);
+        break;
+      case HEAL:
+        sprite = atlas.createSprite(textureNames[3]);
+        break;
+      case ARREST:
+        sprite = atlas.createSprite(textureNames[4]);
+        break;
+      default:
+        throw new IllegalArgumentException("Unexpected powerup type received");
+    }
   }
 
   /**
