@@ -1,0 +1,40 @@
+powerupSprites.png
+size: 128,24
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+POWERUP_arrest
+  rotate: false
+  xy: 104, 0
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+POWERUP_heal
+  rotate: false
+  xy: 78, 0
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+POWERUP_repair
+  rotate: false
+  xy: 52, 0
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+POWERUP_speed
+  rotate: false
+  xy: 0, 0
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+POWERUP_vision
+  rotate: false
+  xy: 26, 0
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1

@@ -16,7 +16,7 @@ public class ArrestedHeader extends Label {
    */
   public ArrestedHeader() {
 
-    super("Arrested: 0/8 (Press A to arrest)", 
+    super("Arrested: 0/8 (Press E to arrest)",
         new Skin(Gdx.files.internal("skin/hudskin/comic-ui.json")), "title");
     setName("Arrested:");
     getStyle().font.getData().setScale(.5f, .5f);
@@ -31,7 +31,7 @@ public class ArrestedHeader extends Label {
    */
   public void update_Arrested(Player auber) {
     int arrestedCount = auber.arrestedCount;
-    setText(getName() + arrestedCount + "/8 (Press A to arrest)");
+    setText(getName() + arrestedCount + "/8 (Press E to arrest)");
     if (arrestedCount > 0) {
       setColor(Color.GREEN);
     }

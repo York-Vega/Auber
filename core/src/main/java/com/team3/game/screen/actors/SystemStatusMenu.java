@@ -71,6 +71,8 @@ public class SystemStatusMenu extends VerticalGroup {
    */
   public void update_status(ArrayList<StationSystem> systems) {
 
+    count = 0;
+
     for (StationSystem system : systems) {
 
       Label sysLabel = statusMap.get(system);
@@ -84,6 +86,8 @@ public class SystemStatusMenu extends VerticalGroup {
       }
       // If system is sabotaged, label should go gray.
       if (system.is_sabotaged()) {
+        count++;
+
         // Already sabotaged.
         if (sysLabel.getColor().equals(Color.GRAY)) {
 
@@ -92,21 +96,20 @@ public class SystemStatusMenu extends VerticalGroup {
         } else {
           sysLabel.setText(system.sysName + ": Sabotaged("  + Math.round(system.hp) + "%)");
           sysLabel.setColor(Color.GRAY);
-          // Update sabotaged count.
-          count += 1;
-          sabotageCount.setText(sabotageCount.getName() + " " + count + "/17");
-          if (count >= 10) {
-            // If system sabotaged over 10, change color of title to red.
-            sabotageCount.setColor(Color.RED);
-          }
         }
-        // Just be sabotaged.
       }
+
       // If system not being sabotaging or enemy stop sabotaging label should back to normal.
       if (system.is_not_sabotaged()) {
         sysLabel.setColor(Color.WHITE);
         sysLabel.setText(system.sysName + ": (" + Math.round(system.hp) + "%)");
       }
+    }
+
+    // Update sabotage count.
+    sabotageCount.setText(sabotageCount.getName() + " " + count + "/17");
+    if (count >= 10) {
+      sabotageCount.setColor(Color.RED);
     }
   }
 }
