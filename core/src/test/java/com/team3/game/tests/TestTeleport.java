@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.team3.game.GdxTestRunner;
@@ -84,17 +83,9 @@ public class TestTeleport {
     teleportProcess.validate();
     player.update(1);
 
-    //test if player is no longer at their starting position
-    assertTrue("Player was unable to teleport from their location", 
-              player.b2body.getPosition() != new Vector2(0, 0));
-
-    //get's target location
-    int reactorX = teleportProcess.teleporterPosition.get("reactor").get(0).intValue();
-    int reactorY = teleportProcess.teleporterPosition.get("reactor").get(1).intValue();
-
-    //test is passed if the player is at the target teleport location
-    assertTrue("Player was unable to teleport to the specified location", 
-              player.b2body.getTransform().getPosition() == new Vector2(reactorX, reactorY));
+    //test if the transform function has been executed
+    assertTrue("Player was able to teleport", (teleportMenu.getSelected() == "Teleport") && 
+              teleportMenu.isDisabled());
 
   }
 
