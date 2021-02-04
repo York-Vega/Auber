@@ -102,7 +102,6 @@ public class Powerup {
 
   public void draw(SpriteBatch batch) {
     sprite.draw(batch);
-    renderer.render(position, batch);
   }
 
   /**
@@ -111,6 +110,7 @@ public class Powerup {
    * @param delta The time in seconds since the last update
    */
   public void update(float delta) {
-    sprite.setPosition(position.x, position.y);
+    sprite.setPosition(position.x - (sprite.getWidth() / 2),
+                       position.y - (sprite.getHeight() / 2));
   }
 }

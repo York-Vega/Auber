@@ -1,0 +1,41 @@
+
+powerups.png
+size: 512,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+arrest
+  rotate: false
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+heal
+  rotate: false
+  xy: 200, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+repair
+  rotate: false
+  xy: 134, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+speed
+  rotate: false
+  xy: 68, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+vision
+  rotate: false
+  xy: 266, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
