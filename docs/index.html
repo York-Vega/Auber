@@ -1,51 +1,66 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="style.css?v=1">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Squada+One&display=swap" rel="stylesheet"> 
+        <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+        <title>Auber</title>
     </head>
     <body>
         <video id="trailer" src="trailer.mp4" loop autoplay muted></video>
         <div id="title-div">
+            <h1>Auber</h1>
+            <h2><i>"Constable tiny arms"</i></h2>
+            <a data-scroll href="#content">Reporting For Duty</a>
         </div>
         <div id="content">
-            <h1>Auber</h1>
-            <p>You are Auber, the constable of the station 'Deep Space Y', and your job is to enforce law and order. The space station has been recently infiltrated by a team of eight hostile operatives whose mission is to sabotage key systems of the station and render it inoperable.</p>
-            <p>The aim of Auber is to save your ship by arresting 8 inflitrators across the map. They can be detected through sabotage attempts on key systems scattered around the map, your role is to go up to them and arrest the infiltrator. You must arrest all 8 infiltrators in order to win.</p>
-            <p>The game features 3 difficulty modes: Easy, Medium & Hard, as well as player abilities you can utilise during your mission. You are also able to save the game at any time, and continue whenever you wish.</p>
+            <h2>About Auber</h2>
+            <div id="blurb-outer">
+                <div id="blurb">
+                    <p>You are Auber, the constable of the station 'Deep Space Y', and your job is to enforce law and order. The space station has been recently infiltrated by a team of eight hostile operatives whose mission is to sabotage key systems of the station and render it inoperable.</p>
+                    <p>The aim of Auber is to save your ship by arresting 8 inflitrators across the map. They can be detected through sabotage attempts on key systems scattered around the map, your role is to go up to them and arrest the infiltrator. You must arrest all 8 infiltrators in order to win.</p>
+                    <p>The game features 3 difficulty modes: Easy, Medium &amp; Hard, as well as player abilities you can utilise during your mission. You are also able to save the game at any time, and continue whenever you wish.</p>
+                </div>
+            </div>
             <br>
             <div id="trailer-wrapper">
                 <video id="inline-trailer" src="trailer.mp4" controls></video>
             </div>
             <h2>Links</h2>
-            <h3>Assessment 1 Deliverables</h3>
-            <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/Requirements.pdf">Requirements</a></p>
-            <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/SoftwareArchitecture.pdf">Architecture</a></p>
-            <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/MethodSelection.pdf">Method Selection and Planning</a></p>
-            <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/RiskAssessment.pdf">Risk Assessment and Mitigation</a></p>
-            <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/implementation.pdf">Implementation</a></p>
-            <p><a href="https://github.com/York-Vega/Auber">Source Code</a></p>
-            <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/Appendix.pdf">Bibliography</a></p>
-            <p><a href="https://york-vega.github.io/Vega.github.io/javadoc/index.html">Javadocs</a></p>
-            <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/desktop-1.0.jar">Final Release - Assessment 1</a></p>
-            <h3>Assessment 2 Deliverables</h3>
-            <p><a href="pdfs/usermanual.pdf">User Manual</a></p>
-            <p><a href="https://drive.google.com/drive/folders/1vvw7Fq_1FHUqDmHbq3HDyW9agt7iQ9EL?usp=sharing">Change Report</a></p>
-            <p><a href="https://drive.google.com/drive/folders/1qJEXBqMbe2iRWxIoFvNGxUmltkRGbT_m?usp=sharing">Implementation</a></p>
-            <p><a href="https://drive.google.com/drive/folders/1tuQFOUXt2WERxMSFH_SlqcstrgMbPjwo?usp=sharing">Software Testing</a></p>
-            <p><a href="https://drive.google.com/drive/folders/1wq4qIojXQpy6AbUTslQqiPyBLmXeAKt8?usp=sharing">Continuous Integration</a></p>
-            <p><a href="https://github.com/threecubedstudios/auber-vega">Source Code</a></p>
-            <h3>Builds</h3>
-            <p><a href="https://github.com/threecubedstudios/auber-vega/releases/latest/download/auber.java">Latest Release</a></p>
-            <p><a href="https://github.com/threecubedstudios/auber-vega/releases/">All Releases</a></p>
-            <h3>Assessment Documents</h3>
-            <p><a href="pdfs/auberbrief.pdf">Auber Brief</a></p>
-            <p><a href="pdfs/assessmentbrief.pdf">Assessment Brief</a></p>
-            <h3>Javadocs</h3>
-            <p><a href="javadocs/" target="_blank">Javadocs</a></p>
-            <h3>GitHub Repository</h3>
-            <p><a href="https://github.com/threecubedstudios/auber-vega" target="_blank">GitHub Repository</a></p>
+            <div id="links-div">
+                <div id="assessment-1">
+                    <h3>Assessment 1 Deliverables</h3>
+                    <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/Requirements.pdf">Requirements</a></p>
+                    <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/SoftwareArchitecture.pdf">Architecture</a></p>
+                    <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/MethodSelection.pdf">Method Selection and Planning</a></p>
+                    <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/RiskAssessment.pdf">Risk Assessment and Mitigation</a></p>
+                    <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/implementation.pdf">Implementation</a></p>
+                    <p><a href="https://github.com/York-Vega/Auber">Source Code</a></p>
+                    <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/Appendix.pdf">Bibliography</a></p>
+                    <p><a href="https://york-vega.github.io/Vega.github.io/javadoc/index.html">Javadocs</a></p>
+                    <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/desktop-1.0.jar">Final Release - Assessment 1</a></p>
+                </div>
+                <div id="assessment-2">
+                    <h3>Assessment 2 Deliverables</h3>
+                    <p><a href="pdfs/usermanual.pdf">User Manual</a></p>
+                    <p><a href="https://drive.google.com/drive/folders/1vvw7Fq_1FHUqDmHbq3HDyW9agt7iQ9EL?usp=sharing">Change Report</a></p>
+                    <p><a href="https://drive.google.com/drive/folders/1qJEXBqMbe2iRWxIoFvNGxUmltkRGbT_m?usp=sharing">Implementation</a></p>
+                    <p><a href="https://drive.google.com/drive/folders/1tuQFOUXt2WERxMSFH_SlqcstrgMbPjwo?usp=sharing">Software Testing</a></p>
+                    <p><a href="https://drive.google.com/drive/folders/1wq4qIojXQpy6AbUTslQqiPyBLmXeAKt8?usp=sharing">Continuous Integration</a></p>
+                    <p><a href="https://github.com/threecubedstudios/auber-vega">Source Code</a></p>
+                    <h4>Builds</h4>
+                    <p><a href="https://github.com/threecubedstudios/auber-vega/releases/latest/download/auber.java">Latest Release</a></p>
+                    <p><a href="https://github.com/threecubedstudios/auber-vega/releases/">All Releases</a></p>
+                    <h4>Assessment Documents</h4>
+                    <p><a href="pdfs/auberbrief.pdf">Auber Brief</a></p>
+                    <p><a href="pdfs/assessmentbrief.pdf">Assessment Brief</a></p>
+                    <h4>Javadocs</h4>
+                    <p><a href="javadocs/" target="_blank">Javadocs</a></p>
+                    <h4>GitHub Repository</h4>
+                    <p><a href="https://github.com/threecubedstudios/auber-vega" target="_blank">GitHub Repository</a></p>
+                </div>
+            </div>
         </div>
         <footer>
             <div id="old-group">
@@ -59,5 +74,8 @@
                 <p id="footer-studios">Studios</p>
             </div>
         </footer>
+        <script>
+            var scroll = new SmoothScroll('a[href*="#"]');
+        </script>
     </body>
 </html>
