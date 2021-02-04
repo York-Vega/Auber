@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.team3.game.characters.Player;
 import com.team3.game.characters.ai.Ability;
 import com.team3.game.characters.ai.Enemy;
+import com.team3.game.characters.ai.Powerup;
 import com.team3.game.sprites.Door;
 import com.team3.game.sprites.StationSystem;
 import java.util.regex.Pattern;
@@ -21,7 +22,7 @@ public class ObjectContactListener implements ContactListener {
   private final String teleportPattern = ".*teleporter.*";
   private boolean isTeleport;
 
-  private final String powerupPattern = ".*Powerup.*";
+  private final String powerupPattern = ".*POWERUP.*";
   private final String systemPattern = ".*system.*";
   private final String infiltratorsPattern = ".*Infiltrators.*";
 
@@ -178,24 +179,16 @@ public class ObjectContactListener implements ContactListener {
     // Powerup contact
     if (is_Auber(fixA) || is_Auber(fixB)) {
       // If contact happened between auber and infiltrators' body but not sensor area.
-      if (is_Auber(fixA) && is_Infiltrators(fixB)
-              && Enemy.class.isAssignableFrom(fixB.getUserData().getClass())) {
+      if (is_Auber(fixA) && is_Powerup(fixB)
+              && Powerup.class.isAssignableFrom(fixB.getUserData().getClass())) {
         Player auber = (Player) fixA.getUserData();
-        Enemy enemy = (Enemy) fixB.getUserData();
-        // If auber is not arresting other infiltrators,
-        // contacted infiltrators will be arrested.
-        if (!auber.is_arresting() && auber.not_arrested(enemy)) {
-          auber.setNearby_enemy(enemy);
-          enemy.ability.setDisable(true);
-        }
-      } else if (is_Auber(fixB) && is_Infiltrators(fixA)
-              && Enemy.class.isAssignableFrom(fixA.getUserData().getClass())) {
+        Powerup prp = (Powerup) fixB.getUserData();
+        System.out.println("1 contact with powerup: " + prp.type);
+      } else if (is_Auber(fixB) && is_Powerup(fixA)
+              && Powerup.class.isAssignableFrom(fixA.getUserData().getClass())) {
         Player auber = (Player) fixB.getUserData();
-        Enemy enemy = (Enemy) fixA.getUserData();
-        if (!auber.is_arresting() && auber.not_arrested(enemy)) {
-          auber.setNearby_enemy(enemy);
-          enemy.ability.setDisable(true);
-        }
+        Powerup prp = (Powerup) fixA.getUserData();
+        System.out.println("2 contact with powerup: " + prp.type);
       }
     }
   }
