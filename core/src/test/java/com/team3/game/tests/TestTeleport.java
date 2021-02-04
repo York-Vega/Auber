@@ -80,10 +80,6 @@ public class TestTeleport {
     location is the reactor*/
     player.b2body.setUserData("ready_to_teleport");
     teleportMenu.setSelected("reactor");
-
-    //get's target location
-    int reactorX = teleportProcess.teleporterPosition.get("reactor").get(0).intValue();
-    int reactorY = teleportProcess.teleporterPosition.get("reactor").get(1).intValue();
     
     teleportProcess.validate();
     player.update(1);
@@ -91,6 +87,10 @@ public class TestTeleport {
     //test if player is no longer at their starting position
     assertTrue("Player was unable to teleport from their location", 
               player.b2body.getPosition() != new Vector2(0, 0));
+
+    //get's target location
+    int reactorX = teleportProcess.teleporterPosition.get("reactor").get(0).intValue();
+    int reactorY = teleportProcess.teleporterPosition.get("reactor").get(1).intValue();
 
     //test is passed if the player is at the target teleport location
     assertTrue("Player was unable to teleport to the specified location", 
