@@ -7,8 +7,8 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
+
 import java.util.ArrayList;
-import java.util.Random;
 
 
 /**
@@ -44,11 +44,25 @@ public class PowerupManager {
     MapLayer powerupSpawn = map.getLayers().get("powerupSpawns");
     for (MapObject object : powerupSpawn.getObjects()) {
       Rectangle point = ((RectangleMapObject) object).getRectangle();
-      String name = object.getName();
       float [] position = new float[]{point.x, point.y};
+      powerups.add(new Powerup(world, position[0], position[1], nameToEnum(object.getName())));
+    }
+  }
 
-      Powerup powerup = new Powerup(world, position[0], position[1], name);
-      powerups.add(powerup);
+  public Powerup.Type nameToEnum(String name) {
+    switch (name) {
+      case "speed":
+        return Powerup.Type.SPEED;
+      case "vision":
+        return Powerup.Type.VISION;
+      case "repair":
+        return Powerup.Type.REPAIR;
+      case "heal":
+        return Powerup.Type.HEAL;
+      case "arrest":
+        return Powerup.Type.ARREST;
+      default:
+        throw new IllegalArgumentException();
     }
   }
 
