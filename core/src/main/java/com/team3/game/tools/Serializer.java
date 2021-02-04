@@ -93,20 +93,25 @@ public final class Serializer {
           Enemy enemy = new Enemy(gameplay.world, enemyData.get("dest_x").asFloat(), 
               enemyData.get("dest_y").asFloat());
 
+          String targetSystemName = enemyData.getString("target_system");
           // Get the target system from the stored string
-          StationSystem targetSystem = Gameplay.systems.stream()
-              .filter(currentSystem -> enemyData.getString("target_system")
-                  .equals(currentSystem.getSystemName())).findFirst().get();
-          
-          EnemyManager.information.put(targetSystem, enemy);
+          if (!targetSystemName.equals("")) {
+            System.out.println(targetSystemName);
+            StationSystem targetSystem = Gameplay.systems.stream()
+                .filter(currentSystem -> targetSystemName
+                    .equals(currentSystem.getSystemName())).findFirst().get();
+            
+            EnemyManager.information.put(targetSystem, enemy);
+
+            // Assign system target to enemy
+            enemy.set_target_system(targetSystem);
+            enemy.moveToDest();
+          }
 
           JsonValue positionData = enemyData.get("position");
           enemy.position.x = positionData.getFloat("x");
           enemy.position.y = positionData.getFloat("y");
 
-          // Assign system target to enemy
-          enemy.set_target_system(targetSystem);
-          enemy.moveToDest();
 
           // Set the enemies "mode"
           enemy.mode = enemyData.getString("mode");
