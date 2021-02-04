@@ -110,8 +110,6 @@ public final class Serializer {
 
           // Set the enemies "mode"
           enemy.mode = enemyData.getString("mode");
-          System.out.println(enemy.mode);
-          System.out.println(enemy.get_target_system().sysName);
 
           EnemyManager.enemies.add(enemy);
         }
