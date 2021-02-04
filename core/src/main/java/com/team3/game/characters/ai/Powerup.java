@@ -102,6 +102,11 @@ public class Powerup {
     hidden = true;
   }
 
+  /**
+   * Draw the powerup to the provided batch.
+   *
+   * @param batch The spritebatch to draw to
+   **/
   public void draw(SpriteBatch batch) {
     if (!hidden) {
       sprite.draw(batch);
