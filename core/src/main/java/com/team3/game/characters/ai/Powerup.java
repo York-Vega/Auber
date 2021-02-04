@@ -36,6 +36,7 @@ public class Powerup {
 
   public Type type;
   public Body b2body;
+  public boolean hidden;
 
   /**
    * Creates a powerup.
@@ -48,6 +49,7 @@ public class Powerup {
   public Powerup(World world, float x, float y, Type type) {
     this.world = world;
     this.type = type;
+    this.hidden = false;
     position = new Vector2(x, y);
     size = new Vector2(24, 24);
     createBody();
@@ -97,12 +99,13 @@ public class Powerup {
   }
 
   public void pickup() {
-    // type = "hidden";
+    hidden = true;
   }
 
   public void draw(SpriteBatch batch) {
-    sprite.draw(batch);
-    renderer.render(position, batch);
+    if (!hidden) {
+      sprite.draw(batch);
+    }
   }
 
   /**
