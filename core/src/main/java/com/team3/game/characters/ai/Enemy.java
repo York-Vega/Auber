@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.team3.game.screen.Gameplay;
 import com.team3.game.sprites.StationSystem;
 
 /**
@@ -18,7 +19,7 @@ public class Enemy extends AiCharacter {
   public String mode;
   public Ability ability;
   public static int numberofInfiltrators;
-  public boolean usingAbility; 
+  public boolean usingAbility;
   /**
    * Enemy.
 
@@ -58,18 +59,11 @@ public class Enemy extends AiCharacter {
   @Override
   public void update(float delta) {
     super.update(delta);
-    System.out.println(isMoving());
 
     ability.update(delta, this);
     if (!ability.inUse) {
       usingAbility = false;
     }
-    System.out.println("---");
-    System.out.println(position.x);
-    System.out.println(destX);
-    System.out.println(position.y);
-    System.out.println(destY);
-    System.out.println("---");
   }
 
   /**
@@ -96,7 +90,7 @@ public class Enemy extends AiCharacter {
    * @param system System object
    */
   public void sabotage(StationSystem system) {
-    system.hp -= 0.05;
+    system.hp -= Gameplay.SABOTAGE_RATE; 
     if (system.hp < 0) {
       system.hp = 0;
       system.set_sabotaged();
@@ -140,6 +134,7 @@ public class Enemy extends AiCharacter {
    */
   public void set_ArrestedMode() {
     mode = "arrested";
+    speed = 3000f;
   }
 
   /**
