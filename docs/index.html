@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Auber | 3³ Studios</title>
-        <link rel="icon" type="image/png" href="logo.png">
-        <link rel="stylesheet" href="https://use.typekit.net/qui7hwg.css">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="style.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="utf-8">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Squada+One&display=swap" rel="stylesheet"> 
     </head>
     <body>
-        <h1>
-            <img src="logo.png" alt="3³ Studios">
-            studios
-        </h1>
-        <h2>Auber</h2>
+        <video id="trailer" src="trailer.mp4" loop autoplay muted></video>
+        <div id="title-div">
+        </div>
         <div id="content">
-            <div id="contents-box">
-                <p>Contents</p>
+            <h1>Auber</h1>
+            <p>And so long as we're not doing everything in our personal and collective power to solve them, we know the conscience of our nation cannot rest. Two hundred and twenty one years ago, in a hall that still stands across the street, a group of men gathered and, with these simple words, launched America's improbable experiment in democracy. Let us be our brother's keeper, Scripture tells us. In the Republicans who never thought they'd pick up a Democratic ballot, but did. But we will support a secure and united Iraq as a partner, and never as a patron.</p>
+            <p>That is the true genius of America - a faith in simple dreams,, an insistence on small miracles. To the Joshua generation, these challenges seem momentous - and they are. I don't know what kind of lives John McCain thinks that celebrities lead, but this has been mine.</p>
+            <p>But I think they also sensed that a part of me remained removed and detached - that I was an observer in their midst. So let us agree that patriotism has no party. It is about preventing a nuclear arms race in the Middle East that could lead this region and the world down a hugely dangerous path. On education, we will expand exchange programs, and increase scholarships, like the one that brought my father to America, while encouraging more Americans to study in Muslim communities.</p>
+            <p>After the war, they studied on the G.I. If you're working forty hours a week, you shouldn't be living in poverty. He does not say that he was there because of Barack Obama. It's because John McCain doesn't get it. Yet in this new age, such attitudes are self-defeating. But this much is clear: governments that protect these rights are ultimately more stable, successful and secure.</p>
+            <p>John Kerry believes in the Constitutional freedoms that have made our country the envy of the world, and he will never sacrifice our basic liberties, nor use faith as a wedge to divide us. And until we stop the genocide that's being carried out in Darfur as I speak, our conscience cannot rest. And meeting them won't be easy. And then another one. To the love of my life, our next First Lady, Michelle Obama, and to Sasha and Malia - I love you so much, and I'm so proud of all of you.</p>
+            <p>Thank you, God Bless you, and God Bless the United States of America.</p>
+            <div id="trailer-wrapper">
+                <video id="inline-trailer" src="trailer.mp4" controls></video>
             </div>
+            <h2>Links</h2>
             <h3>Assessment 1 Deliverables</h3>
             <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/Requirements.pdf">Requirements</a></p>
             <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/SoftwareArchitecture.pdf">Architecture</a></p>
@@ -31,6 +33,11 @@
             <p><a href="https://york-vega.github.io/Vega.github.io/static/deliverables/desktop-1.0.jar">Final Release - Assessment 1</a></p>
             <h3>Assessment 2 Deliverables</h3>
             <p><a href="pdfs/usermanual.pdf">User Manual</a></p>
+            <p><a href="https://drive.google.com/drive/folders/1vvw7Fq_1FHUqDmHbq3HDyW9agt7iQ9EL?usp=sharing">Change Report</a></p>
+            <p><a href="https://drive.google.com/drive/folders/1qJEXBqMbe2iRWxIoFvNGxUmltkRGbT_m?usp=sharing">Implementation</a></p>
+            <p><a href="https://drive.google.com/drive/folders/1tuQFOUXt2WERxMSFH_SlqcstrgMbPjwo?usp=sharing">Software Testing</a></p>
+            <p><a href="https://drive.google.com/drive/folders/1wq4qIojXQpy6AbUTslQqiPyBLmXeAKt8?usp=sharing">Continuous Integration</a></p>
+            <p><a href="https://github.com/threecubedstudios/auber-vega">Source Code</a></p>
             <h3 id="builds">Builds</h3>
             <p><a href="https://github.com/threecubedstudios/auber-vega/releases/latest/download/auber.java">Latest Release</a></p>
             <p><a href="https://github.com/threecubedstudios/auber-vega/releases/">All Releases</a></p>
@@ -42,18 +49,17 @@
             <h4 id="github-repository">GitHub Repository</h4>
             <p><a href="https://github.com/threecubedstudios/auber-vega" target="_blank">The GitHub repository can be found here</a></p>
         </div>
-        <script>
-            const contentsBox = document.getElementById('contents-box')
-            const headers = document.querySelectorAll('h3, h4, h5, h6')
-
-            for (var i=0; i<headers.length; i++) {
-                var item = headers[i]
-                if (item.id === '') {
-                    item.id = item.innerHTML.toLowerCase().replace(' ', '-')
-                }
-                var indentation = (parseInt(item.tagName[1]) - 3) * 20
-                contentsBox.innerHTML += '<li style="padding-left: ' + indentation.toString() + 'px"><a href="#' + item.id + '">' + item.innerHTML + '</a></li>'
-            }
-        </script>
+        <footer>
+            <div id="old-group">
+                <p>Created by</p>
+                <img src="vega-logo.png">
+                <p>York Vega</p>
+            </div>
+            <div id="new-group">
+                <p>Improved by</p>
+                <img src="logo.png">
+                <p id="footer-studios">Studios</p>
+            </div>
+        </footer>
     </body>
 </html>

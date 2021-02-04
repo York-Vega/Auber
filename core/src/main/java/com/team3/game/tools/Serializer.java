@@ -61,7 +61,8 @@ public final class Serializer {
       @SuppressWarnings("rawtypes")
       @Override
       public Gameplay read(Json json, JsonValue jsonData, Class type) {
-        Gameplay gameplay = new Gameplay(main, true);
+        Gameplay gameplay = new Gameplay(main, true, Gameplay.Difficulty.MEDIUM);
+        Gameplay.SABOTAGE_RATE = jsonData.getFloat("sabotage_rate");
 
         JsonValue playerPositionData = jsonData.get("player").get("position");
         Gameplay.player.b2body.setTransform(
@@ -109,8 +110,6 @@ public final class Serializer {
 
           // Set the enemies "mode"
           enemy.mode = enemyData.getString("mode");
-          System.out.println(enemy.mode);
-          System.out.println(enemy.get_target_system().sysName);
 
           EnemyManager.enemies.add(enemy);
         }

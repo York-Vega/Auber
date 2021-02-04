@@ -9,6 +9,6 @@ import com.team3.game.GameMain;
 public class GameDemo extends Gameplay {
 
   public GameDemo(GameMain game) {
-    super(game, new Vector2(2560, 1440), false);
+    super(game, new Vector2(2560, 1440), false, Difficulty.MEDIUM);
   }
 }
