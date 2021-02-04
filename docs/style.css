@@ -119,7 +119,10 @@ footer img {
 }
 
 #blurb {
-  max-width: 1300px;
+  max-width: 1260px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 #trailer {
