@@ -1,25 +1,15 @@
+:root {
+  --color-1: #F8F8F8;
+  --color-2: #181328;
+  --cubed-color: #040c22;
+}
+
 body {
-  background-color: #040c22;
-  color: #fff;
-  font-family: 'Roboto', sans-serif;
-  text-align: center;
-}
-
-h1 {
-  font-size: 2em;
-  letter-spacing: 20px;
+  background-color: var(--color-2);
+  color: var(--color-1);
   margin: 0;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-}
-
-h2 {
-  text-align: center;
-  font-weight: bold !important;
-  letter-spacing: 5px;
-  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3em;
 }
 
 h1,
@@ -28,49 +18,74 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'neue-haas-unica', sans-serif;
-  font-weight: 400;
-  font-style: normal;
+  font-family: 'Squada One', cursive;
   text-transform: uppercase;
   text-align: center;
 }
 
-h3,
-h4,
-h5,
-h6 {
-  font-size: 1.7em;
+h1 {
+  font-size: 5em;
 }
 
-a {
-  color: inherit;
-} 
+h2 {
+  font-size: 3em;
+}
 
-h1 img {
-  width: 256px;
-  margin-left: 10px;
+footer {
+  background-color: var(--cubed-color);
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer img {
+  width: 50px;
+  padding: 3px;
+}
+
+#old-group {
+  padding-right: 20px;
+  border-right: 1px solid;
+}
+
+#new-group {
+  padding-left: 20px;
+}
+
+#footer-studios {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+#title-div {
+  width: 100%;
+  height: 45vw;
+}
+
+#trailer {
+  width: 100%;
+  position: fixed;
+  z-index: -20;
+}
+
+#inline-trailer {
+  text-align: center;
+  width: 75%;
+}
+
+#trailer-wrapper {
+  display: flex;
+  justify-content: center;
 }
 
 #content {
-  margin: 20px;
-  text-align: center;
+  border-top: 1px solid var(--color-1);
+  padding: 20px;
+  background: var(--color-2) url('background.png') repeat;
 }
-
-#contents-box {
-  border: 2px solid #fff;
-  width: 300px;
-  padding: 10px;
-  text-align: center;
-  margin: auto;
-}
-
-#contents-box li {
-  list-style: none;
-}
-
-#contents-box p {
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 1.1em;
-}
-

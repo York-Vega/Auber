@@ -78,7 +78,7 @@ public class TeleportProcess {
         && selectedRoom.isDisabled()) {
       selectedRoom.setDisabled(false);
     } else if ((!(selectedRoom.getSelected()).equals("Teleport") 
-          && !((String) selectedRoom.getSelected()).equals("Jail"))
+          && !(selectedRoom.getSelected()).equals("Jail"))
         && ((auber.b2body.getUserData()).equals("ready_to_teleport"))) {
       transform();
     } else if ((selectedRoom.getSelected()).equals("Jail") && auber.is_arresting()) {
