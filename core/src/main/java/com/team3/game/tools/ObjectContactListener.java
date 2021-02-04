@@ -183,12 +183,18 @@ public class ObjectContactListener implements ContactListener {
               && Powerup.class.isAssignableFrom(fixB.getUserData().getClass())) {
         Player auber = (Player) fixA.getUserData();
         Powerup prp = (Powerup) fixB.getUserData();
-        System.out.println("1 contact with powerup: " + prp.type);
+        if (!prp.hidden) {
+          prp.pickup();
+          System.out.println("1 contact with powerup: " + prp.type);
+        }
       } else if (is_Auber(fixB) && is_Powerup(fixA)
               && Powerup.class.isAssignableFrom(fixA.getUserData().getClass())) {
         Player auber = (Player) fixB.getUserData();
         Powerup prp = (Powerup) fixA.getUserData();
-        System.out.println("2 contact with powerup: " + prp.type);
+        if (!prp.hidden) {
+          prp.pickup();
+          System.out.println("2 contact with powerup: " + prp.type);
+        }
       }
     }
   }
