@@ -70,7 +70,6 @@ public class ObjectContactListener implements ContactListener {
 
     // Infiltrators contact.
     if (is_Infiltrators(fixA) || is_Infiltrators(fixB))  {
-
       if (is_Infiltrators(fixA)) {
         // If fixture's userdata is Ability object, then is sensoring area.
         if (fixA.getUserData() != null 
@@ -268,8 +267,6 @@ public class ObjectContactListener implements ContactListener {
         }
       }
     }
-
-
   }
 
   /**

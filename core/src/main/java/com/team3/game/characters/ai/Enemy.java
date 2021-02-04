@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.team3.game.screen.Gameplay;
 import com.team3.game.sprites.StationSystem;
 
 /**
@@ -18,7 +19,7 @@ public class Enemy extends AiCharacter {
   public String mode;
   public Ability ability;
   public static int numberofInfiltrators;
-  public boolean usingAbility; 
+  public boolean usingAbility;
   /**
    * Enemy.
 
@@ -89,9 +90,8 @@ public class Enemy extends AiCharacter {
    * @param system System object
    */
   public void sabotage(StationSystem system) {
-    if (system.hp > 0) {
-      system.hp -= 0.05;
-    } else {
+    system.hp -= Gameplay.SABOTAGE_RATE; 
+    if (system.hp < 0) {
       system.hp = 0;
       system.set_sabotaged();
     }
@@ -134,6 +134,7 @@ public class Enemy extends AiCharacter {
    */
   public void set_ArrestedMode() {
     mode = "arrested";
+    speed = 3000f;
   }
 
   /**
@@ -148,7 +149,13 @@ public class Enemy extends AiCharacter {
   @Override
   public void write(Json json) {
     super.write(json);
-    json.writeValue("target_system", targetSystem.getSystemName());
+    if (targetSystem != null) {
+      json.writeValue("target_system", targetSystem.getSystemName());
+    } else {
+      // If the Enemy has no target, its following the player (or arrested???)
+      json.writeValue("target_system", "");
+    }
+    json.writeValue("mode", mode);
   }
 
   @Override

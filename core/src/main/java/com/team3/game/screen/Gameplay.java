@@ -75,6 +75,12 @@ public class Gameplay extends ScreenAdapter implements Serializable {
 
   public ArrestedHeader arrestedHeader;
 
+  public static enum Difficulty {
+    EASY, MEDIUM, HARD
+  }
+
+  public static float SABOTAGE_RATE = 0.05f;
+
   private final TmxMapLoader maploader;
 
   public final TiledMap map;
@@ -96,17 +102,31 @@ public class Gameplay extends ScreenAdapter implements Serializable {
    *
    * @param game The game object used in Libgdx
    */
-  public Gameplay(GameMain game, boolean fromJson) {
-    this(game, new Vector2(640, 360), fromJson);
+  public Gameplay(GameMain game, boolean fromJson, Difficulty difficulty) {
+    this(game, new Vector2(640, 360), fromJson, difficulty);
   }
 
   /**
    * Creates a new instantiated game.
    *
    * @param game       The game object used in Libgdx
-   * @param screenSize Size of the rendered game screen, doesn't effect screen size
+   * @param screenSize Size of the rendered game screen, doesn't affect screen size
    */
-  public Gameplay(GameMain game, Vector2 screenSize, boolean fromJson) {
+  public Gameplay(GameMain game, Vector2 screenSize, boolean fromJson, Difficulty difficulty) {
+
+    switch (difficulty) {
+      case EASY:
+        SABOTAGE_RATE = 0.05f;
+        break;
+      case MEDIUM:
+        SABOTAGE_RATE = 0.1f;
+        break;
+      case HARD:
+        SABOTAGE_RATE = 0.4f;
+        break;
+      default:
+        throw new IllegalArgumentException("Received unexpected difficulty level");
+    }
 
     this.game = game;
     // Create a box2D world.
@@ -325,6 +345,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
         sabotagedCount++;
       }
     }
+
+    // The 15 appears to be by design. Doors and healing pod cannot be sabotaged
     if (sabotagedCount >= 15 || player.health <= 1) {
       game.setScreen(new WinLoseScreen(game.getBatch(), "YOU LOSE!!"));
     }
@@ -335,6 +357,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     json.writeValue("systems", systems);
     json.writeValue("enemy_manager", enemyManager);
     json.writeValue("npc_manager", npcManager);
+    json.writeValue("player", player);
+    json.writeValue("sabotage_rate", SABOTAGE_RATE);
   }
 
   /**

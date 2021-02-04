@@ -23,7 +23,6 @@ public class NpcManager implements Serializable {
   public World world;
   public TiledMap map;
 
-  // WHY IS THIS STATIC???
   public static ArrayList<Npc> npcs = new ArrayList<>();
   public static ArrayList<float[]> spawnPositions = new ArrayList<>();
 
@@ -133,10 +132,7 @@ public class NpcManager implements Serializable {
   }
 
   @Override
-  public void read(Json json, JsonValue jsonData) {
-    System.out.println("ASJD");
-    // json.readValue()
-  }
+  public void read(Json json, JsonValue jsonData) { }
 
 
 }

@@ -1,25 +1,16 @@
+:root {
+  --color-1: #F8F8F8;
+  --color-2: #181328;
+  --color-3: #df213f;
+  --cubed-color: #040c22;
+}
+
 body {
-  background-color: #040c22;
-  color: #fff;
-  font-family: 'Roboto', sans-serif;
-  text-align: center;
-}
-
-h1 {
-  font-size: 2em;
-  letter-spacing: 20px;
+  background-color: var(--color-2);
+  color: var(--color-1);
   margin: 0;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-}
-
-h2 {
-  text-align: center;
-  font-weight: bold !important;
-  letter-spacing: 5px;
-  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3em;
 }
 
 h1,
@@ -28,49 +19,172 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'neue-haas-unica', sans-serif;
-  font-weight: 400;
-  font-style: normal;
+  font-family: 'Squada One', cursive;
   text-transform: uppercase;
   text-align: center;
-}
-
-h3,
-h4,
-h5,
-h6 {
-  font-size: 1.7em;
 }
 
 a {
-  color: inherit;
-} 
+  color: var(--color-3);
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9em;
+  text-align: center;
+}
 
-h1 img {
-  width: 256px;
-  margin-left: 10px;
+h1 {
+  font-size: 5em;
+}
+
+h2 {
+  font-size: 2.5em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+h4 {
+  font-size: 1.3em;
+  font-style: italic;
+}
+
+footer {
+  background-color: var(--cubed-color);
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer img {
+  width: 50px;
+  padding: 3px;
+}
+
+#old-group {
+  padding-right: 20px;
+  border-right: 1px solid;
+}
+
+#new-group {
+  padding-left: 20px;
+}
+
+#footer-studios {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+#title-div {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#title-div h1,
+#title-div h2 {
+  margin: 0;
+}
+
+#title-div a {
+  background: none;
+  border: 1px solid var(--color-3);
+  color: var(--color-3);
+  padding: 10px;
+  text-transform: uppercase;
+  font-size: 2.3em;
+  font-family: 'Squada One', cursive;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+#title-div a:hover {
+  background-color: var(--color-3);
+  color: var(--color-2);
+}
+
+#blurb-outer {
+  display: flex;
+  justify-content: center;
+}
+
+#blurb {
+  max-width: 1300px;
+}
+
+#trailer {
+  min-height: 100%;
+  min-width: 100%;
+  position: fixed;
+  z-index: -20;
+}
+
+#inline-trailer {
+  text-align: center;
+  width: 75%;
+  max-width: 1300px;
+}
+
+#trailer-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 }
 
 #content {
-  margin: 20px;
+  border-top: 1px solid var(--color-1);
+  padding: 20px;
+  background: var(--color-2) url('background.png') repeat;
   text-align: center;
 }
 
-#contents-box {
-  border: 2px solid #fff;
-  width: 300px;
-  padding: 10px;
-  text-align: center;
-  margin: auto;
+#content p {
+  word-wrap: break-word;
+  width: 100%;
 }
 
-#contents-box li {
-  list-style: none;
+#links-div {
+  display: flex;
+  justify-content: center;
 }
 
-#contents-box p {
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 1.1em;
+#assessment-1 {
+  border-right: 1px solid var(--color-1);
+  border-radius: 15px 0 0 15px;
 }
 
+#assessment-2 {
+  border-radius: 0 15px 15px 0;
+}
+
+#assessment-1,
+#assessment-2 {
+  width: 400px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+@media only screen and (max-width: 850px) {
+  #links-div {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #assessment-1 {
+    border-right: none;
+    border-radius: 15px 15px 0 0;
+  }
+
+  #assessment-2 {
+    border-radius: 0 0 15px 15px;
+  }
+}

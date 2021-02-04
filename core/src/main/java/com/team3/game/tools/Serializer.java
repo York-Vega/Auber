@@ -61,8 +61,13 @@ public final class Serializer {
       @SuppressWarnings("rawtypes")
       @Override
       public Gameplay read(Json json, JsonValue jsonData, Class type) {
-        Gameplay gameplay = new Gameplay(main, true);
-        // System.out.println(jsonData.getChild("npc_manager").toString());
+        Gameplay gameplay = new Gameplay(main, true, Gameplay.Difficulty.MEDIUM);
+        Gameplay.SABOTAGE_RATE = jsonData.getFloat("sabotage_rate");
+
+        JsonValue playerPositionData = jsonData.get("player").get("position");
+        Gameplay.player.b2body.setTransform(
+            playerPositionData.getFloat("x") + Gameplay.player.size.x,
+            playerPositionData.getFloat("y") + Gameplay.player.size.y, 0);
 
         for (JsonValue systemData : jsonData.get("systems")) {
           StationSystem system = Gameplay.systems.stream()
@@ -81,18 +86,36 @@ public final class Serializer {
           NpcManager.npcs.add(npc);
         }
 
+        // This isn't bound to anything because of the interesting use of static
+        new EnemyManager(gameplay.world, gameplay.map, Gameplay.systems);
+
         for (JsonValue enemyData : jsonData.getChild("enemy_manager")) {
-          JsonValue positionData = enemyData.get("position");
-          Enemy enemy = new Enemy(gameplay.world, positionData.get("x").asFloat(), 
-              positionData.get("y").asFloat());
+          Enemy enemy = new Enemy(gameplay.world, enemyData.get("dest_x").asFloat(), 
+              enemyData.get("dest_y").asFloat());
 
+          String targetSystemName = enemyData.getString("target_system");
           // Get the target system from the stored string
-          StationSystem targetSystem = Gameplay.systems.stream()
-              .filter(currentSystem -> enemyData.getString("target_system")
-                  .equals(currentSystem.getSystemName())).findFirst().get();
+          if (!targetSystemName.equals("")) {
+            System.out.println(targetSystemName);
+            StationSystem targetSystem = Gameplay.systems.stream()
+                .filter(currentSystem -> targetSystemName
+                    .equals(currentSystem.getSystemName())).findFirst().get();
+            
+            EnemyManager.information.put(targetSystem, enemy);
 
-          // Assign system target to enemy
-          enemy.set_target_system(targetSystem);
+            // Assign system target to enemy
+            enemy.set_target_system(targetSystem);
+            enemy.moveToDest();
+          }
+
+          JsonValue positionData = enemyData.get("position");
+          enemy.position.x = positionData.getFloat("x");
+          enemy.position.y = positionData.getFloat("y");
+
+
+          // Set the enemies "mode"
+          enemy.mode = enemyData.getString("mode");
+
           EnemyManager.enemies.add(enemy);
         }
 
