@@ -81,10 +81,11 @@ public class TestTeleport {
     teleportMenu.setSelected("reactor");
     
     teleportProcess.validate();
+    teleportProcess.validate();
     player.update(1);
 
     //test if the transform function has been executed
-    assertTrue("Player was able to teleport", (teleportMenu.getSelected() == "Teleport") 
+    assertTrue("Player was unable to teleport", (teleportMenu.getSelected() == "Teleport") 
               && teleportMenu.isDisabled());
 
   }
