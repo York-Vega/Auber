@@ -84,8 +84,8 @@ public class TestTeleport {
     player.update(1);
 
     //test if the transform function has been executed
-    assertTrue("Player was able to teleport", (teleportMenu.getSelected() == "Teleport") && 
-              teleportMenu.isDisabled());
+    assertTrue("Player was able to teleport", (teleportMenu.getSelected() == "Teleport") 
+              && teleportMenu.isDisabled());
 
   }
 
