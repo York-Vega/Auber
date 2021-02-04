@@ -15,11 +15,6 @@ import com.team3.game.tools.PowerupRenderer;
  * Powerup object for the game.
  */
 public class Powerup {
-
-  private static PowerupRenderer.Sprite[] sprites = new PowerupRenderer.Sprite[] {
-    PowerupRenderer.Sprite.POWERUP,
-    };
-
   private static TextureAtlas atlas = new TextureAtlas("sprites/powerupSprites.atlas");
 
   private String[] textureNames = { "POWERUP_speed", "POWERUP_vision", "POWERUP_repair",
@@ -56,10 +51,6 @@ public class Powerup {
     position = new Vector2(x, y);
     size = new Vector2(24, 24);
     createBody();
-
-    PowerupRenderer.Sprite toRender = sprites[0];
-
-    renderer = new PowerupRenderer(toRender);
 
     switch (type) {
       case SPEED:
@@ -106,10 +97,11 @@ public class Powerup {
   }
 
   public void pickup() {
-    type = "hidden";
+    // type = "hidden";
   }
 
   public void draw(SpriteBatch batch) {
+    sprite.draw(batch);
     renderer.render(position, batch);
   }
 
@@ -119,6 +111,6 @@ public class Powerup {
    * @param delta The time in seconds since the last update
    */
   public void update(float delta) {
-    renderer.update(delta, type);
+    sprite.setPosition(position.x, position.y);
   }
 }
