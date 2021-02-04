@@ -21,11 +21,20 @@ import com.team3.game.characters.ai.EnemyManager;
 import com.team3.game.characters.ai.NpcManager;
 import com.team3.game.characters.ai.PowerupManager;
 import com.team3.game.map.Map;
-import com.team3.game.screen.actors.*;
+import com.team3.game.screen.actors.ArrestedHeader;
+import com.team3.game.screen.actors.HealthBar;
+import com.team3.game.screen.actors.PowerupMenu;
+import com.team3.game.screen.actors.SystemStatusMenu;
+import com.team3.game.screen.actors.TeleportMenu;
 import com.team3.game.sprites.Door;
 import com.team3.game.sprites.StationSystem;
-import com.team3.game.tools.*;
-
+import com.team3.game.tools.B2worldCreator;
+import com.team3.game.tools.BackgroundRenderer;
+import com.team3.game.tools.CharacterRenderer;
+import com.team3.game.tools.DoorControl;
+import com.team3.game.tools.LightControl;
+import com.team3.game.tools.ObjectContactListener;
+import com.team3.game.tools.TeleportProcess;
 import java.util.ArrayList;
 
 
@@ -80,6 +89,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
 
   private final LightControl lightControl;
 
+  public boolean zoomedOut;
+
   /**
    * Creates a new instantiated game.
    *
@@ -108,7 +119,6 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     renderer = new OrthogonalTiledMapRenderer(map);
     // Load all textures for render.
     CharacterRenderer.loadTextures();
-    PowerupRenderer.loadTextures();
     // Create a light control object.
     lightControl = new LightControl(world);
     // Create a new orthographic camera.
@@ -155,6 +165,36 @@ public class Gameplay extends ScreenAdapter implements Serializable {
    */
   public void update() {
 
+    // Vision powerup ability.
+    if (player.visionActive) {
+      if (!zoomedOut) {
+        camera.zoom = 2;
+        zoomedOut = true;
+      }
+    } else {
+      camera.zoom = 1;
+      zoomedOut = false;
+    }
+
+    // Arrest powerup ability
+    if (player.arrestActive) {
+      player.setArrestActive(false);
+      if (enemyManager.arrestRandomEnemy(player)) {
+        teleportProcess.jail_transform();
+      }
+    }
+
+    // Repair powerup ability
+    if (player.repairActive) {
+      for (StationSystem sys : systems) {
+        if (sys.is_sabotaged() && player.repairActive) {
+          sys.set_not_sabotaged();
+          sys.hp = 100;
+          player.setRepairActive(false);
+        }
+      }
+    }
+
     float delta = Gdx.graphics.getDeltaTime();
     backgroundRenderer.update(delta);
     world.step(delta, 8, 3);
@@ -168,7 +208,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     npcManager.updateNpc(delta);
     powerupManager.updatePowerups(delta);
     systemStatusMenu.update_status(systems);
-    //powerupStatusMenu.update_powerup_status(player.currentPowerupOld);
+    powerupStatusMenu.update_powerup_status(player);
     arrestedHeader.update_Arrested(player);
     // If escape is pressed pause the game.
     if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {

@@ -7,7 +7,6 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
-
 import java.util.ArrayList;
 
 
@@ -49,6 +48,9 @@ public class PowerupManager {
     }
   }
 
+  /**
+   * Converts the string value of a powerup to an enum type.
+   */
   public Powerup.Type nameToEnum(String name) {
     switch (name) {
       case "speed":

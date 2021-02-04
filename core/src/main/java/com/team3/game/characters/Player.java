@@ -3,7 +3,9 @@ package com.team3.game.characters;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Timer;
 import com.team3.game.characters.ai.Enemy;
+import com.team3.game.characters.ai.Powerup;
 import com.team3.game.tools.CharacterRenderer;
 import com.team3.game.tools.Controller;
 import java.util.ArrayList;
@@ -17,8 +19,15 @@ public class Player extends Character {
   public boolean ishealing;
   public boolean arrestPressed;
   public int arrestedCount = 0;
+  public Powerup.Type powerup;
   public ArrayList<Enemy> arrestedEnemy = new ArrayList<>();
-
+  public Timer playerTimer = new Timer();
+  public float speedMultiplier = 25f;
+  public boolean powerupActive = false;
+  public boolean visionActive = false;
+  public boolean speedActive = false;
+  public boolean repairActive = false;
+  public boolean arrestActive = false;
 
   /**
    * Creates an semi-initialized player the physics body is still uninitiated.
@@ -33,8 +42,8 @@ public class Player extends Character {
     super(world, x, y, CharacterRenderer.Sprite.AUBER);
     this.health = 100f;
     this.ishealing = false;
+    this.powerup = null;
     arrestPressed = false;
-
   }
 
   public void setPosition(float x, float y) {
@@ -60,21 +69,50 @@ public class Player extends Character {
 
     Vector2 input = new Vector2(0, 0);
     if (Controller.isLeftPressed()) {
-      input.add(-speed, 0);
+      input.add(-speed * delta, 0);
     }
     if (Controller.isRightPressed()) {
-      input.add(speed, 0);
+      input.add(speed * delta, 0);
     }
     if (Controller.isUpPressed()) {
-      input.add(0, speed);
+      input.add(0, speed * delta);
     }
     if (Controller.isDownPressed()) {
-      input.add(0, -speed);
+      input.add(0, -speed * delta);
     }
-    b2body.applyLinearImpulse(input, b2body.getWorldCenter(), true);
+
+    b2body.applyLinearImpulse(input.scl(speedMultiplier), b2body.getWorldCenter(), true);
 
     if (Controller.isArrestPressed()) {
       arrestPressed = true;
+    }
+
+    // Powerup abilities
+    if (Controller.isPowerupAbilityPressed()) {
+      if (powerup != null) {
+        switch (powerup) {
+          case SPEED:
+            speedAbility();
+            break;
+          case VISION:
+            visionAbility();
+            break;
+          case REPAIR:
+            setRepairActive(true);
+            setPowerup(null);
+            break;
+          case HEAL:
+            health = 100f;
+            setPowerup(null);
+            break;
+          case ARREST:
+            setArrestActive(true);
+            setPowerup(null);
+            break;
+          default:
+            throw new IllegalArgumentException("Unexpected powerup type received");
+        }
+      }
     }
 
     if (nearbyEnemy != null && arrestPressed) {
@@ -82,14 +120,79 @@ public class Player extends Character {
     }
 
     // Position sprite properly within the box.
-    this.setPosition(b2body.getPosition().x - size.x / 1,
-        b2body.getPosition().y - size.y / 1 + 6);
+    this.setPosition(b2body.getPosition().x - size.x,
+        b2body.getPosition().y - size.y + 6);
 
     // Should be called each loop of rendering.
     healing(delta);
-    //powerup(delta);
 
     renderer.update(delta, input);
+  }
+
+  /**
+   * Activates the speed ability.
+   */
+  public void speedAbility() {
+    powerupActive = true;
+    speedActive = true;
+    speedMultiplier = 100f;
+    playerTimer.scheduleTask(new Timer.Task() {
+      @Override
+      public void run() {
+        speedMultiplier = 25f;
+        speedActive = false;
+        powerupActive = false;
+      }
+    }, 15);
+  }
+
+  /**
+   * Activates the vision ability.
+   */
+  public void visionAbility() {
+    powerupActive = true;
+    visionActive = true;
+    playerTimer.scheduleTask(new Timer.Task() {
+      @Override
+      public void run() {
+        visionActive = false;
+        powerupActive = false;
+      }
+    }, 25);
+  }
+
+  /**
+   * Toggles the repair ability being active.
+   *
+   * @param condition The state to toggle the ability to.
+   */
+  public void setRepairActive(boolean condition) {
+    repairActive = condition;
+  }
+
+  /**
+   * Toggles the arrest ability being active.
+   *
+   * @param condition The state to toggle the ability to.
+   */
+  public void setArrestActive(boolean condition) {
+    arrestActive = condition;
+  }
+
+
+  /**
+   * Sets current held powerup for the player.
+
+   * @param type Set type of powerup that the player is holding.
+   */
+  public void setPowerup(Powerup.Type type) {
+    powerup = type;
+    if (type == null) {
+      System.out.println("what");
+    } else {
+      System.out.println("picked up " + type.name());
+    }
+
   }
 
   /**
@@ -144,7 +247,6 @@ public class Player extends Character {
     // Set enemy destination to auber's left,enemy should follow auber until it is in jail.
     enemy.setDest(position.x, position.y);
     enemy.moveToDest();
-
   }
 
   /**

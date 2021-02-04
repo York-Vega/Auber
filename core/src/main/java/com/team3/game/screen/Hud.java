@@ -11,10 +11,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.screen.actors.ArrestedHeader;
 import com.team3.game.screen.actors.HealthBar;
 import com.team3.game.screen.actors.PauseMenu;
+import com.team3.game.screen.actors.PowerupMenu;
 import com.team3.game.screen.actors.SettingsMenu;
 import com.team3.game.screen.actors.SystemStatusMenu;
 import com.team3.game.screen.actors.TeleportMenu;
-import com.team3.game.screen.actors.PowerupMenu;
+
 
 /**
  * Hud to display information.

@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.team3.game.tools.PowerupRenderer;
 
 /**
  * Powerup object for the game.
@@ -22,10 +21,12 @@ public class Powerup {
   public Sprite sprite;
 
   public World world;
-  public PowerupRenderer renderer;
   public Vector2 position;
   public Vector2 size;
 
+  /**
+   * Powerup types.
+   */
   public enum Type {
     SPEED,
     VISION,
@@ -76,7 +77,7 @@ public class Powerup {
   }
 
   /**
-   * Creates the physics bodies for the character Sprite.
+   * Creates the physics bodies for the powerup sprite.
    */
   public void createBody() {
     BodyDef bdef = new BodyDef();

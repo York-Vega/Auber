@@ -60,35 +60,6 @@ public class ObjectContactListener implements ContactListener {
       fixA.getBody().setUserData("ready_to_teleport");
     }
 
-//    // Only auber contact with powerup will be listened.
-//    if (isPowerup && fixA.getBody().getUserData() == "auber")  {
-//
-//      if (Pattern.matches(powerup1Pattern, fixB.getBody().getUserData().toString())) {
-//        //TODO powerup1 SPEED add to inventory
-//        fixB.getBody().setUserData("speed");
-//        System.out.print("speed");
-//      } else if (Pattern.matches(powerup2Pattern, fixB.getBody().getUserData().toString())) {
-//        //TODO powerup2 VISION add to inventory
-//        fixB.getBody().setUserData("vision");
-//        System.out.print("vision");
-//      } else if (Pattern.matches(powerup3Pattern, fixB.getBody().getUserData().toString())) {
-//        //TODO powerup3 REPAIR add to inventory
-//        fixB.getBody().setUserData("repair");
-//        System.out.print("repair");
-//      } else if (Pattern.matches(powerup4Pattern, fixB.getBody().getUserData().toString())) {
-//        //TODO powerup3 HEAL add to inventory
-//        fixB.getBody().setUserData("heal");
-//        System.out.print("heal");
-//      } else if (Pattern.matches(powerup5Pattern, fixB.getBody().getUserData().toString())) {
-//        //TODO powerup3 ARREST add to inventory
-//        fixB.getBody().setUserData("arrest");
-//        System.out.print("arrest");
-//      }
-//
-//      System.out.print("picked up!");
-//
-//    }
-
     // If auber contact with healing pod and healing pod is not sabotaged.
     if (isHealingPod && ((String) fixA.getBody().getUserData()).equals("auber")) {
       // Set the player.UserData to ready_to_heal for healing process.
@@ -178,22 +149,22 @@ public class ObjectContactListener implements ContactListener {
 
     // Powerup contact
     if (is_Auber(fixA) || is_Auber(fixB)) {
-      // If contact happened between auber and infiltrators' body but not sensor area.
+      // If contact happened between auber and powerup but not sensor area.
       if (is_Auber(fixA) && is_Powerup(fixB)
               && Powerup.class.isAssignableFrom(fixB.getUserData().getClass())) {
         Player auber = (Player) fixA.getUserData();
         Powerup prp = (Powerup) fixB.getUserData();
-        if (!prp.hidden) {
+        if (!prp.hidden && auber.powerup == null) {
           prp.pickup();
-          System.out.println("1 contact with powerup: " + prp.type);
+          auber.setPowerup(prp.type);
         }
       } else if (is_Auber(fixB) && is_Powerup(fixA)
               && Powerup.class.isAssignableFrom(fixA.getUserData().getClass())) {
         Player auber = (Player) fixB.getUserData();
         Powerup prp = (Powerup) fixA.getUserData();
-        if (!prp.hidden) {
+        if (!prp.hidden && auber.powerup == null) {
           prp.pickup();
-          System.out.println("2 contact with powerup: " + prp.type);
+          auber.setPowerup(prp.type);
         }
       }
     }

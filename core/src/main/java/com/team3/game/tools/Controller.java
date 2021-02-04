@@ -8,10 +8,10 @@ import com.badlogic.gdx.Input;
  */
 public abstract class Controller {
   // Initial controls.
-  private static int up = Input.Keys.UP;
-  private static int down = Input.Keys.DOWN;
-  private static int left = Input.Keys.LEFT;
-  private static int right = Input.Keys.RIGHT;
+  private static int up = Input.Keys.W;
+  private static int down = Input.Keys.S;
+  private static int left = Input.Keys.A;
+  private static int right = Input.Keys.D;
 
   public static boolean isUpPressed() {
     return Gdx.input.isKeyPressed(up);
@@ -30,7 +30,11 @@ public abstract class Controller {
   }
 
   public static boolean isArrestPressed() { 
-    return Gdx.input.isKeyPressed(Input.Keys.A); 
+    return Gdx.input.isKeyPressed(Input.Keys.E);
+  }
+
+  public static boolean isPowerupAbilityPressed() {
+    return Gdx.input.isKeyPressed(Input.Keys.Q);
   }
 
   /**
