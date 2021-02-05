@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="30" height="44" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="536">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="30" height="44" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="541">
  <tileset firstgid="1" source="Tiles.tsx"/>
  <layer id="1" name="graphics" width="30" height="44">
   <data encoding="csv">
@@ -193,6 +193,23 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="12" name="powerupSpawns">
+  <object id="536" name="speed" x="559" y="909.667">
+   <point/>
+  </object>
+  <object id="537" name="vision" x="496" y="176">
+   <point/>
+  </object>
+  <object id="538" name="repair" x="654" y="439">
+   <point/>
+  </object>
+  <object id="539" name="heal" x="271" y="1332">
+   <point/>
+  </object>
+  <object id="540" name="arrest" x="658" y="1205">
+   <point/>
+  </object>
+ </objectgroup>
  <objectgroup id="3" name="teleports">
   <object id="218" name="reactor" x="784" y="1200">
    <point/>

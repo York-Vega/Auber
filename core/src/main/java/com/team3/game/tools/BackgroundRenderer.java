@@ -54,8 +54,8 @@ public class BackgroundRenderer {
    */
   public void render() {
     batch.begin();
-    width = viewport.getWorldWidth();
-    height = viewport.getWorldHeight();
+    width = viewport.getWorldWidth() * 2;
+    height = viewport.getWorldHeight() * 2;
     tileWidth = (int) (width / 5);
     for (float x = -width / 2; x <= width / 2; x += tileWidth) {
       for (float y = -height / 2; y <= height / 2; y += tileWidth) {
