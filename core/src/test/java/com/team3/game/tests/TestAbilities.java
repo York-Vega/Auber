@@ -29,7 +29,7 @@ public class TestAbilities {
     Float speed = player.speed;
     enemy.ability.slowDownPlayer(player);
 
-    assertEquals("Error, player not slowed", speed*0.5f, player.speed, 0.0f);
+    assertEquals("Error, player not slowed", speed * 0.5f, player.speed, 0.0f);
   }
 
   @Test
@@ -43,7 +43,7 @@ public class TestAbilities {
     Float speed = enemy.speed;
     enemy.ability.speeding(enemy);
 
-    assertEquals("Error, enemy not sped up", speed*3f, enemy.speed, 0.0f);
+    assertEquals("Error, enemy not sped up", speed * 3f, enemy.speed, 0.0f);
   }
 
   @Test
@@ -58,7 +58,7 @@ public class TestAbilities {
     Float health = player.health;
     enemy.ability.attackPlayer(player);
 
-    assertEquals("Error, enemy did not attack player", health-10f, player.health, 0.0f);
+    assertEquals("Error, enemy did not attack player", health - 10f, player.health, 0.0f);
   }
 
   @Test
