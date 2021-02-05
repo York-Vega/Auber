@@ -187,12 +187,6 @@ public class Player extends Character {
    */
   public void setPowerup(Powerup.Type type) {
     powerup = type;
-    if (type == null) {
-      System.out.println("what");
-    } else {
-      System.out.println("picked up " + type.name());
-    }
-
   }
 
   /**
