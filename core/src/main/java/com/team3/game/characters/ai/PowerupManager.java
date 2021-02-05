@@ -50,6 +50,9 @@ public class PowerupManager {
 
   /**
    * Converts the string value of a powerup to an enum type.
+   *
+   * @param name Name in form of a string
+   * @return Powerup type
    */
   public Powerup.Type nameToEnum(String name) {
     switch (name) {
