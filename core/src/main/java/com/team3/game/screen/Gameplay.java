@@ -101,6 +101,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
    * Creates a new instantiated game.
    *
    * @param game The game object used in Libgdx
+   * @param fromJson Json boolean value
+   * @param difficulty Sets difficulty of game
    */
   public Gameplay(GameMain game, boolean fromJson, Difficulty difficulty) {
     this(game, new Vector2(640, 360), fromJson, difficulty);
@@ -111,6 +113,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
    *
    * @param game       The game object used in Libgdx
    * @param screenSize Size of the rendered game screen, doesn't affect screen size
+   * @param fromJson Json boolean value
+   * @param difficulty Sets difficulty of game
    */
   public Gameplay(GameMain game, Vector2 screenSize, boolean fromJson, Difficulty difficulty) {
 
@@ -363,8 +367,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
 
   /**
    * This is blank for a reason. For the JSON read method of Gameplay see
-   * {@link Serializer#fromFile}.
-   * */
+   * the from file method from Serializer.java.
+   */
   @Override
   public void read(Json json, JsonValue jsonMap) {}
 }

@@ -41,6 +41,7 @@ public class Hud {
    * Create a new instantiated hud.
 
    * @param spriteBatch The GamePlay batch
+   * @param gameplay Gameplay parameter
    */
   public Hud(final SpriteBatch spriteBatch, Gameplay gameplay) {
     // Create a new viewport and a fixed camera for the stage.

@@ -19,7 +19,6 @@ public class PowerupManager {
   public World world;
   public TiledMap map;
 
-  // WHY IS THIS STATIC???
   public static ArrayList<Powerup> powerups = new ArrayList<>();
   public static ArrayList<float[]> spawnPositions = new ArrayList<>();
 
@@ -50,6 +49,9 @@ public class PowerupManager {
 
   /**
    * Converts the string value of a powerup to an enum type.
+   *
+   * @param name Name in form of a string
+   * @return Powerup type
    */
   public Powerup.Type nameToEnum(String name) {
     switch (name) {
