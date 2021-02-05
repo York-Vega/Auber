@@ -31,4 +31,18 @@ public class TestAbilities {
 
     assertEquals("Error, player not slowed",(speed*0.5f), player.speed, 0.0f);
   }
+
+  @Test
+  public void testSpeeding() throws Exception {
+    CharacterRenderer.loadTextures();
+    TmxMapLoader maploader = new TmxMapLoader();
+    TiledMap map = maploader.load("Map/Map.tmx");
+    Map.create(map);
+    World world = new World(new Vector2(0, 0), true);
+    Enemy enemy = new Enemy(world, 0, 0);
+    Float speed = enemy.speed;
+    enemy.ability.speeding(enemy);
+
+    assertEquals("Error, enemy not sped up", speed*3f, enemy.speed, 0.0f);
+  }
 }
