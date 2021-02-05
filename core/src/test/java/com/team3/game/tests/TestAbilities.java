@@ -29,7 +29,7 @@ public class TestAbilities {
     Float speed = player.speed;
     enemy.ability.slowDownPlayer(player);
 
-    assertEquals("Error, player not slowed",speed*0.5f, player.speed, 0.0f);
+    assertEquals("Error, player not slowed", speed*0.5f, player.speed, 0.0f);
   }
 
   @Test
@@ -59,5 +59,23 @@ public class TestAbilities {
     enemy.ability.attackPlayer(player);
 
     assertEquals("Error, enemy did not attack player", health-10f, player.health, 0.0f);
+  }
+
+  @Test
+  public void testRemoveAbility() throws Exception {
+    CharacterRenderer.loadTextures();
+    TmxMapLoader maploader = new TmxMapLoader();
+    TiledMap map = maploader.load("Map/Map.tmx");
+    Map.create(map);
+    World world = new World(new Vector2(0, 0), true);
+    Player player = new Player(world, 0, 0);
+    Enemy enemy = new Enemy(world, 0, 0);
+    enemy.ability.target = player;
+    enemy.ability.slowDownPlayer(player);
+    enemy.ability.speeding(enemy);
+    enemy.ability.removeAbility(enemy);
+
+    assertEquals("Error, player speed not restored", 60f, player.speed, 0.0f);
+    assertEquals("Error, enemy speed not restored", 1000f, enemy.speed, 0.0f);
   }
 }
