@@ -157,7 +157,6 @@ public class EnemyManager implements Serializable {
   public boolean arrestRandomEnemy(Player player) {
     for (Enemy enemy : enemies) {
       if (!enemy.isArrested()) {
-        System.out.println("ARRESTING PROCESS!");
         enemy.set_ArrestedMode();
         enemy.setDest(player.b2body.getPosition().x, player.b2body.getPosition().y);
         enemy.moveToDest();
