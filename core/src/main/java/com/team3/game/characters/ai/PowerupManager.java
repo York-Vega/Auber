@@ -19,7 +19,6 @@ public class PowerupManager {
   public World world;
   public TiledMap map;
 
-  // WHY IS THIS STATIC???
   public static ArrayList<Powerup> powerups = new ArrayList<>();
   public static ArrayList<float[]> spawnPositions = new ArrayList<>();
 
