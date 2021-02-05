@@ -153,11 +153,11 @@ public class EnemyManager implements Serializable {
    * Arrest a random enemy, used for the arrest powerup. Returns true if arrest is performed.
    *
    * @param player The player to act upon.
+   * @return true
    */
   public boolean arrestRandomEnemy(Player player) {
     for (Enemy enemy : enemies) {
       if (!enemy.isArrested()) {
-        System.out.println("ARRESTING PROCESS!");
         enemy.set_ArrestedMode();
         enemy.setDest(player.b2body.getPosition().x, player.b2body.getPosition().y);
         enemy.moveToDest();

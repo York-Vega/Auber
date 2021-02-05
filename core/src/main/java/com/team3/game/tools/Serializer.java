@@ -21,6 +21,7 @@ public final class Serializer {
    * Dump the current state of the world to a JSON string.
    *
    * @param pretty Whether to return a spaced and indented string or not
+   * @param gameplay Gameplay parameter
    * @return A JSON string representing the game state
    **/
   public static String dumpStr(Gameplay gameplay, boolean pretty) {
@@ -37,6 +38,7 @@ public final class Serializer {
    *
    * @param fileName The name of the file to save to (excluding its json extension)
    * @param pretty Whether the file should be spaced and indented
+   * @param gameplay Gameplay parameter
    **/
   public static void toFile(String fileName, boolean pretty, Gameplay gameplay) {
     FileHandle file = Gdx.files.local("saves/" + fileName + ".json");
@@ -47,6 +49,7 @@ public final class Serializer {
    * Generate a gameplay object from a JSON save file.
    *
    * @param fileName The name of the save file (excluding its json extension)
+   * @param main GameMain paramter
    * @return A gameplay object representing the loaded game state
    **/
   public static Gameplay fromFile(String fileName, final GameMain main) {
