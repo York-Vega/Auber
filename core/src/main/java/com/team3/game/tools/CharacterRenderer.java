@@ -115,12 +115,9 @@ public class CharacterRenderer {
       state = nextState;
     }
 
-
     Animation<TextureRegion> animation = 
         (Animation<TextureRegion>) animations[sprite.index][state.index];
     currentFrame = animation.getKeyFrame(timeInState, true);
-
-
   }
 
   /**

@@ -19,9 +19,11 @@ import com.team3.game.GameMain;
 import com.team3.game.characters.Player;
 import com.team3.game.characters.ai.EnemyManager;
 import com.team3.game.characters.ai.NpcManager;
+import com.team3.game.characters.ai.PowerupManager;
 import com.team3.game.map.Map;
 import com.team3.game.screen.actors.ArrestedHeader;
 import com.team3.game.screen.actors.HealthBar;
+import com.team3.game.screen.actors.PowerupMenu;
 import com.team3.game.screen.actors.SystemStatusMenu;
 import com.team3.game.screen.actors.TeleportMenu;
 import com.team3.game.sprites.Door;
@@ -32,7 +34,6 @@ import com.team3.game.tools.CharacterRenderer;
 import com.team3.game.tools.DoorControl;
 import com.team3.game.tools.LightControl;
 import com.team3.game.tools.ObjectContactListener;
-import com.team3.game.tools.Serializer;
 import com.team3.game.tools.TeleportProcess;
 import java.util.ArrayList;
 
@@ -54,6 +55,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
 
   public NpcManager npcManager;
 
+  public PowerupManager powerupManager;
+
   public OrthographicCamera camera;
 
   public Viewport viewport;
@@ -67,6 +70,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
   public TeleportMenu teleportMenu;
 
   public SystemStatusMenu systemStatusMenu;
+
+  public PowerupMenu powerupStatusMenu;
 
   public ArrestedHeader arrestedHeader;
 
@@ -90,10 +95,14 @@ public class Gameplay extends ScreenAdapter implements Serializable {
 
   private final LightControl lightControl;
 
+  public boolean zoomedOut;
+
   /**
    * Creates a new instantiated game.
    *
    * @param game The game object used in Libgdx
+   * @param fromJson Json boolean value
+   * @param difficulty Sets difficulty of game
    */
   public Gameplay(GameMain game, boolean fromJson, Difficulty difficulty) {
     this(game, new Vector2(640, 360), fromJson, difficulty);
@@ -104,6 +113,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
    *
    * @param game       The game object used in Libgdx
    * @param screenSize Size of the rendered game screen, doesn't affect screen size
+   * @param fromJson Json boolean value
+   * @param difficulty Sets difficulty of game
    */
   public Gameplay(GameMain game, Vector2 screenSize, boolean fromJson, Difficulty difficulty) {
 
@@ -154,7 +165,9 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     teleportProcess = new TeleportProcess(teleportMenu, player, map);
     // System_status_menu
     systemStatusMenu = hud.systemStatusMenu;
-    // Generate all ystems labels for status menu.
+    // PowerupMenu
+    powerupStatusMenu = hud.powerupMenu;
+    // Generate all systems labels for status menu.
     systemStatusMenu.generate_systemLabels(systems);
     // Create arrest_status header.
     arrestedHeader = hud.arrestedHeader;
@@ -162,6 +175,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     enemyManager = new EnemyManager(world, map, systems);
     // Create Npc_manager instance.
     npcManager = new NpcManager(world, map);
+    // Create powerup_manager instance
+    powerupManager = new PowerupManager(world, map);
 
     if (!fromJson) {
       enemyManager.initialiseRandomEnemies();
@@ -174,6 +189,36 @@ public class Gameplay extends ScreenAdapter implements Serializable {
    */
   public void update() {
 
+    // Vision powerup ability.
+    if (player.visionActive) {
+      if (!zoomedOut) {
+        camera.zoom = 2;
+        zoomedOut = true;
+      }
+    } else {
+      camera.zoom = 1;
+      zoomedOut = false;
+    }
+
+    // Arrest powerup ability
+    if (player.arrestActive) {
+      player.setArrestActive(false);
+      if (enemyManager.arrestRandomEnemy(player)) {
+        teleportProcess.jail_transform();
+      }
+    }
+
+    // Repair powerup ability
+    if (player.repairActive) {
+      for (StationSystem sys : systems) {
+        if (sys.is_sabotaged() && player.repairActive) {
+          sys.set_not_sabotaged();
+          sys.hp = 100;
+          player.setRepairActive(false);
+        }
+      }
+    }
+
     float delta = Gdx.graphics.getDeltaTime();
     backgroundRenderer.update(delta);
     world.step(delta, 8, 3);
@@ -185,7 +230,9 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     DoorControl.updateDoors(systems, delta);
     enemyManager.update_enemy(delta);
     npcManager.updateNpc(delta);
+    powerupManager.updatePowerups(delta);
     systemStatusMenu.update_status(systems);
+    powerupStatusMenu.update_powerup_status(player);
     arrestedHeader.update_Arrested(player);
     // If escape is pressed pause the game.
     if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -248,6 +295,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     enemyManager.render_ememy(game.getBatch());
     // Render NPC.
     npcManager.renderNpc(game.getBatch());
+    // Render powerups
+    powerupManager.renderPowerup(game.getBatch());
     // End the batch.
     game.getBatch().end();
     // Render tilemap that should appear in front of the player.
@@ -318,8 +367,8 @@ public class Gameplay extends ScreenAdapter implements Serializable {
 
   /**
    * This is blank for a reason. For the JSON read method of Gameplay see
-   * {@link Serializer#fromFile}.
-   * */
+   * the from file method from Serializer.java.
+   */
   @Override
   public void read(Json json, JsonValue jsonMap) {}
 }

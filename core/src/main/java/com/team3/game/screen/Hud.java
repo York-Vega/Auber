@@ -11,9 +11,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3.game.screen.actors.ArrestedHeader;
 import com.team3.game.screen.actors.HealthBar;
 import com.team3.game.screen.actors.PauseMenu;
+import com.team3.game.screen.actors.PowerupMenu;
 import com.team3.game.screen.actors.SettingsMenu;
 import com.team3.game.screen.actors.SystemStatusMenu;
 import com.team3.game.screen.actors.TeleportMenu;
+
 
 /**
  * Hud to display information.
@@ -33,10 +35,13 @@ public class Hud {
 
   public ArrestedHeader arrestedHeader;
 
+  public PowerupMenu powerupMenu;
+
   /**
    * Create a new instantiated hud.
 
    * @param spriteBatch The GamePlay batch
+   * @param gameplay Gameplay parameter
    */
   public Hud(final SpriteBatch spriteBatch, Gameplay gameplay) {
     // Create a new viewport and a fixed camera for the stage.
@@ -64,6 +69,8 @@ public class Hud {
     pauseMenu = new PauseMenu(settingsMenu, gameplay);
     // Create a SystemStatusMenu instance.
     systemStatusMenu = new SystemStatusMenu();
+    // Create a PowerupMenu instance
+    powerupMenu = new PowerupMenu();
     // Add teleport menu to the table
     table.add(teleportMenu).padLeft(20).width(Value.percentWidth(.2f, table));
     // Add hp text in front of bar, 20 is the space between hp text and teleport menu.
@@ -77,6 +84,7 @@ public class Hud {
     stage.addActor(table);
     // Add system_status_menu to the stage.
     stage.addActor(systemStatusMenu);
+    stage.addActor(powerupMenu);
     stage.addActor(pauseMenu.pauseWindow());
     stage.addActor(settingsMenu.settingsWindow());
 
