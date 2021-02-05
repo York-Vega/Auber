@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(GdxTestRunner.class)
-public class TestAbilities { 
+public class TestInfiltratorAbilities { 
   
   @Test
   public void testSlowDownPlayer() throws Exception {
