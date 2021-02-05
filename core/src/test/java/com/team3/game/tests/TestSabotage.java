@@ -33,7 +33,7 @@ public class TestSabotage {
     //action of sabotage, should result in damage being dealt once
     enemy.sabotage(system);
 
-    //test to see if damage if damage was dealt
+    //test to see if damage was dealt
     assertTrue("No damage was dealt to the system", system.hp < 100);
   }
 
