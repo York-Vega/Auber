@@ -1,6 +1,5 @@
 package com.team3.game.tests;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;

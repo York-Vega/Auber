@@ -25,8 +25,9 @@ public class PauseMenu extends Menu {
 
   /**
    * The pause menu for the game.
-
+   *
    * @param settingsMenu The settings menu to include
+   * @param gameplay Gameplay paramter
    */
   public PauseMenu(SettingsMenu settingsMenu, Gameplay gameplay) {
     super("Pause");

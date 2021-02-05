@@ -12,6 +12,10 @@ public class Edge implements Connection<Node> {
 
   /**
    * Defines cost and nodes to travel between - an edge with its heuristic value.
+   *
+   * @param cost Cost of edge
+   * @param fromNode Origin node
+   * @param toNode Destination node
    */
   public Edge(float cost, Node fromNode, Node toNode) {
     this.cost = cost;
