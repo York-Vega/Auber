@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.team3.game.characters.Player;
 import com.team3.game.characters.ai.Ability;
 import com.team3.game.characters.ai.Enemy;
+import com.team3.game.characters.ai.Powerup;
 import com.team3.game.sprites.Door;
 import com.team3.game.sprites.StationSystem;
 import java.util.regex.Pattern;
@@ -20,14 +21,14 @@ public class ObjectContactListener implements ContactListener {
   // Regex to determine whether contact object is a teleport or not.
   private final String teleportPattern = ".*teleporter.*";
   private boolean isTeleport;
-  // Regex to determine whether contact object is a healing pod or not.
-  private final String healingPattern = ".*healingPod.*";
-  private boolean isHealingPod;
 
+  private final String powerupPattern = ".*POWERUP.*";
   private final String systemPattern = ".*system.*";
   private final String infiltratorsPattern = ".*Infiltrators.*";
 
-
+  // Regex to determine whether contact object is a healing pod or not.
+  private final String healingPattern = ".*healingPod.*";
+  private boolean isHealingPod;
 
   /**
    * If auber has contact with the teleport, the auber's userData to ready_to_teleport, 
@@ -54,6 +55,7 @@ public class ObjectContactListener implements ContactListener {
 
     // Only auber contact with teleport will be listened.
     if (isTeleport && fixA.getBody().getUserData() == "auber")  {
+
       // Set the player.UserData to ready_to_teleport for teleport process.
       fixA.getBody().setUserData("ready_to_teleport");
     }
@@ -143,6 +145,28 @@ public class ObjectContactListener implements ContactListener {
         }
       }
     }
+
+    // Powerup contact
+    if (is_Auber(fixA) || is_Auber(fixB)) {
+      // If contact happened between auber and powerup but not sensor area.
+      if (is_Auber(fixA) && is_Powerup(fixB)
+              && Powerup.class.isAssignableFrom(fixB.getUserData().getClass())) {
+        Player auber = (Player) fixA.getUserData();
+        Powerup prp = (Powerup) fixB.getUserData();
+        if (!prp.hidden && auber.powerup == null) {
+          prp.pickup();
+          auber.setPowerup(prp.type);
+        }
+      } else if (is_Auber(fixB) && is_Powerup(fixA)
+              && Powerup.class.isAssignableFrom(fixA.getUserData().getClass())) {
+        Player auber = (Player) fixB.getUserData();
+        Powerup prp = (Powerup) fixA.getUserData();
+        if (!prp.hidden && auber.powerup == null) {
+          prp.pickup();
+          auber.setPowerup(prp.type);
+        }
+      }
+    }
   }
 
 
@@ -225,7 +249,7 @@ public class ObjectContactListener implements ContactListener {
     // End auber arrest contact.
     if (is_Auber(fixA) || is_Auber(fixB)) {
       // If contact happened between auber and infiltrators' body but not sensor area.
-      if (is_Auber(fixA) && is_Infiltrators(fixB) 
+      if (is_Auber(fixA) && is_Infiltrators(fixB)
           && Enemy.class.isAssignableFrom(fixB.getUserData().getClass())) {
         Player auber = (Player) fixA.getUserData();
         Enemy enemy = (Enemy) fixB.getUserData();
@@ -233,7 +257,7 @@ public class ObjectContactListener implements ContactListener {
           auber.setNearby_enemy(null);
           enemy.ability.setDisable(false);
         }
-      } else if (is_Auber(fixB) && is_Infiltrators(fixA) 
+      } else if (is_Auber(fixB) && is_Infiltrators(fixA)
           && Enemy.class.isAssignableFrom(fixA.getUserData().getClass())) {
         Player auber = (Player) fixB.getUserData();
         Enemy enemy = (Enemy) fixA.getUserData();
@@ -243,6 +267,16 @@ public class ObjectContactListener implements ContactListener {
         }
       }
     }
+  }
+
+  /**
+   * If the given fixture is a powerup.
+
+   * @param fixture Contact fixture
+   * @return True if fixture is an Powerup object
+   */
+  public boolean is_Powerup(Fixture fixture) {
+    return Pattern.matches(powerupPattern, fixture.getBody().getUserData().toString());
   }
 
   /**
