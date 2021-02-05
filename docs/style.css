@@ -76,6 +76,11 @@ footer img {
   padding-left: 20px;
 }
 
+#old-group,
+#new-group {
+  width: 150px;
+}
+
 #footer-studios {
   text-transform: uppercase;
   letter-spacing: 3px;
