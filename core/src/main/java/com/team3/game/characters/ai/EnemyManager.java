@@ -24,7 +24,6 @@ public class EnemyManager implements Serializable {
   public TiledMap map;
   public static ArrayList<Enemy> enemies = new ArrayList<>();
   public static ArrayList<float[]> spawnPosition = new ArrayList<>();
-  public static ArrayList<float[]> targetPosition = new ArrayList<>(); // TODO: UNUSED
   public static ArrayList<StationSystem> systems = new ArrayList<>();
   public static HashMap<StationSystem, Enemy> information;
 
