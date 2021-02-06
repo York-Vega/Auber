@@ -46,7 +46,7 @@ public class LightControl {
 
     for (StationSystem sys : systems) {
       if (sys.sysName.equals("lights")) {
-        return sys.is_sabotaged();
+        return sys.isSabotaged();
       }
     }
     return false;

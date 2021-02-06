@@ -71,7 +71,7 @@ public class Enemy extends AiCharacter {
 
    * @param system The system to target
    */
-  public void set_target_system(StationSystem system) {
+  public void setTargetSystem(StationSystem system) {
     targetSystem = system;
   }
 
@@ -80,7 +80,7 @@ public class Enemy extends AiCharacter {
 
    * @return The targeted system
    */
-  public StationSystem get_target_system() {
+  public StationSystem getTargetSystem() {
     return targetSystem;
   }
 
@@ -93,21 +93,21 @@ public class Enemy extends AiCharacter {
     system.hp -= Gameplay.SABOTAGE_RATE; 
     if (system.hp < 0) {
       system.hp = 0;
-      system.set_sabotaged();
+      system.setSabotaged();
     }
   }
 
   /**
    * Set enemy to attacking mode.
    */
-  public void set_attackSystemMode() {
+  public void setAttackingSystemMode() {
     mode = "attacking_system";
   }
 
   /**
    * Set enemy to standby mode.
    */
-  public void set_standByMode() {
+  public void setStandbyMode() {
     mode = "";
   }
 
@@ -116,7 +116,7 @@ public class Enemy extends AiCharacter {
    *
    * @return True if it is in attacking mode
    */
-  public boolean is_attcking_mode() {
+  public boolean isAttackingMode() {
     return mode.equals("attacking_system");
   }
 
@@ -125,14 +125,14 @@ public class Enemy extends AiCharacter {
    *
    * @return True if it is in standby mode
    */
-  public boolean is_standBy_mode() {
+  public boolean isStandbyMode() {
     return mode.equals("");
   }
 
   /**
    * Set enemy to arrested.
    */
-  public void set_ArrestedMode() {
+  public void setArrestedMode() {
     mode = "arrested";
     speed = 3000f;
   }

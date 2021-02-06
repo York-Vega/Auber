@@ -238,7 +238,7 @@ public class Player extends Character {
    */
   public void arrest(Enemy enemy) {
     // Stop enemy's sabotaging if it does.
-    enemy.set_ArrestedMode();
+    enemy.setArrestedMode();
     // Set enemy destination to auber's left,enemy should follow auber until it is in jail.
     enemy.setDest(position.x, position.y);
     enemy.moveToDest();
@@ -249,7 +249,7 @@ public class Player extends Character {
    *
    * @param enemy The enemy object
    */
-  public void setNearby_enemy(Enemy enemy) {
+  public void setNearbyEnemy(Enemy enemy) {
     nearbyEnemy = enemy;
   }
 

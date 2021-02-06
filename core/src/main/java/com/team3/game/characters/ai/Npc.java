@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * Initializes an npc object.
  */
 public class Npc extends AiCharacter {
-  public static int numberof_crew;
+  public static int numberOfCrew;
 
   /**
    * NPC object.
@@ -17,8 +17,8 @@ public class Npc extends AiCharacter {
    */
   public Npc(World world, float x, float y) {
     super(world, x, y);
-    numberof_crew++;
-    super.b2body.setUserData("crew" + numberof_crew);
+    numberOfCrew++;
+    super.b2body.setUserData("crew" + numberOfCrew);
     super.b2body.getFixtureList().get(0).setSensor(true);
     destX = x;
     destY = y;

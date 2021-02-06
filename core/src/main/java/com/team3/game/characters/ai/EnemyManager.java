@@ -23,8 +23,8 @@ public class EnemyManager implements Serializable {
   public World world;
   public TiledMap map;
   public static ArrayList<Enemy> enemies = new ArrayList<>();
-  public static ArrayList<float[]> spawn_position = new ArrayList<>();
-  public static ArrayList<float[]> target_position = new ArrayList<>();
+  public static ArrayList<float[]> spawnPosition = new ArrayList<>();
+  public static ArrayList<float[]> targetPosition = new ArrayList<>(); // TODO: UNUSED
   public static ArrayList<StationSystem> systems = new ArrayList<>();
   public static HashMap<StationSystem, Enemy> information;
 
@@ -49,31 +49,29 @@ public class EnemyManager implements Serializable {
    * Initialise random enemies with random targets.
    **/
   public void initialiseRandomEnemies() {
-    generate_spawn_position(map);
-    generate_enemy(world);
-    initialSabotageTarget(systems);
+    generateSpawnPositions(map);
+    generateEnemies(world);
+    initialiseSabotageTargets(systems);
   }
 
   /**
-   * Generate random start position for enemies.
+   * Generate random start positions for enemies.
    *
    * @param map TiledMap object
    */
-  public void generate_spawn_position(TiledMap map) {
-
+  public void generateSpawnPositions(TiledMap map) {
     MapLayer enemySpawn = map.getLayers().get("npcSpawns");
 
-    while (spawn_position.size() < 8) {
+    while (spawnPosition.size() < 8) {
       for (MapObject object : enemySpawn.getObjects()) {
         Rectangle point = ((RectangleMapObject) object).getRectangle();
         float[] position = new float[]{point.x, point.y};
         double randomPro = Math.random();
-        if (randomPro > 0.5 && !spawn_position.contains(position)) {
-          spawn_position.add(position);
+        if (randomPro > 0.5 && !spawnPosition.contains(position)) {
+          spawnPosition.add(position);
         }
       }
     }
-
   }
 
   /**
@@ -81,16 +79,13 @@ public class EnemyManager implements Serializable {
    *
    * @param world World object
    */
-  public void generate_enemy(World world) {
-
+  public void generateEnemies(World world) {
     for (int i = 0; i < 8; i++) {
-      float[] position = spawn_position.get(i);
+      float[] position = spawnPosition.get(i);
       // Pic needs to be changed with enemy pic.
       Enemy enemy = new Enemy(world, position[0], position[1]);
       enemies.add(enemy);
-
     }
-
   }
 
   /**
@@ -98,8 +93,7 @@ public class EnemyManager implements Serializable {
    *
    * @param systems Arraylist stores system objects
    */
-  public void initialSabotageTarget(ArrayList<StationSystem> systems) {
-
+  public void initialiseSabotageTargets(ArrayList<StationSystem> systems) {
     ArrayList<Integer> randomIndex = new ArrayList<>();
     // Generate random target positions.
     for (int i = 0; i < 8; i++) {
@@ -123,7 +117,7 @@ public class EnemyManager implements Serializable {
 
       Enemy enemy = enemies.get(i);
       // Set the target.
-      enemy.set_target_system(sys);
+      enemy.setTargetSystem(sys);
       // Set the destination.
       enemy.setDest(
           sys.getPosition()[0],
@@ -131,9 +125,7 @@ public class EnemyManager implements Serializable {
       enemy.moveToDest();
       // Update the information hash table, avoid enemy targeting the same system.
       information.put(sys, enemy);
-
     }
-
   }
 
   /**
@@ -141,12 +133,10 @@ public class EnemyManager implements Serializable {
    *
    * @param batch SpriteBatch used in game
    */
-  public void render_ememy(SpriteBatch batch) {
-
+  public void renderEnemy(SpriteBatch batch) {
     for (Enemy enemy : enemies) {
       enemy.draw(batch);
     }
-
   }
 
   /**
@@ -158,10 +148,10 @@ public class EnemyManager implements Serializable {
   public boolean arrestRandomEnemy(Player player) {
     for (Enemy enemy : enemies) {
       if (!enemy.isArrested()) {
-        enemy.set_ArrestedMode();
+        enemy.setArrestedMode();
         enemy.setDest(player.b2body.getPosition().x, player.b2body.getPosition().y);
         enemy.moveToDest();
-        player.setNearby_enemy(enemy);
+        player.setNearbyEnemy(enemy);
         return true;
       }
     }
@@ -173,8 +163,7 @@ public class EnemyManager implements Serializable {
    *
    * @param delta The time in seconds since the last update
    */
-  public void update_enemy(float delta) {
-
+  public void updateEnemy(float delta) {
     for (Enemy enemy : enemies) {
       if (enemy.ability.inUse && !enemy.usingAbility) {    
         Player target = enemy.ability.target;
@@ -183,13 +172,14 @@ public class EnemyManager implements Serializable {
         enemy.usingAbility = true;
         continue;
       }
+
       if (enemy.isArrested()) {
         // If enemy have a target system.
-        if (enemy.get_target_system() != null) {
+        if (enemy.getTargetSystem() != null) {
           // Remove it from information for other enemies to target that system.
-          if (enemy.get_target_system().is_not_sabotaged() 
-              && information.containsKey(enemy.get_target_system())) {
-            information.remove(enemy.get_target_system());
+          if (enemy.getTargetSystem().isNotSabotaged() 
+              && information.containsKey(enemy.getTargetSystem())) {
+            information.remove(enemy.getTargetSystem());
             enemy.targetSystem = null;
             enemy.update(delta);
             continue;
@@ -199,24 +189,24 @@ public class EnemyManager implements Serializable {
         }
       } else {
         // Get targeted system object.
-        StationSystem sys = enemy.get_target_system();
+        StationSystem sys = enemy.getTargetSystem();
         // If no system left to sabotage, should start attacking auber.
         if (sys == null) {
           // Still have systems not sabotaged, should keep generating next target.
           if (information.size() < 17) {
             generateNextTarget(enemy);
             enemy.update(delta);
-            if (enemy.get_target_system() == null) {
+            if (enemy.getTargetSystem() == null) {
               continue;
             }
           }
           continue;
         }
-        if (enemy.is_attcking_mode()) {
+        if (enemy.isAttackingMode()) {
           enemy.sabotage(sys);
         }
         // Generate next target if system sabotaged.
-        if (sys.is_sabotaged()) {
+        if (sys.isSabotaged()) {
           generateNextTarget(enemy);
         }
       }
@@ -236,18 +226,18 @@ public class EnemyManager implements Serializable {
             system.getPosition()[0],
             system.getPosition()[1]
         );
-        enemy.set_target_system(system);
+        enemy.setTargetSystem(system);
         information.put(system, enemy);
         enemy.moveToDest();
         // Set enemy back to standBy mode before it contacts with the next target system,
         // otherwise the system will lose HP before contact.
-        enemy.set_standByMode();
+        enemy.setStandbyMode();
         return;
       }
     }
     // If there is no systems left for sabotaging,
     // set enemy to standby mode and remove the target system.
-    enemy.set_standByMode();
+    enemy.setStandbyMode();
     enemy.targetSystem = null;
   }
 

@@ -85,7 +85,7 @@ public class SystemStatusMenu extends VerticalGroup {
 
       }
       // If system is sabotaged, label should go gray.
-      if (system.is_sabotaged()) {
+      if (system.isSabotaged()) {
         count++;
 
         // Already sabotaged.
@@ -100,7 +100,7 @@ public class SystemStatusMenu extends VerticalGroup {
       }
 
       // If system not being sabotaging or enemy stop sabotaging label should back to normal.
-      if (system.is_not_sabotaged()) {
+      if (system.isNotSabotaged()) {
         sysLabel.setColor(Color.WHITE);
         sysLabel.setText(system.sysName + ": (" + Math.round(system.hp) + "%)");
       }

@@ -117,7 +117,7 @@ public final class Serializer {
             EnemyManager.information.put(targetSystem, enemy);
 
             // Assign system target to enemy
-            enemy.set_target_system(targetSystem);
+            enemy.setTargetSystem(targetSystem);
             enemy.moveToDest();
           }
 
