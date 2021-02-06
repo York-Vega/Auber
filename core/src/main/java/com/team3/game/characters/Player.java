@@ -3,6 +3,7 @@ package com.team3.game.characters;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Timer;
 import com.team3.game.characters.ai.Enemy;
 import com.team3.game.characters.ai.Powerup;
@@ -272,4 +273,9 @@ public class Player extends Character {
     return !arrestedEnemy.contains(enemy);
   }
 
+  @Override
+  public void write(Json json) {
+    super.write(json);
+    json.writeValue("arrested_count", arrestedCount);
+  }
 }

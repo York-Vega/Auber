@@ -71,6 +71,7 @@ public final class Serializer {
         Gameplay.player.b2body.setTransform(
             playerPositionData.getFloat("x") + Gameplay.player.size.x,
             playerPositionData.getFloat("y") + Gameplay.player.size.y, 0);
+        Gameplay.player.arrestedCount = jsonData.get("player").getInt("arrested_count");
 
         for (JsonValue systemData : jsonData.get("systems")) {
           StationSystem system = Gameplay.systems.stream()
