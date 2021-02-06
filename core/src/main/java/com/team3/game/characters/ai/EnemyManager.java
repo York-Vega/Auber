@@ -23,7 +23,7 @@ public class EnemyManager implements Serializable {
   public World world;
   public TiledMap map;
   public static ArrayList<Enemy> enemies = new ArrayList<>();
-  public static ArrayList<float[]> spawnPosition = new ArrayList<>();
+  public static ArrayList<float[]> spawnPositions = new ArrayList<>();
   public static ArrayList<StationSystem> systems = new ArrayList<>();
   public static HashMap<StationSystem, Enemy> information;
 
@@ -61,13 +61,13 @@ public class EnemyManager implements Serializable {
   public void generateSpawnPositions(TiledMap map) {
     MapLayer enemySpawn = map.getLayers().get("npcSpawns");
 
-    while (spawnPosition.size() < 8) {
+    while (spawnPositions.size() < 8) {
       for (MapObject object : enemySpawn.getObjects()) {
         Rectangle point = ((RectangleMapObject) object).getRectangle();
         float[] position = new float[]{point.x, point.y};
         double randomPro = Math.random();
-        if (randomPro > 0.5 && !spawnPosition.contains(position)) {
-          spawnPosition.add(position);
+        if (randomPro > 0.5 && !spawnPositions.contains(position)) {
+          spawnPositions.add(position);
         }
       }
     }
@@ -80,7 +80,7 @@ public class EnemyManager implements Serializable {
    */
   public void generateEnemies(World world) {
     for (int i = 0; i < 8; i++) {
-      float[] position = spawnPosition.get(i);
+      float[] position = spawnPositions.get(i);
       // Pic needs to be changed with enemy pic.
       Enemy enemy = new Enemy(world, position[0], position[1]);
       enemies.add(enemy);
