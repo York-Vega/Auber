@@ -108,8 +108,10 @@ public class MainMenu extends ScreenAdapter {
     continueButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        Gameplay gameplay = Serializer.fromFile("save", game);
-        game.setScreen(gameplay);
+        if (Serializer.saveExists()) {
+          Gameplay gameplay = Serializer.fromFile("save", game);
+          game.setScreen(gameplay);
+        }
       }
     });
 

@@ -46,6 +46,15 @@ public final class Serializer {
   }
 
   /**
+   * Return whether a save file (titled save.json) exists.
+   *
+   * @return A boolean dictating whether save.json exists
+   **/
+  public static boolean saveExists() {
+    return Gdx.files.local("saves/save.json").exists();
+  }
+
+  /**
    * Generate a gameplay object from a JSON save file.
    *
    * @param fileName The name of the save file (excluding its json extension)
@@ -71,6 +80,7 @@ public final class Serializer {
         Gameplay.player.b2body.setTransform(
             playerPositionData.getFloat("x") + Gameplay.player.size.x,
             playerPositionData.getFloat("y") + Gameplay.player.size.y, 0);
+        Gameplay.player.arrestedCount = jsonData.get("player").getInt("arrested_count");
 
         for (JsonValue systemData : jsonData.get("systems")) {
           StationSystem system = Gameplay.systems.stream()
