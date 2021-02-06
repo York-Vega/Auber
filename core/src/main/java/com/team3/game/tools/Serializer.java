@@ -46,6 +46,15 @@ public final class Serializer {
   }
 
   /**
+   * Return whether a save file (titled save.json) exists.
+   *
+   * @return A boolean dictating whether save.json exists
+   **/
+  public static boolean saveExists() {
+    return Gdx.files.local("saves/save.json").exists();
+  }
+
+  /**
    * Generate a gameplay object from a JSON save file.
    *
    * @param fileName The name of the save file (excluding its json extension)
