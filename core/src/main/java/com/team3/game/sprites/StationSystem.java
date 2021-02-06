@@ -84,7 +84,7 @@ public class StationSystem extends InteractiveTileObject implements Serializable
   /**
    * Set system to sabotaged.
    */
-  public void set_sabotaged() {
+  public void setSabotaged() {
     body.setUserData("system_sabotaged");
   }
 
@@ -107,7 +107,7 @@ public class StationSystem extends InteractiveTileObject implements Serializable
    *
    * @return True if system is sabotaged
    */
-  public boolean is_sabotaged() {
+  public boolean isSabotaged() {
     return body.getUserData().equals("system_sabotaged");
   }
 
@@ -125,7 +125,7 @@ public class StationSystem extends InteractiveTileObject implements Serializable
    *
    * @return True if system is not sabotaged and not sabotaging
    */
-  public boolean is_not_sabotaged() {
+  public boolean isNotSabotaged() {
     return body.getUserData().equals("system_not_sabotaged");
   }
 

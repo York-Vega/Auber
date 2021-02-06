@@ -86,12 +86,12 @@ public class ObjectContactListener implements ContactListener {
           if (is_System(fixB)) {
             // Only when NPC contact with the target system, sabotage process will begin.
             Enemy enemy = (Enemy) fixA.getUserData();
-            StationSystem targetSystem = enemy.get_target_system();
+            StationSystem targetSystem = enemy.getTargetSystem();
             StationSystem contactSystem = (StationSystem) fixB.getUserData();
             if (targetSystem == contactSystem) {
               enemy.ability.setDisable(true);
               enemy.currentContactSystem = contactSystem;
-              enemy.set_attackSystemMode();
+              enemy.setAttackingSystemMode();
               targetSystem.set_sabotaging();
             }
           }
@@ -109,12 +109,12 @@ public class ObjectContactListener implements ContactListener {
         } else {
           if (is_System(fixA)) {
             Enemy enemy = (Enemy) fixB.getUserData();
-            StationSystem targetSystem = enemy.get_target_system();
+            StationSystem targetSystem = enemy.getTargetSystem();
             StationSystem contactSystem = (StationSystem) fixA.getUserData();
             if (targetSystem == contactSystem) {
               enemy.ability.setDisable(true);
               enemy.currentContactSystem = contactSystem;
-              enemy.set_attackSystemMode();
+              enemy.setAttackingSystemMode();
               targetSystem.set_sabotaging();
             }
           }
@@ -132,7 +132,7 @@ public class ObjectContactListener implements ContactListener {
         // If auber is not arresting other infiltrators, 
         // contacted infiltrators will be arrested.
         if (!auber.is_arresting() && auber.not_arrested(enemy)) {
-          auber.setNearby_enemy(enemy);
+          auber.setNearbyEnemy(enemy);
           enemy.ability.setDisable(true);
         }
       } else if (is_Auber(fixB) && is_Infiltrators(fixA) 
@@ -140,7 +140,7 @@ public class ObjectContactListener implements ContactListener {
         Player auber = (Player) fixB.getUserData();
         Enemy enemy = (Enemy) fixA.getUserData();
         if (!auber.is_arresting() && auber.not_arrested(enemy)) {
-          auber.setNearby_enemy(enemy);
+          auber.setNearbyEnemy(enemy);
           enemy.ability.setDisable(true);
         }
       }
@@ -254,7 +254,7 @@ public class ObjectContactListener implements ContactListener {
         Player auber = (Player) fixA.getUserData();
         Enemy enemy = (Enemy) fixB.getUserData();
         if (!auber.arrestPressed) {
-          auber.setNearby_enemy(null);
+          auber.setNearbyEnemy(null);
           enemy.ability.setDisable(false);
         }
       } else if (is_Auber(fixB) && is_Infiltrators(fixA)
@@ -262,7 +262,7 @@ public class ObjectContactListener implements ContactListener {
         Player auber = (Player) fixB.getUserData();
         Enemy enemy = (Enemy) fixA.getUserData();
         if (!auber.arrestPressed) {
-          auber.setNearby_enemy(null);
+          auber.setNearbyEnemy(null);
           enemy.ability.setDisable(false);
         }
       }

@@ -28,8 +28,8 @@ public class TestGenerateEnemies {
     World world = new World(new Vector2(0, 0), true);
     ArrayList<StationSystem> systems = new ArrayList<>();
     EnemyManager enemyManager = new EnemyManager(world, map, systems);
-    enemyManager.generate_spawn_position(map);
-    enemyManager.generate_enemy(world);
+    enemyManager.generateSpawnPositions(map);
+    enemyManager.generateEnemies(world);
 
     assertEquals("Error, did not generate 8 enemies", 8, EnemyManager.enemies.size());
   }
