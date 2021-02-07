@@ -211,7 +211,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     // Repair powerup ability
     if (player.repairActive) {
       for (StationSystem sys : systems) {
-        if (sys.is_sabotaged() && player.repairActive) {
+        if (sys.isSabotaged() && player.repairActive) {
           sys.set_not_sabotaged();
           sys.hp = 100;
           player.setRepairActive(false);
@@ -228,7 +228,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     healthBar.updateHp(player);
     lightControl.light_update(systems);
     DoorControl.updateDoors(systems, delta);
-    enemyManager.update_enemy(delta);
+    enemyManager.updateEnemy(delta);
     npcManager.updateNpc(delta);
     powerupManager.updatePowerups(delta);
     systemStatusMenu.update_status(systems);
@@ -292,7 +292,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     // Render player.
     player.draw(game.getBatch());
     // Render infiltrators.
-    enemyManager.render_ememy(game.getBatch());
+    enemyManager.renderEnemy(game.getBatch());
     // Render NPC.
     npcManager.renderNpc(game.getBatch());
     // Render powerups
@@ -345,7 +345,7 @@ public class Gameplay extends ScreenAdapter implements Serializable {
     }
     int sabotagedCount = 0;
     for (StationSystem system : systems) {
-      if (system.is_sabotaged()) {
+      if (system.isSabotaged()) {
         sabotagedCount++;
       }
     }

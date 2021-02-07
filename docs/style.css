@@ -67,6 +67,11 @@ footer img {
   padding: 3px;
 }
 
+#parallax-video-container {
+  display: flex;
+  justify-content: center;
+}
+
 #old-group {
   padding-right: 20px;
   border-right: 1px solid;
@@ -74,6 +79,11 @@ footer img {
 
 #new-group {
   padding-left: 20px;
+}
+
+#old-group,
+#new-group {
+  width: 150px;
 }
 
 #footer-studios {
@@ -88,6 +98,7 @@ footer img {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 #title-div h1,
@@ -119,7 +130,10 @@ footer img {
 }
 
 #blurb {
-  max-width: 1300px;
+  max-width: 1260px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 #trailer {
@@ -186,5 +200,9 @@ footer img {
 
   #assessment-2 {
     border-radius: 0 0 15px 15px;
+  }
+
+  #inline-trailer {
+    width: 90%;
   }
 }

@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <link rel="stylesheet" type="text/css" href="style.css?v=1">
+        <link rel="stylesheet" type="text/css" href="style.css?v=3">
         <link rel="preconnect" href="https://fonts.gstatic.com">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Auber, the game. By 3³ studios.">
         <link rel="icon" type="image/png" href="logo.png">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Squada+One&display=swap" rel="stylesheet"> 
         <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
         <title>Auber</title>
     </head>
     <body>
-        <video id="trailer" src="trailer.mp4" loop autoplay muted></video>
+        <div id="parallax-video-container">
+            <video id="trailer" src="parallax.mp4" loop autoplay muted></video>
+        </div>
         <div id="title-div">
             <h1>Auber</h1>
             <h2><i>"Constable tiny arms"</i></h2>
@@ -27,7 +31,7 @@
             </div>
             <br>
             <div id="trailer-wrapper">
-                <video id="inline-trailer" src="trailer.mp4" controls></video>
+                <video id="inline-trailer" src="trailer.mp4?v=1" preload="none" controls poster="poster.png"></video>
             </div>
             <h2>Links</h2>
             <div id="links-div">
@@ -47,11 +51,16 @@
                 <div id="assessment-2">
                     <h3>Assessment 2 Deliverables</h3>
                     <p><a href="pdfs/usermanual.pdf">User Manual</a></p>
-                    <p><a href="https://drive.google.com/drive/folders/1vvw7Fq_1FHUqDmHbq3HDyW9agt7iQ9EL?usp=sharing">Change Report</a></p>
-                    <p><a href="https://drive.google.com/drive/folders/1qJEXBqMbe2iRWxIoFvNGxUmltkRGbT_m?usp=sharing">Implementation</a></p>
-                    <p><a href="https://drive.google.com/drive/folders/1tuQFOUXt2WERxMSFH_SlqcstrgMbPjwo?usp=sharing">Software Testing</a></p>
-                    <p><a href="https://drive.google.com/drive/folders/1wq4qIojXQpy6AbUTslQqiPyBLmXeAKt8?usp=sharing">Continuous Integration</a></p>
-                    <p><a href="https://github.com/threecubedstudios/auber-vega">Source Code</a></p>
+                    <p><a href="https://drive.google.com/file/d/1N1zKDUnWTp6GyzvADio9wKh4UR5FGodC/view?usp=sharing">User Manual - Editable Version</a></p>
+                    <p><a rel="noreferrer" href="https://drive.google.com/file/d/1QWjTkfVryXEkcjgvZhdzyyO5gKFnAeK3/view?usp=sharing">Critical Path</a></p>
+                    <p><a rel="noreferrer" href="https://drive.google.com/drive/folders/11fA4etL2hnusgfW6yiHtfj2rDaWworL-">Weekly Snapshots</a></p>
+                    <p><a rel="noreferrer" href="pdfs/Testing Material.pdf">Testing Material</a></p>
+                    <p><a rel="noreferrer" href="https://drive.google.com/drive/folders/1vvw7Fq_1FHUqDmHbq3HDyW9agt7iQ9EL?usp=sharing">Change Report</a></p>
+                    <p><a rel="noreferrer" href="https://drive.google.com/drive/folders/1qJEXBqMbe2iRWxIoFvNGxUmltkRGbT_m?usp=sharing">Implementation</a></p>
+                    <p><a rel="noreferrer" href="https://drive.google.com/drive/folders/1tuQFOUXt2WERxMSFH_SlqcstrgMbPjwo?usp=sharing">Software Testing</a></p>
+                    <p><a rel="noreferrer" href="https://drive.google.com/drive/folders/1wq4qIojXQpy6AbUTslQqiPyBLmXeAKt8?usp=sharing">Continuous Integration</a></p>
+                    <p><a rel="noreferrer" href="https://drive.google.com/drive/folders/15w5tJHLCirieGXOjffQ8ECRBXxOpC2PG?usp=sharing">Concrete Architecture</a></p>
+                    <p><a rel="noreferrer" href="https://github.com/threecubedstudios/auber-vega">Source Code</a></p>
                     <h4>Builds</h4>
                     <p><a href="https://github.com/threecubedstudios/auber-vega/releases/latest/">Latest Release</a></p>
                     <p><a href="https://github.com/threecubedstudios/auber-vega/releases/">All Releases</a></p>
@@ -61,19 +70,19 @@
                     <h4>Javadocs</h4>
                     <p><a href="javadocs/" target="_blank">Javadocs</a></p>
                     <h4>GitHub Repository</h4>
-                    <p><a href="https://github.com/threecubedstudios/auber-vega" target="_blank">GitHub Repository</a></p>
+                    <p><a rel="noreferrer" href="https://github.com/threecubedstudios/auber-vega" target="_blank">GitHub Repository</a></p>
                 </div>
             </div>
         </div>
         <footer>
             <div id="old-group">
                 <p>Created by</p>
-                <img src="vega-logo.png">
+                <img src="vega-logo.png" alt="Vega Logo">
                 <p>York Vega</p>
             </div>
             <div id="new-group">
                 <p>Improved by</p>
-                <img src="logo.png">
+                <img src="logo.png" alt="3^3 Logo">
                 <p id="footer-studios">Studios</p>
             </div>
         </footer>

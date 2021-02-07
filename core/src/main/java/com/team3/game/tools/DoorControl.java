@@ -41,7 +41,7 @@ public abstract class DoorControl {
   private static boolean isDoorsSabotaged(ArrayList<StationSystem> systems) {
     for (StationSystem sys : systems) {
       if (sys.sysName.equals("doors")) {
-        if (sys.is_sabotaged()) {
+        if (sys.isSabotaged()) {
           isSabotaged = true;
           return true;
         }
